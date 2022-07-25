@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MailIcon } from "@heroicons/react/solid";
 
 export default function Navigation() {
     return (
@@ -14,7 +15,7 @@ export default function Navigation() {
                 </div>
                 <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
                     <div>
-                        <a href="/" className="text-xl font-bold text-gray-900 hover:text-gray-500">
+                        <a href="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
                             Maximilian Blazek
                         </a>
                     </div>
@@ -31,12 +32,13 @@ export default function Navigation() {
                         >
                             Onepager
                         </a>
-                        <a
-                            href="#footer"
-                            className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed"
+                        <button
+                            type="button"
+                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
                         >
-                            Contact
-                        </a>
+                            <MailIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
+                            Send me a Mail!
+                        </button>
                     </div>
                 </div>
             </div>

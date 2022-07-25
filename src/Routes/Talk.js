@@ -15,7 +15,7 @@ export default function Talk() {
                             Talk
                         </span>
                     </h1>
-                    <p className="mt-8 text-xl text-gray-500 leading-8">
+                    <p className="mt-8 text-xl text-gray-500 leading-8 font-sans">
                         Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id
                         at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.
                     </p>
@@ -32,7 +32,7 @@ export default function Talk() {
                     </dl>
                 </div>
 
-                <div className="mt-32 prose prose-indigo prose-lg text-gray-500 mx-auto">
+                <div className="mt-32 prose prose-indigo prose-lg text-gray-500 mx-auto font-sans">
                     <p>
                         Faucibus commodo massa rhoncus, volutpat. <strong>Dignissim</strong> sed <strong>eget risus enim</strong>. Mattis mauris
                         semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat

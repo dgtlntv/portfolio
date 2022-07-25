@@ -12,10 +12,10 @@ export default function Website() {
                 <div className="text-lg max-w-prose mx-auto">
                     <h1>
                         <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                            Portfolio Website
+                            Portfolio Website with Rust
                         </span>
                     </h1>
-                    <p className="mt-8 text-xl text-gray-500 leading-8">
+                    <p className="mt-8 text-xl text-gray-500 leading-8 font-sans">
                         Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id
                         at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.
                     </p>
@@ -32,7 +32,7 @@ export default function Website() {
                     </dl>
                 </div>
 
-                <div className="mt-32 prose prose-indigo prose-lg text-gray-500 mx-auto">
+                <div className="mt-32 prose prose-indigo prose-lg text-gray-500 mx-auto font-sans">
                     <p>
                         Faucibus commodo massa rhoncus, volutpat. <strong>Dignissim</strong> sed <strong>eget risus enim</strong>. Mattis mauris
                         semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat
