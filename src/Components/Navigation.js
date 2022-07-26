@@ -16,7 +16,7 @@ export default function Navigation() {
                 <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
                     <div>
                         <a href="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
-                            Maximilian Blazek
+                            mblazek
                         </a>
                     </div>
                     <div className="flex items-center gap-8 md:mr-4">

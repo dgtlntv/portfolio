@@ -4,6 +4,7 @@ import AsciiRenderer from "../Services/AsciiRenderer";
 import ModelLoader from "../Services/ModelLoader";
 import { useRef } from "react";
 import Navigation from "../Components/Navigation";
+import * as THREE from "three";
 
 export default function Landing() {
     return (
@@ -11,13 +12,13 @@ export default function Landing() {
             <Navigation />
             <div className="flex-1 relative">
                 <div className="absolute top-0 bottom-0 left-0 right-0">
-                    <Canvas camera={{ position: [0, 0, 4] }}>
-                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                        <pointLight position={[-10, -10, -10]} />
+                    <Canvas>
+                        <pointLight position={[5, 2, 2]} color="0xffffff" intensity={1} />
+                        <pointLight position={[-2, 2, 4]} color="0xffffff" intensity={0.5} />
                         <Center>
                             <Group />
                         </Center>
-                        <AsciiRenderer resolution={0.2} />
+                        <AsciiRenderer resolution={0.205} />
                     </Canvas>
                 </div>
             </div>
@@ -44,7 +45,7 @@ function Group(params) {
 
             <mesh position={[2.5, 2.2, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.045}>
                 <ModelLoader model={"/test2.stl"} />
-                <meshStandardMaterial color="orange" />
+                <meshStandardMaterial side={THREE.DoubleSide} flatShading={true} />
             </mesh>
         </group>
     );
