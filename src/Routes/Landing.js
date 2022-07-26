@@ -1,10 +1,11 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Text3D, Center } from "@react-three/drei";
-import AsciiRenderer from "../Services/AsciiRenderer";
-import ModelLoader from "../Services/ModelLoader";
-import { useRef } from "react";
-import Navigation from "../Components/Navigation";
-import * as THREE from "three";
+import { Canvas, useFrame } from "@react-three/fiber"
+import { Text3D, Center } from "@react-three/drei"
+import AsciiRenderer from "../Services/AsciiRenderer"
+import ModelLoader from "../Services/ModelLoader"
+import { useRef } from "react"
+import Navigation from "../Components/Navigation"
+import * as THREE from "three"
+import { Controls, useControl } from "react-three-gui"
 
 export default function Landing() {
     return (
@@ -23,18 +24,14 @@ export default function Landing() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 function Group(params) {
-    const rotationMultiplicator = 0.1;
-    const ref = useRef();
+    const rotationMultiplicator = 0.1
+    const ref = useRef()
 
-    useFrame(
-        (state) => (
-            (ref.current.rotation.x = state.mouse.x * rotationMultiplicator), (ref.current.rotation.y = state.mouse.y * rotationMultiplicator)
-        )
-    );
+    useFrame((state) => ((ref.current.rotation.x = state.mouse.x * rotationMultiplicator), (ref.current.rotation.y = state.mouse.y * rotationMultiplicator)))
 
     return (
         <group {...params} ref={ref}>
@@ -48,5 +45,5 @@ function Group(params) {
                 <meshStandardMaterial side={THREE.DoubleSide} flatShading={true} />
             </mesh>
         </group>
-    );
+    )
 }
