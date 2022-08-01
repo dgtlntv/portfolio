@@ -5,7 +5,7 @@ export default function Portfolio() {
     return (
         <div className="py-16 overflow-hidden lg:py-12">
             <div className="lg:max-w-5xl lg:grid lg:grid-cols-5 lg:gap-8 mx-auto lg:px-8 items-center p-6">
-                <img className="rounded-full h-28" src="/profile_pic.jpg" />
+                <img className="rounded-full h-28" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659375088/portfolio/profile_pic_wzxape.jpg" />
                 <p className="text-2xl font-medium text-gray-900 tracking-tight sm:text-3xl lg:col-span-4">
                     I am Maximilian Blazek a UX Designer with a focus on Machine Learning and Blockchain Applications.
                 </p>

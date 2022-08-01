@@ -2,6 +2,7 @@ import { Fragment } from "react"
 import { Popover, Transition } from "@headlessui/react"
 import { MenuIcon, XIcon } from "@heroicons/react/outline"
 import { MailIcon } from "@heroicons/react/solid"
+import { Link } from "react-router-dom"
 
 export default function Navigation() {
     return (
@@ -15,14 +16,14 @@ export default function Navigation() {
                 </div>
                 <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
                     <div>
-                        <a href="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
+                        <Link to="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
                             mblazek
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex items-center gap-8 md:mr-4">
-                        <a href="/portfolio" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed">
+                        <Link to="/portfolio" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed">
                             Portfolio
-                        </a>
+                        </Link>
                         <a href="/Onepager.pdf" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed">
                             Onepager
                         </a>

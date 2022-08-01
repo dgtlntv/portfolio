@@ -46,7 +46,7 @@ function Group() {
                 </Text3D>
 
                 <mesh position={[2.5, 2.2, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.045}>
-                    <ModelLoader model={"/test2.stl"} />
+                    <ModelLoader model={"https://res.cloudinary.com/drsfxkvt1/raw/upload/v1659375131/portfolio/landing/test2_ju1mup.stl"} />
                     <meshStandardMaterial color={"white"} side={THREE.DoubleSide} flatShading={true} />
                 </mesh>
             </group>
