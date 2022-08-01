@@ -1,7 +1,7 @@
-import { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { MailIcon } from "@heroicons/react/solid";
+import { Fragment } from "react"
+import { Popover, Transition } from "@headlessui/react"
+import { MenuIcon, XIcon } from "@heroicons/react/outline"
+import { MailIcon } from "@heroicons/react/solid"
 
 export default function Navigation() {
     return (
@@ -20,25 +20,19 @@ export default function Navigation() {
                         </a>
                     </div>
                     <div className="flex items-center gap-8 md:mr-4">
-                        <a
-                            href="/portfolio"
-                            className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed"
-                        >
+                        <a href="/portfolio" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed">
                             Portfolio
                         </a>
-                        <a
-                            href="/onepager"
-                            className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed"
-                        >
+                        <a href="/Onepager.pdf" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-1 hover:underline-offset-8 hover:decoration-dashed">
                             Onepager
                         </a>
-                        <button
+                        <a
+                            href=" mailto:mail@mblazek.xyz "
                             type="button"
-                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
-                        >
+                            className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300">
                             <MailIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
                             Send me a Mail!
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -50,8 +44,7 @@ export default function Navigation() {
                 enterTo="opacity-100 scale-100"
                 leave="duration-100 ease-in"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
+                leaveTo="opacity-0 scale-95">
                 <Popover.Panel focus className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                         <div className="pt-5 pb-6 px-5">
@@ -81,5 +74,5 @@ export default function Navigation() {
                 </Popover.Panel>
             </Transition>
         </Popover>
-    );
+    )
 }

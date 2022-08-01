@@ -1,30 +1,29 @@
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+
 export default function Website() {
     const stats = [
-        { label: "Founded", value: "2021" },
-        { label: "Employees", value: "5" },
-        { label: "Beta Users", value: "521" },
-        { label: "Raised", value: "$25M" },
-    ];
+        { label: "Context", value: "Personal Project" },
+        { label: "Period", value: "3 Days" },
+    ]
 
     return (
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
+                <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-center justify-center mb-8 shadow-md">
+                    <img className="h-full" src="/portfolio/Hero.png" />
+                </div>
+
                 <div className="text-lg max-w-prose mx-auto">
                     <h1>
-                        <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                            Portfolio Website with Rust
-                        </span>
+                        <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-6xl">Portfolio Cover Page</span>
                     </h1>
-                    <p className="mt-8 text-xl text-gray-500 leading-8 font-sans">
-                        Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id
-                        at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.
-                    </p>
                 </div>
 
                 <div className="mt-10 max-w-prose text-lg mx-auto">
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
                         {stats.map((stat) => (
-                            <div key={stat.label} className="border-t-2 border-gray-100 pt-6">
+                            <div key={stat.label} className="border-y-2 border-gray-100 py-6 text-center">
                                 <dt className="text-base font-medium text-gray-500">{stat.label}</dt>
                                 <dd className="text-3xl font-extrabold tracking-tight text-gray-900">{stat.value}</dd>
                             </div>
@@ -32,61 +31,80 @@ export default function Website() {
                     </dl>
                 </div>
 
-                <div className="mt-32 prose prose-indigo prose-lg text-gray-500 mx-auto font-sans">
+                <div className="mt-16 prose prose-zinc prose-red prose-xl mx-auto font-sans">
                     <p>
-                        Faucibus commodo massa rhoncus, volutpat. <strong>Dignissim</strong> sed <strong>eget risus enim</strong>. Mattis mauris
-                        semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat
-                        velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. <a href="#">Mattis mauris semper</a> sed amet
-                        vitae sed turpis id.
+                        I had the idea that a 3D scene rendered in ASCII characters would look really good. When I learned that Three.js has an effect that can render any scene in ASCII characters, I
+                        knew I had to use it for the cover of my portfolio. I decided on a simple 3D scene with my face and last name (since it's my portfolio) as the subject.
                     </p>
-                    <ul role="list">
-                        <li>Quis elit egestas venenatis mattis dignissim.</li>
-                        <li>Cras cras lobortis vitae vivamus ultricies facilisis tempus.</li>
-                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
-                    </ul>
+                    <h2>3D Model</h2>
                     <p>
-                        Quis semper vulputate aliquam venenatis egestas sagittis quisque orci. Donec commodo sit viverra aliquam porttitor ultrices
-                        gravida eu. Tincidunt leo, elementum mattis elementum ut nisl, justo, amet, mattis. Nunc purus, diam commodo tincidunt turpis.
-                        Amet, duis sed elit interdum dignissim.
+                        The first thing I had to do was create the 3D model of my face. I decided to use photogammetry because it is the easiest way to create 3D models. To do this, I had to
+                        photograph my head in broad daylight to get bright and evenly exposed photos without harsh shadows. One mistake I made the first time I tried photogammetry was that I rotated
+                        the object rather than the camera around object, which turned out to be a problem because photogammetry requires an environment to place the images in space.
                     </p>
-                    <h2>From beginner to expert in 30 days</h2>
+                    <h2>Code</h2>
                     <p>
-                        Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh. Pharetra, euismod
-                        vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus mauris, ultrices mauris. Tincidunt
-                        enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis diam.
+                        After I was done creating the 3D model, I had to set up the Three.js scene with the 3D Model and 3D Text. This was as simple as adding the Three.js Canvas to the React
+                        component and adding the 3D models and a light to the scene and adding the ASCII renderer.
                     </p>
-                    <blockquote>
-                        <p>
-                            Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque.
-                            Blandit amet, sed aenean erat arcu morbi.
-                        </p>
-                    </blockquote>
+                    <SyntaxHighlighter showLineNumbers wrapLines language="jsx" style={a11yDark}>{`function Cover() {
+  return (
+   <Canvas>
+     <pointLight />
+     <Center>
+       <group>
+         <Text3D font="/Courier.json">
+           Blazek
+           <meshNormalMaterial />
+         </Text3D>
+
+         <mesh>
+           <ModelLoader model={"/max.stl"} />
+           <meshStandardMaterial />
+         </mesh>
+       </group>
+     </Center>
+     <AsciiRenderer />
+   </Canvas>
+ )
+}`}</SyntaxHighlighter>
+
+                    <h3>Interactivity</h3>
                     <p>
-                        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id
-                        dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit.
+                        The next step was to add the interactive part of the experience. This turned out to be the more difficult part because I wanted to rotate the 3D model and not the camera. All
+                        the off-the-shelf controls that come with Three.js can only control the camera, but not the 3D models. So I had to program them myself. The ability to rotate the 3D model with
+                        the mouse was not that hard. I just had to map the x and y coordinates of the mouse to the x and y rotation of the 3D models.
                     </p>
-                    <figure>
-                        <img
-                            className="w-full rounded-lg"
-                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&w=1310&h=873&q=80&facepad=3"
-                            alt=""
-                            width={1310}
-                            height={873}
-                        />
-                        <figcaption>Sagittis scelerisque nulla cursus in enim consectetur quam.</figcaption>
-                    </figure>
-                    <h2>Everything you need to get up and running</h2>
+                    <SyntaxHighlighter showLineNumbers wrapLines language="jsx" style={a11yDark}>{`useFrame(function () {
+    meshRef.current.rotation.x = -mouse.y * 0.2
+    meshRef.current.rotation.y = mouse.x * 0.2
+})`}</SyntaxHighlighter>
                     <p>
-                        Purus morbi dignissim senectus mattis <a href="#">adipiscing</a>. Amet, massa quam varius orci dapibus volutpat cras. In amet
-                        eu ridiculus leo sodales cursus tristique. Tincidunt sed tempus ut viverra ridiculus non molestie. Gravida quis fringilla amet
-                        eget dui tempor dignissim. Facilisis auctor venenatis varius nunc, congue erat ac. Cras fermentum convallis quam.
+                        The more difficult problem was mapping the rotation of the cell phones to the rotation of the 3D models. The problem was that the Web Api, which is supported by all major
+                        browsers, returns the cell phone rotation data in{" "}
+                        <a href="https://en.wikipedia.org/wiki/Euler_angles" target="_blank">
+                            Euler angles
+                        </a>
+                        . And as I learned, Euler angles are susceptible to{" "}
+                        <a href="https://en.wikipedia.org/wiki/Gimbal_lock" target="_blank">
+                            gimbal lock
+                        </a>
+                        . In terms of the web API, this means that for certain rotations of the mobile device, the returned values jump around. This proved problematic because it meant that if I
+                        mapped the rotation of the mobile device directly to the 3D model, it would also jump around. Which was aesthetically not acceptable. I had to struggle with this problem for
+                        quite some time. The solution I found in the end is a competing web API that outputs the rotations in{" "}
+                        <a href="https://en.wikipedia.org/wiki/Quaternion" target="_blank">
+                            quaternions
+                        </a>
+                        , bypassing the gimbal lock problem. The only problem with this API is that it is not supported by all major browsers. However, there is a polyfill for it that I was able to
+                        use to ensure compatibility with all browsers. This finally allowed me to map rotation from mobile devices to the 3D model.
                     </p>
-                    <p>
-                        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id
-                        dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit.
-                    </p>
+                    <SyntaxHighlighter showLineNumbers wrapLines language="jsx" style={a11yDark}>{`useFrame(function () {
+  if (sensor.quaternion != null) {
+    meshRef.current.setRotationFromQuaternion(sensor.quaternion)
+  }
+})`}</SyntaxHighlighter>
                 </div>
             </div>
         </div>
-    );
+    )
 }

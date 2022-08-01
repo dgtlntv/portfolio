@@ -1,5 +1,5 @@
-import PortfolioItemRight from "../Components/PortfolioItemRight";
-import PortfolioItemLeft from "../Components/PortfolioItemLeft";
+import PortfolioItemRight from "../Components/PortfolioItemRight"
+import PortfolioItemLeft from "../Components/PortfolioItemLeft"
 
 export default function Portfolio() {
     return (
@@ -12,44 +12,47 @@ export default function Portfolio() {
             </div>
 
             <div className="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-5xl">
-                <PortfolioItemRight title={"neueUX"} url={"/neueux"} imageUrl={"https://tailwindui.com/img/features/feature-example-1.png"}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemRight title={"Talk"} url={"/talk"} imageUrl={"/talk/Hero.png"}>
+                    Everyone knows the numbing feeling that comes with a 50-slide PowerPoint presentation.
+                    <br />
+                    <br />
+                    Talk is a concept of speech controlled presentations (powered by Machine Learning), that aims to solve the shortcomings of PowerPoint.
                 </PortfolioItemRight>
 
-                <PortfolioItemLeft
-                    title={"Portfolio with Rust"}
-                    url={"/website"}
-                    imageUrl={"https://tailwindui.com/img/features/feature-example-2.png"}
-                >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemLeft className="bg-gray-50" title={"neueUX"} url={"/neueux"} imageUrl={"/neueux/Hero.png"}>
+                    For projects outside the blockchain space, designers have an endless supply of UX/UI resources. The exact opposite is true for the blockchain space.
+                    <br />
+                    <br />
+                    neueUX.com is a platform dedicated to provide UI and UX ressources for blockchain applications.
                 </PortfolioItemLeft>
 
-                <PortfolioItemRight title={"Talk"} url={"/talk"} imageUrl={"https://tailwindui.com/img/features/feature-example-1.png"}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemRight title={"MLRUG"} url={"/mlrug"} imageUrl={"/mlrug/Hero.png"}>
+                    Generative algorithms will play an increasingly important role in the working process of designers, perhaps placing the designer in the role of curator rather than creator.
+                    <br />
+                    <br />
+                    MLRUG is a personal project where I experimented with generative adversarial networks (GANs) as a tool for carpet design.
                 </PortfolioItemRight>
 
-                <PortfolioItemLeft
-                    title={"Knowledgement"}
-                    url={"/knowledgement"}
-                    imageUrl={"https://tailwindui.com/img/features/feature-example-2.png"}
-                >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemLeft title={"Knowledgement"} url={"/knowledgement"} imageUrl={"/knowlegement/Hero.jpg"}>
+                    It is often difficult to store the knowledge gained in a meeting in such a way that it is actionable and does not get lost.
+                    <br />
+                    <br />
+                    Knowledgement is a concept about personalized meeting protocols on the basis of an intelligent knowledge management system.
                 </PortfolioItemLeft>
 
-                <PortfolioItemRight title={"Dadadazed"} url={"/dadadazed"} imageUrl={"https://tailwindui.com/img/features/feature-example-1.png"}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemRight title={"Portfolio Cover Page"} url={"/website"} imageUrl={"/portfolio/Hero.png"}>
+                    The browser is getting more capable by the day. The ability to run 3D games, Python, and resource-intensive neural networks locally in the browser is exciting.
+                    <br />
+                    <br />I took the opportunity of revamping my portfolio website to learn one of these interesting technologies: Three.js.
                 </PortfolioItemRight>
 
-                <PortfolioItemLeft title={"Graphics"} url={"/graphics"} imageUrl={"https://tailwindui.com/img/features/feature-example-2.png"}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-                    nihil quod quibusdam expedita nemo.
+                <PortfolioItemLeft title={"Graphics"} url={"/graphics"} imageUrl={"/graphics/Hero.png"}>
+                    I enjoy making vector graphics and animations as a hobby.
+                    <br />
+                    <br />
+                    This page is a selection of some of those graphics and animations I made over the years in a university, work and personal context.
                 </PortfolioItemLeft>
             </div>
         </div>
-    );
+    )
 }

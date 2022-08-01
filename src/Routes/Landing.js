@@ -1,49 +1,55 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Text3D, Center } from "@react-three/drei"
-import AsciiRenderer from "../Services/AsciiRenderer"
+import { Text3D, Center, DeviceOrientationControls } from "@react-three/drei"
 import ModelLoader from "../Services/ModelLoader"
 import { useRef } from "react"
 import Navigation from "../Components/Navigation"
 import * as THREE from "three"
-import { Controls, useControl } from "react-three-gui"
+import AsciiRenderer from "../Services/AsciiRenderer"
+import useDeviceOrientation from "../Hooks/useDeviceOrientation"
+import useMouse from "../Hooks/useMouse"
 
 export default function Landing() {
     return (
-        <div className="h-screen w-screen flex flex-col">
+        <>
             <Navigation />
-            <div className="flex-1 relative">
-                <div className="absolute top-0 bottom-0 left-0 right-0">
-                    <Canvas>
-                        <pointLight position={[5, 2, 2]} color="0xffffff" intensity={1} />
-                        <pointLight position={[-2, 2, 4]} color="0xffffff" intensity={0.5} />
-                        <Center>
-                            <Group />
-                        </Center>
-                        <AsciiRenderer resolution={0.205} />
-                    </Canvas>
-                </div>
+            <div className="absolute top-0 bottom-0 left-0 right-0 ">
+                <Canvas>
+                    <pointLight position={[-2, 6, 6]} intensity={1} />
+                    <Group />
+                    <AsciiRenderer />
+                </Canvas>
             </div>
-        </div>
+        </>
     )
 }
 
-function Group(params) {
-    const rotationMultiplicator = 0.1
-    const ref = useRef()
+function Group() {
+    const sensor = useDeviceOrientation()
+    const mouse = useMouse()
+    const meshRef = useRef()
 
-    useFrame((state) => ((ref.current.rotation.x = state.mouse.x * rotationMultiplicator), (ref.current.rotation.y = state.mouse.y * rotationMultiplicator)))
+    useFrame(function () {
+        if (sensor.quaternion != null) {
+            meshRef.current.setRotationFromQuaternion(sensor.quaternion)
+        } else {
+            meshRef.current.rotation.x = -mouse.y * 0.2
+            meshRef.current.rotation.y = mouse.x * 0.2
+        }
+    })
 
     return (
-        <group {...params} ref={ref}>
-            <Text3D height={0.4} font="/Courier.json" curveSegments={20}>
-                Blazek
-                <meshNormalMaterial />
-            </Text3D>
+        <Center ref={meshRef}>
+            <group>
+                <Text3D height={0.4} font="/Courier.json" curveSegments={20}>
+                    Blazek
+                    <meshNormalMaterial />
+                </Text3D>
 
-            <mesh position={[2.5, 2.2, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.045}>
-                <ModelLoader model={"/test2.stl"} />
-                <meshStandardMaterial side={THREE.DoubleSide} flatShading={true} />
-            </mesh>
-        </group>
+                <mesh position={[2.5, 2.2, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.045}>
+                    <ModelLoader model={"/test2.stl"} />
+                    <meshStandardMaterial color={"white"} side={THREE.DoubleSide} flatShading={true} />
+                </mesh>
+            </group>
+        </Center>
     )
 }
