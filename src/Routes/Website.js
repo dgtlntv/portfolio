@@ -11,7 +11,7 @@ export default function Website() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-center justify-center mb-8 shadow-md">
-                    <img className="h-full" src="/portfolio/Hero.png" />
+                    <img className="h-full" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370932/portfolio/portfolio%20cover/Hero_woejwx.png" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">

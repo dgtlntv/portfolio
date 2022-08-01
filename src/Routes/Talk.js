@@ -12,7 +12,7 @@ export default function Talk() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-start mb-8 shadow-md">
-                    <img className="" src="/talk/Hero.png" />
+                    <img className="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370945/portfolio/talk/Hero_y4nmks.png" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">
@@ -36,7 +36,7 @@ export default function Talk() {
                     <h2 className="mb-0">Problem</h2>
                     <div className="flow-root">
                         <figure className="float-right -mr-60 pl-8 pb-8 max-w-xl mb-0">
-                            <img src="/talk/NASA.png" alt="" />
+                            <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370946/portfolio/talk/NASA_fk7r6c.png" alt="" />
                             <figcaption className="">PowerPoint Slide as seen in the report of the Nasa accident investigation committee.</figcaption>
                         </figure>
 

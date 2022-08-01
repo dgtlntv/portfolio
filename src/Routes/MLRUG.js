@@ -6,31 +6,31 @@ export default function MLRUG() {
             {
                 id: 1,
                 name: "Original 1",
-                src: "/mlrug/optimized_og1.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370895/portfolio/MLRUG/optimized_og1_abjily.jpg",
                 alt: "Original 1",
             },
             {
                 id: 2,
                 name: "Original 2",
-                src: "/mlrug/optimized_og2.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/optimized_og2_kntmvj.jpg",
                 alt: "Original 2",
             },
             {
                 id: 3,
                 name: "Original 3",
-                src: "/mlrug/optimized_og3.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370893/portfolio/MLRUG/optimized_og3_zn2xem.jpg",
                 alt: "Original 3",
             },
             {
                 id: 4,
                 name: "Original 4",
-                src: "/mlrug/optimized_og4.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370893/portfolio/MLRUG/optimized_og4_wuyclb.jpg",
                 alt: "Original 4",
             },
             {
                 id: 5,
                 name: "Original 5",
-                src: "/mlrug/optimized_og5.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370893/portfolio/MLRUG/optimized_og5_rpqo0a.jpg",
                 alt: "Original 5",
             },
         ],
@@ -41,31 +41,31 @@ export default function MLRUG() {
             {
                 id: 1,
                 name: "Result 1",
-                src: "/mlrug/optimized_test1.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/optimized_test1_q0ickq.jpg",
                 alt: "Result 1",
             },
             {
                 id: 2,
                 name: "Result 2",
-                src: "/mlrug/optimized_test2.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/optimized_test2_bsazdb.jpg",
                 alt: "Result 2",
             },
             {
                 id: 3,
                 name: "Result 3",
-                src: "/mlrug/optimized_test3.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370895/portfolio/MLRUG/optimized_test3_tp3e7l.jpg",
                 alt: "Result 3",
             },
             {
                 id: 4,
                 name: "Result 4",
-                src: "/mlrug/optimized_test4.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370895/portfolio/MLRUG/optimized_test4_w4wlpv.jpg",
                 alt: "Result 4",
             },
             {
                 id: 5,
                 name: "Result 5",
-                src: "/mlrug/optimized_test5.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/optimized_test5_u7ssfr.jpg",
                 alt: "Result 5",
             },
         ],
@@ -84,7 +84,7 @@ export default function MLRUG() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-center justify-center mb-8 shadow-md">
-                    <img className="h-full" src="/mlrug/Hero.png" />
+                    <img className="h-full" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/Hero_mesip5.png" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">

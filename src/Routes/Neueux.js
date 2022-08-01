@@ -6,31 +6,31 @@ export default function Neueux() {
             {
                 id: 1,
                 name: "Screenshot 1",
-                src: "/neueux/screenshot_1.png",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370909/portfolio/neueux/screenshot_1_atn7vt.png",
                 alt: "Screenshot 1",
             },
             {
                 id: 2,
                 name: "Screenshot 2",
-                src: "/neueux/screenshot_2.png",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370909/portfolio/neueux/screenshot_2_ox1gbg.png",
                 alt: "Screenshot 2",
             },
             {
                 id: 3,
                 name: "Screenshot 3",
-                src: "/neueux/screenshot_3.png",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370909/portfolio/neueux/screenshot_3_qsjxt7.png",
                 alt: "Screenshot 3",
             },
             {
                 id: 4,
                 name: "Screenshot 4",
-                src: "/neueux/screenshot_4.png",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370909/portfolio/neueux/screenshot_4_jipb4s.png",
                 alt: "Screenshot 4",
             },
             {
                 id: 5,
                 name: "Screenshot 5",
-                src: "/neueux/screenshot_5.png",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370908/portfolio/neueux/screenshot_5_zrszlu.png",
                 alt: "Screenshot 5",
             },
         ],
@@ -49,7 +49,7 @@ export default function Neueux() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-center shadow-md mb-8">
-                    <img className="" src="/neueux/Hero.png" />
+                    <img className="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370908/portfolio/neueux/Hero_gvqwex.png" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">
@@ -74,7 +74,7 @@ export default function Neueux() {
                     <div className="flow-root">
                         <figure className="float-right -mr-60 pl-8 pb-8 max-w-lg -mt-8 mb-0">
                             <video autoPlay muted loop>
-                                <source src="/neueux/designnotes_scroll.webm" type="video/webm"></source>
+                                <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659372580/portfolio/neueux/designnotes_scroll_uvhhkv.webm" type="video/webm"></source>
                             </video>
                             <figcaption>A fraction of the design resources available on designnotes.co.</figcaption>
                         </figure>

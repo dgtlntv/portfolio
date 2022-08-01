@@ -6,37 +6,37 @@ export default function Graphics() {
             {
                 id: 1,
                 name: "Poster 1",
-                src: "/graphics/posters/p1.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370835/portfolio/graphics/posters/p1_bzaqqo.jpg",
                 alt: "Poster 1",
             },
             {
                 id: 2,
                 name: "Poster 2",
-                src: "/graphics/posters/p2.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370836/portfolio/graphics/posters/p2_lfqesw.jpg",
                 alt: "Poster 2",
             },
             {
                 id: 3,
                 name: "Poster 3",
-                src: "/graphics/posters/p3.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370836/portfolio/graphics/posters/p3_gjdomi.jpg",
                 alt: "Poster 3",
             },
             {
                 id: 4,
                 name: "Poster 4",
-                src: "/graphics/posters/p4.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370836/portfolio/graphics/posters/p4_oaooxs.jpg",
                 alt: "Poster 4",
             },
             {
                 id: 5,
                 name: "Poster 5",
-                src: "/graphics/posters/p5.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370836/portfolio/graphics/posters/p5_lmv7xh.jpg",
                 alt: "Poster 5",
             },
             {
                 id: 6,
                 name: "Poster 6",
-                src: "/graphics/posters/p6.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370836/portfolio/graphics/posters/p6_mv7wxp.jpg",
                 alt: "Poster 6",
             },
         ],
@@ -47,13 +47,13 @@ export default function Graphics() {
             {
                 id: 1,
                 name: "Poster 1",
-                src: "/graphics/knowledgement/knowledgement_poster.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370810/portfolio/graphics/knowledgement/knowledgement_poster_nwnfi9.jpg",
                 alt: "Poster 1",
             },
             {
                 id: 2,
                 name: "Poster 2",
-                src: "/graphics/knowledgement/ussr_poster.jpg",
+                src: "https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370809/portfolio/graphics/knowledgement/ussr_poster_he5myj.jpg",
                 alt: "Poster 2",
             },
         ],
@@ -69,7 +69,7 @@ export default function Graphics() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-center shadow-md mb-8">
-                    <img className="" src="/Graphics/Hero.png" />
+                    <img className="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370848/portfolio/graphics/Hero_et9sdw.png" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">
@@ -191,7 +191,9 @@ export default function Graphics() {
                     <div className="mt-24">
                         <h2>Moon and Earth</h2>
                         <video controls className="rounded-xl shadow-md">
-                            <source src="/graphics/optimized_Rueschenbeck_Animation_4k_60fps.mp4" type="video/mp4"></source>
+                            <source
+                                src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659370856/portfolio/graphics/optimized_Rueschenbeck_Animation_4k_60fps_isjvup.mp4"
+                                type="video/mp4"></source>
                         </video>
                         <p>
                             In my time working at NOMOS Glashütte my assignment often was to conceptualise visual marketing material for social media. One of which was for the special edition Tangente

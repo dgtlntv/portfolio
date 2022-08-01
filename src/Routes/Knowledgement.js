@@ -8,7 +8,7 @@ export default function Knowledgement() {
         <div className="relative py-16 bg-white overflow-hidden">
             <div className="relative px-4 sm:px-6 lg:px-8">
                 <div className="max-w-5xl mx-auto aspect-[16/8] overflow-hidden rounded-xl flex items-start mb-8 shadow-md">
-                    <img className="" src="/knowlegement/Hero.jpg" />
+                    <img className="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/Hero_xsqlow.jpg" />
                 </div>
 
                 <div className="text-lg max-w-prose mx-auto">
@@ -55,12 +55,12 @@ export default function Knowledgement() {
                     </p>
                     <h2>Ordinary Flow</h2>
                 </div>
-                <img className="max-w-7xl mx-auto my-12" src="/knowlegement/normal_flow.png" />
+                <img className="max-w-7xl mx-auto my-12" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/normal_flow_ccbxua.png" />
                 <div className="mt-16 prose prose-zinc prose-red prose-xl mx-auto font-sans">
                     <p>This flow depicts pain-points and possible sources of error in the manual recording of a meeting. The meeting is about the design of visual material.</p>
                     <h2>Knowledgement Flow</h2>
                 </div>
-                <img className="max-w-7xl mx-auto my-12" src="/knowlegement/knowledgement_flow.png" />
+                <img className="max-w-7xl mx-auto my-12" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/knowledgement_flow_fvl7j1.png" />
                 <div className="mt-16 prose prose-zinc prose-red prose-xl mx-auto font-sans">
                     <p>
                         Throughout the meeting, Knowledgement captures and structures exchanged data and information. Speech- and image recognition systems are constantly getting better at
@@ -75,7 +75,7 @@ export default function Knowledgement() {
                     </p>
                     <div className="flow-root">
                         <h2>User Interface</h2>
-                        <img className="float-right -mr-96" src="/knowlegement/Interface.jpg" />
+                        <img className="float-right -mr-96" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/Interface_nnrg5b.jpg" />
                         <h3>Personalized Space</h3>
                         <p>
                             All personally relevant topics discussed in the meeting, as well as votes and commentaries are shown here. Also metadata like the number of attached files, attendees, place
@@ -96,7 +96,7 @@ export default function Knowledgement() {
 
                 <div className="grid grid-cols-2 max-w-7xl mx-auto mt-8 gap-12 prose prose-zinc prose-xl font-sans">
                     <div>
-                        <img src="/knowlegement/vergleich1.jpg" />
+                        <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370882/portfolio/knowledgement/vergleich1_itkbrc.jpg" />
                         <h3>Graphic Designer’s main topics</h3>
                         <p>
                             In the example of the poster, content regarding the formal aesthetics are relevant for the designer. He/She finds evaluations and opinions about formal aspects of the
@@ -104,7 +104,7 @@ export default function Knowledgement() {
                         </p>
                     </div>
                     <div>
-                        <img src="/knowlegement/vergleich2.jpg" />
+                        <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/vergleich2_gu3zln.jpg" />
                         <h3>Financial Officer’s main topics</h3>
                         <p>
                             Questions that go beyond the poster’s design are relevant for the financial officer. The focus in his/her personalized space lies on financing and logistics, as well as
