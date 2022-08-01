@@ -65,15 +65,15 @@ export default function Navigation() {
                         </div>
                         <div className="py-6 px-5">
                             <div className="grid grid-cols-1 gap-4">
-                                <a href="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Portfolio
-                                </a>
-                                <a href="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                </Link>
+                                <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Onepager
-                                </a>
-                                <a href="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                </Link>
+                                <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Contact
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
