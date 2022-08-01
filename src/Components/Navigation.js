@@ -68,12 +68,16 @@ export default function Navigation() {
                                 <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Portfolio
                                 </Link>
-                                <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
+                                <a href="/onepager" className="text-base font-medium text-gray-900 hover:text-gray-700">
                                     Onepager
-                                </Link>
-                                <Link to="/portfolio" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                                    Contact
-                                </Link>
+                                </a>
+                                <a
+                                    href=" mailto:mail@mblazek.xyz "
+                                    type="button"
+                                    className="inline-flex items-center justify-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300">
+                                    <MailIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
+                                    Send me a Mail!
+                                </a>
                             </div>
                         </div>
                     </div>
