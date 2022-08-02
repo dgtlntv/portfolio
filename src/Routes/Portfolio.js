@@ -6,7 +6,7 @@ export default function Portfolio() {
         <div className="overflow-hidden pb-16 pt-0 lg:py-12">
             <div className="mx-auto grid grid-cols-1 items-center gap-8 px-6 lg:max-w-5xl lg:grid-cols-5 lg:px-8 lg:py-6">
                 <img className="mx-auto h-40 rounded-full lg:mx-0 lg:h-28" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659375088/portfolio/profile_pic_wzxape.jpg" alt="" />
-                <p className="mx-auto max-w-xl px-4 text-2xl font-medium tracking-tight text-gray-900 sm:px-6 sm:text-3xl lg:col-span-4 lg:max-w-5xl lg:px-0">
+                <p className="mx-auto max-w-xl px-4 font-fancy text-2xl font-medium tracking-tight text-gray-900 sm:px-6 sm:text-3xl lg:col-span-4 lg:max-w-5xl lg:px-0">
                     I am Maximilian Blazek a UX Designer with a focus on Machine Learning and Blockchain Applications.
                 </p>
             </div>

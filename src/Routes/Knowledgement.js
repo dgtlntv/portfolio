@@ -43,7 +43,7 @@ export default function Knowledgement() {
             </figure>
 
             <ArticleTextWrapper>
-                <div className="prose prose-xl prose-zinc prose-red mx-auto mt-16 font-sans">
+                <div className="prose prose-xl prose-zinc prose-red mx-auto mt-16">
                     <p>This flow depicts pain-points and possible sources of error in the manual recording of a meeting. The meeting is about the design of visual material.</p>
                     <h2>Knowledgement Flow</h2>
                 </div>

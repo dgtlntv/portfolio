@@ -74,7 +74,7 @@ module.exports = {
             fontFamily: {
                 logo: ["opake", "sans-serif"],
                 head: ["kansasnew", "serif"],
-                body: ["Inter", "sans-serif"],
+                fancy: ["courier-std", "monospace"],
             },
             fontSize: {
                 "7.5xl": "5rem",

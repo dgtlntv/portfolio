@@ -3,7 +3,7 @@ import TalkAnimation from "./TalkAnimation"
 export default function TalkHeroAnimation() {
     return (
         <div className="not-prose">
-            <div className=" relative mt-16 mb-12 lg:mt-40">
+            <div className=" relative mt-16 mb-12 lg:mt-20">
                 <div className="mx-auto mt-6 max-w-6xl px-4 sm:mt-10 sm:px-6">
                     <div className="lg:text-center">
                         <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-7xl">

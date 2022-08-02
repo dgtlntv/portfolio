@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 export default function Navigation() {
     return (
-        <Popover className="relative z-10 bg-white">
+        <Popover className="relative z-10 bg-white font-fancy">
             <div className="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                     <Link to="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
