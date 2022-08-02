@@ -10,7 +10,7 @@ export default function Knowledgement() {
     ]
 
     return (
-        <Article stats={stats} title="Knowledgement" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/Hero_xsqlow.jpg">
+        <Article stats={stats} title="Knowledgement" heroLocation="start" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/Hero_xsqlow.jpg">
             <ArticleTextWrapper>
                 <h2>Problem</h2>
                 <p>
@@ -39,7 +39,7 @@ export default function Knowledgement() {
             </ArticleTextWrapper>
 
             <figure className="overflow-y-auto">
-                <img className="mt-12 max-w-7xl lg:mx-auto lg:my-12" alt="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/normal_flow_ccbxua.png" />
+                <img className="mt-12 max-w-7xl lg:mx-auto" alt="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/normal_flow_ccbxua.png" />
             </figure>
 
             <ArticleTextWrapper>
@@ -50,7 +50,7 @@ export default function Knowledgement() {
             </ArticleTextWrapper>
 
             <figure className="overflow-y-auto">
-                <img className="mt-12 max-w-7xl lg:mx-auto lg:my-12" alt="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/knowledgement_flow_fvl7j1.png" />
+                <img className="mt-12 max-w-7xl lg:mx-auto" alt="" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/knowledgement_flow_fvl7j1.png" />
             </figure>
 
             <ArticleTextWrapper>

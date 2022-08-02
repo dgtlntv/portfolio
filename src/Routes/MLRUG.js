@@ -81,7 +81,7 @@ export default function MLRUG() {
     ]
 
     return (
-        <Article stats={stats} title="MLRUG" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/Hero_mesip5.png">
+        <Article stats={stats} title="MLRUG" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467706/portfolio/MLRUG/Hero2_qpj0sb.png">
             <ArticleTextWrapper>
                 <p>
                     In the design theory class at my college, we often discussed the role of machine learning algorithms and artificial intelligence in the design process. One conclusion from this

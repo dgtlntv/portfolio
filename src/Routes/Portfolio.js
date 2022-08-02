@@ -6,7 +6,7 @@ export default function Portfolio() {
         <div className="overflow-hidden pb-16 pt-0 lg:py-12">
             <div className="mx-auto grid grid-cols-1 items-center gap-8 px-6 lg:max-w-5xl lg:grid-cols-5 lg:px-8 lg:py-6">
                 <img className="mx-auto h-40 rounded-full lg:mx-0 lg:h-28" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659375088/portfolio/profile_pic_wzxape.jpg" alt="" />
-                <p className="text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl lg:col-span-4">
+                <p className="mx-auto max-w-xl px-4 text-2xl font-medium tracking-tight text-gray-900 sm:px-6 sm:text-3xl lg:col-span-4 lg:max-w-5xl lg:px-0">
                     I am Maximilian Blazek a UX Designer with a focus on Machine Learning and Blockchain Applications.
                 </p>
             </div>
@@ -26,7 +26,7 @@ export default function Portfolio() {
                     neueUX.com is a platform dedicated to provide UI and UX ressources for blockchain applications.
                 </PortfolioItemLeft>
 
-                <PortfolioItemRight title={"MLRUG"} url={"/mlrug"} imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370894/portfolio/MLRUG/Hero_mesip5.png"}>
+                <PortfolioItemRight title={"MLRUG"} url={"/mlrug"} imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467706/portfolio/MLRUG/Hero2_qpj0sb.png"}>
                     Generative algorithms will play an increasingly important role in the working process of designers, perhaps placing the designer in the role of curator rather than creator.
                     <br />
                     <br />
@@ -43,7 +43,7 @@ export default function Portfolio() {
                 <PortfolioItemRight
                     title={"Portfolio Cover Page"}
                     url={"/portfoliocover"}
-                    imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370932/portfolio/portfolio%20cover/Hero_woejwx.png"}>
+                    imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467877/portfolio/portfolio%20cover/Hero_zsvnje.png"}>
                     The browser is getting more capable by the day. The ability to run 3D games, Python, and resource-intensive neural networks locally in the browser is exciting.
                     <br />
                     <br />I took the opportunity of revamping my portfolio website to learn one of these interesting technologies: Three.js.

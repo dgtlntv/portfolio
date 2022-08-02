@@ -12,7 +12,7 @@ export default function Talk() {
     ]
 
     return (
-        <Article stats={stats} title="Talk" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370945/portfolio/talk/Hero_y4nmks.png">
+        <Article stats={stats} title="Talk" heroLocation="start" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370945/portfolio/talk/Hero_y4nmks.png">
             <ArticleTextWrapper>
                 <h2 className="mb-0">Problem</h2>
                 <FloatRightWrapper>

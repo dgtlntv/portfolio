@@ -69,7 +69,7 @@ export default function Graphics() {
     ]
 
     return (
-        <Article stats={stats} title="Graphics" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370848/portfolio/graphics/Hero_et9sdw.png">
+        <Article stats={stats} title="Graphics" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370848/portfolio/graphics/Hero_et9sdw.png">
             <ArticleTextWrapper>
                 <h2 className="mb-0">SprechenÜber</h2>
 

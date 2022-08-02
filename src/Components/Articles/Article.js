@@ -1,14 +1,17 @@
-export default function Article({ stats, heroUrl, title, children }) {
+export default function Article({ stats, heroUrl, heroLocation, title, children }) {
     return (
         <div className="relative overflow-hidden bg-white pb-16 pt-8 lg:py-12">
             <div className="relative px-4 sm:px-6 lg:px-8">
-                <div className="mx-auto mb-8 flex max-w-5xl items-start overflow-hidden rounded-xl shadow-md lg:aspect-[16/8]">
+                <div
+                    className={`mx-auto mb-8 flex max-w-5xl overflow-hidden rounded-xl shadow-md sm:aspect-[16/8] ${
+                        heroLocation === "center" ? "items-center" : heroLocation === "start" ? "items-start" : ""
+                    }`}>
                     <img className="" src={heroUrl} alt="" />
                 </div>
 
                 <div className="mx-auto max-w-prose text-lg">
                     <h1>
-                        <span className="mt-2 block text-center text-5xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-6xl lg:text-3xl">{title}</span>
+                        <span className="mt-2 block text-center text-5xl font-extrabold leading-8 tracking-tight text-gray-900">{title}</span>
                     </h1>
                 </div>
 

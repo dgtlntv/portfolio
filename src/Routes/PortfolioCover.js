@@ -10,7 +10,7 @@ export default function PortfolioCover() {
     ]
 
     return (
-        <Article stats={stats} title="Portfolio Cover" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370932/portfolio/portfolio%20cover/Hero_woejwx.png">
+        <Article stats={stats} title="Portfolio Cover" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467877/portfolio/portfolio%20cover/Hero_zsvnje.png">
             <ArticleTextWrapper>
                 <p>
                     I had the idea that a 3D scene rendered in ASCII characters would look really good. When I learned that Three.js has an effect that can render any scene in ASCII characters, I knew

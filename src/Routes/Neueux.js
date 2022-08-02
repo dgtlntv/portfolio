@@ -46,13 +46,13 @@ export default function Neueux() {
     ]
 
     return (
-        <Article stats={stats} title="neueUX" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370908/portfolio/neueux/Hero_gvqwex.png">
+        <Article stats={stats} title="neueUX" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370908/portfolio/neueux/Hero_gvqwex.png">
             <ArticleTextWrapper>
                 <h2 className="mb-6">Problem</h2>
                 <FloatRightWrapper>
                     <FloatRightFigure>
                         <video autoPlay muted loop>
-                            <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659372580/portfolio/neueux/designnotes_scroll_uvhhkv.webm" type="video/webm"></source>
+                            <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659466183/portfolio/neueux/designnotes_tuesvy.webm" type="video/webm"></source>
                         </video>
                         <figcaption>A fraction of the design resources available on designnotes.co.</figcaption>
                     </FloatRightFigure>
