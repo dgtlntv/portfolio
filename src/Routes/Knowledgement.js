@@ -88,9 +88,9 @@ export default function Knowledgement() {
                 </p>
             </ArticleTextWrapper>
 
-            <div className="grid grid-cols-1 gap-12 lg:mx-auto lg:mt-16 lg:max-w-7xl lg:grid-cols-2 ">
+            <div className="mt-16 grid grid-cols-1 gap-12 lg:mx-auto lg:max-w-7xl lg:grid-cols-2 ">
                 <div>
-                    <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370882/portfolio/knowledgement/vergleich1_itkbrc.jpg" alt="" />
+                    <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659469698/portfolio/knowledgement/vergleich1_itkbrc_l532di.png" alt="" />
                     <ArticleTextWrapper>
                         <h3>Graphic Designer’s main topics</h3>
                         <p>
@@ -100,7 +100,7 @@ export default function Knowledgement() {
                     </ArticleTextWrapper>
                 </div>
                 <div>
-                    <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370880/portfolio/knowledgement/vergleich2_gu3zln.jpg" alt="" />
+                    <img src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659469698/portfolio/knowledgement/vergleich2_gu3zln_mw0tk3.png" alt="" />
                     <ArticleTextWrapper>
                         <h3>Financial Officer’s main topics</h3>
                         <p>
