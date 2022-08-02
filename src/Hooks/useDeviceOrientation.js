@@ -11,9 +11,8 @@ export default function useDeviceOrientation() {
         quaternion: null,
     }).current
 
-    let sensor = null
-
     useEffect(function () {
+        let sensor = null
         try {
             sensor = new RelativeOrientationSensor({ frequency: 60, referenceFrame: "device" })
             sensor.addEventListener("error", (event) => {

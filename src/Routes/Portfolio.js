@@ -1,17 +1,17 @@
-import PortfolioItemRight from "../Components/PortfolioItemRight"
-import PortfolioItemLeft from "../Components/PortfolioItemLeft"
+import PortfolioItemRight from "../Components/PortfolioOverview/PortfolioItemRight"
+import PortfolioItemLeft from "../Components/PortfolioOverview/PortfolioItemLeft"
 
 export default function Portfolio() {
     return (
-        <div className="py-16 overflow-hidden lg:py-12">
-            <div className="lg:max-w-5xl lg:grid lg:grid-cols-5 lg:gap-8 mx-auto lg:px-8 items-center p-6">
-                <img className="rounded-full h-28" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659375088/portfolio/profile_pic_wzxape.jpg" />
-                <p className="text-2xl font-medium text-gray-900 tracking-tight sm:text-3xl lg:col-span-4">
+        <div className="overflow-hidden pb-16 pt-0 lg:py-12">
+            <div className="mx-auto grid grid-cols-1 items-center gap-8 px-6 lg:max-w-5xl lg:grid-cols-5 lg:px-8 lg:py-6">
+                <img className="mx-auto h-40 rounded-full lg:mx-0 lg:h-28" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659375088/portfolio/profile_pic_wzxape.jpg" alt="" />
+                <p className="text-2xl font-medium tracking-tight text-gray-900 sm:text-3xl lg:col-span-4">
                     I am Maximilian Blazek a UX Designer with a focus on Machine Learning and Blockchain Applications.
                 </p>
             </div>
 
-            <div className="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-5xl">
+            <div className="relative mx-auto max-w-xl px-4 sm:px-6 lg:max-w-5xl lg:px-8">
                 <PortfolioItemRight title={"Talk"} url={"/talk"} imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370945/portfolio/talk/Hero_y4nmks.png"}>
                     Everyone knows the numbing feeling that comes with a 50-slide PowerPoint presentation.
                     <br />
@@ -42,7 +42,7 @@ export default function Portfolio() {
 
                 <PortfolioItemRight
                     title={"Portfolio Cover Page"}
-                    url={"/website"}
+                    url={"/portfoliocover"}
                     imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659370932/portfolio/portfolio%20cover/Hero_woejwx.png"}>
                     The browser is getting more capable by the day. The ability to run 3D games, Python, and resource-intensive neural networks locally in the browser is exciting.
                     <br />

@@ -16,13 +16,13 @@ export default function AsciiRenderer({ renderIndex = 1, characters = " .:-+*=%@
         effect.domElement.style.backgroundColor = "white"
         effect.domElement.style.pointerEvents = "none"
         return effect
-    }, [characters, options.invert])
+    }, [gl, characters, options])
 
     // Append on mount, remove on unmount
     useEffect(() => {
         gl.domElement.parentNode.appendChild(effect.domElement)
         return () => gl.domElement.parentNode.removeChild(effect.domElement)
-    }, [effect])
+    }, [effect, gl.domElement.parentNode])
 
     // Set size
     useEffect(() => {
