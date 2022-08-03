@@ -29,7 +29,6 @@ export default function Navigation() {
                         </a>
                         <a
                             href=" mailto:mail@mblazek.xyz "
-                            type="button"
                             className="inline-flex items-center rounded-md border border-transparent bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2">
                             <MailIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
                             Send me a Mail!
@@ -71,7 +70,6 @@ export default function Navigation() {
                                 </a>
                                 <a
                                     href=" mailto:mail@mblazek.xyz "
-                                    type="button"
                                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2">
                                     <MailIcon className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
                                     Send me a Mail!
