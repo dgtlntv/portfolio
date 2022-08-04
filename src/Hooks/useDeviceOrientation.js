@@ -43,6 +43,7 @@ export default function useDeviceOrientation() {
                         console.log(error)
                     }
                 }
+                setPermissionState(true)
             })
         } else {
             try {
