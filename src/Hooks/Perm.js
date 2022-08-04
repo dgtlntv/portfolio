@@ -4,16 +4,10 @@ import * as ReactDOM from "react-dom"
 import { useState } from "react"
 
 export default async function Perm() {
-    const [gavePermission, setGavePermission] = useState(false)
-
-    if (!gavePermission) {
-        if (!isMobileSafari) {
-            return await deviceOrientationPermission()
-        } else {
-            return await getPermissionFromModal()
-        }
+    if (!isMobileSafari) {
+        return await deviceOrientationPermission()
     } else {
-        return true
+        return await getPermissionFromModal()
     }
 }
 
