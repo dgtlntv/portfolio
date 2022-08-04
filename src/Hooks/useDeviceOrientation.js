@@ -5,7 +5,7 @@ import isEqual from "lodash.isequal"
 import Perm from "./Perm"
 
 export default function useDeviceOrientation() {
-    const [permissionState, setPermissionState] = useState(false)
+    const [permissionState, setPermissionState] = useState("false")
 
     const orientation = useRef({
         quaternion: null,
@@ -26,7 +26,7 @@ export default function useDeviceOrientation() {
     useEffect(function () {
         const sensor = new RelativeOrientationSensor({ frequency: 60, referenceFrame: "device" })
 
-        if (!permissionState) {
+        if (permissionState === "false") {
             Perm().then(function () {
                 try {
                     sensor.addEventListener("error", (event) => {
@@ -43,7 +43,7 @@ export default function useDeviceOrientation() {
                         console.log(error)
                     }
                 }
-                setPermissionState(true)
+                setPermissionState("true")
             })
         } else {
             try {
