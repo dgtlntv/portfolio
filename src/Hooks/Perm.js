@@ -1,6 +1,6 @@
 import { isMobileSafari } from "react-device-detect"
 import Modal from "../Components/Modal"
-import { ReactDOM } from "react"
+import ReactDOM from "react-dom/client"
 
 export default async function Perm() {
     if (!isMobileSafari) {
