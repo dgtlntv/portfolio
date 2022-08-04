@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Text3D, Center} from "@react-three/drei"
+import { Text3D, Center } from "@react-three/drei"
 import ModelLoader from "../Services/ModelLoader"
 import { Suspense, useRef } from "react"
 import Navigation from "../Components/GlobalLayout/Navigation"
