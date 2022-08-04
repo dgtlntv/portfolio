@@ -28,7 +28,7 @@ export default function Modal({ action, resolve, remove }) {
                         <div className="inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
                             <div>
                                 <div className="mt-3 text-center sm:mt-5">
-                                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                                    <Dialog.Title as="h3" className="font-fancy text-lg font-medium leading-6 text-gray-900">
                                         Device Orientation Permission
                                     </Dialog.Title>
                                     <div className="mt-2">
@@ -42,7 +42,7 @@ export default function Modal({ action, resolve, remove }) {
                             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                                 <button
                                     type="button"
-                                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
+                                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-black px-4 py-2 font-fancy text-base font-medium text-white shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
                                     onClick={function () {
                                         setOpen(false)
                                         action().then(function (permission) {
@@ -54,7 +54,7 @@ export default function Modal({ action, resolve, remove }) {
                                 </button>
                                 <button
                                     type="button"
-                                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
+                                    className="mt-3 inline-flex w-full justify-center rounded-md border border-black bg-white px-4 py-2 font-fancy text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
                                     onClick={() => setOpen(false)}
                                     ref={cancelButtonRef}>
                                     Cancle
