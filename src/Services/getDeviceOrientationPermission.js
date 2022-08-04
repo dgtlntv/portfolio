@@ -12,12 +12,12 @@ function addDialog(resolve) {
     const div = document.createElement("div")
     div.setAttribute("id", "DialogDiv")
     body.appendChild(div)
-    ReactDOM.render(<Modal action={DeviceOrientationEvent.requestPermission} resolve={resolve} remove={removeDialog} />, div)
+    ReactDOM.createPortal(<Modal action={DeviceOrientationEvent.requestPermission} resolve={resolve} remove={removeDialog} />, div)
 }
 
 function removeDialog() {
-    const div = document.getElementById("DialogDiv")
     const body = document.getElementsByTagName("body")[0]
+    const div = document.getElementById("DialogDiv")
     body.removeChild(div)
 }
 

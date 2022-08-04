@@ -1,5 +1,5 @@
 import { RelativeOrientationSensor } from "motion-sensors-polyfill"
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 import { Quaternion } from "three"
 import isEqual from "lodash.isequal"
 import getDeviceOrientationPermission from "../Services/getDeviceOrientationPermission"
@@ -19,9 +19,6 @@ export default function useDeviceOrientation() {
         getDeviceOrientationPermission().then(function (permissionStatus) {
             if (permissionStatus === "granted") {
                 try {
-                    sensor.addEventListener("error", (event) => {
-                        console.log(event.error)
-                    })
                     sensor.addEventListener("reading", () => initSensor(orientation, sensor, initialOrientation))
                     sensor.start()
                 } catch (error) {
