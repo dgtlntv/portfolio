@@ -1,12 +1,19 @@
 import { isMobileSafari } from "react-device-detect"
 import Modal from "../Components/Modal"
 import * as ReactDOM from "react-dom"
+import { useState } from "react"
 
 export default async function Perm() {
-    if (!isMobileSafari) {
-        return await deviceOrientationPermission()
+    const [gavePermission, setGavePermission] = useState(false)
+
+    if (!gavePermission) {
+        if (!isMobileSafari) {
+            return await deviceOrientationPermission()
+        } else {
+            return await getPermissionFromModal()
+        }
     } else {
-        return await getPermissionFromModal()
+        return true
     }
 }
 
@@ -21,7 +28,7 @@ function addDialog(resolve) {
     const div = document.createElement("div")
     div.setAttribute("id", "DialogDiv")
     body.appendChild(div)
-    ReactDOM.createPortal(<Modal action={deviceOrientationPermission} resolve={resolve} remove={removeDialog} />, div)
+    ReactDOM.render(<Modal action={deviceOrientationPermission} resolve={resolve} remove={removeDialog} />, div)
 }
 
 function removeDialog() {
