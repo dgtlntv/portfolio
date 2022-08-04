@@ -17,24 +17,20 @@ export default function useDeviceOrientation() {
         const sensor = new RelativeOrientationSensor({ frequency: 60, referenceFrame: "device" })
 
         Perm().then(function (permission) {
-            if (permission) {
-                try {
-                    sensor.addEventListener("error", (event) => {
-                        console.log(event.error)
-                    })
-                    sensor.addEventListener("reading", () => initSensor(orientation, sensor, initialOrientation))
-                    sensor.start()
-                } catch (error) {
-                    if (error.name === "SecurityError") {
-                        console.log("Sensor construction was blocked by a feature policy.")
-                    } else if (error.name === "ReferenceError") {
-                        console.log("Sensor is not supported by the User Agent.")
-                    } else {
-                        console.log(error)
-                    }
+            try {
+                sensor.addEventListener("error", (event) => {
+                    console.log(event.error)
+                })
+                sensor.addEventListener("reading", () => initSensor(orientation, sensor, initialOrientation))
+                sensor.start()
+            } catch (error) {
+                if (error.name === "SecurityError") {
+                    console.log("Sensor construction was blocked by a feature policy.")
+                } else if (error.name === "ReferenceError") {
+                    console.log("Sensor is not supported by the User Agent.")
+                } else {
+                    console.log(error)
                 }
-            } else {
-                console.log("Wasn't able to get permission to the sensor.")
             }
         })
 

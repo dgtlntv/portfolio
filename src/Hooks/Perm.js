@@ -1,7 +1,6 @@
 import { isMobileSafari } from "react-device-detect"
 import Modal from "../Components/Modal"
 import * as ReactDOM from "react-dom"
-import { useState } from "react"
 
 export default async function Perm() {
     if (!isMobileSafari) {
@@ -36,36 +35,36 @@ async function deviceOrientationPermission() {
         if (navigator.permissions) {
             Promise.all([navigator.permissions.query({ name: "accelerometer" }), navigator.permissions.query({ name: "gyroscope" })])
                 .then((results) => {
-                    if (results.every((result) => result.state === "granted")) {
-                        resolve(true)
+                    if (results.every((result) => result.state !== "granted")) {
+                        resolve("granted")
                     } else {
-                        resolve(false)
+                        resolve("not granted")
                     }
                 })
                 .catch(() => {
                     try {
                         DeviceOrientationEvent.requestPermission().then(function (response) {
                             if (response === "granted") {
-                                resolve(true)
+                                resolve("granted")
                             } else {
-                                resolve(false)
+                                resolve("not granted")
                             }
                         })
                     } catch (err) {
-                        resolve(false)
+                        resolve("not granted")
                     }
                 })
         } else {
             try {
                 DeviceOrientationEvent.requestPermission().then(function (response) {
                     if (response === "granted") {
-                        resolve(true)
+                        resolve("granted")
                     } else {
-                        resolve(false)
+                        resolve("not granted")
                     }
                 })
             } catch {
-                resolve(false)
+                resolve("not granted")
             }
         }
     })
