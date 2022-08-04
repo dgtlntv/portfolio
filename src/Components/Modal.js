@@ -7,7 +7,15 @@ export default function Modal({ action, resolve, remove }) {
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
+            <Dialog
+                as="div"
+                className="fixed inset-0 z-10 overflow-y-auto"
+                initialFocus={cancelButtonRef}
+                onClose={function () {
+                    setOpen(false)
+                    resolve("denied")
+                    remove()
+                }}>
                 <div className="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -33,8 +41,8 @@ export default function Modal({ action, resolve, remove }) {
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                            For the cover of my portfolio website, I would like to access your smartphone's device orientation sensor to animate a 3D scene. Since I respect your
-                                            privacy, I would like to ask you first if you are okay with me accessing these sensors.
+                                            For the cover of my portfolio website, I would like to access the orientation sensor of your smartphone to animate a 3D scene. To do this, you need to give
+                                            permission to access these sensors.
                                         </p>
                                     </div>
                                 </div>
@@ -50,12 +58,16 @@ export default function Modal({ action, resolve, remove }) {
                                             remove()
                                         })
                                     }}>
-                                    Give Permission
+                                    Grant Permission
                                 </button>
                                 <button
                                     type="button"
                                     className="mt-3 inline-flex w-full justify-center rounded-md border border-black bg-white px-4 py-2 font-fancy text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
-                                    onClick={() => setOpen(false)}
+                                    onClick={function () {
+                                        setOpen(false)
+                                        resolve("denied")
+                                        remove()
+                                    }}
                                     ref={cancelButtonRef}>
                                     Cancle
                                 </button>

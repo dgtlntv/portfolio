@@ -43,7 +43,7 @@ export default function Portfolio() {
                 <PortfolioItemRight
                     title={"Portfolio Cover Page"}
                     url={"/portfoliocover"}
-                    imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467877/portfolio/portfolio%20cover/Hero_zsvnje.png"}>
+                    imageUrl={"https://res.cloudinary.com/drsfxkvt1/image/upload/v1659639674/portfolio/portfolio%20cover/Hero_f4prxt.png"}>
                     The browser is getting more capable by the day. The ability to run 3D games, Python, and resource-intensive neural networks locally in the browser is exciting.
                     <br />
                     <br />I took the opportunity of revamping my portfolio website to learn one of these interesting technologies: Three.js.

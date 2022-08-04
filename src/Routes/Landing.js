@@ -58,7 +58,7 @@ function Group({ orientation, mouse }) {
                     <meshNormalMaterial />
                 </Text3D>
 
-                <mesh position={[2.3, 2.2, 1.5]} rotation={[-Math.PI / 2, -0.01, Math.PI / 2]} scale={12}>
+                <mesh position={[2.3, 2, 1.5]} rotation={[-Math.PI / 2, -0.01, Math.PI / 2]} scale={12}>
                     <ModelLoader model={"https://res.cloudinary.com/drsfxkvt1/raw/upload/v1659444196/portfolio/landing/profile_febfp5.stl"} />
                     <meshStandardMaterial color={"white"} side={THREE.DoubleSide} flatShading={true} />
                 </mesh>

@@ -2,6 +2,8 @@ import Article from "../Components/Articles/Article"
 import ArticleTextWrapper from "../Components/Articles/ArticleTextWrapper"
 import CodeBlock from "../Components/Articles/CodeBlock"
 import { CanvasSetupCode, MouseCoordinatesCode, GyroCoordinatesCode } from "../Components/Articles/PortfolioCover/PortfolioCoverCodeSnippets"
+import FloatRightWrapper from "../Components/Articles/FloatRightWrapper"
+import FloatRightFigure from "../Components/Articles/FloatRightFigure"
 
 export default function PortfolioCover() {
     const stats = [
@@ -10,18 +12,25 @@ export default function PortfolioCover() {
     ]
 
     return (
-        <Article stats={stats} title="Portfolio Cover" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659467877/portfolio/portfolio%20cover/Hero_zsvnje.png">
+        <Article stats={stats} title="Portfolio Cover" heroLocation="center" heroUrl="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659639674/portfolio/portfolio%20cover/Hero_f4prxt.png">
             <ArticleTextWrapper>
                 <p>
                     I had the idea that a 3D scene rendered in ASCII characters would look really good. When I learned that Three.js has an effect that can render any scene in ASCII characters, I knew
                     I had to use it for the cover of my portfolio. I decided on a simple 3D scene with my face and last name (since it's my portfolio) as the subject.
                 </p>
                 <h2>3D Model</h2>
-                <p>
-                    The first thing I had to do was create the 3D model of my face. I decided to use photogammetry because it is the easiest way to create 3D models. To do this, I had to photograph my
-                    head in broad daylight to get bright and evenly exposed photos without harsh shadows. One mistake I made the first time I tried photogammetry was that I rotated the object rather
-                    than the camera around object, which turned out to be a problem because photogammetry requires an environment to place the images in space.
-                </p>
+                <FloatRightWrapper>
+                    <FloatRightFigure>
+                        <img className="rounded-lg shadow-md" src="https://res.cloudinary.com/drsfxkvt1/image/upload/v1659640742/portfolio/portfolio%20cover/photogammetry_oo7z2t.png" alt="" />
+                        <figcaption>The result of photogammetry software.</figcaption>
+                    </FloatRightFigure>
+                    <p className="order-first">
+                        The first thing I had to do was create the 3D model of my face. I decided to use photogammetry because it is the easiest way to create 3D models. To do this, I had to
+                        photograph my head in broad daylight to get bright and evenly exposed photos without harsh shadows. One mistake I made the first time I tried photogammetry was that I rotated
+                        the object rather than the camera around object, which turned out to be a problem because photogammetry requires an environment to place the images in space.
+                    </p>
+                </FloatRightWrapper>
+
                 <h2>Code</h2>
                 <p>
                     After I was done creating the 3D model, I had to set up the Three.js scene with the 3D Model and 3D Text. This was as simple as adding the Three.js Canvas to the React component
