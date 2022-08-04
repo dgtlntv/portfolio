@@ -1,10 +1,12 @@
 import { RelativeOrientationSensor } from "motion-sensors-polyfill"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { Quaternion } from "three"
 import isEqual from "lodash.isequal"
 import Perm from "./Perm"
 
 export default function useDeviceOrientation() {
+    const [permissionState, setPermissionState] = useState(false)
+
     const orientation = useRef({
         quaternion: null,
     }).current
@@ -13,10 +15,36 @@ export default function useDeviceOrientation() {
         quaternion: null,
     }).current
 
+    useEffect(() => {
+        setPermissionState(JSON.parse(window.localStorage.getItem("permissionState")))
+    }, [])
+
+    useEffect(() => {
+        window.localStorage.setItem("permissionState", permissionState)
+    }, [permissionState])
+
     useEffect(function () {
         const sensor = new RelativeOrientationSensor({ frequency: 60, referenceFrame: "device" })
 
-        Perm().then(function (permission) {
+        if (!permissionState) {
+            Perm().then(function () {
+                try {
+                    sensor.addEventListener("error", (event) => {
+                        console.log(event.error)
+                    })
+                    sensor.addEventListener("reading", () => initSensor(orientation, sensor, initialOrientation))
+                    sensor.start()
+                } catch (error) {
+                    if (error.name === "SecurityError") {
+                        console.log("Sensor construction was blocked by a feature policy.")
+                    } else if (error.name === "ReferenceError") {
+                        console.log("Sensor is not supported by the User Agent.")
+                    } else {
+                        console.log(error)
+                    }
+                }
+            })
+        } else {
             try {
                 sensor.addEventListener("error", (event) => {
                     console.log(event.error)
@@ -32,7 +60,7 @@ export default function useDeviceOrientation() {
                     console.log(error)
                 }
             }
-        })
+        }
 
         return function () {
             sensor.stop()
