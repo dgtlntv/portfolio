@@ -52,7 +52,7 @@ export default function Neueux() {
                 <FloatRightWrapper>
                     <FloatRightFigure>
                         <video autoPlay muted loop>
-                            <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659466183/portfolio/neueux/designnotes_tuesvy.webm" type="video/webm"></source>
+                            <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659534554/portfolio/neueux/t2gpw4cz1aeboyhpmqdj_aoitv1.webm" type="video/webm"></source>
                         </video>
                         <figcaption>A fraction of the design resources available on designnotes.co.</figcaption>
                     </FloatRightFigure>
