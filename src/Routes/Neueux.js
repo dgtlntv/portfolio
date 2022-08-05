@@ -76,8 +76,8 @@ export default function Neueux() {
                         Unsurprisingly, there aren’t many user experience designers who have broken into this field. Because of this barrier to entry, many blockchain startups have to start their
                         design process from scratch, as with few freely available design resources, and without people who possess the necessary design experience to avoid having to start from square
                         one. Even if there are designers or design-savvy developers in a blockchain company, their daily work process is likely to be slower than what’s necessary, because of the lack
-                        of design resources and standardized design patterns to draw upon. These problems have caused the relatively poor UX that most blockchain apps have, despite the industry’s
-                        rapid maturation in recent years.
+                        of design resources and standardized design patterns to draw upon. These problems have contributed to the relatively poor UX that most blockchain apps have, despite the
+                        industry’s rapid maturation in recent years.
                     </p>
                 </FloatRightWrapper>
 

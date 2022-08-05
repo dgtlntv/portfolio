@@ -89,7 +89,7 @@ export default function MLRUG() {
                     curator. With that in mind I wanted to do a project where I experiment with generative algorithms as a design tool.
                 </p>
 
-                <h2>Data</h2>
+                <h2 className="mb-0">Data</h2>
 
                 <FloatRightWrapper>
                     <FloatRightFigure>
@@ -109,11 +109,11 @@ export default function MLRUG() {
                     I investigated various architectures and algorithms and finally settled on HyperGan. At the time, it was an appropriately powerful architecture for this project and was
                     specifically designed to lower the barrier to entry for artists and designers. For my first test, I ran HyperGAN on my laptop, but I quickly realized that my laptop's graphics card
                     (GTX1050) would not be sufficient for a full run. So I turned to a cloud solution. In the process, I landed on Paperspace, which is based on AWS but offers a simpler user
-                    experience and is optimized for machine learning There, I did a number of different runs with my data, using different resolutions and parameters. In the end, I found that
+                    experience and is optimized for machine learning. There, I did a number of different runs with my data, using different resolutions and parameters. In the end, I found that
                     HyperGAN's default algorithm and a resolution of 256x256 worked best for me.
                 </p>
 
-                <h2>Results</h2>
+                <h2 className="mb-0">Results</h2>
                 <FloatRightWrapper>
                     <FloatRightFigure>
                         <ImageGallery content={GeneratedRugs} />
@@ -121,7 +121,7 @@ export default function MLRUG() {
                     <p>
                         I wouldn't call the results perfect, but for the amount of data and technical knowledge I had, I think they were reasonable. At this point, it's clear that training an
                         algorithm on a small scale like this isn't really going to replace a designer's design process. But it can serve as inspiration. And it definitely did in this project. I'm
-                        currently working with my father to make a rug (in Morocco) inspired by the designs that came through this GAN.
+                        currently working with my father to produce a rug (in Morocco) inspired by the designs that came through this GAN.
                     </p>
                 </FloatRightWrapper>
             </ArticleTextWrapper>

@@ -64,7 +64,7 @@ export default function Graphics() {
     }
 
     const stats = [
-        { label: "Context", value: "University & Personal Projects" },
+        { label: "Context", value: "University, Work & Personal Projects" },
         { label: "Period", value: "2018 - now" },
     ]
 
@@ -79,7 +79,7 @@ export default function Graphics() {
                     </FloatRightFigure>
                     <p>
                         SprechenÜber (which means 'talking about') is a student organized talk series at my university about all things design. From the wintersemester of 2018/19 until the
-                        wintersemester of 2019/20 me and a colleague of mine organize these talks. Because of a lack of a proper CD, I designed one when we took over. The logo is a deconstruction of
+                        wintersemester of 2019/20 me and a colleague of mine organized these talks. Because of a lack of a proper CD, I designed one when we took over. The logo is a deconstruction of
                         the name SprechenÜber, so that the two r's create a bracket for the title of the talk. Our main goal with the CD was to make our posters as easily readable as possible, aswell
                         as having a high recognition value. In parallel to the poster we also developed formats for digital distribution on social media platforms, our website and our in campus
                         communication platform.

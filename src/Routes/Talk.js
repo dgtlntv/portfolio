@@ -22,9 +22,9 @@ export default function Talk() {
                     </FloatRightFigure>
 
                     <p className="order-first">
-                        Everyone knows the numbing feeling that comes with an 80-slide presentation. This phenomenon is often called Death by PowerPoint. A deadly boring presentation, in which the
-                        interest of the recipient dies through "the PowerPoint" alone. Edward Tufte, a renowned scientist, even assigns partial blame for the crash of the space shuttle Columbia to
-                        this phenomenon in the report of the Nasa accident investigation committee.
+                        Everyone knows the numbing feeling that comes with an 50-slide presentation. This phenomenon is often called <span className="italic">"Death by PowerPoint"</span>. A deadly
+                        boring presentation, in which the interest of the recipient dies through "the PowerPoint" alone. Edward Tufte, a renowned scientist, even assigns partial blame for the crash of
+                        the space shuttle Columbia to this phenomenon in the report of the Nasa accident investigation committee.
                     </p>
                     <p className="order-last">
                         It may not have as fatal consequences in most organizations as the space shuttle crash. It does, however, lead to an inefficient communication culture plagued by inattention,
