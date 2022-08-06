@@ -32,11 +32,16 @@ export default async function getDeviceOrientationPermission() {
                     resolve("granted")
                 })
         } else {
-            DeviceOrientationEvent.requestPermission().catch(function () {
-                getPermissionFromModal().then((permissionStatus) => {
+            DeviceOrientationEvent.requestPermission().then(
+                function (permissionStatus) {
                     resolve(permissionStatus)
-                })
-            })
+                },
+                function () {
+                    getPermissionFromModal().then((permissionStatus) => {
+                        resolve(permissionStatus)
+                    })
+                }
+            )
         }
     })
 }
