@@ -18,3 +18,7 @@
 
     transition: opacity 600ms;
 }
+
+.leaflet-container {
+    background-color: white !important;
+}

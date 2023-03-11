@@ -9,6 +9,7 @@ import Talk from "./Routes/Talk"
 import MLRUG from "./Routes/MLRUG"
 import Knowledgement from "./Routes/Knowledgement"
 import Graphics from "./Routes/Graphics"
+import Boulderspotat from "./Routes/Boulderspotat"
 import "./index.css"
 import ScrollToTop from "./Components/GlobalLayout/ScrollToTop"
 
@@ -28,6 +29,7 @@ export default function App() {
                             <Route path="/mlrug" element={<MLRUG />} />
                             <Route path="/knowledgement" element={<Knowledgement />} />
                             <Route path="/graphics" element={<Graphics />} />
+                            <Route path="/boulderspotat" element={<Boulderspotat />} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </Route>
                     </Routes>
