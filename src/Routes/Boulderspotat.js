@@ -14,7 +14,7 @@ export default function Boulderspotat() {
     ]
 
     return (
-        <div className="flex h-screen w-screen flex-col px-0 md:px-4">
+        <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col px-0 md:px-4">
             <Navigation />
             <div className="flex-1 overflow-hidden rounded-xl bg-white shadow-xl">
                 <MapContainer
