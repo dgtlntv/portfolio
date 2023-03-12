@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 export default function Navigation() {
     return (
-        <Popover className="relative z-10 bg-white font-fancy">
+        <Popover className="relative z-50 bg-white font-fancy">
             <div className="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                     <Link to="/" className="text-xl font-semibold text-gray-900 hover:text-gray-500">
@@ -21,10 +21,14 @@ export default function Navigation() {
                 </div>
                 <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                     <div className="flex items-center gap-8 md:mr-4">
-                        <Link to="/portfolio" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8">
+                        <Link
+                            to="/portfolio"
+                            className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8">
                             Portfolio
                         </Link>
-                        <a href="/Onepager.pdf" className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8">
+                        <a
+                            href="/Onepager.pdf"
+                            className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8">
                             Onepager
                         </a>
                         <a
@@ -45,7 +49,9 @@ export default function Navigation() {
                 leave="duration-100 ease-in"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95">
-                <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
+                <Popover.Panel
+                    focus
+                    className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
                     <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="px-5 pt-5 pb-6">
                             <div className="flex items-center justify-between">

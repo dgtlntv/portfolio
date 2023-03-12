@@ -29,9 +29,9 @@ export default function App() {
                             <Route path="/mlrug" element={<MLRUG />} />
                             <Route path="/knowledgement" element={<Knowledgement />} />
                             <Route path="/graphics" element={<Graphics />} />
-                            <Route path="/boulderspotat" element={<Boulderspotat />} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </Route>
+                        <Route path="/boulderspotat" element={<Boulderspotat />} />
                     </Routes>
                 </CSSTransition>
             </TransitionGroup>
