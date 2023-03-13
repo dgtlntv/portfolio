@@ -45,7 +45,7 @@ export default function Boulderspotat() {
                         maxZoom={19}
                     />
                     <LayersControl position="topright">
-                        <LayersControl.Overlay name="Cluster Outlines">
+                        <LayersControl.Overlay checked={true} name="Cluster Outlines">
                             <LayerGroup>
                                 <Deflate data={vorarlberg_polygon_clusters} />
                                 <Deflate data={styria_polygon_clusters} />
