@@ -10,18 +10,21 @@ import styria_polygon_clusters from "../Geojson/PolygonClusters/styria_polygon_c
 import loweraustria_polygon_clusters from "../Geojson/PolygonClusters/loweraustria_polygon_clusters.json"
 import burgenland_polygon_clusters from "../Geojson/PolygonClusters/burgenland_polygon_clusters.json"
 import tyrol_polygon_clusters from "../Geojson/PolygonClusters/tyrol_polygon_clusters.json"
+import salzburg_polygon_clusters from "../Geojson/PolygonClusters/salzburg_polygon_clusters.json"
 
 import vorarlberg_point_clusters from "../Geojson/PointClusters/vorarlberg_point_clusters.json"
 import styria_point_clusters from "../Geojson/PointClusters/styria_point_clusters.json"
 import loweraustria_point_clusters from "../Geojson/PointClusters/loweraustria_point_clusters.json"
 import burgenland_point_clusters from "../Geojson/PointClusters/burgenland_point_clusters.json"
 import tyrol_point_clusters from "../Geojson/PointClusters/tyrol_point_clusters.json"
+import salzburg_point_clusters from "../Geojson/PointClusters/salzburg_point_clusters.json"
 
 import vorarlberg_raw_points from "../Geojson/Points/vorarlberg_points.json"
 import styria_raw_points from "../Geojson/Points/styria_points.json"
 import loweraustria_raw_points from "../Geojson/Points/loweraustria_points.json"
 import burgenland_raw_points from "../Geojson/Points/burgenland_points.json"
 import tyrol_raw_points from "../Geojson/Points/tyrol_points.json"
+import salzburg_raw_points from "../Geojson/Points/salzburg_points.json"
 
 import Navigation from "../Components/GlobalLayout/Navigation"
 import Footer from "../Components/GlobalLayout/Footer"
@@ -52,6 +55,7 @@ export default function Boulderspotat() {
                                 <Deflate data={loweraustria_polygon_clusters} />
                                 <Deflate data={burgenland_polygon_clusters} />
                                 <Deflate data={tyrol_polygon_clusters} />
+                                <Deflate data={salzburg_polygon_clusters} />
                             </LayerGroup>
                         </LayersControl.Overlay>
 
@@ -62,6 +66,7 @@ export default function Boulderspotat() {
                                 <PointCluster data={loweraustria_point_clusters} />
                                 <PointCluster data={burgenland_point_clusters} />
                                 <PointCluster data={tyrol_point_clusters} />
+                                <PointCluster data={salzburg_point_clusters} />
                             </LayerGroup>
                         </LayersControl.Overlay>
 
@@ -72,6 +77,7 @@ export default function Boulderspotat() {
                                 <Points data={loweraustria_raw_points} />
                                 <Points data={burgenland_raw_points} />
                                 <Points data={tyrol_raw_points} />
+                                <Points data={salzburg_raw_points} />
                             </LayerGroup>
                         </LayersControl.Overlay>
                     </LayersControl>
