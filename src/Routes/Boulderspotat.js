@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, LayersControl, LayerGroup } from "react-leafle
 import Points from "../Components/Leaflet/Points"
 import PointCluster from "../Components/Leaflet/PointCluster"
 import Deflate from "../Components/Leaflet/Deflate"
+import Supercluster from "../Components/Leaflet/Supercluster"
 
 import "leaflet/dist/leaflet.css"
 
@@ -11,6 +12,7 @@ import loweraustria_polygon_clusters from "../Geojson/PolygonClusters/loweraustr
 import burgenland_polygon_clusters from "../Geojson/PolygonClusters/burgenland_polygon_clusters.json"
 import tyrol_polygon_clusters from "../Geojson/PolygonClusters/tyrol_polygon_clusters.json"
 import salzburg_polygon_clusters from "../Geojson/PolygonClusters/salzburg_polygon_clusters.json"
+import upperaustria_polygon_clusters from "../Geojson/PolygonClusters/upperaustria_polygon_clusters.json"
 
 import vorarlberg_point_clusters from "../Geojson/PointClusters/vorarlberg_point_clusters.json"
 import styria_point_clusters from "../Geojson/PointClusters/styria_point_clusters.json"
@@ -18,13 +20,9 @@ import loweraustria_point_clusters from "../Geojson/PointClusters/loweraustria_p
 import burgenland_point_clusters from "../Geojson/PointClusters/burgenland_point_clusters.json"
 import tyrol_point_clusters from "../Geojson/PointClusters/tyrol_point_clusters.json"
 import salzburg_point_clusters from "../Geojson/PointClusters/salzburg_point_clusters.json"
+import upperaustria_point_clusters from "../Geojson/PointClusters/upperaustria_point_clusters.json"
 
-import vorarlberg_raw_points from "../Geojson/Points/vorarlberg_points.json"
-import styria_raw_points from "../Geojson/Points/styria_points.json"
-import loweraustria_raw_points from "../Geojson/Points/loweraustria_points.json"
-import burgenland_raw_points from "../Geojson/Points/burgenland_points.json"
-import tyrol_raw_points from "../Geojson/Points/tyrol_points.json"
-import salzburg_raw_points from "../Geojson/Points/salzburg_points.json"
+import points from "../Geojson/Points/points.json"
 
 import Navigation from "../Components/GlobalLayout/Navigation"
 import Footer from "../Components/GlobalLayout/Footer"
@@ -56,6 +54,7 @@ export default function Boulderspotat() {
                                 <Deflate data={burgenland_polygon_clusters} />
                                 <Deflate data={tyrol_polygon_clusters} />
                                 <Deflate data={salzburg_polygon_clusters} />
+                                <Deflate data={upperaustria_polygon_clusters} />
                             </LayerGroup>
                         </LayersControl.Overlay>
 
@@ -67,17 +66,13 @@ export default function Boulderspotat() {
                                 <PointCluster data={burgenland_point_clusters} />
                                 <PointCluster data={tyrol_point_clusters} />
                                 <PointCluster data={salzburg_point_clusters} />
+                                <PointCluster data={upperaustria_point_clusters} />
                             </LayerGroup>
                         </LayersControl.Overlay>
 
                         <LayersControl.Overlay name="Raw Points">
                             <LayerGroup>
-                                <Points data={vorarlberg_raw_points} />
-                                <Points data={styria_raw_points} />
-                                <Points data={loweraustria_raw_points} />
-                                <Points data={burgenland_raw_points} />
-                                <Points data={tyrol_raw_points} />
-                                <Points data={salzburg_raw_points} />
+                                <Supercluster data={points} />
                             </LayerGroup>
                         </LayersControl.Overlay>
                     </LayersControl>

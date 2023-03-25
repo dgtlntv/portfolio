@@ -26,7 +26,9 @@
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-transition-group": "^4.4.5",
+    "supercluster": "^7.1.5",
     "three": "^0.142.0",
+    "use-supercluster": "^0.4.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
