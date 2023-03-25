@@ -1,19 +1,8 @@
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import * as L from "leaflet"
 import useSupercluster from "use-supercluster"
 import { Marker, CircleMarker, useMap } from "react-leaflet"
-
-const icons = {}
-const fetchIcon = (count, size) => {
-    if (!icons[count]) {
-        icons[count] = L.divIcon({
-            html: `<div class="cluster-marker" style="width: ${size}px; height: ${size}px;">
-        ${count}
-      </div>`,
-        })
-    }
-    return icons[count]
-}
+import debounce from "lodash.debounce"
 
 export default function Supercluster({ data }) {
     const maxZoom = 19
@@ -28,9 +17,7 @@ export default function Supercluster({ data }) {
         setZoom(map.getZoom())
     }
 
-    const onMove = useCallback(() => {
-        updateMap()
-    }, [map])
+    const onMove = useMemo(() => debounce(updateMap, 50), [map, updateMap])
 
     useEffect(() => {
         updateMap()
@@ -43,21 +30,22 @@ export default function Supercluster({ data }) {
         }
     }, [map, onMove])
 
-    const points = data.features.map((feature, index) => ({
-        type: "Feature",
-        properties: { cluster: false, cluster_id: index },
-        geometry: {
-            type: "Point",
-            coordinates: [feature.geometry.coordinates[0], feature.geometry.coordinates[1]],
-        },
-    }))
-
     const { clusters, supercluster } = useSupercluster({
-        points: points,
+        points: data,
         bounds: bounds,
         zoom: zoom,
-        options: { radius: 250, maxZoom: 17 },
+        options: { radius: 150, maxZoom: 17 },
     })
+
+    const maxPointsInView = useMemo(() => {
+        let maxPoints = 0
+        clusters.forEach((cluster) => {
+            if (cluster.properties.cluster) {
+                maxPoints = Math.max(maxPoints, cluster.properties.point_count)
+            }
+        })
+        return maxPoints
+    }, [clusters])
 
     return (
         <>
@@ -67,15 +55,19 @@ export default function Supercluster({ data }) {
                 // the point may be either a cluster or a crime point
                 const { cluster: isCluster, point_count: pointCount } = cluster.properties
 
-                console.log(pointCount)
-
                 // we have a cluster to render
                 if (isCluster) {
                     return (
                         <Marker
                             key={`cluster-${cluster.properties.cluster_id}`}
                             position={[latitude, longitude]}
-                            icon={fetchIcon(pointCount, 10 + (pointCount / points.length) * 40)}
+                            icon={L.divIcon({
+                                html: `<div class="cluster-marker" style="width: ${
+                                    1 + (pointCount / maxPointsInView) * 75
+                                }px;  min-width: min-content; min-height: min-content">
+                                ${pointCount}
+                              </div>`,
+                            })}
                             eventHandlers={{
                                 click: () => {
                                     const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.id), maxZoom)
