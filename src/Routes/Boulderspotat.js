@@ -22,7 +22,7 @@ import tyrol_point_clusters from "../Geojson/PointClusters/tyrol_point_clusters.
 import salzburg_point_clusters from "../Geojson/PointClusters/salzburg_point_clusters.json"
 import upperaustria_point_clusters from "../Geojson/PointClusters/upperaustria_point_clusters.json"
 
-import points from "../Geojson/Points/points.json"
+import points from "../Geojson/Points/points_list.json"
 
 import Navigation from "../Components/GlobalLayout/Navigation"
 import Footer from "../Components/GlobalLayout/Footer"
