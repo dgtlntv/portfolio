@@ -41,7 +41,7 @@ export default function Boulderspotat() {
                     <TileLayer
                         attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
                         subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
-                        url="https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.jpeg"
+                        url="https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png"
                         minZoom={7}
                         maxZoom={19}
                     />
