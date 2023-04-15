@@ -38,13 +38,7 @@ export default function Boulderspotat() {
                     zoom={13}
                     scrollWheelZoom={true}
                     preferCanvas={true}>
-                    <TileLayer
-                        attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
-                        subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
-                        url="https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png"
-                        minZoom={7}
-                        maxZoom={19}
-                    />
+                    
                     <TileLayer
                         attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
                         subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
@@ -53,6 +47,18 @@ export default function Boulderspotat() {
                         maxZoom={19}
                     />
                     <LayersControl position="topright">
+                        <LayersControl.Overlay checked={true} name="Overlay">
+                            <LayerGroup>
+                                <TileLayer
+                                    attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
+                                    subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
+                                    url="https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png"
+                                    minZoom={7}
+                                    maxZoom={19}
+                                 />
+                            </LayerGroup>
+                        </LayersControl.Overlay>
+                    
                         <LayersControl.Overlay checked={true} name="Cluster Outlines">
                             <LayerGroup>
                                 <Deflate data={vorarlberg_polygon_clusters} />
