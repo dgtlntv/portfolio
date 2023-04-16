@@ -9,6 +9,7 @@ import Talk from "./Routes/Talk"
 import MLRUG from "./Routes/MLRUG"
 import Knowledgement from "./Routes/Knowledgement"
 import Graphics from "./Routes/Graphics"
+import Boulderspotat from "./Routes/Boulderspotat"
 import "./index.css"
 import ScrollToTop from "./Components/GlobalLayout/ScrollToTop"
 
@@ -30,6 +31,7 @@ export default function App() {
                             <Route path="/graphics" element={<Graphics />} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </Route>
+                        <Route path="/boulderspotat" element={<Boulderspotat />} />
                     </Routes>
                 </CSSTransition>
             </TransitionGroup>
