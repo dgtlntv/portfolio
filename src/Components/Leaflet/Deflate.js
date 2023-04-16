@@ -27,6 +27,10 @@ const Deflate = createPathComponent(
                     color: randomColor({ seed: feature.properties.CLUSTER_ID }),
                     weight: 2,
                 })
+                layer.on("click", (e) => {
+                    // show popup with Latitute and Longitude of the clicked feature
+                    layer.bindPopup(`Latidude: ${e.latlng.lat} <br> Longitude: ${e.latlng.lng}`)
+                })
             },
         }).addTo(features)
 

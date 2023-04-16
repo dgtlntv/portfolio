@@ -11,7 +11,9 @@ export default function Article({ stats, heroUrl, heroLocation, title, children 
 
                 <div className="mx-auto max-w-prose text-lg">
                     <h1>
-                        <span className="mt-2 block text-center font-fancy text-5xl font-extrabold leading-8 tracking-tight text-gray-900">{title}</span>
+                        <span className="mt-2 block text-center font-fancy text-5xl font-extrabold leading-8 tracking-tight text-gray-900">
+                            {title}
+                        </span>
                     </h1>
                 </div>
 
@@ -20,7 +22,9 @@ export default function Article({ stats, heroUrl, heroLocation, title, children 
                         {stats.map((stat) => (
                             <div key={stat.label} className="border-y-2 border-gray-100 py-6 text-center">
                                 <dt className="text-base font-medium text-gray-500">{stat.label}</dt>
-                                <dd className="text-2xl font-extrabold tracking-tight text-gray-900 lg:text-3xl">{stat.value}</dd>
+                                <dd className="text-2xl font-extrabold tracking-tight text-gray-900 lg:text-3xl">
+                                    {stat.value}
+                                </dd>
                             </div>
                         ))}
                     </dl>

@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Text3D, Center } from "@react-three/drei"
+import { Center } from "@react-three/drei"
 import ModelLoader from "../Services/ModelLoader"
 import { Suspense, useRef } from "react"
 import Navigation from "../Components/GlobalLayout/Navigation"
@@ -53,13 +53,12 @@ function Group({ orientation, mouse }) {
     return (
         <Center ref={meshRef}>
             <group>
-                <Text3D height={0.4} font="/Courier.json" curveSegments={20}>
-                    Blazek
-                    <meshNormalMaterial />
-                </Text3D>
-
                 <mesh position={[2.3, 2, 1.5]} rotation={[-Math.PI / 2, -0.01, Math.PI / 2]} scale={12}>
-                    <ModelLoader model={"https://res.cloudinary.com/drsfxkvt1/raw/upload/v1659444196/portfolio/landing/profile_febfp5.stl"} />
+                    <ModelLoader
+                        model={
+                            "https://res.cloudinary.com/drsfxkvt1/raw/upload/v1659444196/portfolio/landing/profile_febfp5.stl"
+                        }
+                    />
                     <meshStandardMaterial color={"white"} side={THREE.DoubleSide} flatShading={true} />
                 </mesh>
             </group>

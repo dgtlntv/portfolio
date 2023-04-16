@@ -20,7 +20,7 @@ export default function Navigation() {
                     </Popover.Button>
                 </div>
                 <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                    <div className="flex items-center gap-8 md:mr-4">
+                    <div className="flex items-center gap-8">
                         <Link
                             to="/portfolio"
                             className="text-base font-medium text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8">
