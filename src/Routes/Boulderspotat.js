@@ -31,9 +31,15 @@ export default function Boulderspotat() {
                                 window.dispatchEvent(new Event("resize"))
                                 setHeroExpanded((prevState) => !prevState)
                             }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960" className="h-full w-full">
-                                <path d="M120 936V636h60v198l558-558H540v-60h300v300h-60V318L222 876h198v60H120Z" />
-                            </svg>
+                            {heroExpanded ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-full w-full" viewBox="0 96 960 960">
+                                    <path d="m122 976-42-42 298-298H180v-60h300v300h-60V678L122 976Zm358-400V276h60v198l298-298 42 42-298 298h198v60H480Z" />
+                                </svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-full w-full" viewBox="0 96 960 960">
+                                    <path d="M120 936V636h60v198l558-558H540v-60h300v300h-60V318L222 876h198v60H120Z" />
+                                </svg>
+                            )}
                         </button>
                         <Map />
                     </div>
