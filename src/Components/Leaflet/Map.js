@@ -40,7 +40,7 @@ export default function Map() {
                             attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
                             url="https://mapsneu.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.jpeg"
                             minZoom={7}
-                            maxZoom={19}
+                            maxZoom={17}
                         />
                     </LayerGroup>
                 </LayersControl.Overlay>
