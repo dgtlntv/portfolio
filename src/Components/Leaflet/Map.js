@@ -33,7 +33,7 @@ export default function Map() {
                     </LayerGroup>
                 </LayersControl.Overlay>
 
-                <LayersControl.Overlay name="Street data">
+                <LayersControl.Overlay name="Surface">
                     <LayerGroup>
                         <TileLayer
                             opacity={50}
