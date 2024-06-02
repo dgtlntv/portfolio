@@ -17,8 +17,7 @@ export default function Map() {
             preferCanvas={true}>
             <TileLayer
                 attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
-                subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
-                url="https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg"
+                url="https://mapsneu.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg"
                 minZoom={7}
                 maxZoom={19}
             />
@@ -27,8 +26,19 @@ export default function Map() {
                     <LayerGroup>
                         <TileLayer
                             attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
-                            subdomains={["maps", "maps1", "maps2", "maps3", "maps4"]}
-                            url="https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png"
+                            url="https://mapsneu.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png"
+                            minZoom={7}
+                            maxZoom={19}
+                        />
+                    </LayerGroup>
+                </LayersControl.Overlay>
+
+                <LayersControl.Overlay name="Street data">
+                    <LayerGroup>
+                        <TileLayer
+                            opacity={50}
+                            attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
+                            url="https://mapsneu.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.png"
                             minZoom={7}
                             maxZoom={19}
                         />
