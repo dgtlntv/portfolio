@@ -38,7 +38,7 @@ export default function Map() {
                         <TileLayer
                             opacity={50}
                             attribution='Tiles:  <a href="https://basemap.at">basemap.at</a>'
-                            url="https://mapsneu.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.png"
+                            url="https://mapsneu.wien.gv.at/basemap/bmapoberflaeche/grau/google3857/{z}/{y}/{x}.jpeg"
                             minZoom={7}
                             maxZoom={19}
                         />
