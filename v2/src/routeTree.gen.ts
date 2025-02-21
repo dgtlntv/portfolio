@@ -11,15 +11,29 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TalkImport } from './routes/talk'
 import { Route as PortfolioImport } from './routes/portfolio'
+import { Route as MlrugImport } from './routes/mlrug'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const TalkRoute = TalkImport.update({
+  id: '/talk',
+  path: '/talk',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const PortfolioRoute = PortfolioImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MlrugRoute = MlrugImport.update({
+  id: '/mlrug',
+  path: '/mlrug',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,11 +67,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/mlrug': {
+      id: '/mlrug'
+      path: '/mlrug'
+      fullPath: '/mlrug'
+      preLoaderRoute: typeof MlrugImport
+      parentRoute: typeof rootRoute
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioImport
+      parentRoute: typeof rootRoute
+    }
+    '/talk': {
+      id: '/talk'
+      path: '/talk'
+      fullPath: '/talk'
+      preLoaderRoute: typeof TalkImport
       parentRoute: typeof rootRoute
     }
   }
@@ -68,41 +96,51 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/mlrug': typeof MlrugRoute
   '/portfolio': typeof PortfolioRoute
+  '/talk': typeof TalkRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/mlrug': typeof MlrugRoute
   '/portfolio': typeof PortfolioRoute
+  '/talk': typeof TalkRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/mlrug': typeof MlrugRoute
   '/portfolio': typeof PortfolioRoute
+  '/talk': typeof TalkRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/portfolio'
+  fullPaths: '/' | '/about' | '/mlrug' | '/portfolio' | '/talk'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/portfolio'
-  id: '__root__' | '/' | '/about' | '/portfolio'
+  to: '/' | '/about' | '/mlrug' | '/portfolio' | '/talk'
+  id: '__root__' | '/' | '/about' | '/mlrug' | '/portfolio' | '/talk'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  MlrugRoute: typeof MlrugRoute
   PortfolioRoute: typeof PortfolioRoute
+  TalkRoute: typeof TalkRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  MlrugRoute: MlrugRoute,
   PortfolioRoute: PortfolioRoute,
+  TalkRoute: TalkRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +155,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/portfolio"
+        "/mlrug",
+        "/portfolio",
+        "/talk"
       ]
     },
     "/": {
@@ -126,8 +166,14 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/mlrug": {
+      "filePath": "mlrug.tsx"
+    },
     "/portfolio": {
       "filePath": "portfolio.tsx"
+    },
+    "/talk": {
+      "filePath": "talk.jsx"
     }
   }
 }

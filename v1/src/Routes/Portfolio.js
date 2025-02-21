@@ -1,5 +1,5 @@
-import PortfolioItemRight from "../Components/PortfolioOverview/PortfolioItemRight"
 import PortfolioItemLeft from "../Components/PortfolioOverview/PortfolioItemLeft"
+import PortfolioItemRight from "../Components/PortfolioOverview/PortfolioItemRight"
 
 export default function Portfolio() {
     return (
@@ -11,7 +11,7 @@ export default function Portfolio() {
                     alt=""
                 />
                 <p className="mx-auto max-w-xl px-4 font-fancy text-2xl font-medium tracking-tight text-gray-900 sm:px-6 sm:text-3xl lg:col-span-4 lg:max-w-5xl lg:px-0">
-                    I am Maximilian Blazek a UX Designer with a focus on Machine Learning and Blockchain Applications.
+                    I am Maximilian Blazek a UX Designer with a focus on Enterprise applications and Design systems.
                 </p>
             </div>
 
