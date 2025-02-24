@@ -14,7 +14,7 @@ import { NavigationLink } from "./types"
 
 const NAVIGATION_LINKS: NavigationLink[] = [
     { to: "/portfolio", label: "Portfolio", isExternal: false },
-    { to: "/Onepager.pdf", label: "Onepager", isExternal: true },
+    { to: "/onepager.pdf", label: "Onepager", isExternal: true },
 ]
 
 export default function Navigation() {
