@@ -1,8 +1,9 @@
-export interface PortfolioItemProps {
+import { WithChildren } from "../../types"
+
+export interface PortfolioItemProps extends WithChildren {
     className?: string
     title: string
     imageUrl: string
     url: string
-    children: React.ReactNode
     isLeft?: boolean
 }

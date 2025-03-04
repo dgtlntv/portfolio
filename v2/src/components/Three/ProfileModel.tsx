@@ -3,12 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import * as THREE from "three"
 import ModelLoader from "./ModelLoader"
-import { MouseState, OrientationState } from "./types"
-
-interface ProfileModelProps {
-    orientation: OrientationState
-    mouse: MouseState
-}
+import { ProfileModelProps } from "./types"
 
 export default function ProfileModel({
     orientation,
@@ -31,9 +26,9 @@ export default function ProfileModel({
         <Center ref={meshRef}>
             <group>
                 <mesh
-                    position={[2.3, 2, 1.5]}
+                    position={[2, 2, 1.5]}
                     rotation={[-Math.PI / 2, -0.01, Math.PI / 2]}
-                    scale={12}
+                    scale={13}
                 >
                     <ModelLoader
                         model={

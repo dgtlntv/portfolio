@@ -1,16 +1,17 @@
 import { RelativeOrientationSensor } from "motion-sensors-polyfill"
 import { useEffect, useRef } from "react"
 import { Quaternion } from "three"
-import { DeviceOrientationHookReturn, OrientationState } from "./types"
+import { Orientation } from "../types"
+import { DeviceOrientationHookReturn } from "./types"
 import { useDevicePermission } from "./useDevicePermission"
 
 export default function useDeviceOrientation(): DeviceOrientationHookReturn {
     const { requestPermission } = useDevicePermission()
-    const orientation = useRef<OrientationState>({
+    const orientation = useRef<Orientation>({
         quaternion: null,
     }).current
 
-    const initialOrientation = useRef<OrientationState>({
+    const initialOrientation = useRef<Orientation>({
         quaternion: null,
     }).current
 
@@ -74,9 +75,9 @@ function deepEqual(array1: number[], array2: number[]): boolean {
 }
 
 function initSensor(
-    orientation: OrientationState,
+    orientation: Orientation,
     sensor: RelativeOrientationSensor,
-    initialOrientation: OrientationState
+    initialOrientation: Orientation
 ): void {
     if (!deepEqual(sensor.quaternion, [0, 0, 0, 1])) {
         if (initialOrientation.quaternion === null) {
@@ -99,6 +100,6 @@ function initSensor(
     }
 }
 
-function resetInitialOrientation(initialOrientation: OrientationState): void {
+function resetInitialOrientation(initialOrientation: Orientation): void {
     initialOrientation.quaternion = null
 }

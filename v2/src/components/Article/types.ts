@@ -1,34 +1,17 @@
-interface Stat {
-    label: string
-    value: string | number
-}
+import { Image, Stat, WithChildren } from "../../types"
 
-export interface ArticleProps {
+export interface ArticleProps extends WithChildren {
     stats: Stat[]
     heroUrl: string
     heroLocation: "center" | "start" | "end"
     title: string
-    children: React.ReactNode
 }
 
-export interface ArticleTextProps {
-    children: React.ReactNode
-}
+export interface ArticleTextProps extends WithChildren {}
 
-export interface FloatRightFigureProps {
-    children: React.ReactNode
-}
+export interface FloatRightFigureProps extends WithChildren {}
 
-export interface FloatRightWrapperProps {
-    children: React.ReactNode
-}
-
-interface Image {
-    id: string | number
-    name: string
-    src: string
-    alt: string
-}
+export interface FloatRightWrapperProps extends WithChildren {}
 
 interface Content {
     images: Image[]

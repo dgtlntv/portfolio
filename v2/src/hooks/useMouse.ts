@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react"
-import { MousePosition } from "./types"
+import { Mouse2D } from "../types"
 
-export default function useMouse(): MousePosition {
-    const position = useRef<MousePosition>({
+export default function useMouse(): Mouse2D {
+    const position = useRef<Mouse2D>({
         x: 0,
         y: 0,
     }).current

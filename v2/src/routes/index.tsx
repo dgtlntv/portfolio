@@ -22,7 +22,7 @@ export default function Index() {
         <>
             <div className="absolute top-0 bottom-0 left-0 right-0 ">
                 <Canvas>
-                    <pointLight position={[-2, 6, 6]} intensity={3.5} />
+                    <directionalLight position={[-2, 6, 6]} intensity={1} />
                     <Suspense fallback={null}>
                         <ProfileModel orientation={orientation} mouse={mouse} />
                     </Suspense>

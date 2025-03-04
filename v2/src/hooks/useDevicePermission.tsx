@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useModal } from "../components/Modal/ModalContext"
-import { PermissionModalProps, PermissionState } from "./types"
+import { PermissionModalProps } from "./types"
 
 function PermissionModal({ onAllow, onDeny }: PermissionModalProps) {
     return (
