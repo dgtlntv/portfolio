@@ -9,7 +9,11 @@ export interface ArticleProps extends WithChildren {
 
 export interface ArticleTextProps extends WithChildren {}
 
-export interface FloatRightFigureProps extends WithChildren {}
+export interface FloatRightFigureProps extends WithChildren {
+    src?: string
+    alt?: string
+    caption?: string
+}
 
 export interface FloatRightWrapperProps extends WithChildren {}
 
@@ -17,6 +21,12 @@ interface Content {
     images: Image[]
 }
 
+export interface ImageWithCaption extends Image {
+    caption?: string
+}
+
+// Supports both legacy format and newer, simpler format
 export interface ImageGalleryProps {
-    content: Content
+    content?: Content
+    images?: ImageWithCaption[]
 }
