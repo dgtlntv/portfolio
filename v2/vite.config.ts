@@ -1,14 +1,28 @@
+import mdx from "@mdx-js/rollup"
 import tailwindcss from "@tailwindcss/vite"
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
-import mdx from "@mdx-js/rollup"
 
 export default defineConfig({
     plugins: [
         TanStackRouterVite({ autoCodeSplitting: true }),
         react(),
-        mdx(),
+        mdx({
+            // Add support for frontmatter
+            remarkPlugins: [
+                // Add support for frontmatter
+                [
+                    // @ts-ignore
+                    (await import("remark-frontmatter")).default,
+                    { type: "yaml", marker: "-" },
+                ],
+                // Extract frontmatter data into component's frontmatter property
+                // @ts-ignore
+                (await import("remark-mdx-frontmatter")).default,
+            ],
+            providerImportSource: "@mdx-js/react",
+        }),
         tailwindcss(),
     ],
     resolve: {
