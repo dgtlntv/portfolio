@@ -1,14 +1,14 @@
 import { Link } from "@tanstack/react-router"
-import { PortfolioItemProps } from "./types"
+import { ProjectItemProps } from "./types"
 
-export default function PortfolioItem({
+export default function ProjectItem({
     className,
     title,
     imageUrl,
     url,
     children,
     isLeft = false,
-}: PortfolioItemProps) {
+}: ProjectItemProps) {
     return (
         <div
             className={`relative mt-12 sm:mt-16 lg:mt-24 grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start lg:gap-32 ${
@@ -25,7 +25,7 @@ export default function PortfolioItem({
                 </h3>
                 <p className="mt-3 text-lg text-gray-500">{children}</p>
                 <p className="mt-3 font-bold text-red-500">
-                    <Link to={url}>⤳ go to project</Link>
+                    <Link to={url}>⤳ view project</Link>
                 </p>
             </div>
 

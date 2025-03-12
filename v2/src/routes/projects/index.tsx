@@ -3,11 +3,11 @@ import { useEffect, useState } from "react"
 import { MDXContent } from "../../types/mdx"
 import { getAllMdx } from "../../utils/mdx/mdxLoader"
 
-export const Route = createFileRoute("/portfolio/")({
-    component: Portfolio,
+export const Route = createFileRoute("/projects/")({
+    component: Projects,
 })
 
-function Portfolio() {
+function Projects() {
     const [mdxProjects, setMdxProjects] = useState<MDXContent[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -16,11 +16,11 @@ function Portfolio() {
         const loadProjects = async () => {
             try {
                 setLoading(true)
-                const contentDir = "portfolio"
+                const contentDir = "projects"
                 const projectsData = await getAllMdx(contentDir)
                 setMdxProjects(projectsData)
             } catch (err) {
-                setError("Failed to load portfolio projects")
+                setError("Failed to load projects")
                 console.error(err)
             } finally {
                 setLoading(false)
@@ -45,7 +45,7 @@ function Portfolio() {
             </div>
 
             <div className="relative mx-auto max-w-xl px-4 sm:px-6 lg:max-w-5xl lg:px-8">
-                {/* MDX-based portfolio items */}
+                {/* MDX-based project items */}
                 {mdxProjects.length > 0 && (
                     <div className="mt-8">
                         <h2 className="text-2xl font-bold mb-6">Projects</h2>
@@ -73,7 +73,7 @@ function Portfolio() {
                                             {project.frontMatter.excerpt}
                                         </p>
                                         <Link
-                                            to="/portfolio/$slug"
+                                            to="/projects/$slug"
                                             params={{
                                                 slug: project.slug,
                                             }}

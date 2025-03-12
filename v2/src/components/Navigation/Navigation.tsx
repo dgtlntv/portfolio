@@ -13,7 +13,7 @@ import NavigationItem from "./NavigationItem"
 import { NavigationLink } from "./types"
 
 const NAVIGATION_LINKS: NavigationLink[] = [
-    { to: "/portfolio", label: "Portfolio", isExternal: false },
+    { to: "/projects", label: "Projects", isExternal: false },
     { to: "/blog", label: "Blog", isExternal: false },
     { to: "/onepager.pdf", label: "Onepager", isExternal: true },
 ]

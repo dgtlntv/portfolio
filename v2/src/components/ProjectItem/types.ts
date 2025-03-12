@@ -1,6 +1,6 @@
 import { WithChildren } from "../../types"
 
-export interface PortfolioItemProps extends WithChildren {
+export interface ProjectItemProps extends WithChildren {
     className?: string
     title: string
     imageUrl: string

@@ -4,11 +4,11 @@ import { MDXProvider } from "../../components/MDX/MDXProvider"
 import { MDXContent } from "../../types/mdx"
 import { getMdxBySlug } from "../../utils/mdx/mdxLoader"
 
-export const Route = createFileRoute("/portfolio/$slug")({
-    component: PortfolioItem,
+export const Route = createFileRoute("/projects/$slug")({
+    component: ProjectItem,
 })
 
-function PortfolioItem() {
+function ProjectItem() {
     const { slug } = Route.useParams()
     const [project, setProject] = useState<MDXContent | null>(null)
     const [loading, setLoading] = useState(true)
@@ -18,7 +18,7 @@ function PortfolioItem() {
         const loadProject = async () => {
             try {
                 setLoading(true)
-                const contentDir = "portfolio"
+                const contentDir = "projects"
                 const projectData = await getMdxBySlug(contentDir, slug)
                 if (projectData) {
                     setProject(projectData)
@@ -62,10 +62,10 @@ function PortfolioItem() {
                         {error || "Project not found"}
                     </p>
                     <Link
-                        to="/portfolio"
+                        to="/projects"
                         className="mt-4 inline-block text-blue-600 hover:underline"
                     >
-                        Return to portfolio
+                        Return to projects
                     </Link>
                 </div>
             </div>
@@ -84,10 +84,10 @@ function PortfolioItem() {
     return (
         <div className="container mx-auto p-8">
             <Link
-                to="/portfolio"
+                to="/projects"
                 className="text-blue-600 hover:underline mb-4 inline-block"
             >
-                ← Back to portfolio
+                ← Back to projects
             </Link>
 
             {/* Project Header */}
@@ -161,8 +161,8 @@ function PortfolioItem() {
                     )}
                 </div>
 
-                <Link to="/portfolio" className="text-blue-600 hover:underline">
-                    ← Back to portfolio
+                <Link to="/projects" className="text-blue-600 hover:underline">
+                    ← Back to projects
                 </Link>
             </footer>
         </div>
