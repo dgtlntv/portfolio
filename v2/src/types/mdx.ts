@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Stat } from './common'
 
 export interface FrontMatter {
   title: string
@@ -6,7 +7,8 @@ export interface FrontMatter {
   slug: string
   excerpt: string
   coverImage?: string
-  tags?: string[]
+  stats?: Stat[]
+  heroLocation?: 'center' | 'start' | 'end'
   author?: string
   website?: string
   github?: string

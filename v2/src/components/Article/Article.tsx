@@ -1,3 +1,4 @@
+import ArticleText from "./ArticleText"
 import { ArticleProps } from "./types"
 
 export default function Article({
@@ -47,7 +48,7 @@ export default function Article({
                         ))}
                     </dl>
                 </div>
-                {children}
+                <ArticleText>{children}</ArticleText>
             </div>
         </div>
     )

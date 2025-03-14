@@ -1,6 +1,5 @@
 import { MDXProvider as BaseMDXProvider } from "@mdx-js/react"
 import React from "react"
-import ArticleText from "../Article/ArticleText"
 import FloatRightFigure from "../Article/FloatRightFigure"
 import FloatRightWrapper from "../Article/FloatRightWrapper"
 import ImageGallery from "../Article/ImageGallery"
@@ -12,9 +11,7 @@ import { MDXProviderComponentProps } from "./types"
 // Define custom components to use in MDX files
 export const components = {
     // Text components
-    p: (props: React.HTMLProps<HTMLParagraphElement>) => (
-        <ArticleText {...props} />
-    ),
+    p: (props: React.HTMLProps<HTMLParagraphElement>) => <p {...props} />,
     h1: (props: React.HTMLProps<HTMLHeadingElement>) => (
         <h1 className="text-4xl font-bold mt-8 mb-4" {...props} />
     ),

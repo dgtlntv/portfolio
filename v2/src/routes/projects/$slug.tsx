@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
+import Article from "../../components/Article/Article"
 import { MDXProvider } from "../../components/MDX/MDXProvider"
 import { MDXContent } from "../../types/mdx"
 import { getMdxBySlug } from "../../utils/mdx/mdxLoader"
@@ -73,98 +74,25 @@ function ProjectItem() {
     }
 
     const ProjectContent = project.content
-    const formattedDate = project.frontMatter.date
-        ? new Date(project.frontMatter.date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-          })
-        : null
+
+    console.log(project.frontMatter.stats)
 
     return (
-        <div className="container mx-auto p-8">
-            <Link
-                to="/projects"
-                className="text-blue-600 hover:underline mb-4 inline-block"
+        <div>
+            <Article
+                stats={project.frontMatter.stats || []}
+                title={project.frontMatter.title}
+                heroLocation={project.frontMatter.heroLocation || "center"}
+                heroUrl={
+                    project.frontMatter.coverImage
+                        ? project.frontMatter.coverImage
+                        : ""
+                }
             >
-                ← Back to projects
-            </Link>
-
-            {/* Project Header */}
-            <header className="mb-8">
-                <h1 className="text-4xl font-bold mb-4">
-                    {project.frontMatter.title}
-                </h1>
-                {formattedDate && (
-                    <div className="text-sm text-gray-500">{formattedDate}</div>
-                )}
-
-                {/* Tags */}
-                {project.frontMatter.tags &&
-                    Array.isArray(project.frontMatter.tags) && (
-                        <div className="flex flex-wrap gap-2 mt-4">
-                            {(project.frontMatter.tags as string[]).map(
-                                (tag, index) => (
-                                    <span
-                                        key={index}
-                                        className="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full"
-                                    >
-                                        {tag}
-                                    </span>
-                                )
-                            )}
-                        </div>
-                    )}
-            </header>
-
-            {/* Hero Image */}
-            {project.frontMatter.coverImage && (
-                <div className="mb-8">
-                    <img
-                        src={project.frontMatter.coverImage as string}
-                        alt={project.frontMatter.title}
-                        className="w-full h-auto rounded-lg"
-                    />
-                </div>
-            )}
-
-            {/* Project Content */}
-            <article className="prose max-w-none">
                 <MDXProvider>
                     <ProjectContent />
                 </MDXProvider>
-            </article>
-
-            {/* Project Footer */}
-            <footer className="mt-12 pt-8 border-t border-gray-200">
-                {/* Project Links */}
-                <div className="flex flex-wrap gap-4 mb-6">
-                    {project.frontMatter.website && (
-                        <a
-                            href={project.frontMatter.website as string}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors"
-                        >
-                            Visit Website
-                        </a>
-                    )}
-                    {project.frontMatter.github && (
-                        <a
-                            href={project.frontMatter.github as string}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center bg-gray-100 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-                        >
-                            View on GitHub
-                        </a>
-                    )}
-                </div>
-
-                <Link to="/projects" className="text-blue-600 hover:underline">
-                    ← Back to projects
-                </Link>
-            </footer>
+            </Article>
         </div>
     )
 }
