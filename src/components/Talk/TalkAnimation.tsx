@@ -1,5 +1,4 @@
 import { Player } from '@lottiefiles/react-lottie-player';
-import { optimizeImage } from '../../utils/imageOptimizer';
 import talkAnimation from './animations/talk_animation.json';
 
 export default function TalkAnimation() {
@@ -17,7 +16,7 @@ export default function TalkAnimation() {
                 muted 
                 loop
             >
-                <source src={optimizeImage("/videos/talk-video.webm", { format: 'webp', quality: 75 })} type="video/webm" />
+                <source src="/videos/talk-video.webm" type="video/webm" />
             </video>
         </div>
     );
