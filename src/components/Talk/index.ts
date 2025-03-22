@@ -1,3 +1,6 @@
-export { default as TalkAnimation } from './TalkAnimation';
-export { default as TalkExplanationAnimation } from './TalkExplanationAnimation';
-export { default as TalkHeroAnimation } from './TalkHeroAnimation';
+import { lazy } from 'react';
+
+// Lazy load animation components to reduce initial bundle size
+export const TalkAnimation = lazy(() => import('./TalkAnimation'));
+export const TalkExplanationAnimation = lazy(() => import('./TalkExplanationAnimation'));
+export const TalkHeroAnimation = lazy(() => import('./TalkHeroAnimation'));

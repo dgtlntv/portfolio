@@ -73,9 +73,8 @@ function ProjectItem() {
         )
     }
 
-    const ProjectContent = project.content
-
-    console.log(project.frontMatter.stats)
+    // If we have a project, simply render its content
+    const ProjectContent = project.content;
 
     return (
         <div>

@@ -15,7 +15,7 @@ function BlogPost() {
     const [post, setPost] = useState<MDXContent | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-
+    
     useEffect(() => {
         const loadPost = async () => {
             try {
@@ -74,8 +74,9 @@ function BlogPost() {
             </GridLayout>
         )
     }
-
-    const PostContent = post.content
+    
+    // If we have a post, simply render its content
+    const PostContent = post.content;
 
     return (
         <div>

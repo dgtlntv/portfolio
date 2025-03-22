@@ -1,7 +1,7 @@
-import { Center } from "@react-three/drei"
+import { Center } from "@react-three/drei/core/Center"
 import { useFrame } from "@react-three/fiber"
-import { useRef } from "react"
-import * as THREE from "three"
+import { Suspense, useRef } from "react"
+import { DoubleSide, Group } from "three"
 import ModelLoader from "./ModelLoader"
 import { ProfileModelProps } from "./types"
 
@@ -9,7 +9,7 @@ export default function ProfileModel({
     orientation,
     mouse,
 }: ProfileModelProps) {
-    const meshRef = useRef<THREE.Group>(null)
+    const meshRef = useRef<Group>(null)
 
     useFrame(() => {
         if (!meshRef.current) return
@@ -30,14 +30,12 @@ export default function ProfileModel({
                     rotation={[-Math.PI / 2, -0.01, Math.PI / 2]}
                     scale={13}
                 >
-                    <ModelLoader
-                        model={
-                            "/profile_febfp5.stl"
-                        }
-                    />
+                    <Suspense fallback={<boxGeometry />}>
+                        <ModelLoader model={"/profile_febfp5.stl"} />
+                    </Suspense>
                     <meshStandardMaterial
                         color={"white"}
-                        side={THREE.DoubleSide}
+                        side={DoubleSide}
                         flatShading={true}
                     />
                 </mesh>

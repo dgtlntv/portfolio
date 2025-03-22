@@ -12,10 +12,18 @@ stats:
     ]
 ---
 
+import { Suspense } from "react"
 import {
     TalkHeroAnimation,
     TalkExplanationAnimation,
 } from "../../components/Talk"
+
+// Helper component for suspense fallback
+const AnimationFallback = () => (
+  <div className="w-full h-64 bg-gray-100 rounded-lg animate-pulse flex items-center justify-center">
+    <span className="text-gray-400">Loading animation...</span>
+  </div>
+)
 
 ## Problem
 
@@ -34,7 +42,9 @@ misunderstandings, and the resulting extra expenditure of time, energy, and thus
 
 </FloatRightWrapper>
 
-<TalkHeroAnimation />
+<Suspense fallback={<AnimationFallback />}>
+  <TalkHeroAnimation />
+</Suspense>
 
 But what would a presentation look like that does justice to today's dynamic, flexible and interactive communication? The ideal situation would be one in which the person
 presenting can speak freely and interact with the audience without having to worry about the navigation or layout of the presentation. The core idea of Talk is therefore to
@@ -45,7 +55,9 @@ spoken words are recorded with a microphone and based on that the correct visual
 
 <FloatRightWrapper>
     <FloatRightFigure>
-        <TalkExplanationAnimation />
+        <Suspense fallback={<AnimationFallback />}>
+          <TalkExplanationAnimation />
+        </Suspense>
         <figcaption>
             Connecting paragraphs of the script with visualizations.
         </figcaption>

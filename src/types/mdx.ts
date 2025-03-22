@@ -18,7 +18,7 @@ export interface FrontMatter {
 export interface MDXContent {
   frontMatter: FrontMatter
   slug: string
-  content: React.ComponentType
+  content: React.ComponentType | (() => Promise<React.ComponentType>)
 }
 
 export interface MDXProviderProps {
