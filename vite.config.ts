@@ -5,6 +5,8 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
 export default defineConfig({
+    // Set the base path to "/www/" or the value from VITE_BASE_PATH environment variable
+    base: process.env.VITE_BASE_PATH || "/",
     plugins: [
         TanStackRouterVite({ autoCodeSplitting: true }),
         react(),

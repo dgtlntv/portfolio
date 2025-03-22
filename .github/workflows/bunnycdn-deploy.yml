@@ -12,6 +12,7 @@ on:
 
 jobs:
     build-and-deploy:
+        # Only run this job if the PR is merged (not just closed) or if it's a direct push to v2
         if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
         runs-on: ubuntu-latest
 
@@ -30,6 +31,8 @@ jobs:
 
             - name: Build
               run: npm run build
+              env:
+                  VITE_BASE_PATH: /www/
 
             - name: Deploy to BunnyCDN
               uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
