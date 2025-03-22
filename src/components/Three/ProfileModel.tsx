@@ -32,7 +32,7 @@ export default function ProfileModel({
                 >
                     <ModelLoader
                         model={
-                            "https://res.cloudinary.com/drsfxkvt1/raw/upload/v1659444196/portfolio/landing/profile_febfp5.stl"
+                            "/profile_febfp5.stl"
                         }
                     />
                     <meshStandardMaterial

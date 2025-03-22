@@ -16,7 +16,7 @@ export default function TalkAnimation() {
                 muted 
                 loop
             >
-                <source src="https://res.cloudinary.com/drsfxkvt1/video/upload/v1659534498/portfolio/talk/n6conwrmbobliu88uh9g_qu3deu.webm" type="video/webm" />
+                <source src="/videos/talk-video.webm" type="video/webm" />
             </video>
         </div>
     );
