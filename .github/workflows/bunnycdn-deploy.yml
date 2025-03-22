@@ -31,8 +31,6 @@ jobs:
 
             - name: Build
               run: npm run build
-              env:
-                  VITE_BASE_PATH: /www/
 
             - name: Deploy to BunnyCDN
               uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
