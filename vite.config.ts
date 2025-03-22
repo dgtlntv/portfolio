@@ -37,6 +37,37 @@ export default defineConfig({
         },
     },
     build: {
+        // Set a reasonable warning limit since we have some large libraries
+        chunkSizeWarningLimit: 800,
+        // Optimize chunks
+        rollupOptions: {
+            output: {
+                // Manual chunks configuration for optimal code splitting
+                manualChunks: {
+                    // Group React and related packages
+                    "vendor-react": ["react", "react-dom", "react/jsx-runtime"],
+
+                    // TanStack router
+                    "vendor-router": ["@tanstack/react-router"],
+
+                    // Three.js and related packages
+                    "vendor-three": [
+                        "three",
+                        "@react-three/fiber",
+                        "@react-three/drei",
+                    ],
+
+                    // UI libraries
+                    "vendor-ui": ["@headlessui/react"],
+
+                    // Animation libraries
+                    "vendor-animation": ["@lottiefiles/react-lottie-player"],
+
+                    // MDX related
+                    "vendor-mdx": ["@mdx-js/react"],
+                },
+            },
+        },
         // Optimize CSS
         cssCodeSplit: true,
         // Minify output
