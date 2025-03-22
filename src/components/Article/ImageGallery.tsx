@@ -1,4 +1,5 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react"
+import { optimizeImage } from "../../utils/imageOptimizer"
 import { ImageGalleryProps } from "./types"
 
 export default function ImageGallery({ images }: ImageGalleryProps) {
@@ -26,7 +27,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                                     </span>
                                     <span className="absolute inset-0 overflow-hidden rounded-md">
                                         <img
-                                            src={image.src}
+                                            src={optimizeImage(image.src, { width: 200, quality: 80 })}
                                             alt=""
                                             className="h-full w-full object-cover object-center p-2"
                                         />
@@ -52,7 +53,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                     <TabPanel key={image.id}>
                         <figure>
                             <img
-                                src={image.src}
+                                src={optimizeImage(image.src, { width: 1200, quality: 85 })}
                                 alt={image.alt}
                                 className="h-full w-full object-cover object-center sm:rounded-lg"
                             />

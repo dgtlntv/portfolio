@@ -2,6 +2,7 @@ import { Center } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import * as THREE from "three"
+import { optimizeImage } from "../../utils/imageOptimizer"
 import ModelLoader from "./ModelLoader"
 import { ProfileModelProps } from "./types"
 

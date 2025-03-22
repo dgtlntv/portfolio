@@ -5,6 +5,7 @@ import FloatRightWrapper from "../Article/FloatRightWrapper"
 import ImageGallery from "../Article/ImageGallery"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
+import { OptimizedImage } from "./OptimizedImage"
 import { TagList } from "./TagList"
 import { MDXProviderComponentProps } from "./types"
 
@@ -66,7 +67,7 @@ export const components = {
 
     // Images and figures
     img: (props: React.HTMLProps<HTMLImageElement>) => (
-        <img className="rounded-lg my-4 mx-auto" {...props} />
+        <OptimizedImage className="rounded-lg my-4 mx-auto" {...props} />
     ),
 
     // Custom components
