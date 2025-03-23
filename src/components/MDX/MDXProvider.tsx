@@ -1,7 +1,6 @@
 import { MDXProvider as BaseMDXProvider } from "@mdx-js/react"
 import React from "react"
-import FloatRightFigure from "../Article/FloatRightFigure"
-import FloatRightWrapper from "../Article/FloatRightWrapper"
+import FloatImage from "../Article/FloatImage"
 import ImageGallery from "../Article/ImageGallery"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
@@ -13,40 +12,40 @@ export const components = {
     // Text components
     p: (props: React.HTMLProps<HTMLParagraphElement>) => <p {...props} />,
     h1: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h1 className="text-4xl font-bold mt-8 mb-4" {...props} />
+        <h1 className="mt-8 mb-4 text-4xl font-bold" {...props} />
     ),
     h2: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h2 className="text-3xl font-bold mt-6 mb-3" {...props} />
+        <h2 className="mt-6 mb-3 text-3xl font-bold" {...props} />
     ),
     h3: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h3 className="text-2xl font-bold mt-5 mb-2" {...props} />
+        <h3 className="mt-5 mb-2 text-2xl font-bold" {...props} />
     ),
     h4: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h4 className="text-xl font-bold mt-4 mb-2" {...props} />
+        <h4 className="mt-4 mb-2 text-xl font-bold" {...props} />
     ),
     h5: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h5 className="text-lg font-bold mt-4 mb-2" {...props} />
+        <h5 className="mt-4 mb-2 text-lg font-bold" {...props} />
     ),
     h6: (props: React.HTMLProps<HTMLHeadingElement>) => (
-        <h6 className="text-base font-bold mt-4 mb-2" {...props} />
+        <h6 className="mt-4 mb-2 text-base font-bold" {...props} />
     ),
     ul: (props: React.HTMLProps<HTMLUListElement>) => (
-        <ul className="list-disc pl-6 my-4" {...props} />
+        <ul className="my-4 list-disc pl-6" {...props} />
     ),
     ol: (props: React.HTMLProps<HTMLOListElement>) => (
-        <ol className="list-decimal pl-6 my-4" {...props} />
+        <ol className="my-4 list-decimal pl-6" {...props} />
     ),
     li: (props: React.HTMLProps<HTMLLIElement>) => (
         <li className="mb-1" {...props} />
     ),
     blockquote: (props: React.HTMLProps<HTMLQuoteElement>) => (
         <blockquote
-            className="border-l-4 border-gray-300 pl-4 my-4 italic"
+            className="my-4 border-l-4 border-gray-300 pl-4 italic"
             {...props}
         />
     ),
     a: (props: React.HTMLProps<HTMLAnchorElement>) => (
-        <a className="text-blue-600 hover:underline" {...props} />
+        <a {...props} />
     ),
 
     // Code blocks with syntax highlighting
@@ -58,7 +57,7 @@ export const components = {
         return className ? (
             <CodeBlock className={className}>{children}</CodeBlock>
         ) : (
-            <code className="bg-gray-100 rounded px-1 py-0.5 text-sm">
+            <code className="rounded bg-gray-100 px-1 py-0.5 text-sm">
                 {children}
             </code>
         )
@@ -66,12 +65,13 @@ export const components = {
 
     // Images and figures
     img: (props: React.HTMLProps<HTMLImageElement>) => (
-        <img className="rounded-lg my-4 mx-auto" {...props} />
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 xl:-mx-28 my-8">
+            <img className="w-full h-auto rounded-lg" {...props} />
+        </div>
     ),
 
     // Custom components
-    FloatRightFigure,
-    FloatRightWrapper,
+    FloatImage,
     ImageGallery,
     TagList,
 }

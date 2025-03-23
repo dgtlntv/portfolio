@@ -3,7 +3,7 @@ import { Image, Stat, WithChildren } from "../../types"
 export interface ArticleProps extends WithChildren {
     stats: Stat[]
     heroUrl: string
-    heroLocation: "center" | "start" | "end"
+    heroLocation: "center" | "start" | "end" | "cover"
     title: string
 }
 
@@ -16,6 +16,14 @@ export interface FloatRightFigureProps extends WithChildren {
 }
 
 export interface FloatRightWrapperProps extends WithChildren {}
+
+export interface FloatImageProps extends WithChildren {
+    src?: string
+    alt?: string
+    caption?: string
+    direction?: "left" | "right"
+    content?: React.ReactNode
+}
 
 interface Content {
     images: Image[]

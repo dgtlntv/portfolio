@@ -18,17 +18,21 @@ This responsibility, the need for backups, and the backup methods themselves are
 
 ## The Problem
 
-<img
-    class="article-image-left"
-    src="https://res.cloudinary.com/ape-unit/image/upload/v1629238157/neueux/media/articles/Frame%20317.jpg"
-    alt=""
-></img>
+<FloatImage
+    src="/images/blog/recovery/img1.jpg"
+    alt="Wallet recovery screen"
+    direction="left"
+>
 
-The self-sovereignty of cryptocurrencies is what attracts many people, so there is no changing the fact that users must take full responsibility for their keys and, consequently, their funds.
+The self-sovereignty of cryptocurrencies is what attracts many people, so there
+is no changing the fact that users must take full responsibility for their keys
+and, consequently, their funds.
 
 Even though people value the self-sovereignty of cryptocurrencies, many underestimate what kind of responsibility it entails. As a result, many people back up their wallet poorly or don't back it up at all. There are many accounts of people losing huge amounts of money because they haven’t properly backed up their wallet. There are studies which suggest that about 20% of bitcoin has been lost forever (irretrievably stuck in wallets). [1](#1), [2](#2)
 
 I think that backing up ones wallet is underestimated because such a high level of self-responsibility is uncommon amongst most services and products. How many traditional web products do you know where you can't recover your account through their customer support?
+
+</FloatImage>
 
 In addition, many wallets provide terrible UX during the backup process:
 
@@ -57,13 +61,11 @@ Other backup methods have been devised to improve the backup process’s user ex
 
 ### Mnemonic Phrase
 
-<a href="/apps/app-1617810727431-mew-wallet-p5eypx7wi/screen/agy2sot3a">
-    <img
-        class="article-image-right"
-        src="https://res.cloudinary.com/ape-unit/image/upload/v1629238156/neueux/media/articles/Frame%20316.jpg"
-        alt=""
-    ></img>
-</a>
+<FloatImage
+    src="/images/blog/recovery/img2.jpg"
+    alt="MEW Wallet recovery screen"
+    direction="right"
+>
 
 Currently, the most common way of generating and, consequently, backing up a wallet is a so-called "seed phrase" or "mnemonic phrase". The "seed phrase" is usually a group of 12 to 24 words. A mnemonic phrase usually looks something like this:
 
@@ -77,15 +79,15 @@ Looking at the statistic that at least 20% of all bitcoins are already lost sugg
 Additionally, mnemonic phrases don't prevent theft. Quite the contrary actually, because there are now two attack vectors: the wallet and the papers with the seed phrase written on it.
 There are methods to partially circumvent this problem. However, there are still security issues, and increasing security would increase the mental overhead and worsen the UX of backing up even more.
 
+</FloatImage>
+
 ### Social Recovery
 
-<a href="/apps/app-1617284064442-argent-mr9vab4xa/screen/t9naexans">
-    <img
-        class="article-image-left"
-        src="https://res.cloudinary.com/ape-unit/image/upload/v1629238154/neueux/media/articles/Frame%20315.jpg"
-        alt=""
-    ></img>
-</a>
+<FloatImage
+    src="/images/blog/recovery/img3.jpg"
+    alt="Argent Wallet recovery screen"
+    direction="left"
+>
 
 In an effort to provide a better user experience during the backup process and higher security overall, some wallets have adopted a "social recovery" process. With social recovery, users won't have to write down a seed phrase. Instead, users appoint guardians to their wallets.
 
@@ -97,6 +99,8 @@ Social recovery already protects against loss very well. However, another step m
 Argent, the first and still most popular social recovery wallet, uses spending limits to prevent major losses from theft. With Argent, the user can set a spending limit. Users can freely spend their funds up to the limit, but after reaching the limit, further transactions have to be approved by the guardians.
 The UX of social recovery is definitely much better than that of seed phrases. Social recovery provides better protection against loss and theft and it also decreases the mental overhead for users.
 
+</FloatImage>
+
 But there are still points that users might find inconvenient:
 
 - You still have the mental effort of thinking about backing up your wallet.
@@ -104,9 +108,7 @@ But there are still points that users might find inconvenient:
 - Many people don't have anyone else in their social circle who uses cryptocurrencies. Finding guardians might be difficult for them since having a wallet is a requirement to being a guardian.
 - It might take a considerable amount of time to recover your wallet. You will have to contact the majority of your guardians and ask them to approve the reinstatement of your wallet or a transaction that exceeds your spending limit.
     - This might be incredibly frustrating if you have to make an important payment, and now you have to wait for your guardians to approve your transaction or reinstatement.
-- Due to the transparent nature of Blockchain, if someone knows your address, they can see how many cryptocurrencies you own and your entire transaction history. When you add someone (friends or family) as a guardian, they will know your address.
-    - A big part of what makes social recovery wallets so appealing is that friends and family (instead of corporations and other devices) are your "guardians" and can potentially help you recover your wallet. However, many people might be uncomfortable with their social circle knowing about their personal wealth and transactions.
-        - Imagine you would like to buy something that you are embarrassed about and that is over your spending limit. You would have to ask your Guardians if they could approve this embarrassing transaction.
+- Due to the transparent nature of Blockchain, if someone knows your address, they can see how many cryptocurrencies you own and your entire transaction history. When you add someone (friends or family) as a guardian, they will know your address. - A big part of what makes social recovery wallets so appealing is that friends and family (instead of corporations and other devices) are your "guardians" and can potentially help you recover your wallet. However, many people might be uncomfortable with their social circle knowing about their personal wealth and transactions. - Imagine you would like to buy something that you are embarrassed about and that is over your spending limit. You would have to ask your Guardians if they could approve this embarrassing transaction.
 
 ## Conclusion
 

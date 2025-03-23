@@ -18,8 +18,8 @@ curator. With that in mind I wanted to do a project where I experiment with gene
 
 ## Data
 
-<FloatRightWrapper>
-    <FloatRightFigure>
+<FloatImage
+    content={
         <ImageGallery
             images={[
                 {
@@ -54,7 +54,8 @@ curator. With that in mind I wanted to do a project where I experiment with gene
                 },
             ]}
         />
-    </FloatRightFigure>
+    }
+>
     As with so many machine learning projects, one of the biggest considerations
     for me was the data I would feed my generative algorithm with. I wanted to
     choose a design object that I was reasonably familiar with, could get a
@@ -67,7 +68,7 @@ curator. With that in mind I wanted to do a project where I experiment with gene
     web-crawler. In the end I was able to obtain about 3000 images of Moroccan
     carpets. This is not a huge amount in the context of a generative algorithm,
     but enough to get reasonably useful results.
-</FloatRightWrapper>
+</FloatImage>
 
 ## Algorithm and Computing
 
@@ -79,8 +80,8 @@ HyperGAN's default algorithm and a resolution of 256x256 worked best for me.
 
 ## Results
 
-<FloatRightWrapper>
-    <FloatRightFigure>
+<FloatImage
+    content={
         <ImageGallery
             images={[
                 {
@@ -115,7 +116,8 @@ HyperGAN's default algorithm and a resolution of 256x256 worked best for me.
                 },
             ]}
         />
-    </FloatRightFigure>
+    }
+>
     I wouldn't call the results perfect, but for the amount of data and
     technical knowledge I had, I think they were reasonable. At this point, it's
     clear that training an algorithm on a small scale like this isn't really
@@ -123,4 +125,4 @@ HyperGAN's default algorithm and a resolution of 256x256 worked best for me.
     inspiration. And it definitely did in this project. I'm currently working
     with my father to produce a rug (in Morocco) inspired by the designs that
     came through this GAN.
-</FloatRightWrapper>
+</FloatImage>

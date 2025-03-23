@@ -11,7 +11,7 @@ export default function Article({
     children,
 }: ArticleProps) {
     return (
-        <div className="relative overflow-hidden bg-white pb-16 pt-8 lg:py-12">
+        <div className="relative overflow-hidden bg-white pt-8 pb-16 lg:py-12">
             <WidthLayout>
                 <GridLayout>
                     {/* Hero Image - Full width */}
@@ -21,33 +21,39 @@ export default function Article({
                                 ? "items-center"
                                 : heroLocation === "start"
                                   ? "items-start"
-                                  : ""
+                                  : heroLocation === "end"
+                                    ? "items-end"
+                                    : ""
                         }`}
                     >
-                        <img className="w-full" src={heroUrl} alt="" />
+                        <img
+                            className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
+                            src={heroUrl}
+                            alt=""
+                        />
                     </div>
 
-                    {/* Title - Center 5 columns */}
-                    <div className="text-lg md:col-span-7 md:col-start-2">
+                    {/* Title - Full width to match hero image */}
+                    <div className="text-lg md:col-span-9">
                         <h1>
-                            <span className="font-fancy mt-2 block text-center text-5xl font-extrabold leading-8 tracking-tight text-gray-900">
+                            <span className="font-fancy mt-6 block text-center text-5xl leading-tight font-extrabold tracking-normal text-gray-900">
                                 {title}
                             </span>
                         </h1>
                     </div>
 
                     {/* Stats - Center 5 columns */}
-                    <div className="font-fancy mt-10 text-lg md:col-span-7 md:col-start-2">
-                        <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
+                    <div className="font-fancy mt-8 md:col-span-7 md:col-start-2">
+                        <dl className="grid grid-cols-2 gap-x-4 gap-y-6">
                             {stats.map((stat) => (
                                 <div
                                     key={stat.label}
-                                    className="border-y-2 border-gray-100 py-6 text-center"
+                                    className="border-y border-gray-100 py-3 text-center"
                                 >
-                                    <dt className="text-base font-medium text-gray-500">
+                                    <dt className="text-sm font-medium text-gray-500">
                                         {stat.label}
                                     </dt>
-                                    <dd className="text-2xl font-extrabold tracking-tight text-gray-900 lg:text-3xl">
+                                    <dd className="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
                                         {stat.value}
                                     </dd>
                                 </div>

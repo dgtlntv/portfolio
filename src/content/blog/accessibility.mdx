@@ -74,18 +74,12 @@ Finally, I would like to focus on the accessibility issues of the blockchain eco
 
 ### Long strings of numbers and letters
 
-<a href="/apps/app-1617789909158-coinbase-wallet-f24t9fewj/screen/7gqf12qgb">
-    <img
-        class="article-image-left"
-        src="/images/blog/accessibility/img1.jpg"
-        alt=""
-    ></img>
-</a>
+<FloatImage src="/images/blog/accessibility/img1.jpg" direction="left">
 
 The first challenge that could arise is the long letter and number combinations prevalent in blockchain — frequently found in things like transaction hashes and wallet addresses. These could become a problem, especially for people with visual impairments who rely on screen readers. At the moment, the complex addresses still play a significant role in the daily use of cryptocurrencies and other blockchain applications. Using a screen reader turns to verify a transaction recipient’s already complex wallet address into a near-impossible task. As an example, here is Google's Wavenet, one of the most advanced text-to-speech programs, trying to read out a cryptocurrency address.
 
 <audio controls>
-    <source src="/article_extra_content/address.mp3" type="audio/mpeg"></source>
+    <source src="/audio/accessibility/address.mp3" type="audio/mpeg"></source>
     Your browser does not support the audio element.
 </audio>
 
@@ -93,6 +87,7 @@ Listening to this audio file, it is obvious that checking a wallet address could
 
 Since many wallets forward to third-party block-explorers to check the status and validity of a transaction, users also often come across other long number/letter strings such as transaction hashes.
 
+</FloatImage>
 ### Prioritization of QR codes
 
 In an effort to minimize the UX issue of addresses, many wallets seem to prioritize QR codes in their interface. However, this prioritization puts people with visual impairments, who cannot use them, at a clear disadvantage.
@@ -116,7 +111,7 @@ For example, it is conceivable that the mnemonic phrase is unintentionally read 
 I have a feeling that for many people in blockchain, (financial) inclusion is an important value that drew them to the space. However, we need to extend this inclusion further and make blockchain applications more accessible to people with physical and mental disabilities by designing them to be barrier-free. The aforementioned problems are far from being unsolvable. On the contrary, some of them seem relatively easy to solve and are even aligned with other UX efforts. For example, the use of ENS names instead of addresses would be a big step in the right direction for visually impaired people since an ENS name is much easier for a screen reader to read and less complex for a person to understand than an address.
 
 <audio controls>
-    <source src="/article_extra_content/ens.mp3" type="audio/mpeg"></source>
+    <source src="/audio/accessibility/ens.mp3" type="audio/mpeg"></source>
     Your browser does not support the audio element.
 </audio>
 

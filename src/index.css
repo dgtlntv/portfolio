@@ -2,6 +2,17 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Global styles */
+@layer base {
+    a {
+        @apply text-red-500 hover:underline;
+    }
+    
+    ul {
+        @apply marker:text-red-500;
+    }
+}
+
 @theme {
     --font-fancy: "Courier new", "mono";
     --font-logo: "opake", "sans-serif";

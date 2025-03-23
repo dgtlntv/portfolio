@@ -20,20 +20,17 @@ import {
 
 ## Problem
 
-<FloatRightWrapper>
-  <FloatRightFigure>
-    <img src="/images/projects/talk/NASA_fk7r6c.png" alt="" />
-    <figcaption>PowerPoint Slide as seen in the report of the Nasa accident investigation committee.</figcaption>
-  </FloatRightFigure>
-
+<FloatImage
+  src="/images/projects/talk/NASA_fk7r6c.png"
+  caption="PowerPoint Slide as seen in the report of the Nasa accident investigation committee."
+>
 Everyone knows the numbing feeling that comes with an 50-slide presentation. This phenomenon is often called _"Death by PowerPoint"_. A deadly
 boring presentation, in which the interest of the recipient dies through "the PowerPoint" alone. Edward Tufte, a renowned scientist, even assigns partial blame for the crash of
 the space shuttle Columbia to this phenomenon in the report of the Nasa accident investigation committee.
 
 It may not have as fatal consequences in most organizations as the space shuttle crash. It does, however, lead to an inefficient communication culture plagued by inattention,
 misunderstandings, and the resulting extra expenditure of time, energy, and thus capital.
-
-</FloatRightWrapper>
+</FloatImage>
 
 <Suspense>
     <TalkHeroAnimation />
@@ -46,15 +43,16 @@ spoken words are recorded with a microphone and based on that the correct visual
 
 ## How it works
 
-<FloatRightWrapper>
-    <FloatRightFigure>
+<FloatImage
+    content={
         <Suspense>
             <TalkExplanationAnimation />
+            <figcaption>
+                Connecting paragraphs of the script with visualizations.
+            </figcaption>
         </Suspense>
-        <figcaption>
-            Connecting paragraphs of the script with visualizations.
-        </figcaption>
-    </FloatRightFigure>
+    }
+>
     Unlike traditional presentation software, Talk requires a script when
     creating the presentation. This script can consist of either complete
     sentences or meaningful keywords. Passages from this script are then linked
@@ -76,7 +74,7 @@ spoken words are recorded with a microphone and based on that the correct visual
     hierarchy, already present in language, can be translated into the visual to
     create structuring elements that have a strong relationship to what is being
     said.
-</FloatRightWrapper>
+</FloatImage>
 
 > For example, if one were to say during a presentation, "We are going to implement X and Y. However, implementing Y is still a long way off." In the presentation, X would remain
 > in the foreground and Y would move to the background.

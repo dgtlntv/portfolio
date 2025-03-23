@@ -81,7 +81,10 @@ function BlogPost() {
     return (
         <div>
             <Article
-                stats={post.frontMatter.stats || []}
+                stats={post.frontMatter.stats || [
+                    { label: "Author", value: post.frontMatter.author || "" },
+                    { label: "Date", value: post.frontMatter.date || "" }
+                ]}
                 title={post.frontMatter.title}
                 heroLocation={post.frontMatter.heroLocation || "center"}
                 heroUrl={

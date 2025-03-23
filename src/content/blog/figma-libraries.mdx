@@ -3,11 +3,10 @@ title: Designing Canonicals Figma libraries for performance and structure
 date: "11.07.2024"
 slug: figma-libraries
 excerpt: How Canonical's Design team rebuilt their Figma libraries, with practical guidelines on structure, performance, and maintenance processes.
-coverImage: "/images/figma-libraries/Frame-419.png"
-author: "Maximilian Blazek"
+coverImage: "/images/blog/figma-libraries/frame-419.png"
+heroLocation: "cover"
+author: "Maximilian Blazek & Jan Ostrówka"
 ---
-
-_This article was co-authored with Jan Ostrówka._
 
 The shoemakers' children have no shoes. At Canonical’s Design team, this proverb manifested in our Figma libraries. While we consistently deliver high-quality designs for our diverse products used by millions of users, we had neglected our own Figma libraries. They had become outdated and inefficient. This year, we decided to tackle this problem by developing new Figma libraries from scratch \- ones that meet our needs and that we enjoy using.
 
@@ -25,7 +24,7 @@ In revamping our Figma libraries, we wanted to structure them in a way that desi
 
 This was at a time when we were considering restructuring our design system to take a **tiered approach**. At Canonical, we have to design for several different product types: Applications, content sites, stores and pages for our Ubuntu Pro offering. These different product categories require different design patterns. Therefore, it made sense to split these product category-specific design patterns into separate libraries and take a multi-tiered Design system approach. For our Figma libraries, we adopted the same structure. We have a common base library, but we create additional libraries for each product category.
 
-![](/images/figma-libraries/Frame-416.png)
+![](/images/blog/figma-libraries/frame-416.png)
 
 For each of these levels, we have chosen a similar library and ownership structure as described in the article by the Doctolib team:
 
@@ -35,7 +34,7 @@ For each of these levels, we have chosen a similar library and ownership structu
 
 Every library is maintained by at least one dedicated library maintainer who is responsible for managing contributions and keeping the library up to date and tidy.
 
-![](/images/figma-libraries/Frame-414.png)
+![](/images/blog/figma-libraries/frame-414.png)
 
 If you want to learn more about the core and domain component paradigm, we recommend reading the [Doctolib article](https://medium.com/doctolib/how-we-organise-our-design-system-libraries-to-help-doctolib-designers-use-more-than-70-000-c15237c81f6c), it's well worth a read\! This approach, especially the domain components, allows us to achieve greater consistency between products.
 
@@ -43,7 +42,7 @@ If you want to learn more about the core and domain component paradigm, we recom
 
 Within each file, we maintain a strict policy of **one component per page**. The pages are sorted alphabetically and divided into sections that represent our component levels.
 
-![](/images/figma-libraries/Frame-413.png)
+![](/images/blog/figma-libraries/frame-413.png)
 
 To maintain this structure and avoid the same problems we had in our old libraries, we have set up the library to be **view-only**. Only the library maintainers have access to edit it. This reduces the risk of accidentally making changes and leaving unnecessary items in view. Similar to how the main branch of a code repository would normally be protected.
 
@@ -69,7 +68,7 @@ As described in [another Doctolib article](https://medium.com/doctolib/building-
 
 When a component is placed in a design file, Figma loads every variant of a component into the file. This means that even if a component looks light in the layer view, it can be quite heavy if that component has many variants or variants with a high number of layers. You can test this by opening the [memory usage tool in Figma](https://help.figma.com/hc/en-us/articles/360040528173-Reduce-memory-usage-in-files#01H8HER66S8MW9E8E9HYKHXRVM).
 
-![](/images/figma-libraries/Frame-411.png)
+![](/images/blog/figma-libraries/frame-411.png)
 
 To counteract this, we try to keep the number of variants to a minimum and instead use other properties such as boolean, text and instance swapping or variable modes. We also try not to pack everything into one component. If a component starts to have too many variants, we take that as a sign that we should split up the component.
 
@@ -82,7 +81,7 @@ To optimize performance, we try to minimize component nesting, especially if the
 
 #### Variable number of items
 
-![](/images/figma-libraries/Frame-418.png)
+![](/images/blog/figma-libraries/frame-418.png)
 
 There are certain components that contain multiple, repeated subitems, such as tabs in a tab bar. Depending on the use case, you may only need 3 tabs or maybe 10\. Figma doesn’t currently provide a way to handle this gracefully. To create a component with enough flexibility, many of us have simply included 10 tabs in the component so that designers can show and hide the tabs as needed.
 
@@ -106,7 +105,7 @@ While the other performance considerations relate more to memory management in a
 
 ## Discoverability
 
-![](/images/figma-libraries/Frame-412.png)
+![](/images/blog/figma-libraries/frame-412.png)
 
 Using the ‘Instance Swapping’ property instead of variants, as we described in the previous section, had an unintended positive side effect for us. While the variant property only shows a list of the variant names, the instance swap property shows a searchable list of components and their previews. For the icon component, for example, this meant that we now (right side) have previews of icons instead of just their names, which is a great improvement for icon discoverability.
 
@@ -114,7 +113,7 @@ Another discoverability feature we have implemented in our Figma libraries is th
 
 ## Process
 
-![](/images/figma-libraries/Frame-415.png)
+![](/images/blog/figma-libraries/frame-415.png)
 
 ### Keeping things up to date
 
@@ -142,7 +141,7 @@ The advantage of this contribution process is that we can accept contributions f
 
 ## Metrics
 
-![](/images/figma-libraries/Frame-417.png)
+![](/images/blog/figma-libraries/frame-417.png)
 
 Before we started creating the new libraries, we also implemented a custom way to track the usage of Figma components and Figma libraries in our design team. We took inspiration from the article by the [Pinterest team](https://www.figma.com/blog/how-pinterests-design-systems-team-measures-adoption/) and the [Uber team's approach](https://youtu.be/PMz1DbaeoDE?feature=shared&t=213). With the code we wrote, we can track how often our designers use components in their files, which libraries those components come from, and how often they detach components.
 
