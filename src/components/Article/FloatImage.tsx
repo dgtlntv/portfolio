@@ -21,18 +21,22 @@ export default function FloatImage({
                     {content ? (
                         content
                     ) : src ? (
-                        <>
+                        <div className={`transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu ${
+                            direction === "left" 
+                            ? "hover:rotate-[0.5deg]" // Left images rotate clockwise
+                            : "hover:rotate-[-0.5deg]" // Right images rotate counterclockwise
+                        }`}>
                             <img
                                 src={src}
                                 alt={alt || ""}
-                                className="max-w-sm rounded-lg"
+                                className="w-full h-auto max-h-[70vh] object-contain rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
                             />
                             {caption && (
                                 <figcaption className="mt-2 text-center text-sm text-gray-500">
                                     {caption}
                                 </figcaption>
                             )}
-                        </>
+                        </div>
                     ) : null}
                 </figure>
             </div>

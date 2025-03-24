@@ -31,9 +31,15 @@ export default function ProjectItem({
                     className={`col-span-9 md:col-span-6 ${isLeft ? "md:col-start-4" : "md:col-start-1"} order-1 mt-10 md:mt-0 md:order-${isLeft ? "2" : "1"} ${className || ""}`}
                 >
                     <Link to={url}>
-                        <div className="relative aspect-[16/10] overflow-hidden rounded-xl shadow-md">
+                        <div 
+                            className={`relative aspect-[16/10] overflow-hidden rounded-xl shadow-md transition duration-700 ease-in-out hover:shadow-md hover:-translate-y-0.5 hover:transform-gpu ${
+                                isLeft 
+                                    ? "hover:rotate-[0.5deg]"  // Left images rotate clockwise
+                                    : "hover:rotate-[-0.5deg]" // Right images rotate counterclockwise
+                            }`}
+                        >
                             <img
-                                className="absolute h-full w-full object-cover object-center"
+                                className="absolute h-full w-full object-cover object-center transition duration-700 ease-in-out hover:scale-[1.01]"
                                 src={imageUrl}
                                 alt=""
                             />

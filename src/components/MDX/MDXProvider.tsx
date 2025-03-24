@@ -65,8 +65,8 @@ export const components = {
 
     // Images and figures
     img: (props: React.HTMLProps<HTMLImageElement>) => (
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 xl:-mx-28 my-8">
-            <img className="w-full h-auto rounded-lg" {...props} />
+        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 xl:-mx-28 my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+            <img className="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]" {...props} />
         </div>
     ),
 
