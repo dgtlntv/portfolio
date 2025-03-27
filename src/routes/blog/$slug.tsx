@@ -15,7 +15,7 @@ function BlogPost() {
     const [post, setPost] = useState<MDXContent | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    
+
     useEffect(() => {
         const loadPost = async () => {
             try {
@@ -39,17 +39,7 @@ function BlogPost() {
     }, [slug])
 
     if (loading) {
-        return (
-            <GridLayout>
-                <div className="animate-pulse p-8 md:col-span-5">
-                    <div className="mb-4 h-12 w-3/4 rounded bg-gray-200"></div>
-                    <div className="mb-8 h-4 w-1/4 rounded bg-gray-200"></div>
-                    <div className="mb-4 h-4 w-full rounded bg-gray-200"></div>
-                    <div className="mb-4 h-4 w-full rounded bg-gray-200"></div>
-                    <div className="mb-8 h-4 w-4/5 rounded bg-gray-200"></div>
-                </div>
-            </GridLayout>
-        )
+        return <></>
     }
 
     if (error || !post) {
@@ -74,17 +64,22 @@ function BlogPost() {
             </GridLayout>
         )
     }
-    
+
     // If we have a post, simply render its content
-    const PostContent = post.content;
+    const PostContent = post.content
 
     return (
         <div>
             <Article
-                stats={post.frontMatter.stats || [
-                    { label: "Author", value: post.frontMatter.author || "" },
-                    { label: "Date", value: post.frontMatter.date || "" }
-                ]}
+                stats={
+                    post.frontMatter.stats || [
+                        {
+                            label: "Author",
+                            value: post.frontMatter.author || "",
+                        },
+                        { label: "Date", value: post.frontMatter.date || "" },
+                    ]
+                }
                 title={post.frontMatter.title}
                 heroLocation={post.frontMatter.heroLocation || "center"}
                 heroUrl={
