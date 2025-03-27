@@ -5,7 +5,7 @@ import { AsciiEffect } from "three-stdlib"
 
 export default function AsciiRenderer({
     renderIndex = 1,
-    characters = " .:-+*=%@#",
+    characters = " .:-+*=%#",
     ...options
 }: AsciiRendererProps) {
     // Reactive state

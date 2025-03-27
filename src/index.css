@@ -55,7 +55,12 @@
     font-display: swap;
 }
 
-/* Global styles */
+div > table,
+table[style*="courier new"] td,
+table[style*="courier new"] span {
+    font-family: "Courier Prime", monospace !important;
+}
+
 @layer base {
     a {
         @apply text-red-500 hover:underline;
