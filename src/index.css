@@ -1,22 +1,75 @@
-@import url(https://use.typekit.net/ysr5pgx.css);
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Regular.woff2") format("woff2");
+    font-weight: thin;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-BoldItalic.woff2") format("woff2");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cooper*";
+    src: url("/fonts/Cooper[wght].woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Opake";
+    src: url("/fonts/Opake-Heavy.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "courier new";
+    src: local("Courier Prime");
+    font-display: swap;
+}
 
 /* Global styles */
 @layer base {
     a {
         @apply text-red-500 hover:underline;
     }
-    
+
     ul {
         @apply marker:text-red-500;
     }
 }
 
 @theme {
-    --font-fancy: "Courier new", "mono";
-    --font-logo: "opake", "sans-serif";
-    --font-head: "kansasnew", "serif";
+    --font-fancy: "Courier Prime", monospace;
+    --font-logo: "Opake", sans-serif;
+    --font-head: "Cooper*", serif;
 
     --color-primary: #f20505;
     --color-primary-50: #fdb1b1;

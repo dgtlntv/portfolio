@@ -2,11 +2,11 @@ import TalkAnimation from "./TalkAnimation"
 
 export default function TalkHeroAnimation() {
     return (
-        <div className="not-prose relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+        <div className="not-prose relative right-1/2 left-1/2 -mr-[50vw] -ml-[50vw] w-screen">
             <div className="relative mt-16 mb-12 lg:mt-20">
                 <div className="mx-auto mt-6 max-w-6xl px-4 sm:mt-10 sm:px-6">
                     <div className="lg:text-center">
-                        <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-7xl">
+                        <h1 className="text-5xl font-[825] text-gray-900 sm:text-5xl md:text-7xl">
                             <span className="font-head leading-tight">
                                 Holding presentations just with{" "}
                                 <span className="font-logo text-primary">
