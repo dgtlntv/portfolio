@@ -38,10 +38,6 @@ function BlogPost() {
         loadPost()
     }, [slug])
 
-    if (loading) {
-        return <></>
-    }
-
     if (error || !post) {
         return (
             <GridLayout>
