@@ -10,11 +10,13 @@ export default function Article({
     title,
     children,
 }: ArticleProps) {
+    const isVideo = heroUrl?.endsWith(".webm")
+
     return (
         <div className="relative overflow-hidden bg-white pt-8 pb-16 lg:py-12">
             <WidthLayout>
                 <GridLayout>
-                    {/* Hero Image - Full width */}
+                    {/* Hero Image/Video - Full width */}
                     <div
                         className={`mb-8 flex overflow-hidden rounded-xl shadow-md sm:aspect-[16/8] md:col-span-9 ${
                             heroLocation === "center"
@@ -26,11 +28,21 @@ export default function Article({
                                     : ""
                         }`}
                     >
-                        <img
-                            className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
-                            src={heroUrl}
-                            alt=""
-                        />
+                        {isVideo ? (
+                            <video
+                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
+                                src={heroUrl}
+                                controls={false}
+                                autoPlay={true}
+                                loop
+                            />
+                        ) : (
+                            <img
+                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
+                                src={heroUrl}
+                                alt=""
+                            />
+                        )}
                     </div>
 
                     {/* Title - Full width to match hero image */}

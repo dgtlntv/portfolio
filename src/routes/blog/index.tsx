@@ -30,13 +30,13 @@ function Blog() {
 
                 // Group posts by year
                 const groupedByYear: PostsByYear = {}
-                
+
                 // Parse European date format (DD.MM.YYYY)
                 const parseEuropeanDate = (dateStr: string) => {
-                    const [day, month, year] = dateStr.split('.')
+                    const [day, month, year] = dateStr.split(".")
                     return new Date(`${year}-${month}-${day}`)
                 }
-                
+
                 postsData.forEach((post) => {
                     const year = parseEuropeanDate(post.frontMatter.date)
                         .getFullYear()
@@ -59,26 +59,6 @@ function Blog() {
 
         loadPosts()
     }, [])
-
-    if (loading) {
-        return (
-            <GridLayout>
-                <div className="animate-pulse py-8 md:col-span-5">
-                    <div className="mb-6 h-8 w-24 rounded bg-gray-200"></div>
-                    <div className="mb-8 pl-6">
-                        <div className="mb-3 h-6 w-full rounded bg-gray-200"></div>
-                        <div className="mb-3 h-6 w-full rounded bg-gray-200"></div>
-                        <div className="mb-3 h-6 w-full rounded bg-gray-200"></div>
-                    </div>
-                    <div className="mb-6 h-8 w-24 rounded bg-gray-200"></div>
-                    <div className="pl-6">
-                        <div className="mb-3 h-6 w-full rounded bg-gray-200"></div>
-                        <div className="mb-3 h-6 w-full rounded bg-gray-200"></div>
-                    </div>
-                </div>
-            </GridLayout>
-        )
-    }
 
     if (error) {
         return (
@@ -113,13 +93,18 @@ function Blog() {
                                     <div className="md:col-span-9">
                                         {postsByYear[year].map((post) => {
                                             // Parse European date format (DD.MM.YYYY)
-                                            const parseEuropeanDate = (dateStr: string) => {
-                                                const [day, month, year] = dateStr.split('.')
-                                                return new Date(`${year}-${month}-${day}`)
+                                            const parseEuropeanDate = (
+                                                dateStr: string,
+                                            ) => {
+                                                const [day, month, year] =
+                                                    dateStr.split(".")
+                                                return new Date(
+                                                    `${year}-${month}-${day}`,
+                                                )
                                             }
-                                            
+
                                             const postDate = parseEuropeanDate(
-                                                post.frontMatter.date
+                                                post.frontMatter.date,
                                             )
                                             const formattedDate =
                                                 postDate.toLocaleDateString(

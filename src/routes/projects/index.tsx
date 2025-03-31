@@ -34,7 +34,7 @@ function Projects() {
     }, [])
 
     return (
-        <div className="overflow-hidden pb-16 pt-0">
+        <div className="overflow-hidden pt-0 pb-16">
             <WidthLayout>
                 <GridLayout>
                     {mdxProjects.length > 0 && (
@@ -49,6 +49,9 @@ function Projects() {
                                         project.frontMatter.coverImage
                                             ? project.frontMatter.coverImage
                                             : ""
+                                    }
+                                    heroLocation={
+                                        project.frontMatter.heroLocation
                                     }
                                     isLeft={index % 2 === 0}
                                 >
