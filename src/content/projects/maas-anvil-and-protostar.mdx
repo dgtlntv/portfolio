@@ -8,3 +8,47 @@ heroLocation: "cover"
 stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
 ---
+
+When tasked with evaluating the user experience of MAAS Anvil at Canonical, I
+faced a unique challenge. MAAS Anvil is a CLI tool designed to simplify
+high-availability installations of MAAS (Metal as a Service), and we needed to
+identify any significant usability gaps before releasing it as a beta.
+Additionally, we were considering adding new features with several
+implementation options, but we weren't certain which experience users would
+prefer. I began by creating a comprehensive research brief outlining the purpose
+of the study, the assumptions we wanted to test, and our methodology. After
+sharing this with the team to ensure alignment on research objectives, I
+developed an interview guide that would help us understand user behaviors and
+preferences. During this process, I realized that testing different feature
+implementation options would require some form of prototype. This led to a
+significant realization: there didn't seem to be any good options for
+prototyping and user testing command-line interfaces. Figma prototypes were
+inadequate because users couldn't type actual commands, only click through
+predetermined paths. Simply reviewing command structures in a document failed to
+provide the interaction depth of a real CLI experience. While coding a
+functioning CLI would be technically possible, it would require participants to
+install software before interviews—an immediate barrier when working with system
+administrators who are understandably skeptical about installing unknown
+packages on their systems. Ideally, the solution would be as frictionless as
+Figma prototypes, where researchers can simply send a link to participants. This
+gap in available tools prompted me to create a browser-based CLI prototype. I
+knew about xterm.js, the terminal library used by Visual Studio Code, and
+leveraged it to build a prototype that emulated a terminal environment entirely
+in the browser, with no installation required. Despite its initial bugginess,
+the prototype worked remarkably well in user research sessions. It allowed
+participants to interact with the CLI naturally by typing commands, exploring
+different paths, and providing feedback on the various implementation options we
+were considering. The quality of user insights was substantially better than
+what we could have achieved through static mockups or theoretical discussions.
+After synthesizing and sharing the research findings with the team, I reflected
+on the prototyping solution I'd created. The approach seemed valuable beyond our
+immediate needs—potentially helpful for other designers conducting CLI user
+research or anyone needing to quickly prototype command-line experiences. This
+led me to develop it further as an open-source prototyping tool and library
+called Protostar. Protostar has already gained traction among designers at
+Canonical who need to test CLI interfaces. It even caught broader attention when
+Canonical's Design Director mentioned it during presentations on CLI design at
+FOSDEM, generating interest from the open-source community. What began as a
+practical solution to a specific research challenge has evolved into a
+specialized tool that fills a genuine gap in the UX design toolkit, particularly
+for those working with command-line interfaces.

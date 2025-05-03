@@ -2,9 +2,97 @@
 title: Canonicals Figma libraries
 date: "11.07.2024"
 slug: canonicals-figma-libraries
-excerpt: How I led the rebuilt of Canonicals Figma libraries, with practical guidelines on structure, performance, and maintenance processes.
+excerpt:
+    How I led the rebuilt of Canonicals Figma libraries, with practical
+    guidelines on structure, performance, and maintenance processes.
 coverImage: "/images/blog/figma-libraries/frame-419.png"
 heroLocation: "cover"
 stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
 ---
+
+The shoemakers' children have no shoes. At Canonical's Design team, this proverb
+manifested in our Figma libraries. When I joined Canonical, I encountered a
+Figma library ecosystem that had become severely outdated and inefficient. The
+libraries were disorganized and contained material that was still under
+development, making it unclear what components were production-ready. They were
+also incomplete compared to our codebase, and existing components weren't
+consistently maintained.
+
+Contributing components to the official libraries faced significant barriers.
+The process was unclear, and there was pushback when attempting to upstream new
+components. This situation forced me to develop my own component sets to
+maintain efficiency in my design workflow. Interestingly, these personal
+components gained traction among my colleagues, who began adopting them instead
+of the official libraries. This organic adoption validated the need for a more
+streamlined, well-maintained component system.
+
+Around the same time, Canonical formed a more institutionalized design systems
+working group to address these systemic issues. Within this group, we
+established a goal to completely rebuild our Figma libraries and share them
+publicly on the Figma community. I took the initiative to lead this
+comprehensive rebuilding effort.
+
+The process began methodically with internal research on how designers used
+components and what improvements they needed. I surveyed team members about
+problematic components in the old libraries and organized meetings to understand
+their specific needs. This research phase provided valuable insights into the
+pain points and requirements for our new libraries.
+
+Based on this research, I drafted an initial specification outlining how
+Canonical's Figma libraries should be structured. This involved extensive
+investigation into best practices for building scalable libraries. I explored
+approaches from other design teams like Doctolib and examined articles on
+library architecture by Nathan Curtis, particularly his concepts on design
+system tiers and how they could apply to our diverse product ecosystem.
+
+To ensure broad acceptance and create the most effective specification possible,
+I organized collaborative review sessions where team members could discuss,
+modify, and ultimately approve each section. We went through the entire document
+together, debating different approaches to component organization, performance
+optimization, and contribution processes. This collaborative approach resulted
+in a thorough 20-page specification with strong team buy-in, creating a solid
+foundation for the implementation phase.
+
+With the specification approved, we moved to implementation. I led the building
+process with support from junior designers. We adhered strictly to the
+guidelines we had established, creating components that were not only visually
+consistent but also performant and easy to use. I personally built most of the
+components, ensuring they followed our performance guidelines regarding layer
+count, asset optimization, and effect usage.
+
+Before releasing the libraries more widely, I recognized that we needed better
+metrics than what Figma natively provided to properly track adoption and
+identify improvement opportunities. Figma's built-in analytics were insufficient
+for our needs, so I developed a custom metrics tool, taking inspiration from
+approaches shared by the Pinterest and Uber design teams in their public
+materials. This custom tooling allowed us to track critical data points such as
+component usage frequency, library adoption rates across teams, and component
+detachment rates. The detachment rates were particularly valuable, as they
+helped us identify which components designers were frequently modifying—a clear
+signal that these components needed improvement in the official library.
+
+After completing the initial library, we announced an internal transition period
+during which both the old and new libraries would remain available. We
+encouraged designers to start using the new components immediately while
+providing enough time to adapt to the changes. We clearly marked the old
+libraries as deprecated with notices in file names, page names, component names,
+and descriptions, along with links to the new libraries. Throughout this
+transition, our metrics tool provided valuable insights into adoption patterns,
+helping us identify which teams were quickly embracing the new system and which
+might need additional support.
+
+By the end of the transition period, the metrics showed strong adoption across
+the team. The detachment rates for components in the new library were
+significantly lower than in the old system, indicating that designers were
+finding the components more useful in their standard form. These metrics gave us
+confidence that the libraries were thoroughly tested in real design workflows
+and ready for public release. I advocated for sharing our work with the wider
+design community, believing that our approach to library structure and
+performance optimization could benefit others.
+
+The culmination of this effort was the public release of our base core component
+library and base assets library to the Figma community. These libraries now
+serve as a testament to the structured, collaborative approach we took to solve
+our design system challenges, and they provide a foundation for other design
+teams facing similar issues.
