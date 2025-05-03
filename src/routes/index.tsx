@@ -1,11 +1,9 @@
 import { CubeTransparentIcon } from "@heroicons/react/24/outline"
 import { createFileRoute } from "@tanstack/react-router"
 import { lazy, Suspense } from "react"
-import LoadingSpinner from "../components/LoadingSpinner"
 import useDeviceOrientation from "../hooks/useDeviceOrientation"
 import useMouse from "../hooks/useMouse"
 
-// Lazy load all Three.js related components in a single chunk
 const ThreeScene = lazy(() => import("../components/ThreeScene"))
 
 export const Route = createFileRoute("/")({
@@ -19,7 +17,7 @@ export default function Index() {
     return (
         <>
             <div className="absolute top-0 right-0 bottom-0 left-0">
-                <Suspense fallback={<LoadingSpinner scale={4} />}>
+                <Suspense>
                     <ThreeScene orientation={orientation} mouse={mouse} />
                 </Suspense>
             </div>
