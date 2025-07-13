@@ -22,19 +22,22 @@ way to display this information. Requirements and Constraints One critical
 requirement from product management was that the feature needed to work in
 air-gapped environments where internet access is restricted or unavailable. This
 posed a significant technical challenge, as most map solutions rely on online
-services. Design Process I began the project by creating several iterations of
-wireframes, collaborating closely with other designers to refine the
-visualization approach. As a visually-oriented project, these design sessions
-were crucial for establishing how users would interact with the geographical
-data. The Technical Challenge During a regular check-in with developers, when
-they began investigating map implementation options, they identified a potential
-roadblock. They found that hosting a detailed world map would require storing
-tens of gigabytes of map data within MAAS Site Manager itself—a significant
-burden they considered impractical. The development team advocated for using an
-online map service like OpenStreetMaps instead, which would avoid hosting large
-amounts of data but would violate our core requirement of functioning in
-air-gapped environments. Beyond the technical constraint, I had additional
-concerns with this approach:
+services.
+
+# Design Process
+
+I began the project by creating several iterations of wireframes, collaborating
+closely with other designers to refine the visualization approach. As a
+visually-oriented project, these design sessions were crucial for establishing
+how users would interact with the geographical data. The Technical Challenge
+During a regular check-in with developers, when they began investigating map
+implementation options, they identified a potential roadblock. They found that
+hosting a detailed world map would require storing tens of gigabytes of map data
+within MAAS Site Manager itself—a significant burden they considered
+impractical. The development team advocated for using an online map service like
+OpenStreetMaps instead, which would avoid hosting large amounts of data but
+would violate our core requirement of functioning in air-gapped environments.
+Beyond the technical constraint, I had additional concerns with this approach:
 
 We would have limited control over the map's visual appearance The maps would
 include excessive detail for our use case, potentially distracting users from

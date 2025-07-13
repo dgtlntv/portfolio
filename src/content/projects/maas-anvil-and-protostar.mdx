@@ -19,20 +19,23 @@ prefer. I began by creating a comprehensive research brief outlining the purpose
 of the study, the assumptions we wanted to test, and our methodology. After
 sharing this with the team to ensure alignment on research objectives, I
 developed an interview guide that would help us understand user behaviors and
-preferences. During this process, I realized that testing different feature
-implementation options would require some form of prototype. This led to a
-significant realization: there didn't seem to be any good options for
-prototyping and user testing command-line interfaces. Figma prototypes were
-inadequate because users couldn't type actual commands, only click through
-predetermined paths. Simply reviewing command structures in a document failed to
-provide the interaction depth of a real CLI experience. While coding a
-functioning CLI would be technically possible, it would require participants to
-install software before interviews—an immediate barrier when working with system
-administrators who are understandably skeptical about installing unknown
-packages on their systems. Ideally, the solution would be as frictionless as
-Figma prototypes, where researchers can simply send a link to participants. This
-gap in available tools prompted me to create a browser-based CLI prototype. I
-knew about xterm.js, the terminal library used by Visual Studio Code, and
+preferences.
+
+During this process, I realized that testing different feature implementation
+options would require some form of prototype. This led to a significant
+realization: there didn't seem to be any good options for prototyping and user
+testing command-line interfaces. Figma prototypes were inadequate because users
+couldn't type actual commands, only click through predetermined paths. Simply
+reviewing command structures in a document failed to provide the interaction
+depth of a real CLI experience. While coding a functioning CLI would be
+technically possible, it would require participants to install software before
+interviews—an immediate barrier when working with system administrators who are
+understandably skeptical about installing unknown packages on their systems.
+Ideally, the solution would be as frictionless as Figma prototypes, where
+researchers can simply send a link to participants.
+
+This gap in available tools prompted me to create a browser-based CLI prototype.
+I knew about xterm.js, the terminal library used by Visual Studio Code, and
 leveraged it to build a prototype that emulated a terminal environment entirely
 in the browser, with no installation required. Despite its initial bugginess,
 the prototype worked remarkably well in user research sessions. It allowed
