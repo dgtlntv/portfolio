@@ -38,3 +38,11 @@ export interface ImageGalleryProps {
     content?: Content
     images?: ImageWithCaption[]
 }
+
+export interface FanImagesProps {
+    images: Array<{
+        src: string
+        alt?: string
+    }>
+    caption?: string
+}

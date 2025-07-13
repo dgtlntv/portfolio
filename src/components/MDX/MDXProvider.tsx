@@ -1,6 +1,7 @@
 import { MDXProvider as BaseMDXProvider } from "@mdx-js/react"
 import React from "react"
 import FloatImage from "../Article/FloatImage"
+import FanImages from "../Article/FanImages"
 import ImageGallery from "../Article/ImageGallery"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
@@ -72,6 +73,7 @@ export const components = {
 
     // Custom components
     FloatImage,
+    FanImages,
     ImageGallery,
     TagList,
 }
