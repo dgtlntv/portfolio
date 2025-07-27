@@ -45,7 +45,7 @@ export default function AsciiImage({
                         if (timeoutRef.current) clearTimeout(timeoutRef.current)
                         timeoutRef.current = setTimeout(() => {
                             setShowingImage(true)
-                        }, 1500) // 1.5 second delay
+                        }, 800) // 0.8 second delay
                     } else {
                         // Project scrolled out of view, hide image
                         if (timeoutRef.current) {
@@ -93,6 +93,9 @@ export default function AsciiImage({
         }
         if (asciiEffectRef.current) {
             asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
+            // Set platform-specific transition duration
+            const duration = isMobile ? '1.8s' : '1.2s'
+            asciiEffectRef.current.setTransitionDuration(duration)
         }
 
         // Cleanup function
@@ -102,7 +105,7 @@ export default function AsciiImage({
                 asciiEffectRef.current = null
             }
         }
-    }, [src, charSet, resolution, color, invert, objectFit, textColor, isImageLoaded])
+    }, [src, charSet, resolution, color, invert, objectFit, textColor, isImageLoaded, isMobile])
 
     // Update effect when props change
     useEffect(() => {
@@ -157,7 +160,7 @@ export default function AsciiImage({
                 ref={imageRef}
                 src={src}
                 alt={alt}
-                className={`w-full h-full block transition-opacity duration-[1200ms] ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
+                className={`w-full h-full block transition-opacity ${isMobile ? 'duration-[1800ms]' : 'duration-[1200ms]'} ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
                 onLoad={handleImageLoad}
             />
         </div>

@@ -70,7 +70,7 @@ export class AsciiEffect {
         this.asciiContainer.style.lineHeight = "1"
         this.asciiContainer.style.overflow = "hidden"
         this.asciiContainer.style.backgroundColor = "white"
-        this.asciiContainer.style.transition = "opacity 1.2s ease-in-out"
+        this.asciiContainer.style.transition = "opacity 1.2s ease-in-out" // Will be updated dynamically
         this.asciiContainer.style.color = this.textColor
         this.asciiContainer.classList.add("ascii-overlay")
     }
@@ -420,5 +420,9 @@ export class AsciiEffect {
 
     public getAsciiContainer(): HTMLDivElement {
         return this.asciiContainer
+    }
+
+    public setTransitionDuration(duration: string): void {
+        this.asciiContainer.style.transition = `opacity ${duration} ease-in-out`
     }
 }

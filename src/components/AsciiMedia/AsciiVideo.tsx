@@ -52,7 +52,7 @@ export default function AsciiVideo({
                         if (timeoutRef.current) clearTimeout(timeoutRef.current)
                         timeoutRef.current = setTimeout(() => {
                             setShowingVideo(true)
-                        }, 1500) // 1.5 second delay
+                        }, 800) // 0.8 second delay
                     } else {
                         // Project scrolled out of view, hide video
                         if (timeoutRef.current) {
@@ -130,6 +130,9 @@ export default function AsciiVideo({
         }
         if (asciiEffectRef.current) {
             asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
+            // Set platform-specific transition duration
+            const duration = isMobile ? '1.8s' : '1.2s'
+            asciiEffectRef.current.setTransitionDuration(duration)
         }
 
         // Cleanup function
@@ -140,7 +143,7 @@ export default function AsciiVideo({
                 asciiEffectRef.current = null
             }
         }
-    }, [src, charSet, resolution, color, invert, objectFit, textColor, isVideoLoaded, stopRenderLoop])
+    }, [src, charSet, resolution, color, invert, objectFit, textColor, isVideoLoaded, stopRenderLoop, isMobile])
 
     // Update effect when props change
     useEffect(() => {
@@ -209,7 +212,7 @@ export default function AsciiVideo({
             <video
                 ref={videoRef}
                 src={src}
-                className={`w-full h-full block transition-opacity duration-[1200ms] ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
+                className={`w-full h-full block transition-opacity ${isMobile ? 'duration-[1800ms]' : 'duration-[1200ms]'} ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
                 autoPlay={autoPlay}
                 muted={muted}
                 loop={loop}
