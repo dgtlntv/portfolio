@@ -49,16 +49,18 @@ export default function ProjectItem({
                             <AsciiMedia
                                 src={imageUrl || ""}
                                 alt={title || "Project image"}
-                                className={`h-full w-full ${
-                                    heroLocation === "cover"
-                                        ? "object-cover"
-                                        : "object-contain"
-                                } bg-white object-center transition-transform duration-700 ease-in-out`}
+                                className="h-full w-full bg-white object-center transition-transform duration-700 ease-in-out"
                                 autoPlay={true}
                                 muted={true}
                                 loop={true}
                                 controls={false}
-                                resolution={0.2}
+                                resolution={0.18}
+                                objectFit={
+                                    heroLocation === "cover"
+                                        ? "cover"
+                                        : "contain"
+                                }
+                                textColor="black"
                             />
                         </div>
                     </Link>

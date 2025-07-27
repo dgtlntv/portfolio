@@ -6,4 +6,5 @@ export interface ProjectItemProps extends WithChildren {
     imageUrl: string
     url: string
     isLeft?: boolean
+    heroLocation?: 'cover' | 'contain'
 }

@@ -5,6 +5,8 @@ export interface AsciiEffectOptions {
     color?: boolean
     alpha?: boolean
     invert?: boolean
+    objectFit?: 'cover' | 'contain' | 'fill'
+    textColor?: string
 }
 
 export interface AsciiEffectConfig {
@@ -36,6 +38,8 @@ export interface AsciiImageProps {
     className?: string
     style?: CSSProperties
     onLoad?: () => void
+    objectFit?: 'cover' | 'contain' | 'fill'
+    textColor?: string
 }
 
 export interface AsciiVideoProps {
@@ -53,6 +57,8 @@ export interface AsciiVideoProps {
     onLoad?: () => void
     onPlay?: () => void
     onPause?: () => void
+    objectFit?: 'cover' | 'contain' | 'fill'
+    textColor?: string
 }
 
 export interface AsciiMediaProps {
@@ -72,4 +78,6 @@ export interface AsciiMediaProps {
     onLoad?: () => void
     onPlay?: () => void
     onPause?: () => void
+    objectFit?: 'cover' | 'contain' | 'fill'
+    textColor?: string
 }

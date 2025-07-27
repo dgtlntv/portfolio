@@ -14,6 +14,8 @@ export class AsciiEffect {
     private isInitialized: boolean = false
     private iWidth: number = 0
     private iHeight: number = 0
+    private objectFit: 'cover' | 'contain' | 'fill' = 'fill'
+    private textColor: string = 'black'
 
     constructor(
         element: DrawableElement,
@@ -22,6 +24,8 @@ export class AsciiEffect {
     ) {
         this.element = element
         this.charSet = charSet
+        this.objectFit = options.objectFit || 'fill'
+        this.textColor = options.textColor || 'black'
 
         // ASCII settings
         this.config = {
@@ -66,7 +70,8 @@ export class AsciiEffect {
         this.asciiContainer.style.lineHeight = "1"
         this.asciiContainer.style.overflow = "hidden"
         this.asciiContainer.style.backgroundColor = "white"
-        this.asciiContainer.style.transition = "opacity 0.6s ease-in-out"
+        this.asciiContainer.style.transition = "opacity 1.2s ease-in-out"
+        this.asciiContainer.style.color = this.textColor
         this.asciiContainer.classList.add("ascii-overlay")
     }
 
@@ -128,13 +133,82 @@ export class AsciiEffect {
         this.isInitialized = true
     }
 
+    private calculateObjectFitDimensions(): {
+        renderWidth: number
+        renderHeight: number
+        offsetX: number
+        offsetY: number
+    } {
+        const containerWidth = this.element.offsetWidth
+        const containerHeight = this.element.offsetHeight
+        
+        let naturalWidth: number
+        let naturalHeight: number
+        
+        if (this.element instanceof HTMLImageElement) {
+            naturalWidth = this.element.naturalWidth
+            naturalHeight = this.element.naturalHeight
+        } else if (this.element instanceof HTMLVideoElement) {
+            naturalWidth = this.element.videoWidth
+            naturalHeight = this.element.videoHeight
+        } else {
+            // Canvas or unknown element - use actual dimensions
+            naturalWidth = containerWidth
+            naturalHeight = containerHeight
+        }
+        
+        if (naturalWidth === 0 || naturalHeight === 0) {
+            // Fallback to container dimensions if natural dimensions are not available
+            return {
+                renderWidth: containerWidth,
+                renderHeight: containerHeight,
+                offsetX: 0,
+                offsetY: 0
+            }
+        }
+        
+        const containerAspect = containerWidth / containerHeight
+        const naturalAspect = naturalWidth / naturalHeight
+        
+        let renderWidth: number
+        let renderHeight: number
+        let offsetX = 0
+        let offsetY = 0
+        
+        if (this.objectFit === 'cover') {
+            // For cover, the ASCII should always fill the container completely
+            // The browser handles the cropping via CSS object-fit
+            renderWidth = containerWidth
+            renderHeight = containerHeight
+            offsetX = 0
+            offsetY = 0
+        } else if (this.objectFit === 'contain') {
+            if (naturalAspect > containerAspect) {
+                // Image is wider - fit to width, letterbox height
+                renderWidth = containerWidth
+                renderHeight = containerWidth / naturalAspect
+                offsetY = (containerHeight - renderHeight) / 2
+            } else {
+                // Image is taller - fit to height, letterbox width
+                renderHeight = containerHeight
+                renderWidth = containerHeight * naturalAspect
+                offsetX = (containerWidth - renderWidth) / 2
+            }
+        } else {
+            // fill - stretch to container
+            renderWidth = containerWidth
+            renderHeight = containerHeight
+        }
+        
+        return { renderWidth, renderHeight, offsetX, offsetY }
+    }
+
     private updateSize(): void {
-        const width = this.element.offsetWidth
-        const height = this.element.offsetHeight
+        const { renderWidth, renderHeight, offsetX, offsetY } = this.calculateObjectFitDimensions()
 
         // Ensure minimum canvas size to prevent errors
-        this.iWidth = Math.max(1, Math.floor(width * this.config.fResolution))
-        this.iHeight = Math.max(1, Math.floor(height * this.config.fResolution))
+        this.iWidth = Math.max(1, Math.floor(renderWidth * this.config.fResolution))
+        this.iHeight = Math.max(1, Math.floor(renderHeight * this.config.fResolution))
 
         this.canvas.width = this.iWidth
         this.canvas.height = this.iHeight
@@ -146,12 +220,12 @@ export class AsciiEffect {
         ).getBoundingClientRect()
 
         const leftOffset =
-            elementRect.left - parentRect.left + this.config.offsetX
-        const topOffset = elementRect.top - parentRect.top + this.config.offsetY
+            elementRect.left - parentRect.left + this.config.offsetX + offsetX
+        const topOffset = elementRect.top - parentRect.top + this.config.offsetY + offsetY
 
-        // Position ASCII container to match element exactly
-        this.asciiContainer.style.width = width + "px"
-        this.asciiContainer.style.height = height + "px"
+        // Position ASCII container to match the visible media area
+        this.asciiContainer.style.width = renderWidth + "px"
+        this.asciiContainer.style.height = renderHeight + "px"
         this.asciiContainer.style.left = leftOffset + "px"
         this.asciiContainer.style.top = topOffset + "px"
     }
@@ -184,9 +258,71 @@ export class AsciiEffect {
             return
         }
 
-        // Draw element to canvas
+        // Draw element to canvas respecting object-fit
         this.ctx.clearRect(0, 0, this.iWidth, this.iHeight)
-        this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+        
+        if (this.objectFit === 'fill') {
+            // Simple stretch to fill canvas
+            this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+        } else {
+            // For cover and contain, we need to calculate source coordinates
+            const containerWidth = this.element.offsetWidth
+            const containerHeight = this.element.offsetHeight
+            
+            let naturalWidth: number
+            let naturalHeight: number
+            
+            if (this.element instanceof HTMLImageElement) {
+                naturalWidth = this.element.naturalWidth
+                naturalHeight = this.element.naturalHeight
+            } else if (this.element instanceof HTMLVideoElement) {
+                naturalWidth = this.element.videoWidth
+                naturalHeight = this.element.videoHeight
+            } else {
+                naturalWidth = containerWidth
+                naturalHeight = containerHeight
+            }
+            
+            if (naturalWidth > 0 && naturalHeight > 0) {
+                if (this.objectFit === 'cover') {
+                    // For cover: calculate which part of the source to use to fill the canvas
+                    const containerAspect = containerWidth / containerHeight
+                    const naturalAspect = naturalWidth / naturalHeight
+                    
+                    if (naturalAspect > containerAspect) {
+                        // Image is wider - crop sides, scale to fit height
+                        const scaledWidth = naturalHeight * containerAspect
+                        const sourceX = (naturalWidth - scaledWidth) / 2
+                        
+                        this.ctx.drawImage(
+                            this.element,
+                            sourceX, 0, scaledWidth, naturalHeight,
+                            0, 0, this.iWidth, this.iHeight
+                        )
+                    } else {
+                        // Image is taller - crop top/bottom, scale to fit width
+                        const scaledHeight = naturalWidth / containerAspect
+                        const sourceY = (naturalHeight - scaledHeight) / 2
+                        
+                        this.ctx.drawImage(
+                            this.element,
+                            0, sourceY, naturalWidth, scaledHeight,
+                            0, 0, this.iWidth, this.iHeight
+                        )
+                    }
+                } else if (this.objectFit === 'contain') {
+                    // Draw the entire source image, letterboxed
+                    this.ctx.drawImage(
+                        this.element,
+                        0, 0, naturalWidth, naturalHeight,
+                        0, 0, this.iWidth, this.iHeight
+                    )
+                }
+            } else {
+                // Fallback to simple draw if natural dimensions are not available
+                this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+            }
+        }
 
         const oImgData = this.ctx.getImageData(
             0,
@@ -273,6 +409,11 @@ export class AsciiEffect {
             this.config.fResolution = options.resolution
         if (options.color !== undefined) this.config.bColor = options.color
         if (options.invert !== undefined) this.config.bInvert = options.invert
+        if (options.objectFit !== undefined) this.objectFit = options.objectFit
+        if (options.textColor !== undefined) {
+            this.textColor = options.textColor
+            this.asciiContainer.style.color = this.textColor
+        }
 
         this.calculateFontSettings()
     }

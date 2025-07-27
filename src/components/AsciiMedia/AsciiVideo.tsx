@@ -17,6 +17,8 @@ export default function AsciiVideo({
     onLoad,
     onPlay,
     onPause,
+    objectFit = 'fill',
+    textColor = 'black',
 }: AsciiVideoProps) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -65,7 +67,7 @@ export default function AsciiVideo({
         }
 
         // Create new ASCII effect
-        const options = { resolution, color, invert }
+        const options = { resolution, color, invert, objectFit, textColor }
         asciiEffectRef.current = new AsciiEffect(
             videoRef.current,
             charSet,
@@ -89,15 +91,15 @@ export default function AsciiVideo({
                 asciiEffectRef.current = null
             }
         }
-    }, [src, charSet, resolution, color, invert, isVideoLoaded, stopRenderLoop])
+    }, [src, charSet, resolution, color, invert, objectFit, textColor, isVideoLoaded, stopRenderLoop])
 
     // Update effect when props change
     useEffect(() => {
         if (!asciiEffectRef.current) return
 
         asciiEffectRef.current.setCharacterSet(charSet)
-        asciiEffectRef.current.setOptions({ resolution, color, invert })
-    }, [charSet, resolution, color, invert])
+        asciiEffectRef.current.setOptions({ resolution, color, invert, objectFit, textColor })
+    }, [charSet, resolution, color, invert, objectFit, textColor])
 
     const handleVideoLoadedData = () => {
         setIsVideoLoaded(true)
@@ -145,7 +147,7 @@ export default function AsciiVideo({
             <video
                 ref={videoRef}
                 src={src}
-                className="max-w-full h-auto block transition-opacity duration-[600ms] ease-in-out m-0 p-0 border-0 align-top"
+                className={`w-full h-full block transition-opacity duration-[1200ms] ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
                 autoPlay={autoPlay}
                 muted={muted}
                 loop={loop}

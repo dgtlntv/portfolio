@@ -10,6 +10,8 @@ export default function AsciiMedia(props: AsciiMediaProps) {
         onLoad,
         onPlay,
         onPause,
+        objectFit,
+        textColor,
         ...sharedProps
     } = props
 
@@ -58,11 +60,13 @@ export default function AsciiMedia(props: AsciiMediaProps) {
                 onLoad={onLoad}
                 onPlay={onPlay}
                 onPause={onPause}
+                objectFit={objectFit}
+                textColor={textColor}
             />
         )
     } else {
         return (
-            <AsciiImage {...sharedProps} src={src} alt={alt} onLoad={onLoad} />
+            <AsciiImage {...sharedProps} src={src} alt={alt} onLoad={onLoad} objectFit={objectFit} textColor={textColor} />
         )
     }
 }

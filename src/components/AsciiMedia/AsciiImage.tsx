@@ -12,6 +12,8 @@ export default function AsciiImage({
     className = "",
     style = {},
     onLoad,
+    objectFit = 'fill',
+    textColor = 'black',
 }: AsciiImageProps) {
     const imageRef = useRef<HTMLImageElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -28,7 +30,7 @@ export default function AsciiImage({
         }
 
         // Create new ASCII effect
-        const options = { resolution, color, invert }
+        const options = { resolution, color, invert, objectFit, textColor }
         asciiEffectRef.current = new AsciiEffect(
             imageRef.current,
             charSet,
@@ -51,16 +53,16 @@ export default function AsciiImage({
                 asciiEffectRef.current = null
             }
         }
-    }, [src, charSet, resolution, color, invert, isImageLoaded])
+    }, [src, charSet, resolution, color, invert, objectFit, textColor, isImageLoaded])
 
     // Update effect when props change
     useEffect(() => {
         if (!asciiEffectRef.current) return
 
         asciiEffectRef.current.setCharacterSet(charSet)
-        asciiEffectRef.current.setOptions({ resolution, color, invert })
+        asciiEffectRef.current.setOptions({ resolution, color, invert, objectFit, textColor })
         asciiEffectRef.current.render()
-    }, [charSet, resolution, color, invert])
+    }, [charSet, resolution, color, invert, objectFit, textColor])
 
     const handleImageLoad = () => {
         setIsImageLoaded(true)
@@ -93,7 +95,7 @@ export default function AsciiImage({
                 ref={imageRef}
                 src={src}
                 alt={alt}
-                className="m-0 block h-auto max-w-full border-0 p-0 align-top transition-opacity duration-[600ms] ease-in-out"
+                className={`w-full h-full block transition-opacity duration-[1200ms] ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
                 onLoad={handleImageLoad}
             />
         </div>
