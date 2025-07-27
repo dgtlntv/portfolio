@@ -26,6 +26,55 @@ export default function AsciiVideo({
     const animationIdRef = useRef<number | null>(null)
     const [isVideoLoaded, setIsVideoLoaded] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
+    const [showingVideo, setShowingVideo] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    
+    // Detect mobile device
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+        }
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
+    // Mobile scroll reveal logic
+    useEffect(() => {
+        if (!isMobile || !containerRef.current) return
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                        // Project is well in view, start timer to reveal video
+                        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+                        timeoutRef.current = setTimeout(() => {
+                            setShowingVideo(true)
+                        }, 1500) // 1.5 second delay
+                    } else {
+                        // Project scrolled out of view, hide video
+                        if (timeoutRef.current) {
+                            clearTimeout(timeoutRef.current)
+                            timeoutRef.current = null
+                        }
+                        setShowingVideo(false)
+                    }
+                })
+            },
+            { threshold: [0, 0.6, 1] }
+        )
+
+        observer.observe(containerRef.current)
+
+        return () => {
+            observer.disconnect()
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
+    }, [isMobile])
 
     // Animation loop for video frames
     const renderLoop = useCallback(() => {
@@ -121,18 +170,31 @@ export default function AsciiVideo({
     }
 
     const handleMouseEnter = () => {
-        if (videoRef.current && asciiEffectRef.current) {
+        if (!isMobile && videoRef.current && asciiEffectRef.current) {
             videoRef.current.style.opacity = "1"
             asciiEffectRef.current.getAsciiContainer().style.opacity = "0"
         }
     }
 
     const handleMouseLeave = () => {
-        if (videoRef.current && asciiEffectRef.current) {
+        if (!isMobile && videoRef.current && asciiEffectRef.current) {
             videoRef.current.style.opacity = "0"
             asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
         }
     }
+
+    // Handle mobile scroll reveal state
+    useEffect(() => {
+        if (isMobile && videoRef.current && asciiEffectRef.current) {
+            if (showingVideo) {
+                videoRef.current.style.opacity = "1"
+                asciiEffectRef.current.getAsciiContainer().style.opacity = "0"
+            } else {
+                videoRef.current.style.opacity = "0"
+                asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
+            }
+        }
+    }, [showingVideo, isMobile])
 
 
 

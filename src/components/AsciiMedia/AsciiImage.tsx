@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect, useState, useCallback } from "react"
 import { AsciiEffect } from "./AsciiEffect"
 import { AsciiImageProps } from "./types"
 
@@ -19,6 +19,55 @@ export default function AsciiImage({
     const containerRef = useRef<HTMLDivElement>(null)
     const asciiEffectRef = useRef<AsciiEffect | null>(null)
     const [isImageLoaded, setIsImageLoaded] = useState(false)
+    const [showingImage, setShowingImage] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    
+    // Detect mobile device
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+        }
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
+    // Mobile scroll reveal logic
+    useEffect(() => {
+        if (!isMobile || !containerRef.current) return
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                        // Project is well in view, start timer to reveal image
+                        if (timeoutRef.current) clearTimeout(timeoutRef.current)
+                        timeoutRef.current = setTimeout(() => {
+                            setShowingImage(true)
+                        }, 1500) // 1.5 second delay
+                    } else {
+                        // Project scrolled out of view, hide image
+                        if (timeoutRef.current) {
+                            clearTimeout(timeoutRef.current)
+                            timeoutRef.current = null
+                        }
+                        setShowingImage(false)
+                    }
+                })
+            },
+            { threshold: [0, 0.6, 1] }
+        )
+
+        observer.observe(containerRef.current)
+
+        return () => {
+            observer.disconnect()
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
+    }, [isMobile])
 
     // Initialize ASCII effect when image loads
     useEffect(() => {
@@ -70,18 +119,31 @@ export default function AsciiImage({
     }
 
     const handleMouseEnter = () => {
-        if (imageRef.current && asciiEffectRef.current) {
+        if (!isMobile && imageRef.current && asciiEffectRef.current) {
             imageRef.current.style.opacity = "1"
             asciiEffectRef.current.getAsciiContainer().style.opacity = "0"
         }
     }
 
     const handleMouseLeave = () => {
-        if (imageRef.current && asciiEffectRef.current) {
+        if (!isMobile && imageRef.current && asciiEffectRef.current) {
             imageRef.current.style.opacity = "0"
             asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
         }
     }
+
+    // Handle mobile scroll reveal state
+    useEffect(() => {
+        if (isMobile && imageRef.current && asciiEffectRef.current) {
+            if (showingImage) {
+                imageRef.current.style.opacity = "1"
+                asciiEffectRef.current.getAsciiContainer().style.opacity = "0"
+            } else {
+                imageRef.current.style.opacity = "0"
+                asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
+            }
+        }
+    }, [showingImage, isMobile])
 
     return (
         <div
