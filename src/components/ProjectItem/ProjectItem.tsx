@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import GridLayout from "../Grid/GridLayout"
-import { ProjectItemProps } from "./types" // Assuming this defines the props correctly
+import { AsciiMedia } from "../AsciiMedia"
+import { ProjectItemProps } from "./types"
 
 export default function ProjectItem({
     className,
@@ -11,8 +12,6 @@ export default function ProjectItem({
     isLeft = false,
     heroLocation,
 }: ProjectItemProps) {
-    const isVideo = imageUrl?.endsWith(".webm")
-
     return (
         <div className="col-span-9 mt-12 sm:mt-16 lg:mt-18">
             <GridLayout>
@@ -47,33 +46,20 @@ export default function ProjectItem({
                                     : "hover:rotate-[-0.5deg]"
                             } hover:scale-[1.01]`}
                         >
-                            {/* Image/Video: Use absolute positioning pinned to edges */}
-                            {isVideo ? (
-                                <video
-                                    className={`h-full w-full ${
-                                        heroLocation === "cover"
-                                            ? "object-cover"
-                                            : "object-contain"
-                                    } bg-white object-center transition-transform duration-700 ease-in-out`}
-                                    src={imageUrl}
-                                    controls={false}
-                                    autoPlay={true}
-                                    muted
-                                    loop
-                                    playsInline
-                                />
-                            ) : (
-                                <img
-                                    className={`h-full w-full ${
-                                        heroLocation === "cover"
-                                            ? "object-cover"
-                                            : "object-contain"
-                                    } bg-white object-center transition-transform duration-700 ease-in-out`}
-                                    src={imageUrl}
-                                    alt={title || "Project image"}
-                                    loading="lazy"
-                                />
-                            )}
+                            <AsciiMedia
+                                src={imageUrl || ""}
+                                alt={title || "Project image"}
+                                className={`h-full w-full ${
+                                    heroLocation === "cover"
+                                        ? "object-cover"
+                                        : "object-contain"
+                                } bg-white object-center transition-transform duration-700 ease-in-out`}
+                                autoPlay={true}
+                                muted={true}
+                                loop={true}
+                                controls={false}
+                                resolution={0.2}
+                            />
                         </div>
                     </Link>
                 </div>

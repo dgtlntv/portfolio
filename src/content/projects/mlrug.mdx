@@ -3,8 +3,9 @@ title: MLRUG
 date: "15.01.2023"
 slug: mlrug
 excerpt:
-    Experimenting with generative algorithms as a design tool to create Moroccan
-    carpet designs using machine learning.
+    Experimented with generative algorithms to create Moroccan carpet designs,
+    then brought them to life through traditional production in Morocco.
+    Exhibited at Design Month Graz 2025.
 coverImage: "/videos/projects/mlrug/mlrug-video.webm"
 heroLocation: "contain"
 stats:
@@ -20,61 +21,304 @@ conclusion from this discussion was that generative algorithms will play an
 increasingly important role in the design process, to the point where the role
 of the designer might change from creator to curator. With that in mind I wanted
 to do a project where I experiment with generative algorithms as a design tool.
-Data As with so many machine learning projects, one of the biggest
-considerations for me was the data I would feed my generative algorithm with. I
-wanted to choose a design object that I was reasonably familiar with, could get
-a sufficient amount of data, and could be represented as an image (since 3D
-generative design from scratch is much more difficult). Through these
-considerations I chose Moroccan carpets. I am very familiar with Moroccan
-carpets, as my father deals with them, which also gives me access to image data
-of Moroccan carpets. The data I could get through my father I supplemented with
-images from the internet which I collected with a web-crawler. In the end I was
-able to obtain about 3000 images of Moroccan carpets. This is not a huge amount
-in the context of a generative algorithm, but enough to get reasonably useful
-results. Algorithm and Computing I investigated various architectures and
-algorithms and finally settled on HyperGan. At the time, it was an appropriately
-powerful architecture for this project and was specifically designed to lower
-the barrier to entry for artists and designers. For my first test, I ran
-HyperGAN on my laptop, but I quickly realized that my laptop's graphics card
-(GTX1050) would not be sufficient for a full run. So I turned to a cloud
-solution. In the process, I landed on Paperspace, which is based on AWS but
-offers a simpler user experience and is optimized for machine learning. There, I
-did a number of different runs with my data, using different resolutions and
-parameters. In the end, I found that HyperGAN's default algorithm and a
-resolution of 256x256 worked best for me. Results I wouldn't call the results
-perfect, but for the amount of data and technical knowledge I had, I think they
-were reasonable. At this point, it's clear that training an algorithm on a small
-scale like this isn't really going to replace a designer's design process. But
-it can serve as inspiration. And it definitely did in this project. From Digital
-to Physical What began as an experimental exploration evolved into a complete
-design journey. In 2019, I trained my first models using generative adversarial
+
+## Data Collection
+
+<FloatImage
+    direction="right"
+    content={
+        <ImageGallery 
+            images={[
+                { src: "/images/projects/mlrug/optimized_og1_abjily.jpg", alt: "Training data example - Moroccan carpet 1" },
+                { src: "/images/projects/mlrug/optimized_og2_kntmvj.jpg", alt: "Training data example - Moroccan carpet 2" },
+                { src: "/images/projects/mlrug/optimized_og3_zn2xem.jpg", alt: "Training data example - Moroccan carpet 3" },
+                { src: "/images/projects/mlrug/optimized_og4_wuyclb.jpg", alt: "Training data example - Moroccan carpet 4" },
+                { src: "/images/projects/mlrug/optimized_og5_rpqo0a.jpg", alt: "Training data example - Moroccan carpet 5" }
+            ]}
+        />
+    }
+>
+    As with so many machine learning projects, one of the biggest considerations for
+    me was the data I would feed my generative algorithm with. I wanted to choose a
+    design object that I was reasonably familiar with, could get a sufficient amount
+    of data, and could be represented as an image (since 3D generative design from
+    scratch is much more difficult). Through these considerations I chose Moroccan
+    carpets.
+
+    I am very familiar with Moroccan carpets, as my father deals with them, which
+    also gives me access to image data of Moroccan carpets. The data I could get
+    through my father I supplemented with images from the internet which I collected
+    with a web-crawler. In the end I was able to obtain about 3000 images of
+    Moroccan carpets. This is not a huge amount in the context of a generative
+    algorithm, but enough to get reasonably useful results.
+
+</FloatImage>
+
+## Algorithm and Computing
+
+I investigated various architectures and algorithms and finally settled on
+HyperGan. At the time, it was an appropriately powerful architecture for this
+project and was specifically designed to lower the barrier to entry for artists
+and designers. For my first test, I ran HyperGAN on my laptop, but I quickly
+realized that my laptop's graphics card (GTX1050) would not be sufficient for a
+full run.
+
+So I turned to a cloud solution. In the process, I landed on Paperspace, which
+is based on AWS but offers a simpler user experience and is optimized for
+machine learning. There, I did a number of different runs with my data, using
+different resolutions and parameters. In the end, I found that HyperGAN's
+default algorithm and a resolution of 256x256 worked best for me.
+
+## Initial Results
+
+<FloatImage
+    direction="left"
+    content={
+        <ImageGallery
+            images={[
+                {
+                    src: "/images/projects/mlrug/optimized_test1_q0ickq.jpg",
+                    alt: "Initial AI-generated carpet design 1",
+                },
+                {
+                    src: "/images/projects/mlrug/optimized_test2_bsazdb.jpg",
+                    alt: "Initial AI-generated carpet design 2",
+                },
+                {
+                    src: "/images/projects/mlrug/optimized_test3_tp3e7l.jpg",
+                    alt: "Initial AI-generated carpet design 3",
+                },
+                {
+                    src: "/images/projects/mlrug/optimized_test4_w4wlpv.jpg",
+                    alt: "Initial AI-generated carpet design 4",
+                },
+                {
+                    src: "/images/projects/mlrug/optimized_test5_u7ssfr.jpg",
+                    alt: "Initial AI-generated carpet design 5",
+                },
+            ]}
+        />
+    }
+>
+    I wouldn't call the results perfect, but for the amount of data and
+    technical knowledge I had, I think they were reasonable. At this point, it's
+    clear that training an algorithm on a small scale like this isn't really
+    going to replace a designer's design process. But it can serve as
+    inspiration. And it definitely did in this project.
+</FloatImage>
+
+## From Digital to Physical
+
+What began as an experimental exploration evolved into a complete design
+journey. In 2019, I trained my first models using generative adversarial
 networks (GANs), achieving moderate results. The breakthrough came when I
 revisited the project in collaboration with my sister Ida, who was exploring
-pattern development in Moroccan carpets for her master's thesis. For this second
-iteration, I chose StyleGAN2-ada, a variant specifically designed for training
-with fewer images. Using my father's high-quality photo archive supplemented by
-carefully selected internet images, we achieved surprisingly good quality
-results that sparked interesting discussions about the parallels between how AI
-learns compared to humans, and how this relates to the history of rug design in
-Morocco. The most exciting development was bringing these digital creations back
-into the physical world. Rather than choosing Indian or Nepalese manufactories
-with their precision technology that would allow nearly photographic
-reproduction, we deliberately opted for production in Morocco. The rhizomatic
-producer landscape there—consisting of many small, interconnected local
-businesses—allowed us to maintain the character and vitality of the original
-designs while ensuring value creation remained in the country that inspired our
-work. Working with a producer from the western Middle Atlas that my father had
-collaborated with for several years, we were able to translate the AI-generated
-designs into handcrafted rugs. The result was not mechanical reproduction but
-rather a living interpretation that preserved the improvisational qualities that
-make Moroccan rugs special. These AI-influenced handcrafted rugs will be
-presented as part of Design Month Graz 2025, representing the fruitful interplay
-between digital technology and traditional craftsmanship. The project has
-deepened my understanding of AI's role in design—not as a replacement for human
-creativity, but as a tool that can open new possibilities when used thoughtfully
-and critically. Through this journey, I've come to a more nuanced view of AI in
-design. While I remain technology-positive, I've become concerned about the
-trend of designers completely delegating their thinking and creativity to AI
-rather than using it to enhance their creative process. The best results come
-from a balanced approach where AI serves as one tool among many in the
-designer's toolkit.
+pattern development in Moroccan carpets for her master's thesis.
+
+<FloatImage
+    direction="right"
+    content={
+        <ImageGallery
+            images={[
+                {
+                    src: "/images/projects/mlrug/seed0035.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 0035",
+                },
+                {
+                    src: "/images/projects/mlrug/seed0552.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 0552",
+                },
+                {
+                    src: "/images/projects/mlrug/seed2705.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 2705",
+                },
+                {
+                    src: "/images/projects/mlrug/seed3733.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 3733",
+                },
+                {
+                    src: "/images/projects/mlrug/seed3948.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 3948",
+                },
+                {
+                    src: "/images/projects/mlrug/seed4222.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 4222",
+                },
+                {
+                    src: "/images/projects/mlrug/seed5014.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 5014",
+                },
+                {
+                    src: "/images/projects/mlrug/seed5151.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 5151",
+                },
+                {
+                    src: "/images/projects/mlrug/seed6181.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 6181",
+                },
+                {
+                    src: "/images/projects/mlrug/seed7002.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 7002",
+                },
+                {
+                    src: "/images/projects/mlrug/seed8312.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 8312",
+                },
+                {
+                    src: "/images/projects/mlrug/seed8971.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 8971",
+                },
+                {
+                    src: "/images/projects/mlrug/seed9383.png",
+                    alt: "StyleGAN2-ada generated carpet design - seed 9383",
+                },
+            ]}
+        />
+    }
+>
+    For this second iteration, I chose StyleGAN2-ada, a variant specifically
+    designed for training with fewer images. Using my father's high-quality
+    photo archive supplemented by carefully selected internet images, we
+    achieved surprisingly good quality results that sparked interesting
+    discussions about the parallels between how AI learns compared to humans,
+    and how this relates to the history of rug design in Morocco.
+</FloatImage>
+
+## Production and Collaboration
+
+<FloatImage
+    direction="left"
+    content={
+        <ImageGallery 
+            images={[
+                { src: "/images/projects/mlrug/production-1.jpg", alt: "Carpet production process 1" },
+                { src: "/images/projects/mlrug/production-2.jpg", alt: "Carpet production process 2" },
+                { src: "/images/projects/mlrug/production-3.jpg", alt: "Carpet production process 3" },
+                { src: "/images/projects/mlrug/production-4.jpg", alt: "Carpet production process 4" },
+                { src: "/images/projects/mlrug/production-5.jpg", alt: "Carpet production process 5" },
+                { src: "/images/projects/mlrug/production-6.jpg", alt: "Carpet production process 6" },
+                { src: "/images/projects/mlrug/production-7.jpg", alt: "Carpet production process 7" },
+                { src: "/images/projects/mlrug/production-8.jpg", alt: "Carpet production process 8" },
+                { src: "/images/projects/mlrug/production-9.jpg", alt: "Carpet production process 9" },
+                { src: "/images/projects/mlrug/production-10.jpg", alt: "Carpet production process 10" },
+                { src: "/images/projects/mlrug/production-11.jpeg", alt: "Carpet production process 11" },
+                { src: "/images/projects/mlrug/production-12.jpeg", alt: "Carpet production process 12" }
+            ]}
+        />
+    }
+>
+    The most exciting development was bringing these digital creations back into the
+    physical world. Rather than choosing Indian or Nepalese manufactories with their
+    precision technology that would allow nearly photographic reproduction, we
+    deliberately opted for production in Morocco. The rhizomatic producer landscape
+    there—consisting of many small, interconnected local businesses—allowed us to
+    maintain the character and vitality of the original designs while ensuring value
+    creation remained in the country that inspired our work.
+
+    Working with a producer from the western Middle Atlas that my father had
+    collaborated with for several years, we were able to translate the AI-generated
+    designs into handcrafted rugs. The result was not mechanical reproduction but
+    rather a living interpretation that preserved the improvisational qualities that
+    make Moroccan rugs special.
+
+</FloatImage>
+
+## Exhibition and Presentation
+
+<FloatImage
+    direction="right"
+    content={
+        <ImageGallery
+            images={[
+                {
+                    src: "/images/projects/mlrug/exhibition-1.jpeg",
+                    alt: "Exhibition view 1",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-2.jpeg",
+                    alt: "Exhibition view 2",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-3.jpeg",
+                    alt: "Exhibition view 3",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-4.jpeg",
+                    alt: "Exhibition view 4",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-5.jpeg",
+                    alt: "Exhibition view 5",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-6.jpeg",
+                    alt: "Exhibition view 6",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-7.jpeg",
+                    alt: "Exhibition view 7",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-8.jpeg",
+                    alt: "Exhibition view 8",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-9.jpeg",
+                    alt: "Exhibition view 9",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-10.jpeg",
+                    alt: "Exhibition view 10",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-11.jpeg",
+                    alt: "Exhibition view 11",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-12.jpeg",
+                    alt: "Exhibition view 12",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-13.jpeg",
+                    alt: "Exhibition view 13",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-14.jpeg",
+                    alt: "Exhibition view 14",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-15.jpeg",
+                    alt: "Exhibition view 15",
+                },
+                {
+                    src: "/images/projects/mlrug/exhibition-16.jpeg",
+                    alt: "Exhibition view 16",
+                },
+            ]}
+        />
+    }
+>
+    These AI-influenced handcrafted rugs were presented as part of Design Month
+    Graz 2025, representing the fruitful interplay between digital technology
+    and traditional craftsmanship.
+</FloatImage>
+
+## Recognition and Media Coverage
+
+The project gained recognition beyond the exhibition, being featured in two
+articles in Cover, a leading trade magazine for interior design and
+architecture. This coverage helped highlight the innovative approach of
+combining AI technology with traditional Moroccan craftsmanship, bringing
+attention to the potential for thoughtful integration of artificial intelligence
+in design practice.
+
+## Reflection and Conclusion
+
+The project has deepened my understanding of AI's role in design—not as a
+replacement for human creativity, but as a tool that can open new possibilities
+when used thoughtfully and critically. Through this journey, I've come to a more
+nuanced view of AI in design. While I remain technology-positive, I've become
+concerned about the trend of designers completely delegating their thinking and
+creativity to AI rather than using it to enhance their creative process. The
+best results come from a balanced approach where AI serves as one tool among
+many in the designer's toolkit.

@@ -1,0 +1,283 @@
+import { AsciiEffectOptions, AsciiEffectConfig, DrawableElement } from "./types"
+
+/**
+ * Unified ASCII effect that works with any drawable HTML element (img, video, canvas)
+ * Based on the Three.js AsciiEffect implementation
+ */
+export class AsciiEffect {
+    private element: DrawableElement
+    private charSet: string
+    private config: AsciiEffectConfig
+    private canvas: HTMLCanvasElement
+    private ctx: CanvasRenderingContext2D
+    private asciiContainer: HTMLDivElement
+    private isInitialized: boolean = false
+    private iWidth: number = 0
+    private iHeight: number = 0
+
+    constructor(
+        element: DrawableElement,
+        charSet: string = " .:-=+*#%@",
+        options: AsciiEffectOptions = {},
+    ) {
+        this.element = element
+        this.charSet = charSet
+
+        // ASCII settings
+        this.config = {
+            charSet,
+            fResolution: options.resolution || 0.15,
+            iScale: 1,
+            bColor: options.color || false,
+            bAlpha: options.alpha || false,
+            bBlock: false,
+            bInvert: options.invert || false,
+            strResolution: "low",
+            offsetX: 0,
+            offsetY: 0,
+            letterSpacingMultiplier: 1.25,
+        }
+
+        // Create canvas for element analysis
+        this.canvas = document.createElement("canvas")
+        const context = this.canvas.getContext("2d")
+        if (!context) {
+            throw new Error("Unable to get 2D context from canvas")
+        }
+        this.ctx = context
+
+        // Create ASCII overlay container
+        this.asciiContainer = document.createElement("div")
+        this.setupContainer()
+        this.calculateFontSettings()
+    }
+
+    private setupContainer(): void {
+        this.asciiContainer.style.position = "absolute"
+        this.asciiContainer.style.top = "0"
+        this.asciiContainer.style.left = "0"
+        this.asciiContainer.style.pointerEvents = "none"
+        this.asciiContainer.style.whiteSpace = "pre"
+        this.asciiContainer.style.margin = "0"
+        this.asciiContainer.style.padding = "0"
+        this.asciiContainer.style.fontFamily = "courier new, monospace"
+        this.asciiContainer.style.textAlign = "left"
+        this.asciiContainer.style.textDecoration = "none"
+        this.asciiContainer.style.lineHeight = "1"
+        this.asciiContainer.style.overflow = "hidden"
+        this.asciiContainer.style.backgroundColor = "white"
+        this.asciiContainer.style.transition = "opacity 0.6s ease-in-out"
+        this.asciiContainer.classList.add("ascii-overlay")
+    }
+
+    private calculateFontSettings(): void {
+        const fFontSize = (2 / this.config.fResolution) * this.config.iScale
+        const fLineHeight = (2 / this.config.fResolution) * this.config.iScale
+
+        let fLetterSpacing = 0
+
+        if (this.config.strResolution === "low") {
+            switch (this.config.iScale) {
+                case 1:
+                    fLetterSpacing =
+                        -fFontSize * 0.08 * this.config.letterSpacingMultiplier
+                    break
+                case 2:
+                case 3:
+                    fLetterSpacing =
+                        -fFontSize * 0.16 * this.config.letterSpacingMultiplier
+                    break
+                case 4:
+                    fLetterSpacing =
+                        -fFontSize * 0.24 * this.config.letterSpacingMultiplier
+                    break
+                case 5:
+                    fLetterSpacing =
+                        -fFontSize * 0.32 * this.config.letterSpacingMultiplier
+                    break
+            }
+        }
+
+        this.asciiContainer.style.fontSize = fFontSize + "px"
+        this.asciiContainer.style.lineHeight = fLineHeight + "px"
+        this.asciiContainer.style.letterSpacing = fLetterSpacing + "px"
+    }
+
+    public init(): void {
+        if (this.isInitialized) return
+
+        // Make sure element container is positioned relative
+        const elementParent = this.element.parentNode as HTMLElement
+        if (
+            elementParent &&
+            getComputedStyle(elementParent).position === "static"
+        ) {
+            elementParent.style.position = "relative"
+        }
+
+        // Insert ASCII container after the element
+        if (this.element.nextSibling) {
+            elementParent.insertBefore(
+                this.asciiContainer,
+                this.element.nextSibling,
+            )
+        } else {
+            elementParent.appendChild(this.asciiContainer)
+        }
+
+        this.isInitialized = true
+    }
+
+    private updateSize(): void {
+        const width = this.element.offsetWidth
+        const height = this.element.offsetHeight
+
+        // Ensure minimum canvas size to prevent errors
+        this.iWidth = Math.max(1, Math.floor(width * this.config.fResolution))
+        this.iHeight = Math.max(1, Math.floor(height * this.config.fResolution))
+
+        this.canvas.width = this.iWidth
+        this.canvas.height = this.iHeight
+
+        // Get the exact position of the element relative to its parent
+        const elementRect = this.element.getBoundingClientRect()
+        const parentRect = (
+            this.element.parentNode as HTMLElement
+        ).getBoundingClientRect()
+
+        const leftOffset =
+            elementRect.left - parentRect.left + this.config.offsetX
+        const topOffset = elementRect.top - parentRect.top + this.config.offsetY
+
+        // Position ASCII container to match element exactly
+        this.asciiContainer.style.width = width + "px"
+        this.asciiContainer.style.height = height + "px"
+        this.asciiContainer.style.left = leftOffset + "px"
+        this.asciiContainer.style.top = topOffset + "px"
+    }
+
+    private isElementReady(): boolean {
+        if (this.element instanceof HTMLVideoElement) {
+            return this.element.readyState >= 2
+        }
+        if (this.element instanceof HTMLImageElement) {
+            return this.element.complete && this.element.naturalWidth > 0
+        }
+        // Canvas elements are always ready
+        return true
+    }
+
+    public render(): void {
+        if (!this.isInitialized) {
+            this.init()
+        }
+
+        // Skip rendering if element isn't ready
+        if (!this.isElementReady()) {
+            return
+        }
+
+        this.updateSize()
+
+        // Safety check for valid canvas dimensions
+        if (this.iWidth <= 0 || this.iHeight <= 0) {
+            return
+        }
+
+        // Draw element to canvas
+        this.ctx.clearRect(0, 0, this.iWidth, this.iHeight)
+        this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+
+        const oImgData = this.ctx.getImageData(
+            0,
+            0,
+            this.iWidth,
+            this.iHeight,
+        ).data
+
+        let strChars = ""
+
+        for (let y = 0; y < this.iHeight; y += 2) {
+            for (let x = 0; x < this.iWidth; x++) {
+                const iOffset = (y * this.iWidth + x) * 4
+
+                const iRed = oImgData[iOffset]
+                const iGreen = oImgData[iOffset + 1]
+                const iBlue = oImgData[iOffset + 2]
+                const iAlpha = oImgData[iOffset + 3]
+
+                let fBrightness =
+                    (0.3 * iRed + 0.59 * iGreen + 0.11 * iBlue) / 255
+
+                if (iAlpha === 0) {
+                    fBrightness = 1
+                }
+
+                let iCharIdx = Math.floor(
+                    (1 - fBrightness) * (this.charSet.length - 1),
+                )
+
+                if (this.config.bInvert) {
+                    iCharIdx = this.charSet.length - iCharIdx - 1
+                }
+
+                let strThisChar = this.charSet[iCharIdx]
+
+                if (strThisChar === undefined || strThisChar === " ") {
+                    strThisChar = "&nbsp;"
+                }
+
+                if (this.config.bColor) {
+                    strChars +=
+                        "<span style='" +
+                        "color:rgb(" +
+                        iRed +
+                        "," +
+                        iGreen +
+                        "," +
+                        iBlue +
+                        ");" +
+                        "'>" +
+                        strThisChar +
+                        "</span>"
+                } else {
+                    strChars += strThisChar
+                }
+            }
+
+            strChars += "<br/>"
+        }
+
+        this.asciiContainer.innerHTML = `<div style="display:block;width:${this.element.offsetWidth}px;height:${this.element.offsetHeight}px;overflow:hidden">${strChars}</div>`
+    }
+
+    public destroy(): void {
+        if (this.asciiContainer && this.asciiContainer.parentNode) {
+            this.asciiContainer.parentNode.removeChild(this.asciiContainer)
+        }
+        this.isInitialized = false
+    }
+
+    public setCharacterSet(charSet: string): void {
+        this.charSet = charSet
+        this.config.charSet = charSet
+    }
+
+    public setResolution(resolution: number): void {
+        this.config.fResolution = resolution
+        this.calculateFontSettings()
+    }
+
+    public setOptions(options: AsciiEffectOptions): void {
+        if (options.resolution !== undefined)
+            this.config.fResolution = options.resolution
+        if (options.color !== undefined) this.config.bColor = options.color
+        if (options.invert !== undefined) this.config.bInvert = options.invert
+
+        this.calculateFontSettings()
+    }
+
+    public getAsciiContainer(): HTMLDivElement {
+        return this.asciiContainer
+    }
+}
