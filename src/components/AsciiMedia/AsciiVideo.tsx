@@ -17,8 +17,9 @@ export default function AsciiVideo({
     onLoad,
     onPlay,
     onPause,
-    objectFit = 'fill',
-    textColor = 'black',
+    objectFit = "fill",
+    textColor = "black",
+    darken = 1,
 }: AsciiVideoProps) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
@@ -29,15 +30,15 @@ export default function AsciiVideo({
     const [showingVideo, setShowingVideo] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-    
+
     // Detect mobile device
     useEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window)
+            setIsMobile(window.innerWidth < 768 || "ontouchstart" in window)
         }
         checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
     }, [])
 
     // Mobile scroll reveal logic
@@ -63,7 +64,7 @@ export default function AsciiVideo({
                     }
                 })
             },
-            { threshold: [0, 0.6, 1] }
+            { threshold: [0, 0.6, 1] },
         )
 
         observer.observe(containerRef.current)
@@ -116,7 +117,14 @@ export default function AsciiVideo({
         }
 
         // Create new ASCII effect
-        const options = { resolution, color, invert, objectFit, textColor }
+        const options = {
+            resolution,
+            color,
+            invert,
+            objectFit,
+            textColor,
+            darken,
+        }
         asciiEffectRef.current = new AsciiEffect(
             videoRef.current,
             charSet,
@@ -131,7 +139,7 @@ export default function AsciiVideo({
         if (asciiEffectRef.current) {
             asciiEffectRef.current.getAsciiContainer().style.opacity = "1"
             // Set platform-specific transition duration
-            const duration = isMobile ? '1.8s' : '1.2s'
+            const duration = isMobile ? "1.8s" : "1.2s"
             asciiEffectRef.current.setTransitionDuration(duration)
         }
 
@@ -143,15 +151,34 @@ export default function AsciiVideo({
                 asciiEffectRef.current = null
             }
         }
-    }, [src, charSet, resolution, color, invert, objectFit, textColor, isVideoLoaded, stopRenderLoop, isMobile])
+    }, [
+        src,
+        charSet,
+        resolution,
+        color,
+        invert,
+        objectFit,
+        textColor,
+        darken,
+        isVideoLoaded,
+        stopRenderLoop,
+        isMobile,
+    ])
 
     // Update effect when props change
     useEffect(() => {
         if (!asciiEffectRef.current) return
 
         asciiEffectRef.current.setCharacterSet(charSet)
-        asciiEffectRef.current.setOptions({ resolution, color, invert, objectFit, textColor })
-    }, [charSet, resolution, color, invert, objectFit, textColor])
+        asciiEffectRef.current.setOptions({
+            resolution,
+            color,
+            invert,
+            objectFit,
+            textColor,
+            darken,
+        })
+    }, [charSet, resolution, color, invert, objectFit, textColor, darken])
 
     const handleVideoLoadedData = () => {
         setIsVideoLoaded(true)
@@ -199,8 +226,6 @@ export default function AsciiVideo({
         }
     }, [showingVideo, isMobile])
 
-
-
     return (
         <div
             ref={containerRef}
@@ -212,7 +237,7 @@ export default function AsciiVideo({
             <video
                 ref={videoRef}
                 src={src}
-                className={`w-full h-full block transition-opacity ${isMobile ? 'duration-[1800ms]' : 'duration-[1200ms]'} ease-in-out m-0 p-0 border-0 align-top ${objectFit === 'cover' ? 'object-cover' : objectFit === 'contain' ? 'object-contain' : 'object-fill'}`}
+                className={`block h-full w-full transition-opacity ${isMobile ? "duration-[1800ms]" : "duration-[1200ms]"} m-0 border-0 p-0 align-top ease-in-out ${objectFit === "cover" ? "object-cover" : objectFit === "contain" ? "object-contain" : "object-fill"}`}
                 autoPlay={autoPlay}
                 muted={muted}
                 loop={loop}

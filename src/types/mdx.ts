@@ -12,6 +12,7 @@ export interface FrontMatter {
   author?: string
   website?: string
   github?: string
+  asciiDarken?: number
   [key: string]: unknown
 }
 

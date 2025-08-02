@@ -16,6 +16,7 @@ export class AsciiEffect {
     private iHeight: number = 0
     private objectFit: 'cover' | 'contain' | 'fill' = 'fill'
     private textColor: string = 'black'
+    private darken: number = 1
 
     constructor(
         element: DrawableElement,
@@ -26,6 +27,7 @@ export class AsciiEffect {
         this.charSet = charSet
         this.objectFit = options.objectFit || 'fill'
         this.textColor = options.textColor || 'black'
+        this.darken = options.darken || 1
 
         // ASCII settings
         this.config = {
@@ -324,6 +326,24 @@ export class AsciiEffect {
             }
         }
 
+        // Apply darkening effect if specified
+        if (this.darken !== 1) {
+            const imageData = this.ctx.getImageData(0, 0, this.iWidth, this.iHeight)
+            const data = imageData.data
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Apply darkening to RGB channels - multiply by darken factor
+                // darken < 1 = darken, darken > 1 = brighten, darken = 1 = no change
+                data[i] = Math.min(255, Math.max(0, data[i] * this.darken))     // Red
+                data[i + 1] = Math.min(255, Math.max(0, data[i + 1] * this.darken)) // Green
+                data[i + 2] = Math.min(255, Math.max(0, data[i + 2] * this.darken)) // Blue
+                // Alpha channel remains unchanged
+            }
+            
+            this.ctx.putImageData(imageData, 0, 0)
+        }
+
+        // Sample colors AFTER darkening is applied
         const oImgData = this.ctx.getImageData(
             0,
             0,
@@ -414,6 +434,7 @@ export class AsciiEffect {
             this.textColor = options.textColor
             this.asciiContainer.style.color = this.textColor
         }
+        if (options.darken !== undefined) this.darken = options.darken
 
         this.calculateFontSettings()
     }

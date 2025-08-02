@@ -7,4 +7,5 @@ export interface ProjectItemProps extends WithChildren {
     url: string
     isLeft?: boolean
     heroLocation?: 'cover' | 'contain'
+    asciiDarken?: number
 }

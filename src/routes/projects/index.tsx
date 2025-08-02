@@ -53,6 +53,9 @@ function Projects() {
                                     heroLocation={
                                         project.frontMatter.heroLocation
                                     }
+                                    asciiDarken={
+                                        project.frontMatter.asciiDarken
+                                    }
                                     isLeft={index % 2 === 0}
                                 >
                                     {project.frontMatter.excerpt}

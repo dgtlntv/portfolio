@@ -11,6 +11,7 @@ export default function ProjectItem({
     children,
     isLeft = false,
     heroLocation,
+    asciiDarken = 1,
 }: ProjectItemProps) {
     return (
         <div className="col-span-9 mt-12 sm:mt-16 lg:mt-18">
@@ -60,7 +61,9 @@ export default function ProjectItem({
                                         ? "cover"
                                         : "contain"
                                 }
-                                textColor="black"
+                                color={true}
+                                // textColor="black"
+                                darken={asciiDarken}
                             />
                         </div>
                     </Link>

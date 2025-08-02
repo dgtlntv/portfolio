@@ -7,6 +7,7 @@ export interface AsciiEffectOptions {
     invert?: boolean
     objectFit?: 'cover' | 'contain' | 'fill'
     textColor?: string
+    darken?: number
 }
 
 export interface AsciiEffectConfig {
@@ -40,6 +41,7 @@ export interface AsciiImageProps {
     onLoad?: () => void
     objectFit?: 'cover' | 'contain' | 'fill'
     textColor?: string
+    darken?: number
 }
 
 export interface AsciiVideoProps {
@@ -59,6 +61,7 @@ export interface AsciiVideoProps {
     onPause?: () => void
     objectFit?: 'cover' | 'contain' | 'fill'
     textColor?: string
+    darken?: number
 }
 
 export interface AsciiMediaProps {
@@ -80,4 +83,5 @@ export interface AsciiMediaProps {
     onPause?: () => void
     objectFit?: 'cover' | 'contain' | 'fill'
     textColor?: string
+    darken?: number
 }
