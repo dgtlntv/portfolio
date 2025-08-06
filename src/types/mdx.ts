@@ -20,6 +20,7 @@ export interface MDXContent {
   frontMatter: FrontMatter
   slug: string
   content: React.ComponentType | (() => Promise<React.ComponentType>)
+  filename: string
 }
 
 export interface MDXProviderProps {

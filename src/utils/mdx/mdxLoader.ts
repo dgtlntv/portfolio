@@ -38,13 +38,19 @@ export async function getAllMdx(contentDir: string): Promise<MDXContent[]> {
                 frontMatter: frontMatter as FrontMatter,
                 slug: frontMatter.slug || filename,
                 content: Component,
+                filename, // Add filename for sorting
             }
         })
 
-        // Sort by date (most recent first)
-        return mdxContents
-            .filter((item) => item.frontMatter && item.frontMatter.date)
-            .sort((a, b) => {
+        // Sort by filename for projects, by date for other content
+        const filtered = mdxContents.filter((item) => item.frontMatter && item.frontMatter.date)
+        
+        if (contentDir === 'projects') {
+            // Sort projects by filename (alphabetically)
+            return filtered.sort((a, b) => a.filename.localeCompare(b.filename))
+        } else {
+            // Sort other content by date (most recent first)
+            return filtered.sort((a, b) => {
                 // Parse European date format (DD.MM.YYYY)
                 const parseEuropeanDate = (dateStr: string) => {
                     const [day, month, year] = dateStr.split('.')
@@ -56,6 +62,7 @@ export async function getAllMdx(contentDir: string): Promise<MDXContent[]> {
                     parseEuropeanDate(a.frontMatter.date).getTime()
                 )
             })
+        }
     } catch (error) {
         console.error("Error loading MDX files:", error)
         return []

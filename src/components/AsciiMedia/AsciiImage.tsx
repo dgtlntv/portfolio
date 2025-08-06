@@ -6,7 +6,7 @@ export default function AsciiImage({
     src,
     alt = "",
     charSet = " .:-=+*#%@",
-    resolution = 0.15,
+    resolution = 0.18,
     color = false,
     invert = false,
     className = "",

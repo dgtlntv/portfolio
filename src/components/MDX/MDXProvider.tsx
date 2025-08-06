@@ -3,6 +3,8 @@ import React from "react"
 import FloatImage from "../Article/FloatImage"
 import FanImages from "../Article/FanImages"
 import ImageGallery from "../Article/ImageGallery"
+import DocumentSkeleton from "../DocumentSkeleton"
+import MetricsMockup from "../MetricsMockup"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
 import { TagList } from "./TagList"
@@ -75,6 +77,8 @@ export const components = {
     FloatImage,
     FanImages,
     ImageGallery,
+    DocumentSkeleton,
+    MetricsMockup,
     TagList,
 }
 

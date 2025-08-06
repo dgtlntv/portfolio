@@ -5,7 +5,7 @@ import { AsciiVideoProps } from "./types"
 export default function AsciiVideo({
     src,
     charSet = " .:-=+*#%@",
-    resolution = 0.15,
+    resolution = 0.18,
     color = false,
     invert = false,
     autoPlay = false,
