@@ -5,6 +5,7 @@ import FanImages from "../Article/FanImages"
 import ImageGallery from "../Article/ImageGallery"
 import DocumentSkeleton from "../DocumentSkeleton"
 import MetricsMockup from "../MetricsMockup"
+import ColorPaletteMockup from "../ColorPaletteMockup"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
 import { TagList } from "./TagList"
@@ -79,6 +80,7 @@ export const components = {
     ImageGallery,
     DocumentSkeleton,
     MetricsMockup,
+    ColorPaletteMockup,
     TagList,
 }
 

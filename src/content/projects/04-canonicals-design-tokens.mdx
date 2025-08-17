@@ -13,58 +13,121 @@ stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
 ---
 
-Upon joining Canonical, I quickly identified that the design system—which at
-that point was more accurately described as a CSS library—lacked a robust system
-for its visual foundations. Rather than being systematically created, visual
-foundations were developed on an as-needed basis, resulting in an inconsistent
-and fragmented approach. More problematically, these visual foundations were
-implemented directly in CSS code, creating a significant disconnect between the
-source of truth (the code) and our design tools in Figma. This implementation
-gap led to frequent mismatches between designs in the Figma libraries and the
-actual code implementation. Design specifications often failed to match
-production environments, leading to developer confusion and implementation
-inconsistencies. As Canonical's product ecosystem continued to grow, it became
-evident that this approach was neither sustainable nor scalable. As part of a
-broader initiative to mature Canonical's design system, I advocated for adopting
-design tokens to formalize our visual foundations. Design tokens would provide a
-single source of truth that could be consumed by both design tools and code,
-eliminating the synchronization issues we were experiencing. Once the team
-decided to pursue this approach, I took the lead on the design tokens
-initiative.
+When I joined Canonical Vanilla, Canonical's design system could probably be
+described more as a CSS library. It lacked features that modern design systems
+have, including a systematic approach to visual foundations. Visual foundations
+existed most often as SCSS variables. However, they were also hard-coded
+directly into the components.
 
-My first step was to create a comprehensive inventory of Canonical's existing
-visual foundations and map the current flow of these foundations from variables
-to their actual usage in components. Fortunately, I had a head start on this
-task since I had recently built new Figma libraries, which required extracting
-all visual information from the source code. This prior work gave me a solid
-understanding of the current state and the challenges we needed to address.
+At the same time, other teams had started implementing their own interpretations
+of Vanilla in Flutter, and there was a Figma library with Vanilla components.
+This situation made it quite manual and error-prone to ensure that these other
+platforms visually matched our source of truth.
+
+Canonical also recently changed its logo and its official typeface (from Ubuntu
+to Ubuntu Sans), and the fact that the old logo and typeface can still be found
+in various places across Canonical's presence shows that we lack the
+infrastructure to efficiently implement these branding and visual changes across
+Canonical's portfolio.
+
+## Modernizing the design system
+
+It was clear that what we needed was a centralized and systematic approach to
+our visual foundations. In essence, we needed Design tokens and I pushed for and
+led this effort to create Design tokens at Canonical.
+
+![](/images/projects/canonical-design-tokens/inventory.png)
+
+I started by creating an inventory of existing variables and their flows from
+variables to actual usage in components. This approach, suggested by
+[Nathan Curtis in his writing on the topic](https://medium.com/eightshapes-llc/reimagining-a-token-taxonomy-462d35b2b033),
+made sense for understanding the current needs of our design system and its
+users. I had a head start on this task since I had recently built
+[new Figma libraries for Canonical](/projects/canonicals-figma-libraries), which
+required, amongst other things, extracting all visual information from the
+source code. I was able to use this as a foundation for the inventory and flows
+and so we quickly gained an understanding of the excisting needs.
+
+## Research and Specification
+
 While conducting this inventory, I performed extensive research on design
 tokens. Despite their seemingly straightforward nature, implementing design
 tokens properly is surprisingly complex. A significant portion of the challenge
-lies in establishing naming conventions—a notoriously difficult and often
-contentious process in larger organizations. Since design tokens are
-fundamentally about creating a shared language for visual properties, getting
-the naming right was critical to their success. Working with another designer, I
-began drafting a specification for how we would structure and name design tokens
-at Canonical. Similar to our Figma library process, we conducted discussion and
-review sessions where we walked through the specification with designers and
-developers, gathering feedback and making adjustments.
+lies in establishing naming conventions, a notoriously difficult and often
+contentious process in larger organizations.
 
-Through this collaborative process, we were able to reach agreement on the
-taxonomy for design tokens at Canonical, covering naming conventions, token
-organization, and processes for storing and updating them. With the taxonomy
-established, we moved to writing specifications for specific design token
-categories and their values. We started by defining primitives for each major
-design token category, including colors, dimensions, and typography. During this
-process, our visual and brand designers recognized an opportunity to refresh
-some of the values, which slightly delayed the token implementation but
-ultimately improved the design quality—a worthwhile tradeoff. Each category
-specification outlined token-specific considerations and detailed the tokens and
-their values. Following our established pattern of discussion and approval, we
-implemented the agreed-upon tokens. While the work on primitive tokens is now
-complete and can be found in our public repositories, the implementation of
-semantic design tokens—which map primitive tokens to specific UI contexts—is
-still in progress. This systematic approach to visual foundations through design
-tokens has already created more consistency between design and implementation,
-reduced developer confusion, and established a scalable foundation that will
-support Canonical's design system as it continues to mature.
+Since design tokens are fundamentally about creating a shared language for
+visual properties, getting the naming right is critical to their success.
+Working with another designer, we began drafting a specification for how to
+structure and name design tokens at Canonical.
+
+<FloatImage
+    direction="right"
+    content={
+        <DocumentSkeleton
+            title="Design tokens specification"
+            lines={18}
+            className="max-w-sm"
+        />
+    }
+>
+
+I had seen great success with a collaborative format when creating the
+[Figma libraries](/projects/canonicals-figma-libraries), where I created an
+initial specification and then held several discussion meetings with the wider
+team and stakeholders. We applied the same approach to design tokens. After
+creating an initial specification draft, we invited the team to several
+discussion meetings where we went through all sections of the specification
+until we had something everyone was happy with.
+
+Through this collaborative process, we reached agreement on the taxonomy for
+design tokens at Canonical, covering naming conventions, token organization, and
+processes for storing and updating them.
+
+</FloatImage>
+
+## Implementation
+
+With the inventory, research, and taxonomy complete, it was time to actually
+create the tokens. This involved understanding current needs from the inventory
+while also being forward looking about future requirements for the design system
+as we were looking to generally modernize the design system and make it more
+scaleable. So while working on design tokens we were not only looking to
+translate our current visual foundations into a Design token framework but take
+the opportunity and adopt a more systematic approach to visual foundations.
+
+<FloatImage
+    direction="left"
+    content={
+        <ColorPaletteMockup className="w-lg" />
+    }
+>
+
+For colors for example, we previously didn't have a proper UI palette. Colors
+were added on an as needed basis. We wanted to use the color token work as an
+opportunity to move to a more systematic approach. We created a palette based on
+Matthew Ström's article about how to create color palettes for design systems
+where he desrcibes an approach where you do not create shades based on lightness
+but based on contrast between shades (which makes creating accessible color
+combinations easier).
+
+</FloatImage>
+
+At the time of writing, we had created primitive dimension tokens, primitive and
+semantic typography tokens, and were almost finished with the color tokens. With
+plans to work on semantic dimension tokens and smaller token categories such as
+asset tokens next.
+
+## Result
+
+Engineering had not yet moved to implementing design tokens, but I was curious
+about what the implementation would actually look like, and real world test
+integration with different platforms (such as CSS and Figma) so I created my own
+prototype implementation.
+
+-- Somehow show tokens code stuff here --
+
+Once engineering moves to full implementation and adoption across platforms,
+Canonical's visual foundations will be more systematic and platforms more
+aligned, creating a scalable foundation that will support the design system as
+it continues to mature.
