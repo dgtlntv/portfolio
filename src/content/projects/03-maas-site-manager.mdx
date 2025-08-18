@@ -12,58 +12,111 @@ stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
 ---
 
-# Project Background
+During my time at Canonical, I worked extensively with the MAAS team. MAAS
+(Metal as a Service) is bare metal management software that can manage servers
+even without for example an operating systems installed. The users are deeply
+technical IT professionals who manage large-scale infrastructure deployments.
 
-I was tasked with developing a map feature for MAAS Site Manager, based on
-earlier user research that identified location information as valuable context.
-Users needed to know where in the world their data centers and sites were
-located to effectively manage their infrastructure. For example, when
-troubleshooting errors, users needed to quickly identify which region was
-affected, or when planning deployments, they needed visibility into data center
-locations in specific regions. A map visualization emerged as the most intuitive
-way to display this information. Requirements and Constraints One critical
-requirement from product management was that the feature needed to work in
-air-gapped environments where internet access is restricted or unavailable. This
-posed a significant technical challenge, as most map solutions rely on online
-services.
+I focused primarily on MAAS Site Manager, a companion application designed to
+address a significant pain point for users managing multiple data centers. While
+performance requirements dictate one MAAS installation per data center, this
+creates operational challenges: users lack unified oversight of their
+infrastructure, must replicate configurations and boot images across
+installations, and frequently struggle to ensure they're performing actions on
+the correct MAAS instance.
 
-# Design Process
+MAAS Site Manager was created as the solution. A centralized management
+interface for multiple MAAS installations. I contributed to this project from
+its inception, helping shape it from initial concept through MVP delivery.
 
-I began the project by creating several iterations of wireframes, collaborating
-closely with other designers to refine the visualization approach. As a
-visually-oriented project, these design sessions were crucial for establishing
-how users would interact with the geographical data. The Technical Challenge
-During a regular check-in with developers, when they began investigating map
-implementation options, they identified a potential roadblock. They found that
-hosting a detailed world map would require storing tens of gigabytes of map data
-within MAAS Site Manager itself—a significant burden they considered
-impractical. The development team advocated for using an online map service like
-OpenStreetMaps instead, which would avoid hosting large amounts of data but
-would violate our core requirement of functioning in air-gapped environments.
-Beyond the technical constraint, I had additional concerns with this approach:
+## Geographic visualization challenge
 
-We would have limited control over the map's visual appearance The maps would
-include excessive detail for our use case, potentially distracting users from
-their primary tasks The third-party maps would look out of place in our
-application and not align with our brand identity
+One of the key features I designed for the MVP was the map visualization. Prior
+user research revealed that users needed geographic awareness of their MAAS
+installations to effectively manage distributed infrastructure. When
+troubleshooting errors, they required quick identification of affected regions,
+and when planning deployments, they needed visibility into data center locations
+across specific geographic areas.
 
-Taking Initiative Having recently worked with map data on a personal project, I
-knew there was a better solution than what the developers were suggesting, but
-they were hesitant to explore alternatives further. I decided to take the
-initiative and create a proof of concept demonstrating how we could build a map
-with:
+It was decided that a map visualization would be the most intuitive solution for
+this geographic information. However we also had a critical constraint from
+product management: the feature needed to function in air-gapped environments
+where internet connectivity is restricted or unavailable. This requirement was a
+significant technical and design challenge, as most mapping solutions depend on
+online services.
 
-Sufficient detail for our specific use case Custom styling that matched our
-brand A dramatically reduced file size (tens of megabytes instead of tens of
-gigabytes)
+## Design process and constraints
 
-Implementation and Results After developing the proof of concept, I was able to
-convince the development team that this approach was feasible. Using my
-prototype as a reference, they implemented a proper system for generating
-optimized maps for our application. The result was a successful map feature in
-MAAS Site Manager that displays the right level of detail, maintains visual
-consistency with our design system, and—most importantly—functions in air-gapped
-environments without requiring internet connectivity. This project demonstrates
-how taking initiative to bridge the gap between design requirements and
-technical constraints can lead to better solutions that meet both user needs and
-business requirements.
+I began the project by creating several iterations of wireframes, addressing
+both visual and interaction design challenges. The map needed visual clarity for
+the specific use case while enabling users to interact with sites. Selecting
+individual or multiple locations and performing actions on them.
+
+-- screenshots of wireframes
+
+The design had to accommodate potentially tens of thousands of sites, requiring
+scalable rendering solutions. Displaying 30,000 sites simultaneously would be
+neither technically performant nor visually useful to users. I needed to create
+user flows that were intuitive for site interaction and selection while ensuring
+the interface could scale effectively.
+
+-- screenshots of aggregated sites
+
+Throughout the design process, I conducted frequent feedback sessions with other
+designers to refine flows and visual approaches, and with developers to validate
+technical feasibility.
+
+## Technical roadblock and alternative solution
+
+During one of these developer feedback session, we identified a significant
+technical challenge. Off-the-shelf open source map tiles (the building blocks of
+digital maps) require tens to hundreds of gigabytes of storage. Shipping this
+data with MAAS Site Manager would create an impractical burden for users,
+particularly since most self-host the application.
+
+-- screenshot excessive detail of open street maps
+
+The development team proposed using an online map service like OpenStreetMaps to
+avoid hosting large datasets, but this would violate one of the core
+requirements, that it would work in an air-gapped environment. Beyond the
+technical constraint, I had additional concerns with this approach: limited
+control over visual appearance, excessive detail that could distract users from
+their primary tasks, and visual inconsistency with our brand identity.
+
+-- screenshot of personal project?
+
+Having recently worked with map data on a personal project (of potential new
+rock climbing areas using satellite images), I knew there was a better solution.
+While the development team was hesitant to explore alternatives further, I
+decided to create a proof of concept demonstrating how to build a map with
+sufficient detail for our specific use case, custom styling that matched our
+brand, and dramatically reduced file size—tens of megabytes instead of tens of
+gigabytes.
+
+I achieved this by customizing the tile building process (with
+[tippecanoe](https://github.com/mapbox/tippecanoe)), selecting only the map
+features necessary for our bare metal server management use case. This approach
+eliminated distracting details irrelevant to our use case while significantly
+reducing map tile size.
+
+After developing the proof of concept, I convinced the development team that
+this approach was feasible. Using my prototype as a reference, they implemented
+a proper system for generating optimized maps for our application.
+
+## Results and validation
+
+-- screen shots of results
+
+The result was a successful map feature in MAAS Site Manager that displays the
+appropriate level of detail, maintains visual consistency with our design
+system, and functions in air-gapped environments without requiring internet
+connectivity.
+
+User testing with internal users validated the approach. Participants
+successfully completed tasks without requiring additional map detail, and the
+performance remained smooth due to the reduced file size. The map maintained
+visual consistency with the application's styling and brand identity.
+
+This project demonstrates how taking initiative to bridge the gap between design
+requirements and technical constraints can lead to solutions that meet user
+needs, business requirements, and brand standards simultaneously.

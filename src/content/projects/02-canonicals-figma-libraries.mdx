@@ -25,6 +25,8 @@ compared to our codebase, and the existing components were not consistently kept
 up to date. This led to team members detaching components and creating their own
 local components and small unofficial libraries.
 
+## Understanding the problem
+
 <FloatImage
     direction="left"
     src="/images/projects/canonical-figma-libraries/survey2.png"
@@ -41,6 +43,8 @@ team to understand their needs. Within this process, I took the initiative to
 lead the rebuilding effort and draft the initial spec that would guide our work.
 
 </FloatImage>
+
+## Research and specification
 
 <FloatImage
     direction="right"
@@ -72,10 +76,14 @@ foundation for the implementation phase.
 
 </FloatImage>
 
+## Implementation
+
 With the specification approved, we moved to implementation. I led the building
 process with support from junior designers. I personally built a lot of the
 components, ensuring they followed our performance guidelines regarding layer
-count, asset optimization, and effect usage.
+count, asset optimization, and effect usage. You can read more about the
+specific building strategies I applied in the
+[blog post I wrote about it](/blog/figma-libraries).
 
 <FloatImage
     direction="left"
@@ -97,6 +105,8 @@ that these components needed improvement in the official library.
 
 </FloatImage>
 
+## Transition and adoption
+
 After completing the initial library, we announced an internal transition period
 during which both the old and new libraries would remain available. We
 encouraged designers to start using the new components immediately while
@@ -107,13 +117,25 @@ transition, our metrics tool provided valuable insights into adoption patterns,
 helping us identify which teams were quickly embracing the new system and which
 might need additional support.
 
-<a href="https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library" target="_blank" rel="noopener noreferrer">
-    <img src="/images/projects/canonical-figma-libraries/figma-community.png" alt="Figma community" />
+<a
+    href="https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+    <img
+        src="/images/projects/canonical-figma-libraries/figma-community.png"
+        alt="Figma community"
+    />
 </a>
 
 By the end of the transition period, the metrics showed strong adoption across
 the team. The detachment rates for components in the new library were
 significantly lower than in the old system. These metrics gave us confidence
 that the libraries were thoroughly tested in real design workflows and ready for
-public release. So we shared our work with the wider design community by
-releasing our core component library and assets library to the <a href="https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library" target="_blank" rel="noopener noreferrer">Figma community</a>.
+public release.
+
+## Public release
+
+We shared our work with the wider design community by releasing our core
+component library and assets library to the
+[Figma community](https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library).
