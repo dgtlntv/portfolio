@@ -6,6 +6,7 @@ import ImageGallery from "../Article/ImageGallery"
 import DocumentSkeleton from "../DocumentSkeleton"
 import MetricsMockup from "../MetricsMockup"
 import ColorPaletteMockup from "../ColorPaletteMockup"
+import { GitHubCodeExplorer } from "../GitHubCodeExplorer"
 import { CodeBlock } from "./CodeBlock"
 import { ErrorBoundary } from "./ErrorBoundary"
 import { TagList } from "./TagList"
@@ -61,7 +62,7 @@ export const components = {
         return className ? (
             <CodeBlock className={className}>{children}</CodeBlock>
         ) : (
-            <code className="rounded bg-gray-100 px-1 py-0.5 text-sm">
+            <code className="rounded bg-gray-100 px-1 py-0.5 text-sm font-mono">
                 {children}
             </code>
         )
@@ -81,6 +82,7 @@ export const components = {
     DocumentSkeleton,
     MetricsMockup,
     ColorPaletteMockup,
+    GitHubCodeExplorer,
     TagList,
 }
 

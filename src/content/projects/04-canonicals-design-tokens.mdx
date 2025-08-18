@@ -121,11 +121,29 @@ asset tokens next.
 ## Result
 
 Engineering had not yet moved to implementing design tokens, but I was curious
-about what the implementation would actually look like, and real world test
-integration with different platforms (such as CSS and Figma) so I created my own
-prototype implementation.
+about what the implementation would actually look like in real world scenarios.
+I'm always interested in understanding how things work, and I was particularly
+drawn to the work the
+[W3C Design Tokens Working Group](https://www.designtokens.org/tr/drafts/format/)
+was doing. I wanted to get hands-on experience with
+[Style Dictionary](https://styledictionary.com/) to understand its capabilities
+and limitations, and how different tooling choices would affect our token
+authoring process. This exploration turned out to be valuable. I discovered
+several implementation limitations that I was able to feed back into our token
+authoring process before engineering began their full implementation.
 
--- Somehow show tokens code stuff here --
+Below is the code of my prototype with a Style dictionary build system in the
+`/build` folder, css output in the `/dist` folder and some of the tokens we had
+created to this point in the `/tokens` folder.
+
+<div className="relative -mx-4 my-8 sm:-mx-6 lg:-mx-8 xl:-mx-28">
+    <GitHubCodeExplorer
+        owner="dgtlntv"
+        repo="design-tokens-reference"
+        className="min-h-[500px]"
+        defaultPath="tokens/canonical/sites/semantic/typography.tokens.json"
+    />
+</div>
 
 Once engineering moves to full implementation and adoption across platforms,
 Canonical's visual foundations will be more systematic and platforms more
