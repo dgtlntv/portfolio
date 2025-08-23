@@ -14,7 +14,7 @@ interface ThreeSceneProps {
 
 export default function ThreeScene({ orientation, mouse }: ThreeSceneProps) {
   return (
-    <Canvas>
+    <Canvas resize={{ polyfill: ResizeObserver }}>
       <directionalLight position={[-2, 6, 6]} intensity={1} />
       <Suspense fallback={null}>
         <ProfileModel orientation={orientation} mouse={mouse} />
