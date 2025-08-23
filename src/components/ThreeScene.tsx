@@ -8,20 +8,20 @@ const ProfileModel = lazy(() => import("./Three/ProfileModel"))
 const AsciiRenderer = lazy(() => import("./Three/Asciirenderer"))
 
 interface ThreeSceneProps {
-  orientation: ReturnType<typeof useDeviceOrientation>["orientation"]
-  mouse: ReturnType<typeof useMouse>
+    orientation: ReturnType<typeof useDeviceOrientation>["orientation"]
+    mouse: ReturnType<typeof useMouse>
 }
 
 export default function ThreeScene({ orientation, mouse }: ThreeSceneProps) {
-  return (
-    <Canvas resize={{ polyfill: ResizeObserver }}>
-      <directionalLight position={[-2, 6, 6]} intensity={1} />
-      <Suspense fallback={null}>
-        <ProfileModel orientation={orientation} mouse={mouse} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <AsciiRenderer resolution={0.18} characters=" .:-+*=%#" />
-      </Suspense>
-    </Canvas>
-  )
+    return (
+        <Canvas>
+            <directionalLight position={[-2, 6, 6]} intensity={1} />
+            <Suspense fallback={null}>
+                <ProfileModel orientation={orientation} mouse={mouse} />
+            </Suspense>
+            <Suspense fallback={null}>
+                <AsciiRenderer resolution={0.18} characters=" .:-+*=%#" />
+            </Suspense>
+        </Canvas>
+    )
 }
