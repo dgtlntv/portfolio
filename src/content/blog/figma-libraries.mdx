@@ -5,7 +5,7 @@ slug: figma-libraries
 excerpt:
     How Canonical's Design team rebuilt their Figma libraries, with practical
     guidelines on structure, performance, and maintenance processes.
-coverImage: "/images/blog/figma-libraries/frame-419.webp"
+coverImage: "/images/blog/figma-libraries/canonical-ui-components.webp"
 heroLocation: "cover"
 author: "Maximilian Blazek & Jan Ostrówka"
 ---
@@ -58,7 +58,7 @@ approach. For our Figma libraries, we adopted the same structure. We have a
 common base library, but we create additional libraries for each product
 category.
 
-![](/images/blog/figma-libraries/frame-416.webp)
+![Canonical design system hierarchy diagram showing Base library at top connecting to Apps, Sites, Stores, and Pro, each with their own Core and Domain component libraries](/images/blog/figma-libraries/canonical-library-structure.webp)
 
 For each of these levels, we have chosen a similar library and ownership
 structure as described in the article by the Doctolib team:
@@ -71,7 +71,7 @@ Every library is maintained by at least one dedicated library maintainer who is
 responsible for managing contributions and keeping the library up to date and
 tidy.
 
-![](/images/blog/figma-libraries/frame-414.webp)
+![Diagram showing Core components (left side with Table component selected) vs Domain components (right side showing MAAS and LXD versions of tables with different styling)](/images/blog/figma-libraries/core-vs-domain-components.webp)
 
 If you want to learn more about the core and domain component paradigm, we
 recommend reading the
@@ -85,7 +85,7 @@ Within each file, we maintain a strict policy of **one component per page**. The
 pages are sorted alphabetically and divided into sections that represent our
 component levels.
 
-![](/images/blog/figma-libraries/frame-413.webp)
+![Figma library file structure showing Pages section with Patterns (Login form, User management table, Permissions graph), Complex components (Side navigation, Table), and Components (Input, Button, Node visualisation, Checkbox)](/images/blog/figma-libraries/figma-file-structure.webp)
 
 To maintain this structure and avoid the same problems we had in our old
 libraries, we have set up the library to be **view-only**. Only the library
@@ -134,7 +134,7 @@ layer view, it can be quite heavy if that component has many variants or
 variants with a high number of layers. You can test this by opening the
 [memory usage tool in Figma](https://help.figma.com/hc/en-us/articles/360040528173-Reduce-memory-usage-in-files#01H8HER66S8MW9E8E9HYKHXRVM).
 
-![](/images/blog/figma-libraries/frame-411.webp)
+![Comparison of Figma memory usage showing two panels: left panel shows 1.7% total memory used with 3,334 total layers (circled in red) for a variant component, right panel shows 0.4% total memory used with 11 total layers for an instance swap component](/images/blog/figma-libraries/figma-memory-usage-comparison.webp)
 
 To counteract this, we try to keep the number of variants to a minimum and
 instead use other properties such as boolean, text and instance swapping or
@@ -157,7 +157,7 @@ they have variants.
 
 #### Variable number of items
 
-![](/images/blog/figma-libraries/frame-418.webp)
+![Figma interface showing segmented control component on left and instance swap panel on right with various content options like [1 item], [2 items], [3 items], [4 items] with preview thumbnails](/images/blog/figma-libraries/figma-segmented-control-instance-swap.webp)
 
 There are certain components that contain multiple, repeated subitems, such as
 tabs in a tab bar. Depending on the use case, you may only need 3 tabs or maybe
@@ -215,7 +215,7 @@ components, we are careful not to stack too many effects on top of each other.
 
 ## Discoverability
 
-![](/images/blog/figma-libraries/frame-412.webp)
+![Comparison showing Figma variant dropdown menu on left with 'Disconnected' selected from options like Connected, Copy, Debug, Delete, vs instance swap interface on right showing icon selection grid with various icons like desktop, edit, refresh, etc.](/images/blog/figma-libraries/figma-variant-vs-instance-swap.webp)
 
 Using the ‘Instance Swapping’ property instead of variants, as we described in
 the previous section, had an unintended positive side effect for us. While the
@@ -237,7 +237,7 @@ in the keywords.
 
 ## Process
 
-![](/images/blog/figma-libraries/frame-415.webp)
+![Screenshot of Figma notification system showing multiple overlapping notifications from 'webbot' about changes to Google Drive isometric-illustrations and other updates](/images/blog/figma-libraries/figma-update-notifications.webp)
 
 ### Keeping things up to date
 
@@ -302,7 +302,7 @@ from external contributors in the same way as internal contributors.
 
 ## Metrics
 
-![](/images/blog/figma-libraries/frame-417.webp)
+![Table showing project statistics with columns for Project, File, # Non Component Nodes, # Component Nodes, and % Component Nodes, displaying data for 7 different projects with component usage percentages ranging from 5% to 70%](/images/blog/figma-libraries/component-usage-statistics.webp)
 
 Before we started creating the new libraries, we also implemented a custom way
 to track the usage of Figma components and Figma libraries in our design team.
