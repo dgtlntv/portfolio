@@ -92,8 +92,8 @@ export function useDevicePermission() {
                     }
 
                     const handleDeny = () => {
-                        closeModal()
                         resolve("denied")
+                        closeModal()
                     }
 
                     openModal(
@@ -101,6 +101,7 @@ export function useDevicePermission() {
                             onAllow={handleAllow}
                             onDeny={handleDeny}
                         />,
+                        handleDeny,
                     )
                 })
             }
