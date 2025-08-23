@@ -23,11 +23,11 @@ export function ModalProvider({ children }: ModalProviderProps) {
     }
 
     const closeModal = (): void => {
+        modalConfig.onClose()
         setModalConfig((prev) => ({
             ...prev,
             isOpen: false,
         }))
-        modalConfig.onClose()
     }
 
     return (
