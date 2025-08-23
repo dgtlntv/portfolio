@@ -16,7 +16,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
     }, [isOpen])
 
     const handleBackdropClick = (
-        event: React.MouseEvent<HTMLDialogElement>
+        event: React.MouseEvent<HTMLDialogElement>,
     ): void => {
         if (event.target === dialogRef.current) {
             onClose()
@@ -28,31 +28,10 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             ref={dialogRef}
             onClose={onClose}
             onClick={handleBackdropClick}
-            className={`
-                fixed inset-0 z-50 p-0 m-0 w-full h-full 
-                flex items-end justify-center
-                transition-all duration-300 ease-out
-                ${isOpen 
-                    ? 'opacity-100' 
-                    : 'opacity-0'
-                }
-            `}
-            style={{
-                border: "none",
-                maxWidth: "none",
-                maxHeight: "none",
-                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                backdropFilter: "blur(2px)",
-            }}
+            className="backdrop:bg-black/50"
         >
-            <div 
-                className={`
-                    transform transition-all duration-300 ease-out w-full
-                    ${isOpen 
-                        ? 'translate-y-0 opacity-100' 
-                        : 'translate-y-full opacity-0'
-                    }
-                `}
+            <div
+                className="fixed bottom-0 left-1/2 w-full max-w-lg -translate-x-1/2 transform transition-transform duration-300 ease-out"
                 onClick={(e) => e.stopPropagation()}
             >
                 {children}
