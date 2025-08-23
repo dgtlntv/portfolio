@@ -87,9 +87,13 @@ function Blog() {
                         {sortedYears.map((year) => (
                             <div key={year} className="mb-12">
                                 <GridLayout>
-                                    <h2 className="font-fancy mb-6 text-right text-4xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:col-span-1 md:col-start-2">
-                                        {year}
-                                    </h2>
+                                    <div className="md:col-span-9">
+                                        <div className="grid grid-cols-9">
+                                            <h2 className="font-fancy mb-6 text-left text-4xl font-extrabold tracking-tight text-gray-900 sm:col-span-2 sm:col-start-1 sm:text-right sm:text-3xl">
+                                                {year}
+                                            </h2>
+                                        </div>
+                                    </div>
                                     <div className="md:col-span-9">
                                         {postsByYear[year].map((post) => {
                                             // Parse European date format (DD.MM.YYYY)
@@ -121,11 +125,11 @@ function Blog() {
                                                     key={post.slug}
                                                     className="mb-3"
                                                 >
-                                                    <GridLayout className="items-baseline">
-                                                        <span className="font-fancy text-right text-sm font-semibold text-gray-500 md:col-span-1 md:col-start-2">
+                                                    <div className="grid grid-cols-9 items-baseline gap-0">
+                                                        <span className="font-fancy col-span-2 col-start-1 text-left text-sm font-semibold text-gray-500 sm:col-span-2 sm:col-start-1 sm:text-right">
                                                             {formattedDate}
                                                         </span>
-                                                        <h3 className="pl-6 text-lg text-gray-500 transition-colors hover:text-red-500 md:col-span-6 md:col-start-3">
+                                                        <h3 className="col-span-7 col-start-3 text-lg text-gray-500 transition-colors hover:text-red-500 sm:col-span-6 sm:col-start-3 sm:pl-6 md:col-span-6 md:col-start-3">
                                                             <Link
                                                                 to="/blog/$slug"
                                                                 params={{
@@ -140,7 +144,7 @@ function Blog() {
                                                                 }
                                                             </Link>
                                                         </h3>
-                                                    </GridLayout>
+                                                    </div>
                                                 </div>
                                             )
                                         })}

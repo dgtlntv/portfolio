@@ -127,7 +127,14 @@ my immediate needs for this research project. It could potentially be helpful
 for other designers (or developers) conducting CLI user research or anyone
 needing to quickly prototype command-line experiences.
 
-<FloatImage src="/videos/projects/protostar/protostar.webm">
+<FloatImage
+    content={
+        <video width="100%" height="auto" autoPlay muted loop className="rounded-lg">
+            <source src="/videos/projects/protostar/protostar.webm" type="video/webm" />
+            Your browser does not support the video tag.
+        </video>
+    }
+>
     This led me to develop it further as an open-source prototyping tool and
     library called [Protostar](https://github.com/dgtlntv/protostar). Protostar
     has already gained traction among designers at Canonical who need to test

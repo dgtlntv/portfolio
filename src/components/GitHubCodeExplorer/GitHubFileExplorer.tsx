@@ -228,8 +228,8 @@ export function GitHubFileExplorer({ fileTree, currentPath, onFileSelect, isLoad
   return (
     <>
       <div
-        style={{ width: sidebarWidth }}
-        className="bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0 h-full"
+        style={{ '--sidebar-width': `${sidebarWidth}px` } as React.CSSProperties}
+        className="bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0 h-full w-full md:w-[var(--sidebar-width)]"
       >
         <div className="p-2">
           {filteredFileTree.length === 0 ? (
@@ -254,7 +254,7 @@ export function GitHubFileExplorer({ fileTree, currentPath, onFileSelect, isLoad
         </div>
       </div>
       <div
-        className={`w-1 cursor-col-resize hover:bg-gray-300 bg-gray-200 ${
+        className={`hidden md:block w-1 cursor-col-resize hover:bg-gray-300 bg-gray-200 ${
           isResizing ? 'bg-gray-400' : ''
         }`}
         onMouseDown={handleResizeStart}

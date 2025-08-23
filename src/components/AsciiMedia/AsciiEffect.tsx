@@ -17,6 +17,8 @@ export class AsciiEffect {
     private objectFit: 'cover' | 'contain' | 'fill' = 'fill'
     private textColor: string = 'black'
     private darken: number = 1
+    private resizeObserver: ResizeObserver | null = null
+    private resizeTimeout: NodeJS.Timeout | null = null
 
     constructor(
         element: DrawableElement,
@@ -132,7 +134,33 @@ export class AsciiEffect {
             elementParent.appendChild(this.asciiContainer)
         }
 
+        this.setupResizeObserver()
         this.isInitialized = true
+    }
+
+    private setupResizeObserver(): void {
+        // Set up ResizeObserver to watch the element for size changes
+        this.resizeObserver = new ResizeObserver((entries) => {
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout)
+            }
+            
+            // Debounce the resize handling to avoid excessive renders
+            this.resizeTimeout = setTimeout(() => {
+                if (this.isElementReady()) {
+                    this.render()
+                }
+            }, 100)
+        })
+
+        // Observe the element for size changes
+        this.resizeObserver.observe(this.element)
+
+        // Also observe the parent container in case it changes size
+        const elementParent = this.element.parentNode as HTMLElement
+        if (elementParent) {
+            this.resizeObserver.observe(elementParent)
+        }
     }
 
     private calculateObjectFitDimensions(): {
@@ -408,6 +436,18 @@ export class AsciiEffect {
     }
 
     public destroy(): void {
+        // Clean up resize observer
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect()
+            this.resizeObserver = null
+        }
+
+        // Clean up resize timeout
+        if (this.resizeTimeout) {
+            clearTimeout(this.resizeTimeout)
+            this.resizeTimeout = null
+        }
+
         if (this.asciiContainer && this.asciiContainer.parentNode) {
             this.asciiContainer.parentNode.removeChild(this.asciiContainer)
         }

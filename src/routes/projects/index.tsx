@@ -42,7 +42,6 @@ function Projects() {
                             {mdxProjects.map((project, index) => (
                                 <ProjectItem
                                     key={project.slug}
-                                    className="bg-gray-50"
                                     title={project.frontMatter.title}
                                     url={project.slug}
                                     imageUrl={

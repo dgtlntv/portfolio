@@ -18,7 +18,7 @@ export default function Article({
                 <GridLayout>
                     {/* Hero Image/Video - Full width */}
                     <div
-                        className={`mb-8 flex overflow-hidden rounded-xl shadow-md sm:aspect-[16/8] md:col-span-9 ${
+                        className={`mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9 ${
                             heroLocation === "center"
                                 ? "items-center"
                                 : heroLocation === "start"

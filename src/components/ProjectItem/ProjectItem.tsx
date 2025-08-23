@@ -14,13 +14,13 @@ export default function ProjectItem({
     asciiDarken = 1,
 }: ProjectItemProps) {
     return (
-        <div className="col-span-9 mt-12 sm:mt-16 lg:mt-18">
+        <div className="col-span-9 mt-10 sm:mt-14 lg:mt-18">
             <GridLayout>
                 {/* Content section */}
                 <div
                     className={`col-span-9 md:col-span-2 ${
                         isLeft ? "md:col-start-1" : "md:col-start-8"
-                    } order-2 md:order-${isLeft ? "1" : "2"}`}
+                    } order-2 md:order-${isLeft ? "1" : "2"} mt-8 md:mt-0`}
                 >
                     <h3 className="font-fancy text-4xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
                         {title}
