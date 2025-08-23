@@ -1,30 +1,67 @@
 #!/usr/bin/env node
 
-const sharp = require('sharp')
-const fs = require('fs')
-const path = require('path')
+import sharp from 'sharp'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const publicDir = path.join(__dirname, '..', 'public')
-const imageExtensions = ['.jpg', '.jpeg', '.png']
+const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.avif']
+const MAX_DIMENSION = 1920
 
-async function convertToWebP(filePath) {
+async function processImage(filePath) {
   const ext = path.extname(filePath).toLowerCase()
   
   if (!imageExtensions.includes(ext)) return
   
-  const webpPath = filePath.replace(/\.(jpe?g|png)$/i, '.webp')
-  
   try {
-    await sharp(filePath)
-      .webp({ lossless: true, quality: 100 })
-      .toFile(webpPath)
+    const image = sharp(filePath)
+    const metadata = await image.metadata()
+    const { width, height } = metadata
     
-    // Delete the original file after successful conversion
-    fs.unlinkSync(filePath)
+    let processedImage = image
+    let resized = false
     
-    console.log(`✓ Converted: ${path.relative(publicDir, filePath)} → ${path.basename(webpPath)} (original deleted)`)
+    // Resize if either dimension exceeds MAX_DIMENSION
+    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+      processedImage = processedImage.resize(MAX_DIMENSION, MAX_DIMENSION, {
+        fit: 'inside',
+        withoutEnlargement: true
+      })
+      resized = true
+    }
+    
+    // Convert to WebP if not already WebP
+    if (ext !== '.webp') {
+      const webpPath = filePath.replace(/\.(jpe?g|png|avif)$/i, '.webp')
+      
+      await processedImage
+        .webp({ lossless: true, quality: 100 })
+        .toFile(webpPath)
+      
+      // Delete the original file after successful conversion
+      fs.unlinkSync(filePath)
+      
+      const resizeInfo = resized ? ` (resized from ${width}x${height})` : ''
+      console.log(`✓ Converted: ${path.relative(publicDir, filePath)} → ${path.basename(webpPath)}${resizeInfo} (original deleted)`)
+    } else if (resized) {
+      // Already WebP but needs resizing - use temp file
+      const tempPath = filePath + '.temp'
+      
+      await processedImage
+        .webp({ lossless: true, quality: 100 })
+        .toFile(tempPath)
+      
+      // Replace original with temp file
+      fs.renameSync(tempPath, filePath)
+      
+      console.log(`✓ Resized: ${path.relative(publicDir, filePath)} (${width}x${height} → max ${MAX_DIMENSION}px)`)
+    }
   } catch (error) {
-    console.error(`✗ Failed to convert ${filePath}:`, error.message)
+    console.error(`✗ Failed to process ${filePath}:`, error.message)
   }
 }
 
@@ -38,15 +75,15 @@ async function walkDirectory(dir) {
     if (stat.isDirectory()) {
       await walkDirectory(fullPath)
     } else if (stat.isFile()) {
-      await convertToWebP(fullPath)
+      await processImage(fullPath)
     }
   }
 }
 
 async function main() {
-  console.log('🖼️  Converting images to WebP (lossless, replacing originals)...')
+  console.log('🖼️  Processing images: converting to WebP and resizing (max 1920px)...')
   await walkDirectory(path.join(publicDir, 'images'))
-  console.log('✅ Image conversion complete!')
+  console.log('✅ Image processing complete!')
 }
 
 main().catch(console.error)
