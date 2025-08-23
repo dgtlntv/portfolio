@@ -42,9 +42,11 @@ lasted from my time at university until today.
 >
 
 I started this project a couple of years before many of the impressive AI tools
-(Stable Diffusion, VEO, GPT-4, etc.) we have today existed. The only realistic
-way for me to conduct this experiment was to train my own algorithm (based on
-other people's algorithms, of course).
+([Stable Diffusion](https://github.com/Stability-AI/stablediffusion),
+[VEO](https://deepmind.google/models/veo/),
+[GPT-5](https://openai.com/de-DE/index/introducing-gpt-5/), etc.) we have today
+existed. The only realistic way for me to conduct this experiment was to train
+my own algorithm (based on other people's algorithms, of course).
 
 As with so many projects in the field of machine learning, one of the most
 important considerations for me was the question of what data I would feed into
@@ -64,17 +66,20 @@ generative algorithm, but enough to get first reasonably useful results.
 ## Algorithm and Computing
 
 I investigated various architectures and algorithms and finally settled on
-HyperGAN. At the time, it was an appropriately powerful architecture for this
-project and was specifically designed to lower the barrier to entry for artists
-and designers. For my first test, I ran HyperGAN on my laptop, but I quickly
-realized that my laptop's graphics card (GTX1050) would not be sufficient for a
-full run.
+[HyperGAN](https://github.com/HyperGAN/HyperGAN). At the time, it was an
+appropriately powerful architecture for this project and was specifically
+designed to lower the barrier to entry for artists and designers. For my first
+test, I ran [HyperGAN](https://github.com/HyperGAN/HyperGAN) on my laptop, but I
+quickly realized that my laptop's graphics card (GTX1050) would not be
+sufficient for a full run.
 
-So I turned to cloud solutions. In the process, I landed on Paperspace, which is
-based on AWS but offers a simpler user experience and is optimized for machine
-learning. There, I did a number of different training runs with my data, using
-different resolutions and parameters. In the end, I found that HyperGAN's
-default parameters and a resolution of 256x256 worked best for me.
+So I turned to cloud solutions. In the process, I landed on
+[Paperspace](https://www.paperspace.com/), which is based on DigitalOcean (afaik
+it was AWS then) but offers a simpler user experience and is optimized for
+machine learning. There, I did a number of different training runs with my data,
+using different resolutions and parameters. In the end, I found that
+[HyperGAN](https://github.com/HyperGAN/HyperGAN)'s default parameters and a
+resolution of 256x256 worked best for me.
 
 ## Initial Results
 
@@ -116,14 +121,16 @@ When I first experimented with generative adversarial networks (GANs) in 2019, I
 achieved only moderate results. However, the results improved significantly when
 I revisited this project together with my sister Ida, who was working on her
 master's thesis on the historical pattern development in Moroccan carpets. We
-wanted to explore the parallels between the analog development and geographical
-migration of traditional carpet patterns—which traveled across the Mediterranean
-and blended influences from the Berbers, Arab nomads, Moorish Andalusians, and
-Ottomans—and the digital pattern development processes of AI systems. Our goal
-was to investigate whether the machine learning approach to pattern generation
-can be viewed through the same lens as the centuries-old tradition of motifs
-that have developed and spread from urban manufactories to rural communities and
-back again.
+wanted to explore the parallels between traditional carpet pattern development
+and AI pattern development processes. Traditional carpet patterns evolved
+through geographical migration across the Mediterranean, blending influences
+from diverse cultures including the Berbers, Arab nomads, Moorish Andalusians,
+and Ottomans. We're interested in comparing this analog, cross-cultural pattern
+evolution with the digital pattern development processes used by AI systems. Our
+goal was to investigate whether the machine learning approach to pattern
+generation can be viewed through the same lens as the centuries-old tradition of
+motifs that have developed and spread from urban manufactories to rural
+communities and back again.
 
 <FloatImage
     direction="right"
@@ -167,12 +174,13 @@ back again.
     }
 >
 
-For this second I reevaluated which algorithm to use and landed on
-StyleGAN2-ada, a variant specifically designed for training with fewer images.
-Using my father's high-quality photo archive again and this time supplemented by
-much more carefully selected internet images, we achieved much better results
-than in my first iteration. Showing how much machine learning had evolved in
-such a short time (and how much of an effect good quality data can have).
+For this second iteration of the project I reevaluated which algorithm to use
+and landed on StyleGAN2-ada, a variant specifically designed for training with
+fewer images. Using my father's high-quality photo archive again and this time
+supplemented by much more carefully selected internet images, we achieved much
+better results than in my first iteration. Showing how much machine learning had
+evolved in such a short time (and how much of an effect good quality data can
+have).
 
 </FloatImage>
 
@@ -261,7 +269,7 @@ improvisational qualities that make Moroccan rugs special.
 >
 
 These algorithmically generated, curated and handcrafted rugs were presented as
-part of Design Month Graz 2025.
+part of [Design Month Graz 2025](https://www.designmonat.at/en/event/mlrug/).
 
 The project gained recognition beyond the exhibition, being featured in two
 articles in Cover, a leading publication in handmade carpets and textiles for
@@ -269,12 +277,12 @@ interiors.
 
 This coverage positioned MLRug within important industry conversations about the
 intersection of traditional craft and emerging technology. Lucy Upward's feature
-article<sup><a href="#ref1">[1]</a></sup> explored the project's conceptual framework, examining how AI's
-pattern-learning process mirrors the historical migration of motifs along
-ancient trade routes. Meanwhile, Denna Jones's analysis<sup><a href="#ref2">[2]</a></sup> used MLRug as an
-exemplary case study for ethical AI implementation in design, by keeping
-production in Morocco and creating a purpose-built dataset to avoid copyright
-concerns.
+article<sup><a href="#ref1">[1]</a></sup> explored the project's conceptual
+framework, examining how AI's pattern-learning process mirrors the historical
+migration of motifs along ancient trade routes. Meanwhile, Denna Jones's
+analysis<sup><a href="#ref2">[2]</a></sup> used MLRug as an exemplary case study
+for ethical AI implementation in design, by keeping production in Morocco and
+creating a purpose-built dataset to avoid copyright concerns.
 
 </FloatImage>
 
@@ -284,8 +292,10 @@ concerns.
 
 <span style={{color: '#666', fontSize: '0.9em'}}>
 
-<span id="ref1">[1]</span> Upward, L. (2025). Curiosity made the rugs. *Cover*, 79, 96-99.
+<span id="ref1">[1]</span> Upward, L. (2025). Curiosity made the rugs. *Cover*,
+79, 96-99.
 
-<span id="ref2">[2]</span> Jones, D. (2025). Let's try to be clever about AI. *Cover*, 79, 100-103.
+<span id="ref2">[2]</span> Jones, D. (2025). Let's try to be clever about AI.
+*Cover*, 79, 100-103.
 
 </span>

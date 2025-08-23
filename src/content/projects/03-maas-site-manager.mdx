@@ -7,9 +7,13 @@ excerpt:
     workflows for IT professionals managing bare metal server infrastructure
     across multiple data center sites.
 coverImage: "/images/projects/maas-site-manager/maas-site-manager-map.png"
+heroLocation: "cover"
 asciiDarken: 1.3
 stats:
-    [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+    [
+        { label: "Year", value: "2023-2024" },
+        { label: "Type", value: "Work Project" },
+    ]
 ---
 
 During my time at Canonical, I worked extensively with the MAAS team. MAAS
@@ -38,12 +42,12 @@ troubleshooting errors, they required quick identification of affected regions,
 and when planning deployments, they needed visibility into data center locations
 across specific geographic areas.
 
-It was decided that a map visualization would be the most intuitive solution for
-this geographic information. However we also had a critical constraint from
-product management: the feature needed to function in air-gapped environments
-where internet connectivity is restricted or unavailable. This requirement was a
-significant technical and design challenge, as most mapping solutions depend on
-online services.
+in this research we also found that a map visualization would be the most
+intuitive solution for this geographic information. However we also had a
+critical constraint from product management: the feature needed to function in
+air-gapped environments where internet connectivity is restricted or
+unavailable. This requirement was a significant technical and design challenge,
+as most mapping solutions depend on online services.
 
 ## Design process and constraints
 
@@ -83,13 +87,13 @@ technical constraint, I had additional concerns with this approach: limited
 control over visual appearance, excessive detail that could distract users from
 their primary tasks, and visual inconsistency with our brand identity.
 
-Having recently worked with map data on a personal project (of potential new
-rock climbing areas using satellite images), I knew there was a better solution.
-While the development team was hesitant to explore alternatives further, I
-decided to create a proof of concept demonstrating how to build a map with
-sufficient detail for our specific use case, custom styling that matched our
-brand, and dramatically reduced file size. Tens of megabytes instead of tens of
-gigabytes.
+Having recently worked with map data on a personal project (detecting potential
+new rock climbing areas using machine learning algorithms on satellite images),
+I knew there was a better solution. While the development team was hesitant to
+explore alternatives further, I decided to create a proof of concept
+demonstrating how to build a map with sufficient detail for our specific use
+case, custom styling that matched our brand, and dramatically reduced file size
+(tens of megabytes instead of tens of gigabytes).
 
 I achieved this by customizing the tile building process (with
 [tippecanoe](https://github.com/mapbox/tippecanoe)), selecting only the map

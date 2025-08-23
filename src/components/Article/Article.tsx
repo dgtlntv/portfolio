@@ -30,7 +30,7 @@ export default function Article({
                     >
                         {isVideo ? (
                             <video
-                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
+                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : ""}`}
                                 src={heroUrl}
                                 controls={false}
                                 autoPlay={true}
@@ -38,7 +38,7 @@ export default function Article({
                             />
                         ) : (
                             <img
-                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover" : ""}`}
+                                className={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : ""}`}
                                 src={heroUrl}
                                 alt=""
                             />

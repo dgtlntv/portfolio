@@ -1,12 +1,18 @@
 import React from 'react';
 
+interface MetadataItem {
+  label: string;
+  value: string;
+}
+
 interface DocumentSkeletonProps {
   lines?: number;
   className?: string;
   title?: string;
+  metadata?: MetadataItem[];
 }
 
-export default function DocumentSkeleton({ lines = 12, className = "", title }: DocumentSkeletonProps) {
+export default function DocumentSkeleton({ lines = 12, className = "", title, metadata }: DocumentSkeletonProps) {
   const generateLines = () => {
     const lineElements = [];
     
@@ -57,22 +63,17 @@ export default function DocumentSkeleton({ lines = 12, className = "", title }: 
           
           {/* Document metadata table */}
           <div className="mb-8 border border-gray-200 rounded text-[10px] divide-y divide-gray-200">
-            <div className="flex px-2 py-1">
-              <span className="w-12 text-gray-500 font-medium">Author:</span>
-              <span className="text-gray-800">Design Team</span>
-            </div>
-            <div className="flex px-2 py-1">
-              <span className="w-12 text-gray-500 font-medium">Date:</span>
-              <span className="text-gray-800">March 2024</span>
-            </div>
-            <div className="flex px-2 py-1">
-              <span className="w-12 text-gray-500 font-medium">Version:</span>
-              <span className="text-gray-800">2.1</span>
-            </div>
-            <div className="flex px-2 py-1">
-              <span className="w-12 text-gray-500 font-medium">Status:</span>
-              <span className="text-gray-800">Final</span>
-            </div>
+            {(metadata || [
+              { label: "Author:", value: "Design Team" },
+              { label: "Date:", value: "March 2024" },
+              { label: "Version:", value: "2.1" },
+              { label: "Status:", value: "Final" }
+            ]).map((item, index) => (
+              <div key={index} className="flex px-2 py-1">
+                <span className="w-12 text-gray-500 font-medium">{item.label}</span>
+                <span className="text-gray-800">{item.value}</span>
+              </div>
+            ))}
           </div>
         </div>
         

@@ -10,30 +10,35 @@ coverImage: "/images/projects/canonical-design-tokens/cover.png"
 heroLocation: "cover"
 asciiDarken: 0.89
 stats:
-    [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+    [
+        { label: "Year", value: "2024-2025" },
+        { label: "Type", value: "Work Project" },
+    ]
 ---
 
-When I joined Canonical Vanilla, Canonical's design system could probably be
-described more as a CSS library. It lacked features that modern design systems
-have, including a systematic approach to visual foundations. Visual foundations
-existed most often as SCSS variables. However, they were also hard-coded
-directly into the components.
+When I joined Vanilla, Canonical's design system could probably be described
+more as a CSS library. It lacked features that modern design systems have,
+including a systematic approach to visual foundations. Visual foundations
+existed most often as SCSS variables but sometimes they were also hard-coded
+directly into the components. At the same time, other teams had started
+implementing their own interpretations of Vanilla in Flutter, and there was a
+Figma library which was supposed to mirror Vanilla components. This situation
+made it quite manual and error-prone to ensure that these other platforms
+visually matched our source of truth as there was no way for them to interface
+with the visual foundations of the CSS library directly.
 
-At the same time, other teams had started implementing their own interpretations
-of Vanilla in Flutter, and there was a Figma library with Vanilla components.
-This situation made it quite manual and error-prone to ensure that these other
-platforms visually matched our source of truth.
-
-Canonical also recently changed its logo and its official typeface (from Ubuntu
-to Ubuntu Sans), and the fact that the old logo and typeface can still be found
-in various places across Canonical's presence shows that Canonical lacks the
-infrastructure to efficiently implement these branding and visual changes across
-Canonical's portfolio.
+Canonical also recently changed its logo and its official typeface (from
+[Ubuntu](https://fonts.google.com/specimen/Ubuntu) to
+[Ubuntu Sans](https://fonts.google.com/specimen/Ubuntu+Sans)), and the fact that
+the old logo and typeface can still be found in various places across
+Canonical's presence shows that Canonical lacks the infrastructure to
+efficiently implement these branding and visual changes across Canonical's
+portfolio.
 
 ## Modernizing the design system
 
 It was clear that what was needed was a centralized and systematic approach to
-visual foundations. In essence, Canonicaö needed Design tokens and I pushed for
+visual foundations. In essence, Canonical needed Design tokens and I pushed for
 and led this effort to create these Design tokens.
 
 ![](/images/projects/canonical-design-tokens/inventory.png)
@@ -68,6 +73,12 @@ structure and name design tokens at Canonical.
             title="Design tokens specification"
             lines={18}
             className="max-w-sm"
+            metadata={[
+                { label: "Author:", value: "Design team" },
+                { label: "Date:", value: "September 2024" },
+                { label: "Version:", value: "1.1" },
+                { label: "Status:", value: "Approved" }
+            ]}
         />
     }
 >
@@ -106,8 +117,8 @@ opportunity and adopt a more systematic approach to visual foundations.
 For colors for example, we previously didn't have a proper UI palette. Colors
 were added on an as needed basis. I wanted to use the color token work as an
 opportunity to move to a more systematic approach. I created a palette based on
-Matthew Ström's article about how to create color palettes for design systems
-where he desrcibes an approach where you do not create shades based on lightness
+[Matthew Ström's article about how to create color palettes for design systems](https://matthewstrom.com/writing/generating-color-palettes/)
+where he describes an approach where you do not create shades based on lightness
 but based on contrast between shades (which makes creating accessible color
 combinations easier).
 
@@ -133,8 +144,10 @@ several implementation limitations that I was able to feed back into the token
 authoring process before engineering began their full implementation.
 
 Below is the code of my prototype with a Style dictionary build system in the
-`/build` folder, css output in the `/dist` folder and some of the tokens we had
-created to this point in the `/tokens` folder.
+`/build` folder, CSS and Figma
+([tokens.studio for Figma](https://www.figma.com/community/plugin/843461159747178978/tokens-studio-for-figma))
+output in the `/dist` folder and some of the tokens we had created to this point
+in the `/tokens` folder.
 
 <div className="relative -mx-4 my-8 sm:-mx-6 lg:-mx-8 xl:-mx-28">
     <GitHubCodeExplorer
