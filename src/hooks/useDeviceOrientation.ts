@@ -58,7 +58,7 @@ export default function useDeviceOrientation(): DeviceOrientationHookReturn {
             sensor.stop()
             sensor.removeEventListener("reading", sensorReadingHandler)
         }
-    }, [requestPermission])
+    }, [])
 
     return {
         orientation: orientation,
