@@ -52,7 +52,7 @@ both visual and interaction design challenges. The map needed visual clarity for
 the specific use case while enabling users to interact with sites. Selecting
 individual or multiple locations and performing actions on them.
 
--- screenshots of wireframes
+![](/images/projects/maas-site-manager/wireframe-3.png)
 
 The design had to accommodate potentially tens of thousands of sites, requiring
 scalable rendering solutions. Displaying 30,000 sites simultaneously would be
@@ -60,7 +60,7 @@ neither technically performant nor visually useful to users. I needed to create
 user flows that were intuitive for site interaction and selection while ensuring
 the interface could scale effectively.
 
--- screenshots of aggregated sites
+![](/images/projects/maas-site-manager/wireframe-2.png)
 
 Throughout the design process, I conducted frequent feedback sessions with other
 designers to refine flows and visual approaches, and with developers to validate
@@ -74,7 +74,7 @@ digital maps) require tens to hundreds of gigabytes of storage. Shipping this
 data with MAAS Site Manager would create an impractical burden for users,
 particularly since most self-host the application.
 
--- screenshot excessive detail of open street maps
+![](/images/projects/maas-site-manager/openstreetmap.png)
 
 The development team proposed using an online map service like OpenStreetMaps to
 avoid hosting large datasets, but this would violate one of the core
@@ -83,14 +83,12 @@ technical constraint, I had additional concerns with this approach: limited
 control over visual appearance, excessive detail that could distract users from
 their primary tasks, and visual inconsistency with our brand identity.
 
--- screenshot of personal project?
-
 Having recently worked with map data on a personal project (of potential new
 rock climbing areas using satellite images), I knew there was a better solution.
 While the development team was hesitant to explore alternatives further, I
 decided to create a proof of concept demonstrating how to build a map with
 sufficient detail for our specific use case, custom styling that matched our
-brand, and dramatically reduced file size—tens of megabytes instead of tens of
+brand, and dramatically reduced file size. Tens of megabytes instead of tens of
 gigabytes.
 
 I achieved this by customizing the tile building process (with
@@ -105,7 +103,7 @@ a proper system for generating optimized maps for our application.
 
 ## Results and validation
 
--- screen shots of results
+![](/images/projects/maas-site-manager/maas-site-manager-map.png)
 
 The result was a successful map feature in MAAS Site Manager that displays the
 appropriate level of detail, maintains visual consistency with our design
