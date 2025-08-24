@@ -55,14 +55,14 @@ export const components = {
 
     // Code blocks with syntax highlighting
     pre: (props: React.HTMLProps<HTMLPreElement>) => (
-        <div className="my-6" {...props} />
+        <pre className="my-6 whitespace-pre overflow-x-auto text-sm font-mono bg-gray-100 p-4 rounded-sm" {...props} />
     ),
     code: (props: any) => {
         const { children, className } = props
         return className ? (
             <CodeBlock className={className}>{children}</CodeBlock>
         ) : (
-            <code className="rounded bg-gray-100 px-1 py-0.5 text-sm font-mono">
+            <code className="rounded bg-gray-100 px-1 py-0.5 text-sm font-mono whitespace-pre">
                 {children}
             </code>
         )

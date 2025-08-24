@@ -7,6 +7,7 @@ import {
 import { GitHubCodeExplorerProps, FileNode, ApiError } from "./types"
 import { GitHubFileExplorer } from "./GitHubFileExplorer"
 import { GitHubCodeViewer } from "./GitHubCodeViewer"
+import { GitHubMarkdownViewer } from "./GitHubMarkdownViewer"
 import { fetchRepositoryTree, fetchFileContent } from "./githubApi"
 import {
     getCachedData,
@@ -144,6 +145,12 @@ export function GitHubCodeExplorer({
         return checkNode(tree)
     }
 
+    // Helper function to check if a file is a markdown file
+    const isMarkdownFile = (filePath: string): boolean => {
+        const extension = filePath.split(".").pop()?.toLowerCase()
+        return extension === "md"
+    }
+
     // Clear expired caches on mount
     useEffect(() => {
         clearExpiredCaches()
@@ -270,19 +277,29 @@ export function GitHubCodeExplorer({
                     />
                 </div>
 
-                {/* Code Viewer - takes full width on mobile when file explorer is hidden */}
+                {/* Code/Markdown Viewer - takes full width on mobile when file explorer is hidden */}
                 <div
                     className={`${showFileExplorer ? "hidden md:flex" : "flex"} h-full min-w-0 flex-1`}
                 >
-                    <GitHubCodeViewer
-                        filePath={currentPath}
-                        fileContent={fileContent}
-                        isLoading={isLoadingFile}
-                        error={fileError}
-                        owner={owner}
-                        repo={repo}
-                        branch={branch}
-                    />
+                    {currentPath && fileContent && isMarkdownFile(currentPath) ? (
+                        <GitHubMarkdownViewer
+                            filePath={currentPath}
+                            fileContent={fileContent}
+                            owner={owner}
+                            repo={repo}
+                            branch={branch}
+                        />
+                    ) : (
+                        <GitHubCodeViewer
+                            filePath={currentPath}
+                            fileContent={fileContent}
+                            isLoading={isLoadingFile}
+                            error={fileError}
+                            owner={owner}
+                            repo={repo}
+                            branch={branch}
+                        />
+                    )}
                 </div>
             </div>
         </div>
