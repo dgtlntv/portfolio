@@ -3,17 +3,10 @@ name: Build and Deploy to BunnyCDN
 on:
     push:
         branches:
-            - v2
-    pull_request:
-        types:
-            - closed
-        branches:
-            - v2
+            - main
 
 jobs:
     build-and-deploy:
-        # Only run this job if the PR is merged (not just closed) or if it's a direct push to v2
-        if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
         runs-on: ubuntu-latest
 
         steps:
