@@ -1,0 +1,155 @@
+---
+title: Canonicals Figma libraries
+date: "11.07.2024"
+slug: canonicals-figma-libraries
+excerpt:
+    How I rebuilt Canonicals Figma libraries, with practical guidelines on
+    structure, performance, and maintenance processes.
+coverImage: "/images/projects/canonical-figma-libraries/figma-components-cover.webp"
+heroLocation: "cover"
+asciiDarken: 0.89
+stats:
+    [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+---
+
+The shoemaker's children have no shoes. At Canonical's design team, this proverb
+has manifested itself in the Figma libraries. While the team consistently
+delivered high-quality designs for diverse products used by millions of users,
+the Figma libraries had been neglected. They had become outdated and
+inefficient. The decision was made to tackle this problem by developing new
+Figma libraries from scratch. Ones that would meet the team's needs and are
+enjoyable to use.
+
+The libraries were disorganized and contained material that was still under
+development, so it was unclear what should be used. Compared to the codebase,
+they were incomplete, and the existing components were not consistently kept up
+to date. This led to team members detaching components and creating their own
+local components and small unofficial libraries, which caused major confusion in
+the handover process.
+
+## Understanding the problem
+
+<FloatImage
+    direction="left"
+    src="/images/projects/canonical-figma-libraries/figma-library-user-survey.webp"
+    alt="Survey form titled 'Figma library update survey' with questions about component usage experience and finding specific components in the design system"
+>
+At some point it became clear that
+enough was enough. The team needed to do some self-care and build Figma libraries
+from scratch that met the requirements of the usual design work.
+
+Instead of diving in headfirst, the process started by aligning on how to
+structure the libraries and what rules and methods to follow when creating
+components. I surveyed how designers use components, gathered feedback on
+problematic components in the old libraries and organized meetings with the team
+to understand their needs. Within this process, I took the initiative to lead
+the rebuilding effort and draft the initial spec that would guide the work.
+
+</FloatImage>
+
+## Research and specification
+
+<FloatImage
+    direction="right"
+    content={
+        <DocumentSkeleton
+            title="Library architecture specification"
+            lines={20}
+            className="max-w-sm"
+            metadata={[
+                { label: "Author:", value: "Design team" },
+                { label: "Date:", value: "March 2024" },
+                { label: "Version:", value: "2.3" },
+                { label: "Status:", value: "Approved" }
+            ]}
+        />
+    }
+>
+
+This involved extensive investigation into best practices for building scalable
+libraries. I explored approaches from other design teams like
+[Doctolib](https://medium.com/doctolib/how-we-organise-our-design-system-libraries-to-help-doctolib-designers-use-more-than-70-000-c15237c81f6c)
+and articles on
+[library architecture](https://medium.com/eightshapes-llc/figma-shared-libraries-d2dfbf9d1b8d)
+by Nathan Curtis, particularly his concepts on
+[design system tiers](https://medium.com/eightshapes-llc/design-system-tiers-2c827b67eae1)
+and how they could apply to the diverse product ecosystem that Canonical has.
+
+To ensure broad acceptance and create the most effective specification possible,
+I organized review sessions where team members could discuss, modify, and
+ultimately approve each section. We went through the entire document together,
+debating different approaches to component organization, performance
+optimization, and contribution processes. This collaborative approach resulted
+in a thorough 20-page specification with strong team buy-in, creating a solid
+foundation for the implementation phase.
+
+</FloatImage>
+
+## Implementation
+
+![Figma design interface showing button component variants with different states (Text, Icon, etc.) and color combinations (orange, green, red) in a grid layout, plus changelog section showing recent updates to button components](/images/projects/canonical-figma-libraries/figma-button-component-variants.webp)
+
+With the specification approved, we moved to implementation. I led the building
+process with support from junior designers. I personally built a lot of the
+components, ensuring they followed the established performance guidelines
+regarding layer count, asset optimization, and effect usage. You can read more
+about the specific building strategies I applied in the
+[blog post I wrote about it](/blog/figma-libraries).
+
+<FloatImage
+    direction="left"
+    content={
+        <MetricsMockup className="max-w-md" />
+    }
+>
+
+Before releasing the libraries more widely, I recognized that better metrics
+were needed than what Figma natively provided to properly track adoption and
+identify improvement opportunities. Figma's built-in analytics were insufficient
+for the team's needs, so I developed a custom metrics tool, taking inspiration
+from approaches shared by the Pinterest and Uber design teams in their public
+materials. This custom tooling allowed the team to track critical data points
+such as component usage frequency, library adoption rates across teams, and
+component detachment rates. The detachment rates were particularly valuable.
+They helped identify which components designers were frequently modifying. A
+clear signal that these components needed improvement in the official library.
+
+</FloatImage>
+
+## Transition and adoption
+
+After completing the initial library, an internal transition period was
+announced during which both the old and new libraries would remain available.
+Designers were encouraged to start using the new components immediately while
+being provided enough time to adapt to the changes. The old libraries were
+clearly marked as deprecated with notices in file names, page names, component
+names, and descriptions, along with links to the new libraries. Throughout this
+transition, the metrics tool provided valuable insights into adoption patterns,
+helping us identify which teams were quickly embracing the new system and which
+might need additional support.
+
+<div className="relative mx-auto md:-mx-6 lg:-mx-8 xl:-mx-28 my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+    <a
+        href="https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <img
+            className="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+            src="/images/projects/canonical-figma-libraries/figma-community-showcase.webp"
+            alt="Figma Community showcase page for Vanilla Core Component Library with preview thumbnails showing various UI components, statistics showing 4.8K views and 79 duplicates"
+        />
+    </a>
+</div>
+
+By the end of the transition period, the metrics showed strong adoption across
+the team. The detachment rates for components in the new library were down
+compared to the old library. These metrics gave the team confidence that the
+libraries were thoroughly tested in real design workflows and ready for public
+release.
+
+## Public release
+
+The work was shared with the wider design community by releasing the core
+component library and assets library to the
+[Figma community](https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library).

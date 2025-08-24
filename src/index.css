@@ -1,39 +1,138 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-.fade-enter {
-    opacity: 0;
-}
-.fade-enter.fade-enter-active {
-    opacity: 1;
-
-    transition: opacity 600ms;
-}
-.fade-exit {
-    opacity: 1;
-}
-.fade-exit.fade-exit-active {
-    opacity: 0;
-
-    transition: opacity 600ms;
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Regular.woff2") format("woff2");
+    font-weight: thin;
+    font-style: normal;
+    font-display: swap;
 }
 
-.leaflet-container {
-    background-color: white !important;
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
 }
 
-.cluster-marker {
-    color: #fff;
-    background: #1978c8;
-    border-radius: 50%;
-    padding: 5px;
-    aspect-ratio: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
 }
-.leaflet-div-icon {
-    background: none !important;
-    border: none !important;
+
+@font-face {
+    font-family: "Courier Prime";
+    src: url("/fonts/CourierPrime-BoldItalic.woff2") format("woff2");
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Cooper*";
+    src: url("/fonts/Cooper[wght].woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Opake";
+    src: url("/fonts/Opake-Heavy.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "courier new";
+    src: local("Courier Prime");
+    font-display: swap;
+}
+
+div > table,
+table[style*="courier new"] td,
+table[style*="courier new"] span {
+    font-family: "Courier Prime", monospace !important;
+}
+
+@layer base {
+    a {
+        @apply text-red-500 hover:underline;
+    }
+
+    ul {
+        @apply marker:text-red-500;
+    }
+}
+
+@theme {
+    --font-fancy: "Courier Prime", monospace;
+    --font-logo: "Opake", sans-serif;
+    --font-head: "Cooper*", serif;
+
+    --color-primary: #f20505;
+    --color-primary-50: #fdb1b1;
+    --color-primary-100: #fd9d9d;
+    --color-primary-200: #fc7575;
+    --color-primary-300: #fb4d4d;
+    --color-primary-400: #fb2525;
+    --color-primary-500: #f20505;
+    --color-primary-600: #bb0404;
+    --color-primary-700: #840303;
+    --color-primary-800: #4d0202;
+    --color-primary-900: #160000;
+
+    --color-secondary: #0b6e4f;
+    --color-secondary-50: #c6fbea;
+    --color-secondary-100: #8bf3d3;
+    --color-secondary-200: #58eebf;
+    --color-secondary-300: #15d196;
+    --color-secondary-400: #12b07f;
+    --color-secondary-500: #0b6e4f;
+    --color-secondary-600: #063b2a;
+    --color-secondary-700: #010806;
+    --color-secondary-800: #000000;
+    --color-secondary-900: #000000;
+
+    --color-tertiary: #fabc3c;
+    --color-tertiary-50: #fffaef;
+    --color-tertiary-100: #fef3db;
+    --color-tertiary-200: #fde5b3;
+    --color-tertiary-300: #fcd78c;
+    --color-tertiary-400: #fbca64;
+    --color-tertiary-500: #fabc3c;
+    --color-tertiary-600: #f8a906;
+    --color-tertiary-700: #c18405;
+    --color-tertiary-800: #8a5e04;
+    --color-tertiary-900: #533902;
+
+    --color-quaternary: #470ff4;
+    --color-quaternary-50: #cebffc;
+    --color-quaternary-100: #bfabfb;
+    --color-quaternary-200: #a184f9;
+    --color-quaternary-300: #835df8;
+    --color-quaternary-400: #6536f6;
+    --color-quaternary-500: #470ff4;
+    --color-quaternary-600: #3609c2;
+    --color-quaternary-700: #27068c;
+    --color-quaternary-800: #180457;
+    --color-quaternary-900: #090221;
+
+    --color-quinary: #f7b2b7;
+    --color-quinary-50: #ffffff;
+    --color-quinary-100: #ffffff;
+    --color-quinary-200: #ffffff;
+    --color-quinary-300: #fffcfc;
+    --color-quinary-400: #fbd7da;
+    --color-quinary-500: #f7b2b7;
+    --color-quinary-600: #f27f87;
+    --color-quinary-700: #ec4c58;
+    --color-quinary-800: #e71a28;
+    --color-quinary-900: #b6131f;
 }

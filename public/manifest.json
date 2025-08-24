@@ -1,9 +1,0 @@
-{
-    "short_name": "Portfolio Maximilian Blazek",
-    "name": "Portfolio Website of Maximilian Blazek",
-    "icons": [],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
-}

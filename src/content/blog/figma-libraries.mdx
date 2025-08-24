@@ -1,0 +1,359 @@
+---
+title: Designing Canonicals Figma libraries for performance and structure
+date: "11.07.2024"
+slug: figma-libraries
+excerpt:
+    How Canonical's Design team rebuilt their Figma libraries, with practical
+    guidelines on structure, performance, and maintenance processes.
+coverImage: "/images/blog/figma-libraries/canonical-ui-components.webp"
+heroLocation: "cover"
+author: "Maximilian Blazek & Jan Ostrówka"
+---
+
+The shoemakers' children have no shoes. At Canonical’s Design team, this proverb
+manifested in our Figma libraries. While we consistently deliver high-quality
+designs for our diverse products used by millions of users, we had neglected our
+own Figma libraries. They had become outdated and inefficient. This year, we
+decided to tackle this problem by developing new Figma libraries from scratch —
+ones that meet our needs and that we enjoy using.
+
+The libraries were disorganized and contained material that was still under
+development, so it was not clear what to use. They were incomplete compared to
+our codebase and the existing components were not consistently kept up to date.
+This led to team members detaching components and creating their own local
+components and small unofficial libraries. At some point we felt that enough was
+enough. We needed to do some self-care and build our Figma libraries from
+scratch that met the requirements of our usual design work.
+
+Instead of diving in headfirst, we started by aligning on how we wanted to
+structure the libraries and what rules and methods we wanted to follow when
+creating components. We surveyed how designers use components, gathered feedback
+on problematic components in the old libraries and organized meetings with the
+team to understand their needs. The result of this process was a detailed
+20-page specification outlining the guidelines for the new libraries.
+
+In this blog post, we want to share some of the guidelines and processes from
+this document to help other designers create more efficient Figma libraries.
+
+## Structure
+
+### Files
+
+In revamping our Figma libraries, we wanted to structure them in a way that
+designers can easily understand and navigate the different libraries. Looking
+for inspiration, we came across the
+[Doctolib team's article on their Figma libraries](https://medium.com/doctolib/how-we-organise-our-design-system-libraries-to-help-doctolib-designers-use-more-than-70-000-c15237c81f6c)
+and Nathan Curtis' articles on
+[Figma libraries](https://medium.com/eightshapes-llc/figma-shared-libraries-d2dfbf9d1b8d)
+and
+[Design system tiers](https://medium.com/eightshapes-llc/design-system-tiers-2c827b67eae1).
+
+This was at a time when we were considering restructuring our design system to
+take a **tiered approach**. At Canonical, we have to design for several
+different product types: Applications, content sites, stores and pages for our
+Ubuntu Pro offering. These different product categories require different design
+patterns. Therefore, it made sense to split these product category-specific
+design patterns into separate libraries and take a multi-tiered Design system
+approach. For our Figma libraries, we adopted the same structure. We have a
+common base library, but we create additional libraries for each product
+category.
+
+![Canonical design system hierarchy diagram showing Base library at top connecting to Apps, Sites, Stores, and Pro, each with their own Core and Domain component libraries](/images/blog/figma-libraries/canonical-library-structure.webp)
+
+For each of these levels, we have chosen a similar library and ownership
+structure as described in the article by the Doctolib team:
+
+- **Core components**: Generic components without data.
+- **Domain components**: Core components with data from specific products.
+- **Assets**: Such as icons and logos.
+
+Every library is maintained by at least one dedicated library maintainer who is
+responsible for managing contributions and keeping the library up to date and
+tidy.
+
+![Diagram showing Core components (left side with Table component selected) vs Domain components (right side showing MAAS and LXD versions of tables with different styling)](/images/blog/figma-libraries/core-vs-domain-components.webp)
+
+If you want to learn more about the core and domain component paradigm, we
+recommend reading the
+[Doctolib article](https://medium.com/doctolib/how-we-organise-our-design-system-libraries-to-help-doctolib-designers-use-more-than-70-000-c15237c81f6c),
+it's well worth a read! This approach, especially the domain components, allows
+us to achieve greater consistency between products.
+
+### Pages
+
+Within each file, we maintain a strict policy of **one component per page**. The
+pages are sorted alphabetically and divided into sections that represent our
+component levels.
+
+![Figma library file structure showing Pages section with Patterns (Login form, User management table, Permissions graph), Complex components (Side navigation, Table), and Components (Input, Button, Node visualisation, Checkbox)](/images/blog/figma-libraries/figma-file-structure.webp)
+
+To maintain this structure and avoid the same problems we had in our old
+libraries, we have set up the library to be **view-only**. Only the library
+maintainers have access to edit it. This reduces the risk of accidentally making
+changes and leaving unnecessary items in view. Similar to how the main branch of
+a code repository would normally be protected.
+
+## Performance
+
+While our new file structure improved navigation, we also wanted to tackle
+performance.
+[Figma's recent update](https://www.figma.com/blog/speeding-up-file-load-times-one-page-at-a-time/)
+has made file loading dynamic — now pages load individually rather than all at
+once. However, it is still good practice to split large (library) files into
+several smaller files to ensure that we don't hit
+[Figma's 2 GB memory limit per file](https://help.figma.com/hc/en-us/articles/360040528173-Reduce-memory-usage-in-files#memory).
+
+Opening a file no longer takes forever, but loading heavy pages sometimes does.
+That's why the “one component per page” rule is not only important for
+structural reasons, but also for performance reasons. If a page is not
+overloaded with several components, the loading of library pages is considerably
+faster.
+
+While file and page optimizations only affect the library itself,
+component-level decisions affect the designers' working files. If the components
+are not set up correctly, they can slow down these files significantly.
+
+The main culprits of poorly performing components are:
+
+- A large number of layers
+- Heavy assets
+- Heavy effects
+
+### Number of layers
+
+As described in
+[another Doctolib article](https://medium.com/doctolib/building-smarter-figma-components-crafting-for-efficiency-91704229643)
+(yes, we like their articles), there are a few usual suspects when it comes to
+the high number of layers.
+
+#### Variants
+
+When a component is placed in a design file, Figma loads every variant of a
+component into the file. This means that even if a component looks light in the
+layer view, it can be quite heavy if that component has many variants or
+variants with a high number of layers. You can test this by opening the
+[memory usage tool in Figma](https://help.figma.com/hc/en-us/articles/360040528173-Reduce-memory-usage-in-files#01H8HER66S8MW9E8E9HYKHXRVM).
+
+![Comparison of Figma memory usage showing two panels: left panel shows 1.7% total memory used with 3,334 total layers (circled in red) for a variant component, right panel shows 0.4% total memory used with 11 total layers for an instance swap component](/images/blog/figma-libraries/figma-memory-usage-comparison.webp)
+
+To counteract this, we try to keep the number of variants to a minimum and
+instead use other properties such as boolean, text and instance swapping or
+variable modes. We also try not to pack everything into one component. If a
+component starts to have too many variants, we take that as a sign that we
+should split up the component.
+
+#### Nested components
+
+Components frequently need to contain other components \- for example, a modal
+might include a button component. However, this nesting can also impact
+performance: As mentioned in the previous point, when a component is loaded, all
+of its variants are loaded as well.
+
+This cascading effect means that each nested component brings along all of its
+own variants. As nesting depth increases, the number of loaded variants can grow
+exponentially, resulting in a lot of layers.
+To optimize performance, we try to minimize component nesting, especially if
+they have variants.
+
+#### Variable number of items
+
+![Figma interface showing segmented control component on left and instance swap panel on right with various content options like [1 item], [2 items], [3 items], [4 items] with preview thumbnails](/images/blog/figma-libraries/figma-segmented-control-instance-swap.webp)
+
+There are certain components that contain multiple, repeated subitems, such as
+tabs in a tab bar. Depending on the use case, you may only need 3 tabs or maybe
+10. Figma doesn't currently provide a way to handle this gracefully. To create
+a component with enough flexibility, many of us have simply included 10 tabs in
+the component so that designers can show and hide the tabs as needed.
+
+But even hidden layers contribute to the total number of layers. So this
+approach with a lot of hidden, unused layers unnecessarily reduces the
+performance of a component. What the Doctolib team suggests instead, and what we
+have also adopted, is the creation of **helper components**.
+
+In the case of the tabs example, you would create helper components for one tab,
+two tabs, three tabs and so on. Then you would create an instance swap property
+in the tabs component that allows you to select these components and therefore
+the number of tabs you have in your tabs component. This not only reduces the
+number of layers to the amount you actually need, but also makes changing the
+number of elements more ergonomic. You no longer have to go to the layer tree to
+change the number of elements, but can change them in the properties window
+along with all other properties.
+
+### Heavy assets
+
+Heavy assets, such as images, require careful implementation in Figma libraries.
+That's why we separate our assets such as icons, logos and illustrations into
+their own library file. This separation helps to ensure that Figma's memory
+limits are not reached with large asset collections.
+
+We also **optimize all assets** (e.g. [svgo](https://github.com/svg/svgo),
+[oxipng](https://github.com/shssoichiro/oxipng)) before adding them to the
+library. This optimization targets two important performance factors. Firstly,
+it helps to comply with memory limitations. Secondly, it reduces download times
+when pages are opened on devices as each asset needs to be loaded for display.
+
+We have also refined our approach to asset-heavy components. For example, we had
+previously used an icon component with variants, which led to performance
+issues. This approach was problematic, because each variant contained a heavy
+asset. The component had numerous variants and was often nested within other
+components.
+
+In our current solution, each asset is a separate component. We use a ‘wrapper
+component’ that contains only one icon component and uses the instance swap
+properties with the other icon components as preferred values. This method
+allows for easy selection of icons while maintaining performance.
+
+### Heavy effects
+
+While the other performance considerations relate more to memory management in a
+file, this consideration relates more to the actual rendering of the file.
+Effects such as color gradients, drop shadows etc. require more processing power
+than, for example, a simple rectangle. The Figma renderer is very good, but too
+many effects in one component, especially if they are stacked on top of each
+other, will affect the rendering performance. Therefore, when creating
+components, we are careful not to stack too many effects on top of each other.
+
+## Discoverability
+
+![Comparison showing Figma variant dropdown menu on left with 'Disconnected' selected from options like Connected, Copy, Debug, Delete, vs instance swap interface on right showing icon selection grid with various icons like desktop, edit, refresh, etc.](/images/blog/figma-libraries/figma-variant-vs-instance-swap.webp)
+
+Using the ‘Instance Swapping’ property instead of variants, as we described in
+the previous section, had an unintended positive side effect for us. While the
+variant property only shows a list of the variant names, the instance swap
+property shows a searchable list of components and their previews. For the icon
+component, for example, this meant that we now (right side) have previews of
+icons instead of just their names, which is a great improvement for icon
+discoverability.
+
+Another discoverability feature we have implemented in our Figma libraries is
+the use of **keywords** in component descriptions. Components can have
+synonymous names in different design systems. We have used Figma's component
+documentation feature to insert alternative names as keywords. For example, we
+label the input field component with ‘text field’, ‘text box’, ‘form field’ and
+‘entry field’. If we use the search function in the Figma UI, in the component
+search field or in the instance swapping property, the component will be
+displayed regardless of which synonym we search for, as long as we included it
+in the keywords.
+
+## Process
+
+![Screenshot of Figma notification system showing multiple overlapping notifications from 'webbot' about changes to Google Drive isometric-illustrations and other updates](/images/blog/figma-libraries/figma-update-notifications.webp)
+
+### Keeping things up to date
+
+Creating a library is one challenge; maintaining it is another entirely. Our
+previous library struggled from the complexity of tracking changes across a
+larger organization like Canonical. Design system updates, code changes, and new
+illustrations stored across different platforms \- keeping everything in sync
+proved challenging. There was no defined process to keep the library up to date
+and maintain it compared to the sources of truth. So over time it became
+outdated and less valuable to the team as a result.
+
+When defining the specification for Figma libraries mentioned at the beginning,
+we therefore made sure that we also defined a process for maintaining the
+libraries. In this process, a clear ownership of the libraries is defined \- the
+**library maintainers**. These library maintainers are, as the name suggests,
+responsible for keeping the libraries up to date. There must be a **source of
+truth** for each library and component/asset. Therefore, keeping it up to date
+means following the source of truth as closely as possible. Anything that is not
+in the source of truth will not be allowed into the library.
+
+To support our library maintainers, we developed a bot for our internal
+messaging platform that monitors these sources and alerts us to relevant changes
+through webhooks, whether they occur in GitHub, Google Drive, or other
+platforms.
+
+### Contributions on the pro plan
+
+We want to keep our design libraries as **platform-agnostic** as possible to be
+prepared for any changes in design tools that may come in the future. For this
+reason, we are reluctant to tie ourselves more to the Figma ecosystem and its
+organization plan, which provides marginally better features for a considerably
+higher cost.
+
+The only real downside for us in this regard is the contribution to libraries.
+Without the branching feature of the organization plan, it is difficult to
+restrict the editing of the library file (to prevent accidental changes) and
+still allow contributions. This is the procedure we have introduced to make it
+work anyway (if you know of a better way please let us know!):
+
+#### Existing component improvements.
+
+The trickiest part is updating existing components, as only the library
+administrators have edit access to the library file. What we have arrived at is
+that if someone discovers a bug in an existing component, they write a request
+to update the library, detailing what is wrong, what needs to be fixed and
+perhaps how they intend to fix it. This request is sent to the maintainer of the
+library.
+
+#### New components
+
+For new components, we ask contributors to create the proposed component in a
+separate file. There they can build the component, test it and get feedback from
+other designers. We provide
+[a checklist](https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library)
+of things they need to do in order for the component to be included in the
+library. Once they have completed the checklist, they contact a library
+maintainer to add the new component to the library. The library maintainer
+performs a final check and then adds it to the library.
+
+The advantage of this contribution process is that we can accept contributions
+from external contributors in the same way as internal contributors.
+
+## Metrics
+
+![Table showing project statistics with columns for Project, File, # Non Component Nodes, # Component Nodes, and % Component Nodes, displaying data for 7 different projects with component usage percentages ranging from 5% to 70%](/images/blog/figma-libraries/component-usage-statistics.webp)
+
+Before we started creating the new libraries, we also implemented a custom way
+to track the usage of Figma components and Figma libraries in our design team.
+We took inspiration from the article by the
+[Pinterest team](https://www.figma.com/blog/how-pinterests-design-systems-team-measures-adoption/)
+and the
+[Uber team's approach](https://youtu.be/PMz1DbaeoDE?feature=shared&t=213). With
+the code we wrote, we can track how often our designers use components in their
+files, which libraries those components come from, and how often they detach
+components.
+
+We wanted to do this before we release the new libraries so we can understand
+the adoption of our new libraries over time. The component usage metrics and
+removal rates can give us an indication of which components may need to be
+improved in the design system in general or in Figma.
+
+## Transition
+
+When we finalized the new libraries, we created a transition plan for the team
+from the old to the new library.
+
+We started with a "beta" version where the team could try out the new library
+and tell us what works and what doesn't. Once we had integrated all the feedback
+and moved to the stable version, we went through our old library and the smaller
+unofficial libraries that were floating around and marked them all as
+deprecated. We put this notice everywhere \- in file names, page names,
+component names, component descriptions and on the library cover. Wherever we
+could, we added a link to the new library in the deprecation notice. This helped
+with notifying users of the library deprecation which we weren’t able to reach
+through other channels.
+
+We also set the old libraries to "view only" and moved them to an archive
+project. We let the team know they could keep using the old libraries for a few
+months while transitioning, but should pick the new library for any new work.
+From this transition period onwards, we wouldn't fix anything in the old
+libraries or release new versions.
+
+After the transition period, we unpublished the old libraries so they don’t show
+up in the library tab anymore and no new components can be added to design
+files.
+
+We started this journey towards new libraries with the base core component
+library and the base assets library. Now that we have wrapped up the transition
+period for these libraries, we're sharing the files with the
+[Figma community](https://www.figma.com/community/file/1435297834108003391) and
+writing this blog post.
+
+We'll be creating more libraries following these principles over the next few
+months. If we learn anything new while making them, we'll share that with you
+too!
+
+---
+
+[Explore how we do open design and connect with our team!](https://canonical.design/sauce/)

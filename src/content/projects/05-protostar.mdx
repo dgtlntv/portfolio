@@ -1,0 +1,147 @@
+---
+title: Proto*
+date: "11.07.2024"
+slug: protostar
+excerpt:
+    While doing user research for one of Canonicals CLIs I realised there are no
+    good tools for prototyping and user testing CLIs. So I created my own –
+    Protostar.
+coverImage: "/videos/projects/protostar/protostar.webm"
+heroLocation: "cover"
+asciiDarken: 3.0
+stats:
+    [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+---
+
+The digital infrastructure software that Canonical develops can be quite
+challenging to set up and install. And so was MAAS (Metal as a Service) the
+product I was working on at the time. Especially if you want to deploy MAAS in
+high-availability (HA) (setting up 3 identical installations so if one fails
+another one can take over) things can become tricky. Thats why the MAAS team
+worked on a CLI tool that makes installing MAAS in HA easier: MAAS Anvil. The
+team was preparing MAAS Anvil for a Beta release and wanted to identify any
+significant usability gaps beforehand. There was also interest in understanding
+better how best to add new features being considered, which had several
+implementation options, but it wasn't certain which experience would work best
+for users.
+
+<FanImages
+    images={[
+        {
+            src: "/images/projects/protostar/user-testing-setup-instructions.webp",
+            alt: "User testing setup instructions document explaining how to prepare machines for MAAS Anvil testing, including Ubuntu 22.04 LTS requirements and network configuration",
+        },
+        {
+            src: "/images/projects/protostar/user-interview-guide.webp",
+            alt: "Interview guide document with sections for general questions, installation and deployment process, including specific prompts about user workflows and pain points",
+        },
+        {
+            src: "/images/projects/protostar/maas-anvil-research-brief.webp",
+            alt: "MAAS Anvil research brief with Jira ticket information, background context, goals including finding usability issues and proposing solutions, plus research plan checkboxes",
+        },
+    ]}
+    caption="Research preparation documents outlining study objectives and methodology"
+/>
+
+I began by creating a comprehensive research brief outlining the purpose of the
+study, the assumptions that needed to be tested, and my methodology. After
+sharing this with the team to ensure alignment on research objectives, I
+developed an interview guide that would help understand user behaviors and
+preferences. During this process, I realized that testing different feature
+implementation options would require some form of prototype.
+
+## User testing CLIs
+
+But the problem is that there aren't any good options for prototyping and user
+testing command-line interfaces. Figma prototypes were inadequate because users
+couldn't type actual commands, only click through predetermined paths. Simply
+reviewing command structures in a document failed to provide the interaction
+depth of a real CLI experience. And while coding a functioning CLI would be
+technically possible, it would require participants to install software before
+interviews. An immediate barrier when working with system administrators who are
+understandably skeptical about installing unknown packages on their systems.
+Ideally, the solution would be as frictionless as Figma prototypes, where
+researchers can simply send a link to participants.
+
+This prompted me to hack together a CLI prototyping tool on my own on a friday
+afternoon. I knew about [xterm.js](https://xtermjs.org/), a terminal library
+used by established apps like Visual Studio Code. I used it and other libraries
+to build a prototype that emulated a terminal environment entirely in the
+browser, with no installation required.
+
+<FloatImage
+    direction="left"
+    src="/images/projects/protostar/juju-cli-user-testing-session.webp"
+    alt="Screen recording of a user testing session showing terminal interface with Juju commands for vault deployment, with participant's face visible in small window overlay during remote testing session"
+>
+    Despite the prototype being a bit buggy, it worked remarkably well in user
+    research sessions. It allowed participants to interact with the CLI
+    naturally by typing commands, exploring different paths, and providing
+    feedback on the various implementation options being considered. The quality
+    of user insights was substantially better than what could have been achieved
+    through static mockups or theoretical discussions.
+</FloatImage>
+
+## Sharing user insights
+
+<FanImages
+    images={[
+        {
+            src: "/images/projects/protostar/maas-anvil-improvement-suggestions.webp",
+            alt: "Research suggestions document with categories for Docs, Help messages, Flags/prompts, Manifest, Vault, and Newgrp snapdaemon, showing specific improvement recommendations for each area",
+        },
+        {
+            src: "/images/projects/protostar/usability-research-key-takeaways.webp",
+            alt: "Key takeaways table with columns for Learnability, Efficiency, Error Tolerant, and Security, showing findings for MAAS Anvil features like Sunbeam integration, VIP configuration, and Vault management with color-coded insights",
+        },
+    ]}
+    caption="Research preparation documents outlining study objectives and methodology"
+/>
+
+After having done the interviews I started to analyze them. Looking for research
+trends across all interviews etc. Once I found some trends and insights I put
+them into a UX heuristics matrix to make the different insights easier to
+communicate to stakeholders. Once having the UX heuristics insights I compiled
+more concrete suggestions in how to proceed with improving the tool and adding
+new features. I presented all of this to my stakeholders in a meeting. The
+research and the suggestions were received well and the team looked into how to
+fix the identified issues.
+
+<FloatImage
+    direction="left"
+    src="/images/projects/protostar/anvil-documentation.webp"
+    alt="Documentation interface showing CLI tool help and usage instructions with command examples and parameter descriptions"
+>
+    One of the biggest insights of the research was that the documentation of
+    the tool (including help messages in the CLI) was not yet where it needed to
+    be for users to confidently use the tool. As I already had gotten
+    familiarity with the tool and an understanding of what users were unsure
+    about I helped write the documentation and help messages in the tool.
+</FloatImage>
+
+# Future of prototyping CLIs
+
+After synthesizing and sharing the research findings with the team, I reflected
+on the prototyping solution I had created. The approach seemed valuable beyond
+my immediate needs for this research project. It could potentially be helpful
+for other designers (or developers) conducting CLI user research or anyone
+needing to quickly prototype command-line experiences.
+
+<FloatImage
+    content={
+        <video width="100%" height="auto" autoPlay muted loop className="rounded-lg">
+            <source src="/videos/projects/protostar/protostar.webm" type="video/webm" />
+            Your browser does not support the video tag.
+        </video>
+    }
+>
+    This led me to develop it further as an open-source prototyping tool and
+    library called [Protostar](https://github.com/dgtlntv/protostar). Protostar
+    has already gained traction among designers at Canonical who need to test
+    CLI interfaces. It also got some attention when it was mentioned during a
+    presentation on CLI design at FOSDEM by one of Canonicals Design directors,
+    generating interest from the open-source community. What began as a
+    practical solution to a specific research challenge has evolved into a
+    specialized tool that fills a genuine gap in the UX design toolkit,
+    particularly for those working with command-line interfaces.
+</FloatImage>
