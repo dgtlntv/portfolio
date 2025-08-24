@@ -32,6 +32,11 @@ export default defineConfig({
                 // @ts-ignore
                 (await import("remark-mdx-frontmatter")).default,
             ],
+            rehypePlugins: [
+                // Remove wrapping paragraphs from images
+                // @ts-ignore
+                (await import("rehype-unwrap-images")).default,
+            ],
             providerImportSource: "@mdx-js/react",
         }),
         tailwindcss(),

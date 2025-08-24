@@ -14,7 +14,7 @@ The shoemakers' children have no shoes. At Canonical’s Design team, this prove
 manifested in our Figma libraries. While we consistently deliver high-quality
 designs for our diverse products used by millions of users, we had neglected our
 own Figma libraries. They had become outdated and inefficient. This year, we
-decided to tackle this problem by developing new Figma libraries from scratch \-
+decided to tackle this problem by developing new Figma libraries from scratch —
 ones that meet our needs and that we enjoy using.
 
 The libraries were disorganized and contained material that was still under
@@ -76,7 +76,7 @@ tidy.
 If you want to learn more about the core and domain component paradigm, we
 recommend reading the
 [Doctolib article](https://medium.com/doctolib/how-we-organise-our-design-system-libraries-to-help-doctolib-designers-use-more-than-70-000-c15237c81f6c),
-it's well worth a read\! This approach, especially the domain components, allows
+it's well worth a read! This approach, especially the domain components, allows
 us to achieve greater consistency between products.
 
 ### Pages
@@ -98,7 +98,7 @@ a code repository would normally be protected.
 While our new file structure improved navigation, we also wanted to tackle
 performance.
 [Figma's recent update](https://www.figma.com/blog/speeding-up-file-load-times-one-page-at-a-time/)
-has made file loading dynamic \- now pages load individually rather than all at
+has made file loading dynamic — now pages load individually rather than all at
 once. However, it is still good practice to split large (library) files into
 several smaller files to ensure that we don't hit
 [Figma's 2 GB memory limit per file](https://help.figma.com/hc/en-us/articles/360040528173-Reduce-memory-usage-in-files#memory).
@@ -151,7 +151,7 @@ of its variants are loaded as well.
 
 This cascading effect means that each nested component brings along all of its
 own variants. As nesting depth increases, the number of loaded variants can grow
-exponentially, resulting in a lot of layers.  
+exponentially, resulting in a lot of layers.
 To optimize performance, we try to minimize component nesting, especially if
 they have variants.
 

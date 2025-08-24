@@ -186,7 +186,7 @@ export default function AsciiImage({
                 ref={imageRef}
                 src={src}
                 alt={alt}
-                className={`block h-full w-full transition-opacity ${isMobile ? "duration-[1800ms]" : "duration-[1200ms]"} m-0 border-0 p-0 align-top ease-in-out ${objectFit === "cover" ? "object-cover" : objectFit === "contain" ? "object-contain" : "object-fill"}`}
+                className={`block h-full w-full transition-opacity ${isMobile ? "duration-[1800ms]" : "duration-[1200ms]"} m-0 border-0 p-0 align-top ease-in-out opacity-0 ${objectFit === "cover" ? "object-cover" : objectFit === "contain" ? "object-contain" : "object-fill"}`}
                 onLoad={handleImageLoad}
             />
         </div>

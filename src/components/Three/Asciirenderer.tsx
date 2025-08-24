@@ -31,6 +31,10 @@ export default function AsciiRenderer({
                 if (gl.domElement.parentNode) {
                     gl.domElement.parentNode.removeChild(effect.domElement)
                 }
+                // Dispose of the AsciiEffect to properly clean up WebGL resources
+                if (effect.dispose) {
+                    effect.dispose()
+                }
             }
         }
         return undefined

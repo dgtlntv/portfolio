@@ -16,7 +16,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
                 <TabList className="grid grid-cols-4 gap-6">
                     {imageArray.map((image) => (
                         <Tab
-                            key={image.id}
+                            key={image.id || image.src}
                             className="relative flex aspect-[1/1.4142] cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4"
                         >
                             {({ selected }: { selected: boolean }) => (
@@ -49,7 +49,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
 
             <TabPanels className="aspect-w-1 aspect-h-2 w-full">
                 {imageArray.map((image) => (
-                    <TabPanel key={image.id}>
+                    <TabPanel key={image.id || image.src}>
                         <figure>
                             <img
                                 src={image.src}
