@@ -7,6 +7,9 @@ import { routeTree } from "./routeTree.gen"
 
 const router = createRouter({
     routeTree,
+    scrollRestoration: true,
+    scrollRestorationBehavior: 'instant',
+    // Let TanStack Router handle the default key logic
 })
 
 declare module "@tanstack/react-router" {

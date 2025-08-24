@@ -14,8 +14,8 @@ export class AsciiEffect {
     private isInitialized: boolean = false
     private iWidth: number = 0
     private iHeight: number = 0
-    private objectFit: 'cover' | 'contain' | 'fill' = 'fill'
-    private textColor: string = 'black'
+    private objectFit: "cover" | "contain" | "fill" = "fill"
+    private textColor: string = "black"
     private darken: number = 1
     private resizeObserver: ResizeObserver | null = null
     private resizeTimeout: NodeJS.Timeout | null = null
@@ -27,8 +27,8 @@ export class AsciiEffect {
     ) {
         this.element = element
         this.charSet = charSet
-        this.objectFit = options.objectFit || 'fill'
-        this.textColor = options.textColor || 'black'
+        this.objectFit = options.objectFit || "fill"
+        this.textColor = options.textColor || "black"
         this.darken = options.darken || 1
 
         // ASCII settings
@@ -48,7 +48,9 @@ export class AsciiEffect {
 
         // Create canvas for element analysis
         this.canvas = document.createElement("canvas")
-        const context = this.canvas.getContext("2d")
+        const context = this.canvas.getContext("2d", {
+            willReadFrequently: true,
+        })
         if (!context) {
             throw new Error("Unable to get 2D context from canvas")
         }
@@ -144,7 +146,7 @@ export class AsciiEffect {
             if (this.resizeTimeout) {
                 clearTimeout(this.resizeTimeout)
             }
-            
+
             // Debounce the resize handling to avoid excessive renders
             this.resizeTimeout = setTimeout(() => {
                 if (this.isElementReady()) {
@@ -171,10 +173,10 @@ export class AsciiEffect {
     } {
         const containerWidth = this.element.offsetWidth
         const containerHeight = this.element.offsetHeight
-        
+
         let naturalWidth: number
         let naturalHeight: number
-        
+
         if (this.element instanceof HTMLImageElement) {
             naturalWidth = this.element.naturalWidth
             naturalHeight = this.element.naturalHeight
@@ -186,33 +188,33 @@ export class AsciiEffect {
             naturalWidth = containerWidth
             naturalHeight = containerHeight
         }
-        
+
         if (naturalWidth === 0 || naturalHeight === 0) {
             // Fallback to container dimensions if natural dimensions are not available
             return {
                 renderWidth: containerWidth,
                 renderHeight: containerHeight,
                 offsetX: 0,
-                offsetY: 0
+                offsetY: 0,
             }
         }
-        
+
         const containerAspect = containerWidth / containerHeight
         const naturalAspect = naturalWidth / naturalHeight
-        
+
         let renderWidth: number
         let renderHeight: number
         let offsetX = 0
         let offsetY = 0
-        
-        if (this.objectFit === 'cover') {
+
+        if (this.objectFit === "cover") {
             // For cover, the ASCII should always fill the container completely
             // The browser handles the cropping via CSS object-fit
             renderWidth = containerWidth
             renderHeight = containerHeight
             offsetX = 0
             offsetY = 0
-        } else if (this.objectFit === 'contain') {
+        } else if (this.objectFit === "contain") {
             if (naturalAspect > containerAspect) {
                 // Image is wider - fit to width, letterbox height
                 renderWidth = containerWidth
@@ -229,16 +231,23 @@ export class AsciiEffect {
             renderWidth = containerWidth
             renderHeight = containerHeight
         }
-        
+
         return { renderWidth, renderHeight, offsetX, offsetY }
     }
 
     private updateSize(): void {
-        const { renderWidth, renderHeight, offsetX, offsetY } = this.calculateObjectFitDimensions()
+        const { renderWidth, renderHeight, offsetX, offsetY } =
+            this.calculateObjectFitDimensions()
 
         // Ensure minimum canvas size to prevent errors
-        this.iWidth = Math.max(1, Math.floor(renderWidth * this.config.fResolution))
-        this.iHeight = Math.max(1, Math.floor(renderHeight * this.config.fResolution))
+        this.iWidth = Math.max(
+            1,
+            Math.floor(renderWidth * this.config.fResolution),
+        )
+        this.iHeight = Math.max(
+            1,
+            Math.floor(renderHeight * this.config.fResolution),
+        )
 
         this.canvas.width = this.iWidth
         this.canvas.height = this.iHeight
@@ -251,7 +260,8 @@ export class AsciiEffect {
 
         const leftOffset =
             elementRect.left - parentRect.left + this.config.offsetX + offsetX
-        const topOffset = elementRect.top - parentRect.top + this.config.offsetY + offsetY
+        const topOffset =
+            elementRect.top - parentRect.top + this.config.offsetY + offsetY
 
         // Position ASCII container to match the visible media area
         this.asciiContainer.style.width = renderWidth + "px"
@@ -290,18 +300,18 @@ export class AsciiEffect {
 
         // Draw element to canvas respecting object-fit
         this.ctx.clearRect(0, 0, this.iWidth, this.iHeight)
-        
-        if (this.objectFit === 'fill') {
+
+        if (this.objectFit === "fill") {
             // Simple stretch to fill canvas
             this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
         } else {
             // For cover and contain, we need to calculate source coordinates
             const containerWidth = this.element.offsetWidth
             const containerHeight = this.element.offsetHeight
-            
+
             let naturalWidth: number
             let naturalHeight: number
-            
+
             if (this.element instanceof HTMLImageElement) {
                 naturalWidth = this.element.naturalWidth
                 naturalHeight = this.element.naturalHeight
@@ -312,62 +322,97 @@ export class AsciiEffect {
                 naturalWidth = containerWidth
                 naturalHeight = containerHeight
             }
-            
+
             if (naturalWidth > 0 && naturalHeight > 0) {
-                if (this.objectFit === 'cover') {
+                if (this.objectFit === "cover") {
                     // For cover: calculate which part of the source to use to fill the canvas
                     const containerAspect = containerWidth / containerHeight
                     const naturalAspect = naturalWidth / naturalHeight
-                    
+
                     if (naturalAspect > containerAspect) {
                         // Image is wider - crop sides, scale to fit height
                         const scaledWidth = naturalHeight * containerAspect
                         const sourceX = (naturalWidth - scaledWidth) / 2
-                        
+
                         this.ctx.drawImage(
                             this.element,
-                            sourceX, 0, scaledWidth, naturalHeight,
-                            0, 0, this.iWidth, this.iHeight
+                            sourceX,
+                            0,
+                            scaledWidth,
+                            naturalHeight,
+                            0,
+                            0,
+                            this.iWidth,
+                            this.iHeight,
                         )
                     } else {
                         // Image is taller - crop top/bottom, scale to fit width
                         const scaledHeight = naturalWidth / containerAspect
                         const sourceY = (naturalHeight - scaledHeight) / 2
-                        
+
                         this.ctx.drawImage(
                             this.element,
-                            0, sourceY, naturalWidth, scaledHeight,
-                            0, 0, this.iWidth, this.iHeight
+                            0,
+                            sourceY,
+                            naturalWidth,
+                            scaledHeight,
+                            0,
+                            0,
+                            this.iWidth,
+                            this.iHeight,
                         )
                     }
-                } else if (this.objectFit === 'contain') {
+                } else if (this.objectFit === "contain") {
                     // Draw the entire source image, letterboxed
                     this.ctx.drawImage(
                         this.element,
-                        0, 0, naturalWidth, naturalHeight,
-                        0, 0, this.iWidth, this.iHeight
+                        0,
+                        0,
+                        naturalWidth,
+                        naturalHeight,
+                        0,
+                        0,
+                        this.iWidth,
+                        this.iHeight,
                     )
                 }
             } else {
                 // Fallback to simple draw if natural dimensions are not available
-                this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+                this.ctx.drawImage(
+                    this.element,
+                    0,
+                    0,
+                    this.iWidth,
+                    this.iHeight,
+                )
             }
         }
 
         // Apply darkening effect if specified
         if (this.darken !== 1) {
-            const imageData = this.ctx.getImageData(0, 0, this.iWidth, this.iHeight)
+            const imageData = this.ctx.getImageData(
+                0,
+                0,
+                this.iWidth,
+                this.iHeight,
+            )
             const data = imageData.data
-            
+
             for (let i = 0; i < data.length; i += 4) {
                 // Apply darkening to RGB channels - multiply by darken factor
                 // darken < 1 = darken, darken > 1 = brighten, darken = 1 = no change
-                data[i] = Math.min(255, Math.max(0, data[i] * this.darken))     // Red
-                data[i + 1] = Math.min(255, Math.max(0, data[i + 1] * this.darken)) // Green
-                data[i + 2] = Math.min(255, Math.max(0, data[i + 2] * this.darken)) // Blue
+                data[i] = Math.min(255, Math.max(0, data[i] * this.darken)) // Red
+                data[i + 1] = Math.min(
+                    255,
+                    Math.max(0, data[i + 1] * this.darken),
+                ) // Green
+                data[i + 2] = Math.min(
+                    255,
+                    Math.max(0, data[i + 2] * this.darken),
+                ) // Blue
                 // Alpha channel remains unchanged
             }
-            
+
             this.ctx.putImageData(imageData, 0, 0)
         }
 
