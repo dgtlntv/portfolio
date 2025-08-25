@@ -81,6 +81,7 @@ export default function AsciiVideo({
     const renderLoop = useCallback(() => {
         if (!asciiEffectRef.current || !isPlaying) return
 
+        console.log('[AsciiVideo] Render loop tick', { isPlaying })
         asciiEffectRef.current.render()
         animationIdRef.current = requestAnimationFrame(renderLoop)
     }, [isPlaying])
@@ -269,6 +270,9 @@ export default function AsciiVideo({
                 onPlay={handleVideoPlay}
                 onPause={handleVideoPause}
                 onEnded={handleVideoEnded}
+                onError={(e) => console.error('[AsciiVideo] Video error:', e)}
+                onLoadStart={() => console.log('[AsciiVideo] Video load started')}
+                onProgress={() => console.log('[AsciiVideo] Video loading progress')}
             />
         </div>
     )
