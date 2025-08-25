@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { AsciiEffect } from "./AsciiEffect"
 import { AsciiVideoProps } from "./types"
 
@@ -242,6 +242,7 @@ export default function AsciiVideo({
                 muted={muted}
                 loop={loop}
                 controls={controls}
+                playsInline={true}
                 onLoadedData={handleVideoLoadedData}
                 onPlay={handleVideoPlay}
                 onPause={handleVideoPause}
