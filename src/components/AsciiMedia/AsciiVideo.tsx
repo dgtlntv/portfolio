@@ -87,6 +87,7 @@ export default function AsciiVideo({
 
     const startRenderLoop = useCallback(() => {
         if (animationIdRef.current !== null) return
+        console.log('[AsciiVideo] Starting render loop')
         setIsPlaying(true)
     }, [])
 
@@ -109,6 +110,11 @@ export default function AsciiVideo({
 
     // Initialize ASCII effect when video loads
     useEffect(() => {
+        console.log('[AsciiVideo] ASCII effect initialization check', {
+            hasVideoRef: !!videoRef.current,
+            isVideoLoaded,
+            videoSrc: src
+        })
         if (!videoRef.current || !isVideoLoaded) return
 
         // Clean up existing effect
@@ -125,11 +131,13 @@ export default function AsciiVideo({
             textColor,
             darken,
         }
+        console.log('[AsciiVideo] Creating ASCII effect with options', options)
         asciiEffectRef.current = new AsciiEffect(
             videoRef.current,
             charSet,
             options,
         )
+        console.log('[AsciiVideo] ASCII effect created, attempting first render')
         asciiEffectRef.current.render()
 
         // Set initial states: show ASCII, hide video
@@ -181,6 +189,12 @@ export default function AsciiVideo({
     }, [charSet, resolution, color, invert, objectFit, textColor, darken])
 
     const handleVideoLoadedData = () => {
+        console.log('[AsciiVideo] Video loaded data event fired', {
+            videoWidth: videoRef.current?.videoWidth,
+            videoHeight: videoRef.current?.videoHeight,
+            readyState: videoRef.current?.readyState,
+            paused: videoRef.current?.paused
+        })
         setIsVideoLoaded(true)
         
         // Check if video is actually playing (important for iOS autoplay)
