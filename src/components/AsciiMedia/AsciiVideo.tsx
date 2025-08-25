@@ -48,7 +48,7 @@ export default function AsciiVideo({
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
                         // Project is well in view, start timer to reveal video
                         if (timeoutRef.current) clearTimeout(timeoutRef.current)
                         timeoutRef.current = setTimeout(() => {
@@ -81,14 +81,12 @@ export default function AsciiVideo({
     const renderLoop = useCallback(() => {
         if (!asciiEffectRef.current) return
 
-        console.log('[AsciiVideo] Render loop tick', { isPlaying })
         asciiEffectRef.current.render()
         animationIdRef.current = requestAnimationFrame(renderLoop)
     }, [isPlaying])
 
     const startRenderLoop = useCallback(() => {
         if (animationIdRef.current !== null) return
-        console.log('[AsciiVideo] Starting render loop')
         setIsPlaying(true)
         // Immediately start the render loop
         animationIdRef.current = requestAnimationFrame(renderLoop)
@@ -104,11 +102,6 @@ export default function AsciiVideo({
 
     // Initialize ASCII effect when video loads
     useEffect(() => {
-        console.log('[AsciiVideo] ASCII effect initialization check', {
-            hasVideoRef: !!videoRef.current,
-            isVideoLoaded,
-            videoSrc: src
-        })
         if (!videoRef.current || !isVideoLoaded) return
 
         // Clean up existing effect
@@ -125,13 +118,11 @@ export default function AsciiVideo({
             textColor,
             darken,
         }
-        console.log('[AsciiVideo] Creating ASCII effect with options', options)
         asciiEffectRef.current = new AsciiEffect(
             videoRef.current,
             charSet,
             options,
         )
-        console.log('[AsciiVideo] ASCII effect created, attempting first render')
         asciiEffectRef.current.render()
 
         // Set initial states: show ASCII, hide video
@@ -183,19 +174,13 @@ export default function AsciiVideo({
     }, [charSet, resolution, color, invert, objectFit, textColor, darken])
 
     const handleVideoLoadedData = () => {
-        console.log('[AsciiVideo] Video loaded data event fired', {
-            videoWidth: videoRef.current?.videoWidth,
-            videoHeight: videoRef.current?.videoHeight,
-            readyState: videoRef.current?.readyState,
-            paused: videoRef.current?.paused
-        })
         setIsVideoLoaded(true)
-        
+
         // Check if video is actually playing (important for iOS autoplay)
         if (videoRef.current && !videoRef.current.paused) {
             startRenderLoop()
         }
-        
+
         onLoad?.()
     }
 
@@ -251,7 +236,7 @@ export default function AsciiVideo({
             <video
                 ref={videoRef}
                 src={src}
-                className={`block h-full w-full transition-opacity ${isMobile ? "duration-[1800ms]" : "duration-[1200ms]"} m-0 border-0 p-0 align-top ease-in-out opacity-0 ${objectFit === "cover" ? "object-cover" : objectFit === "contain" ? "object-contain" : "object-fill"}`}
+                className={`block h-full w-full transition-opacity ${isMobile ? "duration-[1800ms]" : "duration-[1200ms]"} m-0 border-0 p-0 align-top opacity-0 ease-in-out ${objectFit === "cover" ? "object-cover" : objectFit === "contain" ? "object-contain" : "object-fill"}`}
                 autoPlay={autoPlay}
                 muted={muted}
                 loop={loop}
@@ -263,9 +248,7 @@ export default function AsciiVideo({
                 onPlay={handleVideoPlay}
                 onPause={handleVideoPause}
                 onEnded={handleVideoEnded}
-                onError={(e) => console.error('[AsciiVideo] Video error:', e)}
-                onLoadStart={() => console.log('[AsciiVideo] Video load started')}
-                onProgress={() => console.log('[AsciiVideo] Video loading progress')}
+                onError={(e) => console.error("[AsciiVideo] Video error:", e)}
             />
         </div>
     )

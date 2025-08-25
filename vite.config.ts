@@ -86,8 +86,7 @@ export default defineConfig({
         minify: "terser",
         terserOptions: {
             compress: {
-                // Keep console.logs for debugging iOS issues
-                drop_console: false,
+                drop_console: true,
             },
         },
     },
