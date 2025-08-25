@@ -79,7 +79,7 @@ export default function AsciiVideo({
 
     // Animation loop for video frames
     const renderLoop = useCallback(() => {
-        if (!asciiEffectRef.current || !isPlaying) return
+        if (!asciiEffectRef.current) return
 
         console.log('[AsciiVideo] Render loop tick', { isPlaying })
         asciiEffectRef.current.render()
@@ -90,7 +90,9 @@ export default function AsciiVideo({
         if (animationIdRef.current !== null) return
         console.log('[AsciiVideo] Starting render loop')
         setIsPlaying(true)
-    }, [])
+        // Immediately start the render loop
+        animationIdRef.current = requestAnimationFrame(renderLoop)
+    }, [renderLoop])
 
     const stopRenderLoop = useCallback(() => {
         setIsPlaying(false)
@@ -99,15 +101,6 @@ export default function AsciiVideo({
             animationIdRef.current = null
         }
     }, [])
-
-    // Handle render loop when playing state changes
-    useEffect(() => {
-        if (isPlaying) {
-            renderLoop()
-        } else {
-            stopRenderLoop()
-        }
-    }, [isPlaying, renderLoop, stopRenderLoop])
 
     // Initialize ASCII effect when video loads
     useEffect(() => {
@@ -264,7 +257,7 @@ export default function AsciiVideo({
                 loop={loop}
                 controls={controls}
                 playsInline={true}
-                webkit-playsinline={true}
+                webkit-playsinline="true"
                 crossOrigin="anonymous"
                 onLoadedData={handleVideoLoadedData}
                 onPlay={handleVideoPlay}
