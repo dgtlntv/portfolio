@@ -6,6 +6,7 @@ export default function NavigationItem({
     label,
     isExternal,
     variant,
+    onClose,
 }: NavigationItemProps) {
     const className =
         variant === "mobile"
@@ -14,14 +15,22 @@ export default function NavigationItem({
 
     if (isExternal) {
         return (
-            <a href={to} className={className}>
+            <a 
+                href={to} 
+                className={className}
+                onClick={() => variant === "mobile" && onClose?.()}
+            >
                 {label}
             </a>
         )
     }
 
     return (
-        <Link to={to} className={className}>
+        <Link 
+            to={to} 
+            className={className}
+            onClick={() => variant === "mobile" && onClose?.()}
+        >
             {label}
         </Link>
     )

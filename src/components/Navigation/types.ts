@@ -16,4 +16,5 @@ export interface ContactLink extends Link {
 
 export interface NavigationItemProps extends NavigationLink {
     variant: "mobile" | "desktop"
+    onClose?: () => void
 }
