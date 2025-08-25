@@ -272,7 +272,10 @@ export class AsciiEffect {
 
     private isElementReady(): boolean {
         if (this.element instanceof HTMLVideoElement) {
-            return this.element.readyState >= 2
+            // iOS needs stricter video ready checks
+            return this.element.readyState >= 3 && 
+                   this.element.videoWidth > 0 && 
+                   this.element.videoHeight > 0
         }
         if (this.element instanceof HTMLImageElement) {
             return this.element.complete && this.element.naturalWidth > 0
@@ -301,9 +304,10 @@ export class AsciiEffect {
         // Draw element to canvas respecting object-fit
         this.ctx.clearRect(0, 0, this.iWidth, this.iHeight)
 
-        if (this.objectFit === "fill") {
-            // Simple stretch to fill canvas
-            this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
+        try {
+            if (this.objectFit === "fill") {
+                // Simple stretch to fill canvas
+                this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
         } else {
             // For cover and contain, we need to calculate source coordinates
             const containerWidth = this.element.offsetWidth
@@ -414,6 +418,12 @@ export class AsciiEffect {
             }
 
             this.ctx.putImageData(imageData, 0, 0)
+        }
+
+        } catch (error) {
+            // iOS/Safari may block canvas access to video elements
+            console.warn('Canvas drawing failed (likely iOS security restriction):', error)
+            return
         }
 
         // Sample colors AFTER darkening is applied

@@ -249,6 +249,8 @@ export default function AsciiVideo({
                 loop={loop}
                 controls={controls}
                 playsInline={true}
+                webkit-playsinline={true}
+                crossOrigin="anonymous"
                 onLoadedData={handleVideoLoadedData}
                 onPlay={handleVideoPlay}
                 onPause={handleVideoPause}
