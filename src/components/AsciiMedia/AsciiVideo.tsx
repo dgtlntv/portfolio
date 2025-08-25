@@ -48,7 +48,7 @@ export default function AsciiVideo({
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
                         // Project is well in view, start timer to reveal video
                         if (timeoutRef.current) clearTimeout(timeoutRef.current)
                         timeoutRef.current = setTimeout(() => {
@@ -64,7 +64,7 @@ export default function AsciiVideo({
                     }
                 })
             },
-            { threshold: [0, 0.6, 1] },
+            { threshold: [0, 0.4, 0.6, 1] },
         )
 
         observer.observe(containerRef.current)
@@ -182,6 +182,12 @@ export default function AsciiVideo({
 
     const handleVideoLoadedData = () => {
         setIsVideoLoaded(true)
+        
+        // Check if video is actually playing (important for iOS autoplay)
+        if (videoRef.current && !videoRef.current.paused) {
+            startRenderLoop()
+        }
+        
         onLoad?.()
     }
 
