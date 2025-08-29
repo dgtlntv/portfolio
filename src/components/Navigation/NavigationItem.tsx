@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router"
+// Removed TanStack Router dependency
 import { NavigationItemProps } from "./types"
 
 export default function NavigationItem({
@@ -26,12 +26,12 @@ export default function NavigationItem({
     }
 
     return (
-        <Link 
-            to={to} 
+        <a 
+            href={to} 
             className={className}
             onClick={() => variant === "mobile" && onClose?.()}
         >
             {label}
-        </Link>
+        </a>
     )
 }

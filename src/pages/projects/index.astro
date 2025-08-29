@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectsList from "../../components/ProjectsList";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection('projects');
+
+// Convert to the format expected by the old components
+const projectsData = projects.map((project) => ({
+    slug: project.slug,
+    frontMatter: project.data,
+    content: project.body,
+}));
+---
+
+<Layout title="Projects - Maximilian Blazek">
+  <ProjectsList client:load projects={projectsData} />
+</Layout>

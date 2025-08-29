@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router"
+// Removed TanStack Router dependency
 import GridLayout from "../Grid/GridLayout"
 import { AsciiMedia } from "../AsciiMedia"
 import { ProjectItemProps } from "./types"
@@ -27,7 +27,7 @@ export default function ProjectItem({
                     </h3>
                     <p className="mt-3 text-lg text-gray-500">{children}</p>
                     <p className="mt-3 font-bold text-red-500">
-                        <Link to={url}>⤳ view project</Link>
+                        <a href={`/projects/${url}`}>⤳ view project</a>
                     </p>
                 </div>
 
@@ -39,7 +39,7 @@ export default function ProjectItem({
                         className || ""
                     }`}
                 >
-                    <Link to={url}>
+                    <a href={`/projects/${url}`}>
                         <div
                             className={`relative aspect-[16/10] overflow-hidden rounded-xl bg-gray-100 shadow-md transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu hover:shadow-lg ${
                                 isLeft
@@ -66,7 +66,7 @@ export default function ProjectItem({
                                 darken={asciiDarken}
                             />
                         </div>
-                    </Link>
+                    </a>
                 </div>
             </GridLayout>
         </div>

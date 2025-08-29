@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogList from "../../components/BlogList";
+import { getCollection } from "astro:content";
+
+interface PostsByYear {
+    [year: string]: any[];
+}
+
+const blogPosts = await getCollection('blog');
+
+// Convert to the format expected by the old components
+const postsData = blogPosts.map((post) => ({
+    slug: post.slug,
+    frontMatter: post.data,
+    content: post.body,
+}));
+
+// Group posts by year
+const groupedByYear: PostsByYear = {};
+
+// Parse European date format (DD.MM.YYYY)
+const parseEuropeanDate = (dateStr: string) => {
+    const [day, month, year] = dateStr.split(".");
+    return new Date(`${year}-${month}-${day}`);
+};
+
+postsData.forEach((post) => {
+    const year = parseEuropeanDate(post.frontMatter.date)
+        .getFullYear()
+        .toString();
+    if (!groupedByYear[year]) {
+        groupedByYear[year] = [];
+    }
+    groupedByYear[year].push(post);
+});
+---
+
+<Layout title="Blog - Maximilian Blazek">
+  <BlogList client:load posts={postsData} postsByYear={groupedByYear} />
+</Layout>
