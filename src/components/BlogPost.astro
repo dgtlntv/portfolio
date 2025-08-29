@@ -1,0 +1,72 @@
+---
+import { getEntry } from 'astro:content'
+import Article from './Article/Article'
+
+// Import all the components that MDX might use
+import FloatImage from './Article/FloatImage.astro'
+import FanImages from './Article/FanImages.astro'
+import DocumentSkeleton from './DocumentSkeleton.astro'
+import ColorPaletteMockup from './ColorPaletteMockup.astro'
+import MetricsMockup from './MetricsMockup.astro'
+import ImageGallery from './Article/ImageGallery'
+// import { GitHubCodeExplorer } from './GitHubCodeExplorer'
+// import { CodeBlock } from './MDX/CodeBlock'
+// import { TagList } from './MDX/TagList'
+
+export interface Props {
+  slug: string
+}
+
+const { slug } = Astro.props
+
+const post = await getEntry('blog', slug)
+
+if (!post) {
+  return Astro.redirect('/404')
+}
+
+const { Content } = await post.render()
+const postData = post.data
+
+// Define components to be available in MDX
+const components = {
+  // Static Astro components
+  FloatImage,
+  FanImages,
+  DocumentSkeleton,
+  ColorPaletteMockup,
+  MetricsMockup,
+  
+  // Interactive React components (with client:load)
+  ImageGallery: ImageGallery,
+  // GitHubCodeExplorer: GitHubCodeExplorer,
+  // TagList: TagList,
+  
+  // Enhanced HTML elements
+  h1: 'h1',
+  h2: 'h2', 
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  ul: 'ul',
+  ol: 'ol',
+  li: 'li',
+  blockquote: 'blockquote',
+  pre: 'pre',
+  // code: CodeBlock,
+  img: 'img',
+}
+---
+
+<Article
+  stats={postData.stats || [
+    { label: "Author", value: postData.author || "" },
+    { label: "Date", value: postData.date || "" },
+  ]}
+  title={postData.title}
+  heroLocation={postData.heroLocation || "center"}
+  heroUrl={postData.coverImage || ""}
+>
+  <Content components={components} />
+</Article>

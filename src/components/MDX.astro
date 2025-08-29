@@ -1,0 +1,66 @@
+---
+// Import Astro components (static)
+import FloatImage from './Article/FloatImage.astro'
+import FanImages from './Article/FanImages.astro'  
+import DocumentSkeleton from './DocumentSkeleton.astro'
+import ColorPaletteMockup from './ColorPaletteMockup.astro'
+import MetricsMockup from './MetricsMockup.astro'
+
+// Import React components (interactive) - these will use client:load
+import ImageGallery from './Article/ImageGallery'
+// import { GitHubCodeExplorer } from './GitHubCodeExplorer'
+// import { CodeBlock } from './MDX/CodeBlock'
+// import { TagList } from './MDX/TagList'
+
+// HTML element overrides with Tailwind styling
+const components = {
+  // Custom components - Static (Astro)
+  FloatImage,
+  FanImages,
+  DocumentSkeleton,  
+  ColorPaletteMockup,
+  MetricsMockup,
+
+  // Custom components - Interactive (React with client:load)
+  ImageGallery: (props) => <ImageGallery {...props} client:load />,
+  // GitHubCodeExplorer: (props) => <GitHubCodeExplorer {...props} client:load />,
+  // TagList: (props) => <TagList {...props} client:load />,
+
+  // HTML element overrides
+  h1: (props) => <h1 class="mt-8 mb-4 text-4xl font-bold" {...props} />,
+  h2: (props) => <h2 class="mt-6 mb-3 text-3xl font-bold" {...props} />,
+  h3: (props) => <h3 class="mt-5 mb-2 text-2xl font-bold" {...props} />,
+  h4: (props) => <h4 class="mt-4 mb-2 text-xl font-bold" {...props} />,
+  h5: (props) => <h5 class="mt-4 mb-2 text-lg font-bold" {...props} />,
+  h6: (props) => <h6 class="mt-4 mb-2 text-base font-bold" {...props} />,
+  ul: (props) => <ul class="my-4 list-disc pl-6" {...props} />,
+  ol: (props) => <ol class="my-4 list-decimal pl-6" {...props} />,
+  li: (props) => <li class="mb-1" {...props} />,
+  blockquote: (props) => <blockquote class="my-4 border-l-4 border-gray-300 pl-4 italic" {...props} />,
+  
+  // Code blocks
+  pre: (props) => <pre class="my-6 whitespace-pre overflow-x-auto text-sm font-mono bg-gray-100 p-4 rounded-sm" {...props} />,
+  code: (props) => {
+    const { children, className } = props
+    return className ? (
+      <CodeBlock className={className} client:load>{children}</CodeBlock>
+    ) : (
+      <code class="rounded bg-gray-100 px-1 py-0.5 text-sm font-mono whitespace-pre">
+        {children}
+      </code>
+    )
+  },
+
+  // Images with enhanced styling
+  img: (props) => (
+    <div class="relative mx-auto md:-mx-6 lg:-mx-8 xl:-mx-28 my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+      <img class="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]" {...props} />
+    </div>
+  ),
+}
+
+// Export the components object for use in MDX files
+export { components }
+---
+
+<!-- This component doesn't render anything, it just exports the components -->

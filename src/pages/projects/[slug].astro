@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ProjectDetail from "../../components/ProjectDetail";
+import ProjectDetail from "../../components/ProjectDetail.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -16,5 +16,5 @@ const { project } = Astro.props;
 ---
 
 <Layout title={`${project.data.title} - Maximilian Blazek`}>
-  <ProjectDetail client:load slug={slug!} />
+  <ProjectDetail slug={slug!} />
 </Layout>

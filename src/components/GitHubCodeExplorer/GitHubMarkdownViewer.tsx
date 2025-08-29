@@ -1,6 +1,6 @@
 import React from "react"
-import ReactMarkdown from "react-markdown"
-import { components } from "../MDX/MDXProvider"
+// import ReactMarkdown from "react-markdown"
+// import { components } from "../MDX/MDXProvider"
 
 interface GitHubMarkdownViewerProps {
     filePath: string
@@ -54,9 +54,10 @@ export function GitHubMarkdownViewer({
             {/* Markdown content */}
             <div className="relative min-h-0 flex-1 overflow-auto">
                 <div className="prose prose-gray max-w-none p-6">
-                    <ReactMarkdown components={components}>
+                    {/* <ReactMarkdown components={components}>
                         {fileContent}
-                    </ReactMarkdown>
+                    </ReactMarkdown> */}
+                    <pre>{fileContent}</pre>
                 </div>
             </div>
         </div>

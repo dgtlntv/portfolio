@@ -3,8 +3,8 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import remarkFrontmatter from 'remark-frontmatter';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import rehypeUnwrapImages from 'rehype-unwrap-images';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 // https://astro.build/config
 export default defineConfig({
@@ -53,6 +53,12 @@ export default defineConfig({
     // Enable Tailwind CSS v4 via Vite plugin
     plugins: [
       tailwindcss(),
+      ViteImageOptimizer({
+        webp: {
+          quality: 85,
+          lossless: false
+        }
+      }),
     ],
   },
   // Set base path from environment variable
