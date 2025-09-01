@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ProjectsList from "../../components/ProjectsList";
+import ProjectsList from "../../components/ProjectsList.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection('projects');
@@ -14,5 +14,5 @@ const projectsData = projects.map((project) => ({
 ---
 
 <Layout title="Projects - Maximilian Blazek">
-  <ProjectsList client:load projects={projectsData} />
+  <ProjectsList projects={projectsData} />
 </Layout>

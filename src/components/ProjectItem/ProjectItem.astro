@@ -1,0 +1,83 @@
+---
+import GridLayout from "../Grid/GridLayout.astro";
+import { AsciiMedia } from "../AsciiMedia";
+
+interface Props {
+    className?: string;
+    title: string;
+    imageUrl: string;
+    url: string;
+    isLeft?: boolean;
+    heroLocation?: 'cover' | 'contain';
+    asciiDarken?: number;
+}
+
+const { 
+    className,
+    title,
+    imageUrl,
+    url,
+    isLeft = false,
+    heroLocation,
+    asciiDarken = 1
+} = Astro.props;
+---
+
+<div class="col-span-9 mt-10 sm:mt-14 lg:mt-18">
+    <GridLayout>
+        <!-- Content section -->
+        <div
+            class={`col-span-9 md:col-span-2 ${
+                isLeft ? "md:col-start-1" : "md:col-start-8"
+            } order-2 md:order-${isLeft ? "1" : "2"} mt-8 md:mt-0`}
+        >
+            <h3 class="font-fancy text-4xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+                {title}
+            </h3>
+            <p class="mt-3 text-lg text-gray-500">
+                <slot />
+            </p>
+            <p class="mt-3 font-bold text-red-500">
+                <a href={`/projects/${url}`}>⤳ view project</a>
+            </p>
+        </div>
+
+        <!-- Image/Video section -->
+        <div
+            class={`col-span-9 md:col-span-6 ${
+                isLeft ? "md:col-start-4" : "md:col-start-1"
+            } order-1 mt-10 md:mt-0 md:order-${isLeft ? "2" : "1"} ${
+                className || ""
+            }`}
+        >
+            <a href={`/projects/${url}`}>
+                <div
+                    class={`relative aspect-[16/10] overflow-hidden rounded-xl bg-gray-100 shadow-md transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu hover:shadow-lg ${
+                        isLeft
+                            ? "hover:rotate-[0.5deg]"
+                            : "hover:rotate-[-0.5deg]"
+                    } hover:scale-[1.01]`}
+                >
+                    <AsciiMedia
+                        client:load
+                        src={imageUrl || ""}
+                        alt={title || "Project image"}
+                        className="h-full w-full bg-white object-center transition-transform duration-700 ease-in-out"
+                        autoPlay={true}
+                        muted={true}
+                        loop={true}
+                        controls={false}
+                        resolution={0.18}
+                        objectFit={
+                            heroLocation === "cover"
+                                ? "cover"
+                                : "contain"
+                        }
+                        color={true}
+                        darken={asciiDarken}
+                    />
+                </div>
+            </a>
+        </div>
+    </GridLayout>
+</div>

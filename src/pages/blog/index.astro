@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import BlogList from "../../components/BlogList";
+import BlogList from "../../components/BlogList.astro";
 import { getCollection } from "astro:content";
 
 interface PostsByYear {
@@ -37,5 +37,5 @@ postsData.forEach((post) => {
 ---
 
 <Layout title="Blog - Maximilian Blazek">
-  <BlogList client:load posts={postsData} postsByYear={groupedByYear} />
+  <BlogList posts={postsData} postsByYear={groupedByYear} />
 </Layout>

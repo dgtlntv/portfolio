@@ -20,13 +20,13 @@ const { title, showFooter = true } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="min-h-screen flex flex-col">
     <ModalProvider client:load>
-      <div>
+      <div class="flex flex-col min-h-screen">
         <Navigation />
-        <div class="relative">
+        <main class="relative flex-1">
           <slot />
-        </div>
+        </main>
         {showFooter && <Footer />}
       </div>
     </ModalProvider>
