@@ -1,7 +1,7 @@
 ---
-import Navigation from "../components/Navigation/Navigation";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer.astro";
 import { ModalProvider } from "../components/Modal/ModalContext";
+import Navigation from "../components/Navigation/Navigation.astro";
 import "../styles/global.css";
 
 export interface Props {
@@ -23,11 +23,11 @@ const { title, showFooter = true } = Astro.props;
   <body>
     <ModalProvider client:load>
       <div>
-        <Navigation client:load />
+        <Navigation />
         <div class="relative">
           <slot />
         </div>
-        {showFooter && <Footer client:load />}
+        {showFooter && <Footer />}
       </div>
     </ModalProvider>
   </body>
