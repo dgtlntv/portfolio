@@ -1,28 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-wa-button::part(base) {
-    @apply inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 outline-2 outline-offset-2 outline-transparent outline-none;
-}
-
-wa-button::part(base):hover {
-    @apply bg-gray-100 text-gray-500;
-}
-
-wa-button::part(base):focus {
-    @apply ring-2 ring-black outline-none ring-inset;
-}
-
-wa-popup::part(popup) {
-    @apply !fixed !inset-x-0 !top-0 !w-full !max-w-none !transform-none !translate-x-0 !translate-y-0 !transition-all !duration-200 !ease-out;
-}
-
-wa-popup[active]::part(popup) {
-    @apply !opacity-100 !scale-100;
-}
-
-wa-popup:not([active])::part(popup) {
-    @apply !opacity-0 !scale-95;
+mobile-menu-dialog:not(:defined) {
+    display: none;
 }
 
 @font-face {
