@@ -5,7 +5,3 @@ export interface DeviceOrientationHookReturn {
     resetInitialOrientation: () => void
 }
 
-export interface PermissionModalProps {
-    onAllow: () => Promise<void>
-    onDeny: () => void
-}

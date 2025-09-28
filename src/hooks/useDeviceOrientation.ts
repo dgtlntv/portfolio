@@ -3,10 +3,9 @@ import { useEffect, useRef } from "react"
 import { Quaternion } from "three"
 import { Orientation } from "../types"
 import { DeviceOrientationHookReturn } from "./types"
-import { useDevicePermission } from "./useDevicePermission"
+import { requestDevicePermission } from "../utils/devicePermission"
 
 export default function useDeviceOrientation(): DeviceOrientationHookReturn {
-    const { requestPermission } = useDevicePermission()
     const orientation = useRef<Orientation>({
         quaternion: null,
     }).current
@@ -25,7 +24,7 @@ export default function useDeviceOrientation(): DeviceOrientationHookReturn {
         const sensorReadingHandler = () =>
             initSensor(orientation, sensor, initialOrientation)
 
-        requestPermission()
+        requestDevicePermission()
             .then((permissionStatus: PermissionState) => {
                 if (permissionStatus === "granted") {
                     try {
