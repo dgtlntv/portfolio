@@ -4,10 +4,9 @@ export interface Props {
     alt?: string
     caption?: string
     direction?: "left" | "right"
-    content?: string
 }
 
-const { src, alt, caption, direction = "right", content } = Astro.props
+const { src, alt, caption, direction = "right" } = Astro.props
 
 // Use direction prop to determine float class names
 const floatClasses =
@@ -19,26 +18,26 @@ const floatClasses =
 <div class="flex flex-col xl:flow-root">
     <div class={`mx-auto ${floatClasses}`}>
         <figure class="mb-0">
-            {content ? (
-                <Fragment set:html={content} />
-            ) : src ? (
-                <div class={`transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu ${
-                    direction === "left"
-                        ? "hover:rotate-[0.5deg]" 
-                        : "hover:rotate-[-0.5deg]"
-                }`}>
-                    <img
-                        src={src}
-                        alt={alt || ""}
-                        class="mb-0 h-auto max-h-[70vh] w-full rounded-lg object-contain transition duration-700 ease-in-out hover:scale-[1.01]"
-                    />
-                    {caption && (
-                        <figcaption class="mt-2 text-center text-sm text-gray-500">
-                            {caption}
-                        </figcaption>
-                    )}
-                </div>
-            ) : null}
+            <slot name="content">
+                {src ? (
+                    <div class={`transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu ${
+                        direction === "left"
+                            ? "hover:rotate-[0.5deg]" 
+                            : "hover:rotate-[-0.5deg]"
+                    }`}>
+                        <img
+                            src={src}
+                            alt={alt || ""}
+                            class="mb-0 h-auto max-h-[70vh] w-full rounded-lg object-contain transition duration-700 ease-in-out hover:scale-[1.01]"
+                        />
+                        {caption && (
+                            <figcaption class="mt-2 text-center text-sm text-gray-500">
+                                {caption}
+                            </figcaption>
+                        )}
+                    </div>
+                ) : null}
+            </slot>
         </figure>
     </div>
     <div class="mt-4 xl:mt-0">

@@ -30,5 +30,12 @@ const { title, showFooter = true } = Astro.props;
         {showFooter && <Footer />}
       </div>
     </ModalProvider>
+    
+    <script>
+      // Register all web components client-side
+      import('../components/webComponents.ts').then(module => {
+        module.registerWebComponents();
+      });
+    </script>
   </body>
 </html>

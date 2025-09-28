@@ -22,21 +22,10 @@ export interface FloatImageProps extends WithChildren {
     alt?: string
     caption?: string
     direction?: "left" | "right"
-    content?: React.ReactNode
-}
-
-interface Content {
-    images: Image[]
 }
 
 export interface ImageWithCaption extends Image {
     caption?: string
-}
-
-// Supports both legacy format and newer, simpler format
-export interface ImageGalleryProps {
-    content?: Content
-    images?: ImageWithCaption[]
 }
 
 export interface FanImagesProps {

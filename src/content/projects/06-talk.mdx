@@ -59,16 +59,13 @@ based on your words.
 
 ## How it works
 
-<FloatImage
-    content={
-        <Suspense>
-            <TalkExplanationAnimation />
-            <figcaption>
-                Connecting paragraphs of the script with visualizations.
-            </figcaption>
-        </Suspense>
-    }
->
+<FloatImage>
+  <Suspense slot="content">
+    <TalkExplanationAnimation />
+    <figcaption>
+        Connecting paragraphs of the script with visualizations.
+    </figcaption>
+  </Suspense>
 
 Talk works differently from traditional presentation software by requiring a
 script during setup. This script can consist of complete sentences or meaningful

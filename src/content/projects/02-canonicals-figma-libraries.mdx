@@ -49,22 +49,19 @@ the rebuilding effort and draft the initial spec that would guide the work.
 
 ## Research and specification
 
-<FloatImage
-    direction="right"
-    content={
-        <DocumentSkeleton
-            title="Library architecture specification"
-            lines={20}
-            className="max-w-sm"
-            metadata={[
-                { label: "Author:", value: "Design team" },
-                { label: "Date:", value: "March 2024" },
-                { label: "Version:", value: "2.3" },
-                { label: "Status:", value: "Approved" }
-            ]}
-        />
-    }
->
+<FloatImage direction="right">
+  <DocumentSkeleton
+    title="Library architecture specification"
+    lines={20}
+    className="max-w-sm"
+    metadata={[
+        { label: "Author:", value: "Design team" },
+        { label: "Date:", value: "March 2024" },
+        { label: "Version:", value: "2.3" },
+        { label: "Status:", value: "Approved" }
+    ]}
+    slot="content"
+  />
 
 This involved extensive investigation into best practices for building scalable
 libraries. I explored approaches from other design teams like
@@ -96,12 +93,8 @@ regarding layer count, asset optimization, and effect usage. You can read more
 about the specific building strategies I applied in the
 [blog post I wrote about it](/blog/figma-libraries).
 
-<FloatImage
-    direction="left"
-    content={
-        <MetricsMockup className="max-w-md" />
-    }
->
+<FloatImage direction="left">
+  <MetricsMockup className="max-w-md" slot="content" />
 
 Before releasing the libraries more widely, I recognized that better metrics
 were needed than what Figma natively provided to properly track adoption and
