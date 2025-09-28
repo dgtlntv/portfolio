@@ -4,6 +4,8 @@ import FanImages from "./Article/FanImages.astro";
 import DocumentSkeleton from "./DocumentSkeleton.astro";
 import ColorPaletteMockup from "./ColorPaletteMockup.astro";
 import MetricsMockup from "./MetricsMockup.astro";
+import TalkExplanationAnimation from "./Talk/TalkExplanationAnimation.astro";
+import TalkHeroAnimation from "./Talk/TalkHeroAnimation.astro";
 
 // HTML element overrides with Tailwind styling
 export const components = {
@@ -13,6 +15,8 @@ export const components = {
     DocumentSkeleton,
     ColorPaletteMockup,
     MetricsMockup,
+    TalkExplanationAnimation,
+    TalkHeroAnimation,
 
     // GitHubCodeExplorer: (props) => <GitHubCodeExplorer {...props} client:load />,
     // TagList: (props) => <TagList {...props} client:load />,

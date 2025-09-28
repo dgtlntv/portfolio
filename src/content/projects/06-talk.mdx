@@ -14,12 +14,6 @@ stats:
     ]
 ---
 
-import { Suspense } from "react"
-import {
-    TalkExplanationAnimation,
-    TalkHeroAnimation,
-} from "../../components/Talk"
-
 ## Problem
 
 <FloatImage
@@ -42,9 +36,7 @@ inattention, misunderstandings, and wasted time and energy.
 
 </FloatImage>
 
-<Suspense>
-    <TalkHeroAnimation />
-</Suspense>
+<TalkHeroAnimation />
 
 I began exploring what a presentation tool might look like if it supported
 today's dynamic, flexible communication styles. The ideal scenario would allow
@@ -60,12 +52,10 @@ based on your words.
 ## How it works
 
 <FloatImage>
-  <Suspense slot="content">
-    <TalkExplanationAnimation />
-    <figcaption>
-        Connecting paragraphs of the script with visualizations.
-    </figcaption>
-  </Suspense>
+  <TalkExplanationAnimation slot="content" />
+  <figcaption slot="content">
+      Connecting paragraphs of the script with visualizations.
+  </figcaption>
 
 Talk works differently from traditional presentation software by requiring a
 script during setup. This script can consist of complete sentences or meaningful

@@ -36,9 +36,8 @@ export default defineConfig({
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom', 'react/jsx-runtime'],
-            'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
-            'vendor-ui': ['@headlessui/react'],
-            'vendor-animation': ['@lottiefiles/react-lottie-player'],
+            'vendor-three': ['three'],
+            'vendor-animation': ['@lottiefiles/dotlottie-wc'],
           },
         },
       },
