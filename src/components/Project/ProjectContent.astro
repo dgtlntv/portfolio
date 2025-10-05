@@ -1,0 +1,23 @@
+---
+import { type CollectionEntry } from "astro:content"
+import Article from "../Article/Article.astro"
+import { components } from "../mdxComponents.ts"
+
+export interface Props {
+    project: CollectionEntry<"projects">
+}
+
+const { project } = Astro.props
+
+const { Content } = await project.render()
+const projectData = project.data
+---
+
+<Article
+    stats={projectData.stats || []}
+    title={projectData.title}
+    heroLocation={projectData.heroLocation || "cover"}
+    heroUrl={projectData.coverImage || ""}
+>
+    <Content components={components} />
+</Article>
