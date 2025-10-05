@@ -1,23 +1,23 @@
 ---
-import GridLayout from "../Grid/GridLayout.astro";
-import WidthLayout from "../Grid/WidthLayout.astro";
-import ArticleText from "./ArticleText.astro";
+import GridLayout from "../Grid/GridLayout.astro"
+import WidthLayout from "../Grid/WidthLayout.astro"
+import ArticleText from "./ArticleText.astro"
 
 interface Stat {
-    label: string;
-    value: string;
+    label: string
+    value: string
 }
 
 interface Props {
-    stats: Stat[];
-    heroUrl: string;
-    heroLocation: "center" | "start" | "end" | "cover";
-    title: string;
+    stats: Stat[]
+    heroUrl: string
+    heroLocation: "contain" | "cover"
+    title: string
 }
 
-const { stats, heroUrl, heroLocation, title } = Astro.props;
+const { stats, heroUrl, heroLocation, title } = Astro.props
 
-const isVideo = heroUrl?.endsWith(".webm");
+const isVideo = heroUrl?.endsWith(".webm")
 ---
 
 <div class="relative overflow-hidden bg-white pt-8 pb-16 lg:py-12">
@@ -25,37 +25,33 @@ const isVideo = heroUrl?.endsWith(".webm");
         <GridLayout>
             <!-- Hero Image/Video - Full width -->
             <div
-                class={`mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9 ${
-                    heroLocation === "center"
-                        ? "items-center"
-                        : heroLocation === "start"
-                          ? "items-start"
-                          : heroLocation === "end"
-                            ? "items-end"
-                            : ""
-                }`}
+                class={`mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9`}
             >
-                {isVideo ? (
-                    <video
-                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : ""}`}
-                        src={heroUrl}
-                        controls={false}
-                        autoplay={true}
-                        loop
-                    />
-                ) : (
-                    <img
-                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : ""}`}
-                        src={heroUrl}
-                        alt=""
-                    />
-                )}
+                {
+                    isVideo ? (
+                        <video
+                            class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                            src={heroUrl}
+                            controls={false}
+                            autoplay={true}
+                            loop
+                        />
+                    ) : (
+                        <img
+                            class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                            src={heroUrl}
+                            alt=""
+                        />
+                    )
+                }
             </div>
 
             <!-- Title - Full width to match hero image -->
             <div class="text-lg md:col-span-9">
                 <h1>
-                    <span class="font-fancy mt-6 block text-center text-5xl leading-tight font-extrabold tracking-normal text-gray-900">
+                    <span
+                        class="font-fancy mt-6 block text-center text-5xl leading-tight font-extrabold tracking-normal text-gray-900"
+                    >
                         {title}
                     </span>
                 </h1>
@@ -64,19 +60,18 @@ const isVideo = heroUrl?.endsWith(".webm");
             <!-- Stats - Center 7 columns -->
             <div class="font-fancy mt-8 md:col-span-7 md:col-start-2">
                 <dl class="grid grid-cols-2 gap-x-4 gap-y-6">
-                    {stats.map((stat) => (
-                        <div
-                            key={stat.label}
-                            class="border-y border-gray-100 py-3 text-center"
-                        >
-                            <dt class="text-sm font-medium text-gray-500">
-                                {stat.label}
-                            </dt>
-                            <dd class="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
-                                {stat.value}
-                            </dd>
-                        </div>
-                    ))}
+                    {
+                        stats.map((stat) => (
+                            <div class="border-y border-gray-100 py-3 text-center">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    {stat.label}
+                                </dt>
+                                <dd class="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
+                                    {stat.value}
+                                </dd>
+                            </div>
+                        ))
+                    }
                 </dl>
             </div>
 
