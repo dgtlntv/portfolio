@@ -273,9 +273,11 @@ export class AsciiEffect {
     private isElementReady(): boolean {
         if (this.element instanceof HTMLVideoElement) {
             // iOS needs stricter video ready checks
-            return this.element.readyState >= 3 && 
-                   this.element.videoWidth > 0 && 
-                   this.element.videoHeight > 0
+            return (
+                this.element.readyState >= 3 &&
+                this.element.videoWidth > 0 &&
+                this.element.videoHeight > 0
+            )
         }
         if (this.element instanceof HTMLImageElement) {
             return this.element.complete && this.element.naturalWidth > 0
@@ -307,81 +309,6 @@ export class AsciiEffect {
         try {
             if (this.objectFit === "fill") {
                 // Simple stretch to fill canvas
-                this.ctx.drawImage(this.element, 0, 0, this.iWidth, this.iHeight)
-        } else {
-            // For cover and contain, we need to calculate source coordinates
-            const containerWidth = this.element.offsetWidth
-            const containerHeight = this.element.offsetHeight
-
-            let naturalWidth: number
-            let naturalHeight: number
-
-            if (this.element instanceof HTMLImageElement) {
-                naturalWidth = this.element.naturalWidth
-                naturalHeight = this.element.naturalHeight
-            } else if (this.element instanceof HTMLVideoElement) {
-                naturalWidth = this.element.videoWidth
-                naturalHeight = this.element.videoHeight
-            } else {
-                naturalWidth = containerWidth
-                naturalHeight = containerHeight
-            }
-
-            if (naturalWidth > 0 && naturalHeight > 0) {
-                if (this.objectFit === "cover") {
-                    // For cover: calculate which part of the source to use to fill the canvas
-                    const containerAspect = containerWidth / containerHeight
-                    const naturalAspect = naturalWidth / naturalHeight
-
-                    if (naturalAspect > containerAspect) {
-                        // Image is wider - crop sides, scale to fit height
-                        const scaledWidth = naturalHeight * containerAspect
-                        const sourceX = (naturalWidth - scaledWidth) / 2
-
-                        this.ctx.drawImage(
-                            this.element,
-                            sourceX,
-                            0,
-                            scaledWidth,
-                            naturalHeight,
-                            0,
-                            0,
-                            this.iWidth,
-                            this.iHeight,
-                        )
-                    } else {
-                        // Image is taller - crop top/bottom, scale to fit width
-                        const scaledHeight = naturalWidth / containerAspect
-                        const sourceY = (naturalHeight - scaledHeight) / 2
-
-                        this.ctx.drawImage(
-                            this.element,
-                            0,
-                            sourceY,
-                            naturalWidth,
-                            scaledHeight,
-                            0,
-                            0,
-                            this.iWidth,
-                            this.iHeight,
-                        )
-                    }
-                } else if (this.objectFit === "contain") {
-                    // Draw the entire source image, letterboxed
-                    this.ctx.drawImage(
-                        this.element,
-                        0,
-                        0,
-                        naturalWidth,
-                        naturalHeight,
-                        0,
-                        0,
-                        this.iWidth,
-                        this.iHeight,
-                    )
-                }
-            } else {
-                // Fallback to simple draw if natural dimensions are not available
                 this.ctx.drawImage(
                     this.element,
                     0,
@@ -389,40 +316,123 @@ export class AsciiEffect {
                     this.iWidth,
                     this.iHeight,
                 )
+            } else {
+                // For cover and contain, we need to calculate source coordinates
+                const containerWidth = this.element.offsetWidth
+                const containerHeight = this.element.offsetHeight
+
+                let naturalWidth: number
+                let naturalHeight: number
+
+                if (this.element instanceof HTMLImageElement) {
+                    naturalWidth = this.element.naturalWidth
+                    naturalHeight = this.element.naturalHeight
+                } else if (this.element instanceof HTMLVideoElement) {
+                    naturalWidth = this.element.videoWidth
+                    naturalHeight = this.element.videoHeight
+                } else {
+                    naturalWidth = containerWidth
+                    naturalHeight = containerHeight
+                }
+
+                if (naturalWidth > 0 && naturalHeight > 0) {
+                    if (this.objectFit === "cover") {
+                        // For cover: calculate which part of the source to use to fill the canvas
+                        const containerAspect = containerWidth / containerHeight
+                        const naturalAspect = naturalWidth / naturalHeight
+
+                        if (naturalAspect > containerAspect) {
+                            // Image is wider - crop sides, scale to fit height
+                            const scaledWidth = naturalHeight * containerAspect
+                            const sourceX = (naturalWidth - scaledWidth) / 2
+
+                            this.ctx.drawImage(
+                                this.element,
+                                sourceX,
+                                0,
+                                scaledWidth,
+                                naturalHeight,
+                                0,
+                                0,
+                                this.iWidth,
+                                this.iHeight,
+                            )
+                        } else {
+                            // Image is taller - crop top/bottom, scale to fit width
+                            const scaledHeight = naturalWidth / containerAspect
+                            const sourceY = (naturalHeight - scaledHeight) / 2
+
+                            this.ctx.drawImage(
+                                this.element,
+                                0,
+                                sourceY,
+                                naturalWidth,
+                                scaledHeight,
+                                0,
+                                0,
+                                this.iWidth,
+                                this.iHeight,
+                            )
+                        }
+                    } else if (this.objectFit === "contain") {
+                        // Draw the entire source image, letterboxed
+                        this.ctx.drawImage(
+                            this.element,
+                            0,
+                            0,
+                            naturalWidth,
+                            naturalHeight,
+                            0,
+                            0,
+                            this.iWidth,
+                            this.iHeight,
+                        )
+                    }
+                } else {
+                    // Fallback to simple draw if natural dimensions are not available
+                    this.ctx.drawImage(
+                        this.element,
+                        0,
+                        0,
+                        this.iWidth,
+                        this.iHeight,
+                    )
+                }
             }
-        }
 
-        // Apply darkening effect if specified
-        if (this.darken !== 1) {
-            const imageData = this.ctx.getImageData(
-                0,
-                0,
-                this.iWidth,
-                this.iHeight,
-            )
-            const data = imageData.data
+            // Apply darkening effect if specified
+            if (this.darken !== 1) {
+                const imageData = this.ctx.getImageData(
+                    0,
+                    0,
+                    this.iWidth,
+                    this.iHeight,
+                )
+                const data = imageData.data
 
-            for (let i = 0; i < data.length; i += 4) {
-                // Apply darkening to RGB channels - multiply by darken factor
-                // darken < 1 = darken, darken > 1 = brighten, darken = 1 = no change
-                data[i] = Math.min(255, Math.max(0, data[i] * this.darken)) // Red
-                data[i + 1] = Math.min(
-                    255,
-                    Math.max(0, data[i + 1] * this.darken),
-                ) // Green
-                data[i + 2] = Math.min(
-                    255,
-                    Math.max(0, data[i + 2] * this.darken),
-                ) // Blue
-                // Alpha channel remains unchanged
+                for (let i = 0; i < data.length; i += 4) {
+                    // Apply darkening to RGB channels - multiply by darken factor
+                    // darken < 1 = darken, darken > 1 = brighten, darken = 1 = no change
+                    data[i] = Math.min(255, Math.max(0, data[i] * this.darken)) // Red
+                    data[i + 1] = Math.min(
+                        255,
+                        Math.max(0, data[i + 1] * this.darken),
+                    ) // Green
+                    data[i + 2] = Math.min(
+                        255,
+                        Math.max(0, data[i + 2] * this.darken),
+                    ) // Blue
+                    // Alpha channel remains unchanged
+                }
+
+                this.ctx.putImageData(imageData, 0, 0)
             }
-
-            this.ctx.putImageData(imageData, 0, 0)
-        }
-
         } catch (error) {
             // iOS/Safari may block canvas access to video elements
-            console.warn('Canvas drawing failed (likely iOS security restriction):', error)
+            console.warn(
+                "Canvas drawing failed (likely iOS security restriction):",
+                error,
+            )
             return
         }
 
