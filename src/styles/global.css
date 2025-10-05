@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "prismjs/themes/prism.css";
 
 mobile-menu-dialog:not(:defined) {
     display: none;
