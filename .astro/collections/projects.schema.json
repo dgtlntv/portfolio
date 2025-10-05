@@ -14,13 +14,14 @@
           "type": "string"
         },
         "heroLocation": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "cover",
+            "contain"
+          ]
         },
         "asciiDarken": {
-          "type": [
-            "boolean",
-            "number"
-          ]
+          "type": "number"
         },
         "stats": {
           "type": "array",
