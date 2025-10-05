@@ -1,19 +1,13 @@
 ---
-import { getEntry } from "astro:content"
-import Article from "./Article/Article.astro"
-import { components } from "./mdxComponents.ts"
+import { type CollectionEntry } from "astro:content"
+import Article from "../../Article/Article.astro"
+import { components } from "../../mdxComponents"
 
 export interface Props {
-    slug: string
+    post: CollectionEntry<"blog">
 }
 
-const { slug } = Astro.props
-
-const post = await getEntry("blog", slug)
-
-if (!post) {
-    return Astro.redirect("/404")
-}
+const { post } = Astro.props
 
 const { Content } = await post.render()
 const postData = post.data
@@ -25,7 +19,7 @@ const postData = post.data
         { label: "Date", value: postData.date || "" },
     ]}
     title={postData.title}
-    heroLocation={postData.heroLocation || "center"}
+    heroLocation={postData.heroLocation || "cover"}
     heroUrl={postData.coverImage || ""}
 >
     <Content components={components} />

@@ -8,7 +8,7 @@ const blog = defineCollection({
         author: z.string().optional(),
         excerpt: z.string().optional(),
         coverImage: z.string().optional(),
-        heroLocation: z.string().optional(),
+        heroLocation: z.enum(["cover", "contain"]).optional(),
         stats: z
             .array(
                 z.object({
