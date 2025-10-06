@@ -1,6 +1,4 @@
 ---
-import GridLayout from "../../Grid/GridLayout.astro"
-
 interface Props {
     className?: string
     title: string
@@ -22,8 +20,8 @@ const {
 } = Astro.props
 ---
 
-<div class="col-span-9 mt-10 sm:mt-14 lg:mt-18">
-    <GridLayout>
+<div class="mt-10 sm:mt-14 lg:mt-18">
+    <div class="grid grid-cols-9 gap-4">
         <!-- Content section -->
         <div
             class={`col-span-9 md:col-span-2 ${
@@ -71,5 +69,5 @@ const {
                 </div>
             </a>
         </div>
-    </GridLayout>
+    </div>
 </div>

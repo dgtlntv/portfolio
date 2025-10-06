@@ -1,6 +1,4 @@
 ---
-import GridLayout from "../../Grid/GridLayout.astro"
-import WidthLayout from "../../Grid/WidthLayout.astro"
 import ProjectsListItem from "./ProjectsListItem.astro"
 import type { CollectionEntry } from "astro:content"
 
@@ -9,29 +7,25 @@ interface Props {
 }
 
 const { projects } = Astro.props
+
+const sortedProjects = projects.sort((a, b) => a.id.localeCompare(b.id))
 ---
 
-<div class="overflow-hidden pt-0 pb-16">
-    <WidthLayout>
-        <GridLayout>
-            {
-                projects.map((project, index) => (
-                    <ProjectsListItem
-                        title={project.data.title}
-                        url={project.slug}
-                        imageUrl={
-                            project.data.coverImage
-                                ? project.data.coverImage
-                                : ""
-                        }
-                        heroLocation={project.data.heroLocation}
-                        asciiDarken={project.data.asciiDarken}
-                        isLeft={index % 2 === 0}
-                    >
-                        {project.data.excerpt}
-                    </ProjectsListItem>
-                ))
-            }
-        </GridLayout>
-    </WidthLayout>
+<div class="overflow-hidden pt-0 pb-16 md:col-span-9">
+    {
+        sortedProjects.map((project, index) => (
+            <ProjectsListItem
+                title={project.data.title}
+                url={project.slug}
+                imageUrl={
+                    project.data.coverImage ? project.data.coverImage : ""
+                }
+                heroLocation={project.data.heroLocation}
+                asciiDarken={project.data.asciiDarken}
+                isLeft={index % 2 === 0}
+            >
+                {project.data.excerpt}
+            </ProjectsListItem>
+        ))
+    }
 </div>

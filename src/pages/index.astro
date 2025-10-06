@@ -1,8 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Home from "../components/Home.astro";
+import Layout from "../layouts/Layout.astro"
+import Home from "../components/Home.astro"
 ---
 
-<Layout title="Maximilian Blazek Projects" showFooter={false}>
-  <Home />
+<Layout
+    title="Maximilian Blazek Projects"
+    showFooter={false}
+    setContentMaxWidth={false}
+>
+    <Home />
 </Layout>

@@ -1,6 +1,4 @@
 ---
-import GridLayout from "../../Grid/GridLayout.astro"
-import WidthLayout from "../../Grid/WidthLayout.astro"
 import BlogPostsListItem from "./BlogPostsListItem.astro"
 
 export interface BlogPost {
@@ -53,46 +51,36 @@ const sortedYears = Object.keys(groupedByYear).sort(
 )
 ---
 
-<WidthLayout>
-    <div class="mt-18">
-        {
-            posts.length > 0 ? (
-                <>
-                    {sortedYears.map((year) => (
-                        <div class="mb-12">
-                            <GridLayout>
-                                <div class="md:col-span-9">
-                                    <div class="grid grid-cols-9">
-                                        <h2 class="font-fancy mb-6 text-left text-4xl font-extrabold tracking-tight text-gray-900 sm:col-span-2 sm:col-start-1 sm:text-right sm:text-3xl">
-                                            {year}
-                                        </h2>
-                                    </div>
-                                </div>
-                                <div class="md:col-span-9">
-                                    {groupedByYear[year].map((post) => (
-                                        <BlogPostsListItem
-                                            title={post.data.title}
-                                            formattedDate={formatDate(
-                                                post.data.date,
-                                            )}
-                                            slug={post.slug}
-                                        />
-                                    ))}
-                                </div>
-                            </GridLayout>
+<div class="mt-18 md:col-span-9">
+    {
+        posts.length > 0 ? (
+            <>
+                {sortedYears.map((year) => (
+                    <div class="mb-12">
+                        <div class="grid grid-cols-9">
+                            <h2 class="font-fancy mb-6 text-left text-4xl font-extrabold tracking-tight text-gray-900 sm:col-span-2 sm:col-start-1 sm:text-right sm:text-3xl">
+                                {year}
+                            </h2>
                         </div>
-                    ))}
-                </>
-            ) : (
-                <div class="rounded-lg bg-gray-50 py-12 text-center md:col-span-5">
-                    <h3 class="mb-2 text-2xl font-semibold">
-                        No blog posts yet
-                    </h3>
-                    <p class="text-gray-600">
-                        Check back soon for new content!
-                    </p>
-                </div>
-            )
-        }
-    </div>
-</WidthLayout>
+                        <div>
+                            {groupedByYear[year].map((post) => (
+                                <BlogPostsListItem
+                                    title={post.data.title}
+                                    formattedDate={formatDate(
+                                        post.data.date,
+                                    )}
+                                    slug={post.slug}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </>
+        ) : (
+            <div class="rounded-lg bg-gray-50 py-12 text-center">
+                <h3 class="mb-2 text-2xl font-semibold">No blog posts yet</h3>
+                <p class="text-gray-600">Check back soon for new content!</p>
+            </div>
+        )
+    }
+</div>

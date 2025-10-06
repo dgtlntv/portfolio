@@ -6,6 +6,8 @@ mobile-menu-dialog:not(:defined) {
     display: none;
 }
 
+/* Font families used */
+
 @font-face {
     font-family: "Courier Prime";
     src: url("/fonts/CourierPrime-Regular.woff2") format("woff2");
@@ -54,6 +56,7 @@ mobile-menu-dialog:not(:defined) {
     font-display: swap;
 }
 
+/* Font family override for three.js ascii renderer */
 @font-face {
     font-family: "courier new";
     src: local("Courier Prime");
@@ -66,6 +69,7 @@ table[style*="courier new"] span {
     font-family: "Courier Prime", monospace !important;
 }
 
+/* Tailwind config */
 @layer base {
     a {
         @apply text-red-500 hover:underline;
