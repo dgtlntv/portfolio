@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "prismjs/themes/prism.css";
+@import "katex/dist/katex.min.css";
 
 mobile-menu-dialog:not(:defined) {
     display: none;

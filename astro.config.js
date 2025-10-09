@@ -3,15 +3,20 @@ import react from "@astrojs/react"
 import mdx from "@astrojs/mdx"
 import tailwindcss from "@tailwindcss/vite"
 import remarkFrontmatter from "remark-frontmatter"
+import remarkMath from "remark-math"
 import rehypeUnwrapImages from "rehype-unwrap-images"
+import rehypeKatex from "rehype-katex"
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer"
 
 export default defineConfig({
     integrations: [
         react(),
         mdx({
-            remarkPlugins: [[remarkFrontmatter, { type: "yaml", marker: "-" }]],
-            rehypePlugins: [rehypeUnwrapImages],
+            remarkPlugins: [
+                [remarkFrontmatter, { type: "yaml", marker: "-" }],
+                remarkMath,
+            ],
+            rehypePlugins: [rehypeUnwrapImages, rehypeKatex],
             shikiConfig: {
                 theme: "github-dark",
                 wrap: true,

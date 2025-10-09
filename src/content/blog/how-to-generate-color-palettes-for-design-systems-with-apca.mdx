@@ -1,0 +1,706 @@
+---
+title: How to generate color palettes for design systems (…with APCA)
+date: "09.10.2025"
+slug: how-to-generate-color-palettes-for-design-systems-with-apca
+excerpt:
+    How I reversed the APCA algorithm to generate perceptual contrast color
+    palettes.
+coverImage: "/images/blog/figma-libraries/canonical-ui-components.webp"
+heroLocation: "cover"
+author: "Maximilian Blazek"
+---
+
+This is the first of two blog posts about how we created the color palette for a
+new design system that we are working on at Canonical. In this first post I am
+going to write about my journey into perceptually uniform color spaces,
+perceptual contrast algorithms and explain what they are. If you are already
+familiar with those topics [you can jump right to the section](#…-with-apca!)
+(or go to the
+[Github repository](https://github.com/dgtlntv/perceptual-contrast-palette))
+where I show how I was able to reverse the APCA contrast algorithm to be able to
+generate perceptually contrasting color palettes. In the next post we are going
+to talk about why we did not end up going for this solution and what we ended up
+doing instead.
+
+---
+
+## How humans perceive color
+
+I was nerd sniped by a colleague with this article by Matthew Ström about
+“[How to pick the least wrong colors](https://matthewstrom.com/writing/how-to-pick-the-least-wrong-colors/)”.
+An article about using
+[perceptually uniform color spaces](https://en.wikipedia.org/wiki/Color_appearance_model)
+to pick the least bad data visualization colors. At that point I hadn’t known
+about perceptually uniform color spaces like
+[Oklab and Oklch](https://bottosson.github.io/posts/oklab/).
+
+![Illustration showing that rgb is a cube as a geometric shape](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/rgb-cube.png)
+
+“Normal” color spaces like rgb are structured in a way that makes it easy for
+machines to process color. As such rgb has very non-human properties. For
+example if you think of the color space as a geometric shape rgb would be a
+cube. The naive assumption would be that in this cube colors that we perceive as
+being similar would be close together right? But that's not the case.
+Surprisingly human color perception is not a perfect cube. Who would have
+thought.
+
+![Illustration showing the weird 3D shape Oklch has](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/oklch-3d-shape.png)
+
+Perceptually uniform color spaces are different in this regard. Instead of
+trying to make it easy for computers, those color spaces try to be closer to
+human perception. This results in their 3D shapes not being perfect geometric
+shapes, like this shape of Oklch for example. Shocker\!
+
+This property of perceptually uniform color spaces of being more aligned with
+how humans actually perceive color has huge potential for UI design (and
+arguably design at large). It is a lot easier to, for example, generate color
+palettes where the lightness of different colors look a lot more aligned.
+Perceptually uniform color spaces and how they could be used for UI design
+really fascinated me, which led me down a deep rabbit hole into perceptually
+uniform color spaces and
+[human perception of colors and contrast generally](https://www.handprint.com/HP/WCL/color1.html).
+
+![Screenshot of the website handprint.com where there is in depth information about the human eye](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/handprint-screenshot.png)
+
+## How humans perceive contrast
+
+One of the things I learned during my research was the shortcomings of the
+contrast algorithm currently recommended in the
+[WCAG guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html),
+a recommendation based on the standard
+[ISO-9241-3](https://cdn.standards.iteh.ai/samples/16875/4e1bf8a0a2d34083a45e301f1e30884c/ISO-9241-3-1992.pdf).
+The author of APCA, myndex, does a
+[great job at documenting the shortcomings of WCAG](https://github.com/Myndex/SAPC-APCA/discussions/30).
+Essentially WCAG has both false positives and false negatives when it comes to
+assessing how contrasting two colors are. Meaning some color pairs which have
+great contrast fail and some that have really bad contrast pass. APCA is a
+contrast algorithm that is more aligned with how humans perceive contrast and
+therefore does a much better job at judging contrast than WCAG does.
+
+![An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png)
+
+At the time I was also going to start on creating a new color palette for
+Canonical's design system. So my research also expanded to how different color
+spaces and contrast algorithms can be used to generate color palettes. As part
+of that I also read Matthew Ström's other article about color generation called
+"[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/)".
+Obviously this article was one of the main inspirations for my following work
+and this blog post.
+
+## Generating color palettes for design systems…
+
+In this article, Matthew combines contrast algorithms and perceptually uniform
+color spaces to generate color palettes. Arguably one of the most important
+aspects of working with colors in UIs (and in other media too) is contrast.
+There needs to be enough contrast between a pair of colors in order for humans
+to be able to tell different elements apart. The key idea brought forward in
+this article is that contrast should dictate the distance between steps in a
+color palette.
+
+![An illustration shwoing how a palette based on contrast would be helpful by illustrating the same distances in the palette having the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.png)
+
+In a color palette where the contrast between two shades is predictable and
+consistent it becomes very easy to pick accessible color pairs. You just pick
+any two shades in the palette that are a certain amount of steps apart from each
+other and you have picked an accessible color pair. No need for manually
+checking all color pairings in your UI anymore.
+
+![A screenshot of digital post-its showing outcomes of the internal research we had done at Canonical in regards to a new color palette](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/research-outcome.png)
+
+In an internal survey amongst designers at Canonical we found that picking
+accessible color pairs was a major concern for designers. So having a color
+palette where picking accessible color pairs is easy seemed like a great fit for
+us.
+
+## … with APCA\!
+
+Matthew Ström used the WCAG algorithm in his blog post. But as was discussed
+before the WCAG contrast algorithm has its drawbacks. I was curious if it was
+possible to follow the same principle but replace the WCAG algorithm with the
+APCA algorithm. He even mentioned at the end of his blog post that it would be
+interesting to try the same approach with APCA as well. I thought trying to do
+it with APCA sounded like an interesting challenge so I started investigating
+its feasibility.
+
+![It shows the math formulas of WCAG and APCA next to each other, illustrating how much simpler WCAGs algorithm is](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag-algorithm.png)
+
+The first step towards my goal of generating a color palette based on the APCA
+contrast algorithm was going to be to reverse APCAs main algorithm. Like the
+WCAG contrast algorithm APCA takes in two colors and spits out a number between
+\-108 and 106 to indicate how contrasting the color pair is. Looking at the
+difference between the WCAG and APCA algorithm above, reversing the APCA
+algorithm was going to be a lot more challenging than reversing the WCAG
+algorithm. Reversing the algorithm means restructuring in such a way that we can
+give the algorithm a color and a desired contrast distance and it will return a
+color that meets that criteria.
+
+I knew that the [apca-w3 package](https://github.com/Myndex/apca-w3) already had
+a “reverse APCA” function. Originally I had thought that I needed to go further
+than that function (it is only able to do the reversal with grayscale colors).
+So as a side project on a climbing trip I was on with friends I tried to reverse
+the APCA algorithm myself (with the help of a physicist friend because I am not
+_that_ good at math).
+
+![A photo of me during a climbing trip with friends.](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/climbing-trip.png)
+![A photo of APCA related math I did on a napkin during the climbing trip](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-on-a-napkin.png)
+
+If you look at the APCA algorithm some of its complexity stems from there being
+multiple possible cases and depending on which case you have the equation will
+look different. The main two cases that we need to consider for our reversed
+algorithm are the polarity (is the text lighter than the background) and which
+of the two we are solving for (text or background).
+
+So for the reversed algorithm we have 4 cases to consider:
+
+- **Case 1:** Light text on dark background, solving for text
+- **Case 2:** Dark text on light background, solving for text
+- **Case 3:** Light text on dark background, solving for background
+- **Case 4:** Dark text on light background, solving for background
+
+I will go through each of them and explain the reversal process.
+
+### **Case 1: Light text on dark background, solving for text**
+
+**Step 1:** Start with the output equation
+
+$$L_c = S_{apc} \times 100$$
+
+**Step 2:** Divide both sides by 100
+
+$$\frac{L_c}{100} = S_{apc}$$
+
+**Step 3:** In this case $C > 0$ so $S_{apc} = C - W_{offset}$
+
+$$\frac{L_c}{100} = C - W_{offset}$$
+
+**Step 4:** Solve for $C$
+
+$$C = \frac{L_c}{100} + W_{offset}$$
+
+**Step 5:** Substitute $C\:=\:S_{norm}\:\times\:R_{scale}$
+
+$$\frac{L_c}{100} + W_{offset} = S_{norm} \times R_{scale}$$
+
+**Step 6:** Solve for $S_{norm}$
+
+$$S_{norm} = \frac{(L_c / 100) + W_{offset}}{R_{scale}}$$
+
+**Step 7:** Substitute $S_{norm}\:=\:Y_{bg}^{0.56}\:-\:Y_{txt}^{0.57}$
+
+$$Y_{bg}^{0.56} - Y_{txt}^{0.57} = \frac{L_c/100 + W_{offset}}{R_{scale}}$$
+
+**Step 8:** Isolate $Y_{txt}^{0.57}$
+
+$$Y_{txt}^{0.57} = Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}$$
+
+**Step 9:** Raise both sides to the power of $\frac{1}{0.57}$
+
+$$Y_{txt} = \left(Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.57}$$
+
+### **Case 2: Dark text on light background, solving for text**
+
+**Step 1:** Start with the output equation (in this case $L_c$ is negative)
+
+$$-L_c = S_{apc} \times 100$$
+
+**Step 2:** Divide both sides by 100
+
+$$\frac{-L_c}{100} = S_{apc}$$
+
+**Step 3:** In this case $C < 0$ so $S_{apc} = C + W_{offset}$
+
+$$\frac{-L_c}{100} = C + W_{offset}$$
+
+**Step 4:** Solve for $C$
+
+$$C = \frac{-L_c}{100} - W_{offset}$$
+
+**Step 5:** Substitute $C = S_{rev} \times R_{scale}$
+
+$$\frac{-L_c}{100} - W_{offset} = S_{rev} \times R_{scale}$$
+
+**Step 6:** Solve for $S_{rev}$
+
+$$S_{rev} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
+
+**Step 7:** Substitute $S_{rev} = Y_{bg}^{0.65} - Y_{txt}^{0.62}$
+
+$$Y_{bg}^{0.65} - Y_{txt}^{0.62} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
+
+**Step 8:** Isolate $Y_{txt}^{0.62}$
+
+$$Y_{txt}^{0.62} = Y_{bg}^{0.65} - \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
+
+**Step 9:** Raise both sides to the power of $\frac{1}{0.62}$
+
+$$Y_{txt} = \left(Y_{bg}^{0.65} - \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.62}$$
+
+### **Case 3: Light text on dark background, solving for background**
+
+**Steps 1-7:** Same as Case 1
+
+$$Y_{bg}^{0.56} - Y_{txt}^{0.57} = \frac{L_c/100 + W_{offset}}{R_{scale}}$$
+
+**Step 8:** Isolate $Y_{bg}^{0.56}​$
+
+$$Y_{bg}^{0.56} = Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}$$
+
+**Step 9:** Raise both sides to the power of $\frac{1}{0.56}​$
+
+$$Y_{bg} = \left(Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.56}$$
+
+### **Case 4: Dark text on light background, solving for background**
+
+**Steps 1-7:** Same as Case 2
+
+$$Y_{bg}^{0.65} - Y_{txt}^{0.62} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
+
+**Steps 8:** Isolate $Y_{bg}^{0.65}$
+
+$$Y_{bg}^{0.65} = Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
+
+**Steps 9:** Raise both sides to the power of $\frac{1}{0.65}$
+
+$$Y_{bg} = \left(Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.65}$$
+
+Now we have all of the equations that we need for our 4 cases:
+
+$$Y_{txt} = \left(Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.57}$$
+
+$$Y_{txt} = \left(Y_{bg}^{0.65} - \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.62}$$
+
+$$Y_{bg} = \left(Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.56}$$
+
+$$Y_{bg} = \left(Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.65}$$
+
+And finally what needs to be remembered about APCA is that all input Y values
+need to be clamped and the Y value that is returned as the output of the reverse
+function needs to be unclamped. The two functions to clamp and unclamp Y are the
+following:
+
+$$\text{clamp}(Y) = \begin{cases} Y & \text{if } Y \geq B_{\text{thrsh}} \\Y + (B_{\text{thrsh}} - Y)^{B_{\text{exp}}} & \text{if } Y < B_{\text{thrsh}} \end{cases}$$
+
+$$\text{unclamp}(Y) = \begin{cases} Y & \text{if } Y > B_{\text{thrsh}} \\\left((Y + M_{\text{in}}) \cdot M_f\right)^{M_e} \cdot M_{f}^{-1} - M_{\text{out}} & \text{if } Y \leq B_{\text{thrsh}} \end{cases}$$
+
+$$\text{where:}$$
+
+$$
+\begin{aligned}
+B_{\text{thrsh}} &= 0.022 \\
+B_{\text{exp}} &= 1.414 \\
+M_{\text{in}} &= 0.0387393816571401 \\
+M_{\text{out}} &= 0.312865795870758 \\
+M_f &= 1.9468554433171 \\
+M_e &= \frac{0.283343396420869}{B_{\text{exp}}} \\
+M_{f}^{-1} &= \frac{1}{1.9468554433171}
+\end{aligned}
+$$
+
+With all the scary math out of the way I was ready to translate all of this into
+code. When I did that I realized what I had done so far was figure out the
+necessary Y component (in the XYZ color space) of a color with the right
+contrast value distance but not a full color. So my code is essentially able to
+get a grayscale color that is the right contrast distance away from the input
+color. So the same as the reverse APCA function that is already included in the
+apca-we package 😅.
+
+After I had this realization I took another look at Matthew Ström’s article
+(which was what I’ve been wanting to replicate but with APCA contrast values
+being APCA based) and I realized that the Y component was actually all I needed
+for this specific way of generating a color palette.
+
+So I could have used the function available in the apca-w3 package. But I still
+found reversing it myself a nice learning experience and since the apca-w3 is
+not fully open source (it does not have a standard open source license) I also
+thought that it would be nice to have an implementation of the reversed
+algorithm with a truly open source license. I am also not sure if what I did is
+compliant with the
+[APCA trademark license](https://git.apcacontrast.com/documentation/LICENSE.html)
+so I am also going to abstain from claiming that my result is APCA compliant.
+
+So the code for my reverse perceptual contrast finder that is based on the
+approach found in the APCA algorithm is the following:
+
+```javascript
+/**
+ * Constants used in perceptual contrast calculations
+ * Based on the approach at https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/src/apca-w3.js#L146
+ */
+const PERCEPTUAL_CONTRAST_CONSTANTS: {
+    BLACK_THRESHOLD: number
+    BLACK_CLAMP: number
+    OFFSET: number
+    SCALE: number
+    MAGIC_OFFSET_IN: number
+    MAGIC_OFFSET_OUT: number
+    MAGIC_FACTOR: number
+    MAGIC_EXPONENT: number
+    MACIG_FACTOR_INVERSE: number
+} = {
+    BLACK_THRESHOLD: 0.022,
+    BLACK_CLAMP: 1.414,
+    OFFSET: 0.027,
+    SCALE: 1.14,
+    MAGIC_OFFSET_IN: 0.0387393816571401,
+    MAGIC_OFFSET_OUT: 0.312865795870758,
+    MAGIC_FACTOR: 1.9468554433171,
+    MAGIC_EXPONENT: 0.283343396420869 / 1.414,
+    MACIG_FACTOR_INVERSE: 1 / 1.9468554433171,
+}
+
+/**
+ * Removes clamping from near-black colors to restore original values
+ * Based on the approach at: https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/src/apca-w3.js#L403
+ * @param y - The clamped luminance value to be unclamped
+ * @returns The unclamped luminance value
+ */
+function unclampY(y: number): number {
+    return y > PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_THRESHOLD
+        ? y
+        : Math.pow(
+              (y + PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_OFFSET_IN) *
+                  PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_FACTOR,
+              PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_EXPONENT
+          ) *
+              PERCEPTUAL_CONTRAST_CONSTANTS.MACIG_FACTOR_INVERSE -
+              PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_OFFSET_OUT
+}
+
+/**
+ * Applies clamping to near-black colors to prevent contrast calculation issues
+ * Based on the approach at: https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/src/apca-w3.js#L381
+ * @param y - The luminance value to be clamped
+ * @returns The clamped luminance value
+ */
+function clampY(y: number): number {
+    return y >= PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_THRESHOLD
+        ? y
+        : y +
+              Math.pow(
+                  PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_THRESHOLD - y,
+                  PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_CLAMP
+              )
+}
+
+/**
+ * Reverses perceptual contrast calculations to find a matching color
+ * Based on the approach at: https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/images/APCAw3_0.1.17_APCA0.0.98G.svg
+ * @param contrast - Target contrast value (between 5 and 106.04066)
+ * @param y - Known luminance value (between 0 and 1)
+ * @param bgIsDarker - Whether the background is darker than the text
+ * @param lookingFor - What we're solving for: "txt" (text color) or "bg" (background color)
+ * @returns The calculated luminance value, or false if no valid solution exists
+ */
+export function reversePerceptualContrast(
+    contrast: number = 75, // Default contrast of 75
+    y: number = 0, // Default luminance of 0
+    bgIsDarker: boolean = false, // Default assumes background is lighter
+    lookingFor: "txt" | "bg" = "txt" // Default solves for text color
+): number | false {
+    contrast = Math.abs(contrast)
+    let output: number | undefined
+
+    // Validate input luminance is between 0 and 1
+    if (!(y > 0 && y <= 1)) {
+        console.log("y is not a valid value (y > 0 && y <= 1)")
+        return false
+    }
+
+    // Validate contrast is within acceptable range
+    if (!(contrast >= 5 && contrast <= 106.04066)) {
+        console.log(
+            "contrast is not a valid value (contrast >= 5 && contrast <= 106.04066)"
+        )
+        return false
+    }
+
+    // Apply clamping to input luminance
+    y = clampY(y)
+
+    // Calculate output luminance based on what we're looking for and background darkness
+    // You could do these calculations here more DRY, but I find that it is easier to
+    // understand the derivation from the original calculation with the if statements.
+
+    if (lookingFor === "txt") {
+        if (bgIsDarker) {
+            // For light text on dark background
+            output =
+                (y ** 0.65 -
+                    (-contrast / 100 - PERCEPTUAL_CONTRAST_CONSTANTS.OFFSET) *
+                        (1 / PERCEPTUAL_CONTRAST_CONSTANTS.SCALE)) **
+                (1 / 0.62)
+        } else if (!bgIsDarker) {
+            // For dark text on light background
+            output =
+                (y ** 0.56 -
+                    (contrast / 100 + PERCEPTUAL_CONTRAST_CONSTANTS.OFFSET) *
+                        (1 / PERCEPTUAL_CONTRAST_CONSTANTS.SCALE)) **
+                (1 / 0.57)
+        }
+    } else if (lookingFor === "bg") {
+        if (bgIsDarker) {
+            // For dark background with light text
+            output =
+                (y ** 0.62 +
+                    (-contrast / 100 - PERCEPTUAL_CONTRAST_CONSTANTS.OFFSET) *
+                        (1 / PERCEPTUAL_CONTRAST_CONSTANTS.SCALE)) **
+                (1 / 0.65)
+        } else if (!bgIsDarker) {
+            // For light background with dark text
+            output =
+                (y ** 0.57 +
+                    (contrast / 100 + PERCEPTUAL_CONTRAST_CONSTANTS.OFFSET) *
+                        (1 / PERCEPTUAL_CONTRAST_CONSTANTS.SCALE)) **
+                (1 / 0.56)
+        }
+    }
+
+    // Unclamp the output value if valid
+    if (output !== undefined && !isNaN(output)) {
+        output = unclampY(output)
+    }
+
+    // Validate final output
+    if (
+        output === undefined ||
+        isNaN(output) ||
+        !(output > 0 && output <= 1)
+    ) {
+        console.log("A color with the specifications does not exist")
+        return false
+    } else {
+        return output
+    }
+}
+```
+
+After having done the APCA reversal it was just a matter of plugging both my
+reverse perceptual contrast code and the code by Matthew together:
+
+```javascript
+import Color from "colorjs.io"
+
+/**
+ * Converts OKHSl color to sRGB array
+ * @param {OkHSL} hsl - Array containing [hue, saturation, lightness]
+ *   hue: number (0-360) - The hue angle in degrees
+ *   saturation: number (0-1) - The saturation value
+ *   lightness: number (0-1) - The lightness value
+ * @returns {[number, number, number]} sRGB array [r, g, b] in 0-255 range
+ */
+export function okhslToSrgb(
+    hsl: [number, number, number]
+): [number, number, number] {
+    // Create new color in OKHSl space
+    let c = new Color("okhsl", hsl)
+    // Convert to sRGB color space
+    c = c.to("srgb")
+
+    return [c.srgb[0] * 255, c.srgb[1] * 255, c.srgb[2] * 255]
+}
+
+/**
+ * Converts Y (luminance) value to OKHSL lightness
+ * Based on the approach at https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/src/apca-w3.js#L418
+ * @param {number} y - Linear luminance value (0-1)
+ * @returns {number} OKHSL lightness value (0-1)
+ */
+export function yToOkhslLightness(y: number): number {
+    const srgbComponent = y ** (1 / 2.4)
+    const c = new Color("srgb", [srgbComponent, srgbComponent, srgbComponent])
+    return c.okhsl[2]
+}
+
+/**
+ * Converts sRGB array to hex color string
+ * @param {[number, number, number]} rgb - sRGB array [r, g, b] in 0-255 range
+ * @returns {string} Hex color string (e.g., "#ff5733")
+ */
+export function srgbToHex(rgb: [number, number, number]): string {
+    const c = new Color("srgb", [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255])
+    return c.toString({ format: "hex" })
+}
+
+/**
+ * Color scale object with hex color values keyed by scale number
+ */
+interface ColorScale {
+    [step: number]: [number, number, number]
+}
+
+/**
+ * Compensates for the Bezold-Brücke effect where colors appear more purplish in shadows
+ * and more yellowish in highlights by shifting the hue up to 5 degrees
+ * Based on the approach at: https://matthewstrom.com/writing/generating-color-palettes/#:~:text=const%20computeScaleHue%20%3D%20(scaleValue%2C%20baseHue)%20%3D%3E%20baseHue%20%2B%205%20*%20(1%20%2D%20scaleValue)%3B
+ * @param step - Scale step value (0-100)
+ * @param baseHue - Starting hue in degrees (0-360)
+ * @returns Adjusted hue value
+ * @throws If parameters are invalid
+ */
+function computeHue(step: number, baseHue: number): number {
+    // Normalize step from 0-100 range to 0-1
+    const normalizedStep = step / 100
+
+    // Validate normalizedStep is between 0 and 1
+    if (normalizedStep < 0 || normalizedStep > 1) {
+        throw new Error("step must produce a normalized value between 0 and 1")
+    }
+
+    // Validate baseHue is between 0 and 360
+    if (baseHue < 0 || baseHue > 360) {
+        throw new Error("baseHue must be a number between 0 and 360")
+    }
+
+    if (baseHue === 0) {
+        return baseHue
+    }
+
+    return baseHue + 5 * (1 - normalizedStep)
+}
+
+/**
+ * Creates a parabolic function for chroma/saturation that peaks at middle values
+ * This ensures colors are most vibrant in the middle of the scale while being
+ * more subtle at the extremes
+ * Based on the approach at: https://matthewstrom.com/writing/generating-color-palettes/#:~:text=const%20computeScaleChroma%20%3D%20(scaleValue%2C%20minChroma%2C%20maxChroma)%20%3D%3E%20%7B
+ * @param step - Scale step value (0-100)
+ * @param minChroma - Minimum chroma/saturation value (0-1)
+ * @param maxChroma - Maximum chroma/saturation value (0-1)
+ * @returns Calculated chroma value
+ * @throws If parameters are invalid
+ */
+function computeChroma(
+    step: number,
+    minChroma: number,
+    maxChroma: number
+): number {
+    const normalizedStep = step / 100
+
+    // Validate normalizedStep is between 0 and 1
+    if (normalizedStep < 0 || normalizedStep > 1) {
+        throw new Error("step must produce a normalized value between 0 and 1")
+    }
+
+    // Validate chroma values are between 0 and 1 and properly ordered
+    if (minChroma < 0 || minChroma > 1 || maxChroma < 0 || maxChroma > 1) {
+        throw new Error("Chroma values must be numbers between 0 and 1")
+    }
+    if (minChroma > maxChroma) {
+        throw new Error("minChroma must be less than or equal to maxChroma")
+    }
+
+    const chromaDifference = maxChroma - minChroma
+    return (
+        -4 * chromaDifference * Math.pow(normalizedStep, 2) +
+        4 * chromaDifference * normalizedStep +
+        minChroma
+    )
+}
+
+/**
+ * Computes OKHSL lightness from a target contrast step using perceptual contrast
+ *
+ * The perceptual contrast algorithm operates on contrast values between 5-106.04066,
+ * where 5 represents the lightest possible color and 106.04066 the darkest.
+ * For our 0-100 scale:
+ * - Steps 0-4: Clipped to lightness 1 (below minimum threshold)
+ * - Step 100: Clipped to lightness 0 (black)
+ * - Steps 5-99: Linearly rescaled to 5-106.04066 range for perceptually uniform contrast
+ *
+ * @param step - Scale step value (0-100)
+ * @returns OKHSL lightness value (0-1)
+ * @throws If target luminance cannot be calculated
+ */
+function computeLightness(step: number): number {
+    // Clip values below minimum threshold to full lightness (white)
+    if (step < 5) {
+        return 1
+    }
+
+    // Rescale 5-99 to perceptual contrast's 5-106.04066 range
+    const perceptualContrast = 5 + ((step - 5) * (106.04066 - 5)) / (100 - 5)
+
+    const targetLuminance = reversePerceptualContrast(
+        perceptualContrast,
+        1,
+        false,
+        "txt"
+    )
+
+    if (targetLuminance === false) {
+        throw new Error(
+            `Problem calculating the target luminance for step ${step}`
+        )
+    }
+
+    return yToOkhslLightness(targetLuminance)
+}
+
+/**
+ * Options for generating a color scale
+ */
+export interface GenerateColorScaleOptions {
+    /** Base hue in degrees (0-360) */
+    baseHue: number
+    /** Minimum chroma/saturation (0-1) */
+    minChroma: number
+    /** Maximum chroma/saturation (0-1) */
+    maxChroma: number
+    /** Array of scale values to generate (integer values between 0-100) */
+    steps: number[]
+}
+
+/**
+ * Generates a complete color scale with accessible contrast levels
+ * @param options - Configuration object for color scale generation
+ * @returns Scale object with color hex values keyed by scale number
+ */
+export function generateColorScale(
+    options: GenerateColorScaleOptions
+): ColorScale {
+    const { baseHue, minChroma, maxChroma, steps } = options
+
+    if (baseHue < 0 || baseHue > 360) {
+        throw new Error("baseHue must be a number between 0 and 360")
+    }
+
+    if (minChroma < 0 || minChroma > 1 || maxChroma < 0 || maxChroma > 1) {
+        throw new Error("Chroma values must be numbers between 0 and 1")
+    }
+
+    if (minChroma > maxChroma) {
+        throw new Error("minChroma must be less than or equal to maxChroma")
+    }
+
+    if (
+        steps.some((step) => step < 0 || step > 100 || !Number.isInteger(step))
+    ) {
+        throw new Error("All steps must be integers between 0 and 100")
+    }
+
+    // Generate the color scale using map and reduce
+    return steps.reduce<ColorScale>((scale, step) => {
+        const h = computeHue(step, baseHue)
+        const s = computeChroma(step, minChroma, maxChroma)
+        const l = computeLightness(step)
+
+        const srgb = okhslToSrgb([h, s, l])
+
+        return { ...scale, [step]: srgb }
+    }, {})
+}
+```
+
+And just like that we can generate a color palette with predictable APCA based
+contrast shades:
+
+![][image56]
+
+You can also find all of this code in
+[a Github repository](https://github.com/dgtlntv/perceptual-contrast-palette).
+
+I mentioned that I did all of this work in preparation for working on a new
+color palette for Canonical's design system. So you would think that we ended up
+using the APCA based approach for that color palette. But in the end we decided
+to actually still go with the WCAG based approach (for some good reason) which
+is what I am going to write about in my next blog post. So stay tuned :)
