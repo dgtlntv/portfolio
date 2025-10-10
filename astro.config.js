@@ -21,7 +21,26 @@ export default defineConfig({
                 theme: "github-dark",
                 wrap: true,
             },
-            optimize: true,
+            optimize: {
+                // Prevent the optimizer from handling custom MDX components
+                ignoreElementNames: [
+                    "p",
+                    "h1",
+                    "h2",
+                    "h3",
+                    "h4",
+                    "h5",
+                    "h6",
+                    "ul",
+                    "ol",
+                    "li",
+                    "blockquote",
+                    "a",
+                    "pre",
+                    "code",
+                    "img",
+                ],
+            },
         }),
     ],
     vite: {

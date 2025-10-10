@@ -5,9 +5,6 @@ slug: how-to-generate-color-palettes-for-design-systems-with-apca
 excerpt:
     How I reversed the APCA algorithm to generate perceptual contrast color
     palettes.
-coverImage: "/images/blog/figma-libraries/canonical-ui-components.webp"
-heroLocation: "cover"
-author: "Maximilian Blazek"
 ---
 
 This is the first of two blog posts about how we created the color palette for a
@@ -21,8 +18,6 @@ where I show how I was able to reverse the APCA contrast algorithm to be able to
 generate perceptually contrasting color palettes. In the next post we are going
 to talk about why we did not end up going for this solution and what we ended up
 doing instead.
-
----
 
 ## How humans perceive color
 
@@ -60,24 +55,27 @@ really fascinated me, which led me down a deep rabbit hole into perceptually
 uniform color spaces and
 [human perception of colors and contrast generally](https://www.handprint.com/HP/WCL/color1.html).
 
-![Screenshot of the website handprint.com where there is in depth information about the human eye](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/handprint-screenshot.png)
-
 ## How humans perceive contrast
 
-One of the things I learned during my research was the shortcomings of the
-contrast algorithm currently recommended in the
-[WCAG guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html),
-a recommendation based on the standard
-[ISO-9241-3](https://cdn.standards.iteh.ai/samples/16875/4e1bf8a0a2d34083a45e301f1e30884c/ISO-9241-3-1992.pdf).
-The author of APCA, myndex, does a
-[great job at documenting the shortcomings of WCAG](https://github.com/Myndex/SAPC-APCA/discussions/30).
-Essentially WCAG has both false positives and false negatives when it comes to
-assessing how contrasting two colors are. Meaning some color pairs which have
-great contrast fail and some that have really bad contrast pass. APCA is a
-contrast algorithm that is more aligned with how humans perceive contrast and
-therefore does a much better job at judging contrast than WCAG does.
-
-![An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png)
+<FloatImage
+    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png"
+    alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one"
+    direction="right"
+>
+    One of the things I learned during my research was the shortcomings of the
+    contrast algorithm currently recommended in the [WCAG
+    guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html),
+    a recommendation based on the standard
+    [ISO-9241-3](https://cdn.standards.iteh.ai/samples/16875/4e1bf8a0a2d34083a45e301f1e30884c/ISO-9241-3-1992.pdf).
+    The author of APCA, myndex, does a [great job at documenting the
+    shortcomings of WCAG](https://github.com/Myndex/SAPC-APCA/discussions/30).
+    Essentially WCAG has both false positives and false negatives when it comes
+    to assessing how contrasting two colors are. Meaning some color pairs which
+    have great contrast fail and some that have really bad contrast pass. APCA
+    is a contrast algorithm that is more aligned with how humans perceive
+    contrast and therefore does a much better job at judging contrast than WCAG
+    does.
+</FloatImage>
 
 At the time I was also going to start on creating a new color palette for
 Canonical's design system. So my research also expanded to how different color
@@ -104,8 +102,6 @@ consistent it becomes very easy to pick accessible color pairs. You just pick
 any two shades in the palette that are a certain amount of steps apart from each
 other and you have picked an accessible color pair. No need for manually
 checking all color pairings in your UI anymore.
-
-![A screenshot of digital post-its showing outcomes of the internal research we had done at Canonical in regards to a new color palette](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/research-outcome.png)
 
 In an internal survey amongst designers at Canonical we found that picking
 accessible color pairs was a major concern for designers. So having a color
@@ -141,8 +137,21 @@ So as a side project on a climbing trip I was on with friends I tried to reverse
 the APCA algorithm myself (with the help of a physicist friend because I am not
 _that_ good at math).
 
-![A photo of me during a climbing trip with friends.](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/climbing-trip.png)
-![A photo of APCA related math I did on a napkin during the climbing trip](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-on-a-napkin.png)
+<div
+    class="mx-auto my-8 md:-mx-6 lg:-mx-8 xl:-mx-28"
+    style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;"
+>
+    <img
+        class="h-auto w-full rounded-lg"
+        src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-on-a-napkin.png"
+        alt="A photo of APCA related math I did on a napkin during the climbing trip"
+    />
+    <img
+        class="h-auto w-full rounded-lg"
+        src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/climbing-trip.png"
+        alt="A photo of me during a climbing trip with friends."
+    />
+</div>
 
 If you look at the APCA algorithm some of its complexity stems from there being
 multiple possible cases and depending on which case you have the equation will

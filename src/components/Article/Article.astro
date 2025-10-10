@@ -7,13 +7,14 @@ interface Stat {
 }
 
 interface Props {
-    stats: Stat[]
-    heroUrl: string
-    heroLocation: "contain" | "cover"
     title: string
+    heroUrl?: string
+    heroLocation?: "contain" | "cover"
+    stats?: Stat[]
+    date?: string
 }
 
-const { stats, heroUrl, heroLocation, title } = Astro.props
+const { title, heroUrl, heroLocation = "cover", stats, date } = Astro.props
 
 const isVideo = heroUrl?.endsWith(".webm")
 ---
@@ -21,54 +22,57 @@ const isVideo = heroUrl?.endsWith(".webm")
 <div
     class="grid grid-cols-subgrid col-span-full relative overflow-hidden bg-white pt-8 pb-16 lg:py-12"
 >
-    <div
-        class={`mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9`}
-    >
-        {
-            isVideo ? (
-                <video
-                    class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
-                    src={heroUrl}
-                    controls={false}
-                    autoplay={true}
-                    loop
-                />
-            ) : (
-                <img
-                    class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
-                    src={heroUrl}
-                    alt=""
-                />
-            )
-        }
-    </div>
+    {
+        heroUrl && (
+            <div class="mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9 md:col-start-2">
+                {isVideo ? (
+                    <video
+                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                        src={heroUrl}
+                        controls={false}
+                        autoplay={true}
+                        loop
+                    />
+                ) : (
+                    <img
+                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                        src={heroUrl}
+                        alt=""
+                    />
+                )}
+            </div>
+        )
+    }
 
-    <div class="text-lg md:col-span-9">
+    <div class="text-lg md:col-span-7 md:col-start-2">
         <h1>
             <span
-                class="font-fancy mt-6 block text-center text-5xl leading-tight font-extrabold tracking-normal text-gray-900"
+                class={`font-fancy block ${heroUrl ? "text-center text-5xl font-extrabold" : "text-3xl"} leading-tight tracking-normal text-gray-900`}
             >
                 {title}
             </span>
         </h1>
+        {date && <p class="mt-2 font-fancy text-gray-500">{date}</p>}
     </div>
 
-    <div class="font-fancy mt-8 md:col-span-7 md:col-start-2">
-        <dl class="grid grid-cols-2 gap-x-4 gap-y-6">
-            {
-                stats.map((stat) => (
-                    <div class="border-y border-gray-100 py-3 text-center">
-                        <dt class="text-sm font-medium text-gray-500">
-                            {stat.label}
-                        </dt>
-                        <dd class="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
-                            {stat.value}
-                        </dd>
-                    </div>
-                ))
-            }
-        </dl>
-    </div>
+    {
+        stats && stats.length > 0 && (
+            <div class="font-fancy mt-8 md:col-span-7 md:col-start-2">
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-6">
+                    {stats.map((stat) => (
+                        <div class="border-y border-gray-100 py-3 text-center">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {stat.label}
+                            </dt>
+                            <dd class="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
+                                {stat.value}
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+        )
+    }
 
     <div class="md:col-span-7 md:col-start-2">
         <ArticleText>

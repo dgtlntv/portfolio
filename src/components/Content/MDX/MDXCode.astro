@@ -1,0 +1,20 @@
+---
+interface Props {
+    class?: string
+    [key: string]: any
+}
+
+const { class: className, ...props } = Astro.props
+---
+
+{
+    className ? (
+        <code class={className} {...props}>
+            <slot />
+        </code>
+    ) : (
+        <code class="rounded px-1 py-0.5 text-sm font-mono" {...props}>
+            <slot />
+        </code>
+    )
+}

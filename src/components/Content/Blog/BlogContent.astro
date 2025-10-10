@@ -13,14 +13,6 @@ const { Content } = await post.render()
 const postData = post.data
 ---
 
-<Article
-    stats={postData.stats || [
-        { label: "Author", value: postData.author || "" },
-        { label: "Date", value: postData.date || "" },
-    ]}
-    title={postData.title}
-    heroLocation={postData.heroLocation || "cover"}
-    heroUrl={postData.coverImage || ""}
->
+<Article title={postData.title} date={postData.date}>
     <Content components={components} />
 </Article>
