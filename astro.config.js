@@ -1,11 +1,11 @@
-import { defineConfig } from "astro/config"
-import react from "@astrojs/react"
 import mdx from "@astrojs/mdx"
+import react from "@astrojs/react"
 import tailwindcss from "@tailwindcss/vite"
+import { defineConfig } from "astro/config"
+import rehypeKatex from "rehype-katex"
+import rehypeUnwrapImages from "rehype-unwrap-images"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkMath from "remark-math"
-import rehypeUnwrapImages from "rehype-unwrap-images"
-import rehypeKatex from "rehype-katex"
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer"
 
 export default defineConfig({
@@ -18,8 +18,8 @@ export default defineConfig({
             ],
             rehypePlugins: [rehypeUnwrapImages, rehypeKatex],
             shikiConfig: {
-                theme: "github-dark",
-                wrap: true,
+                theme: "catppuccin-latte",
+                wrap: false,
             },
             optimize: {
                 // Prevent the optimizer from handling custom MDX components

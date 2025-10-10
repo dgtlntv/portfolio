@@ -29,7 +29,11 @@ to pick the least bad data visualization colors. At that point I hadn’t known
 about perceptually uniform color spaces like
 [Oklab and Oklch](https://bottosson.github.io/posts/oklab/).
 
-![Illustration showing that rgb is a cube as a geometric shape](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/rgb-cube.png)
+<MDXFigure
+    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/rgb-cube.png"
+    alt="Illustration showing that rgb is a cube as a geometric shape"
+    caption="The RGB color space"
+/>
 
 “Normal” color spaces like rgb are structured in a way that makes it easy for
 machines to process color. As such rgb has very non-human properties. For
@@ -39,7 +43,11 @@ being similar would be close together right? But that's not the case.
 Surprisingly human color perception is not a perfect cube. Who would have
 thought.
 
-![Illustration showing the weird 3D shape Oklch has](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/oklch-3d-shape.png)
+<MDXFigure
+    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/oklch-3d-shape.png"
+    alt="Illustration showing the weird 3D shape Oklch has"
+    caption="The Oklch color space"
+/>
 
 Perceptually uniform color spaces are different in this regard. Instead of
 trying to make it easy for computers, those color spaces try to be closer to
@@ -75,15 +83,17 @@ uniform color spaces and
     is a contrast algorithm that is more aligned with how humans perceive
     contrast and therefore does a much better job at judging contrast than WCAG
     does.
-</FloatImage>
 
-At the time I was also going to start on creating a new color palette for
-Canonical's design system. So my research also expanded to how different color
-spaces and contrast algorithms can be used to generate color palettes. As part
-of that I also read Matthew Ström's other article about color generation called
-"[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/)".
-Obviously this article was one of the main inspirations for my following work
-and this blog post.
+    At the time I was also going to start on creating a new color palette for
+
+    Canonical's design system. So my research also expanded to how different color
+    spaces and contrast algorithms can be used to generate color palettes. As part
+    of that I also read Matthew Ström's other article about color generation called
+    "[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/)".
+    Obviously this article was one of the main inspirations for my following work
+    and this blog post.
+
+</FloatImage>
 
 ## Generating color palettes for design systems…
 
@@ -95,7 +105,7 @@ to be able to tell different elements apart. The key idea brought forward in
 this article is that contrast should dictate the distance between steps in a
 color palette.
 
-![An illustration shwoing how a palette based on contrast would be helpful by illustrating the same distances in the palette having the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.png)
+![An illustration showing how a palette based on contrast would be helpful by illustrating the same distances in the palette having the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.png)
 
 In a color palette where the contrast between two shades is predictable and
 consistent it becomes very easy to pick accessible color pairs. You just pick
@@ -118,44 +128,58 @@ interesting to try the same approach with APCA as well. I thought trying to do
 it with APCA sounded like an interesting challenge so I started investigating
 its feasibility.
 
-![It shows the math formulas of WCAG and APCA next to each other, illustrating how much simpler WCAGs algorithm is](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag-algorithm.png)
+<FloatImage
+    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca.png"
+    alt="It shows the math formulas of APCA"
+    caption="The full APCA formula"
+    direction="left"
+>
 
-The first step towards my goal of generating a color palette based on the APCA
-contrast algorithm was going to be to reverse APCAs main algorithm. Like the
-WCAG contrast algorithm APCA takes in two colors and spits out a number between
-\-108 and 106 to indicate how contrasting the color pair is. Looking at the
-difference between the WCAG and APCA algorithm above, reversing the APCA
-algorithm was going to be a lot more challenging than reversing the WCAG
-algorithm. Reversing the algorithm means restructuring in such a way that we can
-give the algorithm a color and a desired contrast distance and it will return a
-color that meets that criteria.
+    The first step towards my goal of generating a color palette based on the APCA
+    contrast algorithm was going to be to reverse APCAs main algorithm. Like the
+    WCAG contrast algorithm APCA takes in two colors and spits out a number between
+    -108 and 106 to indicate how contrasting the color pair is. Due to its complexity reversing the APCA
+    algorithm was going to be a lot more challenging than reversing the WCAG
+    algorithm. Reversing the algorithm means restructuring in such a way that we can
+    give the algorithm a color and a desired contrast distance and it will return a
+    color that meets that criteria.
 
-I knew that the [apca-w3 package](https://github.com/Myndex/apca-w3) already had
-a “reverse APCA” function. Originally I had thought that I needed to go further
-than that function (it is only able to do the reversal with grayscale colors).
-So as a side project on a climbing trip I was on with friends I tried to reverse
-the APCA algorithm myself (with the help of a physicist friend because I am not
-_that_ good at math).
+</FloatImage>
+
+    I knew that the [apca-w3 package](https://github.com/Myndex/apca-w3) already had
+    a “reverse APCA” function. Originally I had thought that I needed to go further
+    than that function (it is only able to do the reversal with grayscale colors).
+    So as a side project on a climbing trip I was on with friends I tried to reverse
+    the APCA algorithm myself (with the help of a physicist friend because I am not
+    _that_ good at math).
 
 <div
-    class="mx-auto my-8 md:-mx-6 lg:-mx-8 xl:-mx-28"
+    class="mx-auto my-8 md:-mx-4 lg:-mx-6 xl:-mx-12"
     style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;"
 >
-    <img
-        class="h-auto w-full rounded-lg"
-        src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-on-a-napkin.png"
-        alt="A photo of APCA related math I did on a napkin during the climbing trip"
-    />
-    <img
-        class="h-auto w-full rounded-lg"
-        src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/climbing-trip.png"
-        alt="A photo of me during a climbing trip with friends."
-    />
+    <figure class="m-0">
+        <div class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+            <img
+                class="h-auto w-full rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+                src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-on-a-napkin.png"
+                alt="A photo of APCA related math I did on a napkin during the climbing trip"
+            />
+        </div>
+    </figure>
+    <figure class="m-0">
+        <div class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+            <img
+                class="h-auto w-full rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+                src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/climbing-trip.png"
+                alt="A photo of me during a climbing trip with friends."
+            />
+        </div>
+    </figure>
 </div>
 
 If you look at the APCA algorithm some of its complexity stems from there being
 multiple possible cases and depending on which case you have the equation will
-look different. The main two cases that we need to consider for our reversed
+look different. The main four cases that we need to consider for our reversed
 algorithm are the polarity (is the text lighter than the background) and which
 of the two we are solving for (text or background).
 
@@ -166,113 +190,43 @@ So for the reversed algorithm we have 4 cases to consider:
 - **Case 3:** Light text on dark background, solving for background
 - **Case 4:** Dark text on light background, solving for background
 
-I will go through each of them and explain the reversal process.
+I will show my process for the first case. The process for the other cases is
+basically the same but having to do different substitiutions based on the case.
 
-### **Case 1: Light text on dark background, solving for text**
+---
 
-**Step 1:** Start with the output equation
-
+$$\textbf{Step 1: }\text{Start with the output equation} \\$$
 $$L_c = S_{apc} \times 100$$
 
-**Step 2:** Divide both sides by 100
-
+$$\textbf{Step 2: }\text{Divide both sides by 100} \\$$
 $$\frac{L_c}{100} = S_{apc}$$
 
-**Step 3:** In this case $C > 0$ so $S_{apc} = C - W_{offset}$
-
+$$\textbf{Step 3: }\text{In this case } C > 0 \text{ so } S_{apc} = C - W_{offset} \\$$
 $$\frac{L_c}{100} = C - W_{offset}$$
 
-**Step 4:** Solve for $C$
+$$\textbf{Step 4: }\text{Solve for } C \\$$ $$C = \frac{L_c}{100} + W_{offset}$$
 
-$$C = \frac{L_c}{100} + W_{offset}$$
-
-**Step 5:** Substitute $C\:=\:S_{norm}\:\times\:R_{scale}$
-
+$$\textbf{Step 5: }\text{Substitute } C = S_{norm} \times R_{scale} \\$$
 $$\frac{L_c}{100} + W_{offset} = S_{norm} \times R_{scale}$$
 
-**Step 6:** Solve for $S_{norm}$
-
+$$\textbf{Step 6: }\text{Solve for } S_{norm} \\$$
 $$S_{norm} = \frac{(L_c / 100) + W_{offset}}{R_{scale}}$$
 
-**Step 7:** Substitute $S_{norm}\:=\:Y_{bg}^{0.56}\:-\:Y_{txt}^{0.57}$
-
+$$\textbf{Step 7: }\text{Substitute } S_{norm} = Y_{bg}^{0.56} - Y_{txt}^{0.57} \\$$
 $$Y_{bg}^{0.56} - Y_{txt}^{0.57} = \frac{L_c/100 + W_{offset}}{R_{scale}}$$
 
-**Step 8:** Isolate $Y_{txt}^{0.57}$
-
+$$\textbf{Step 8: }\text{Isolate } Y_{txt}^{0.57} \\$$
 $$Y_{txt}^{0.57} = Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}$$
 
-**Step 9:** Raise both sides to the power of $\frac{1}{0.57}$
-
+$$\textbf{Step 9: }\text{Raise both sides to the power of } \frac{1}{0.57} \\$$
 $$Y_{txt} = \left(Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.57}$$
 
-### **Case 2: Dark text on light background, solving for text**
+---
 
-**Step 1:** Start with the output equation (in this case $L_c$ is negative)
+Repeating the same process for the other cases we get the following for
+equations for our 4 cases:
 
-$$-L_c = S_{apc} \times 100$$
-
-**Step 2:** Divide both sides by 100
-
-$$\frac{-L_c}{100} = S_{apc}$$
-
-**Step 3:** In this case $C < 0$ so $S_{apc} = C + W_{offset}$
-
-$$\frac{-L_c}{100} = C + W_{offset}$$
-
-**Step 4:** Solve for $C$
-
-$$C = \frac{-L_c}{100} - W_{offset}$$
-
-**Step 5:** Substitute $C = S_{rev} \times R_{scale}$
-
-$$\frac{-L_c}{100} - W_{offset} = S_{rev} \times R_{scale}$$
-
-**Step 6:** Solve for $S_{rev}$
-
-$$S_{rev} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
-
-**Step 7:** Substitute $S_{rev} = Y_{bg}^{0.65} - Y_{txt}^{0.62}$
-
-$$Y_{bg}^{0.65} - Y_{txt}^{0.62} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
-
-**Step 8:** Isolate $Y_{txt}^{0.62}$
-
-$$Y_{txt}^{0.62} = Y_{bg}^{0.65} - \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
-
-**Step 9:** Raise both sides to the power of $\frac{1}{0.62}$
-
-$$Y_{txt} = \left(Y_{bg}^{0.65} - \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.62}$$
-
-### **Case 3: Light text on dark background, solving for background**
-
-**Steps 1-7:** Same as Case 1
-
-$$Y_{bg}^{0.56} - Y_{txt}^{0.57} = \frac{L_c/100 + W_{offset}}{R_{scale}}$$
-
-**Step 8:** Isolate $Y_{bg}^{0.56}​$
-
-$$Y_{bg}^{0.56} = Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}$$
-
-**Step 9:** Raise both sides to the power of $\frac{1}{0.56}​$
-
-$$Y_{bg} = \left(Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.56}$$
-
-### **Case 4: Dark text on light background, solving for background**
-
-**Steps 1-7:** Same as Case 2
-
-$$Y_{bg}^{0.65} - Y_{txt}^{0.62} = \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
-
-**Steps 8:** Isolate $Y_{bg}^{0.65}$
-
-$$Y_{bg}^{0.65} = Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}$$
-
-**Steps 9:** Raise both sides to the power of $\frac{1}{0.65}$
-
-$$Y_{bg} = \left(Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.65}$$
-
-Now we have all of the equations that we need for our 4 cases:
+---
 
 $$Y_{txt} = \left(Y_{bg}^{0.56} - \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^{1/0.57}$$
 
@@ -282,53 +236,50 @@ $$Y_{bg} = \left(Y_{txt}^{0.57} + \frac{L_c/100 + W_{offset}}{R_{scale}}\right)^
 
 $$Y_{bg} = \left(Y_{txt}^{0.62} + \frac{-L_c/100 - W_{offset}}{R_{scale}}\right)^{1/0.65}$$
 
-And finally what needs to be remembered about APCA is that all input Y values
-need to be clamped and the Y value that is returned as the output of the reverse
-function needs to be unclamped. The two functions to clamp and unclamp Y are the
-following:
+---
+
+And finally what need in APCA all input Y values need to be clamped and the Y
+value that is returned as the output of the reverse function needs to be
+unclamped. The two functions to clamp and unclamp Y are the following:
+
+---
 
 $$\text{clamp}(Y) = \begin{cases} Y & \text{if } Y \geq B_{\text{thrsh}} \\Y + (B_{\text{thrsh}} - Y)^{B_{\text{exp}}} & \text{if } Y < B_{\text{thrsh}} \end{cases}$$
 
 $$\text{unclamp}(Y) = \begin{cases} Y & \text{if } Y > B_{\text{thrsh}} \\\left((Y + M_{\text{in}}) \cdot M_f\right)^{M_e} \cdot M_{f}^{-1} - M_{\text{out}} & \text{if } Y \leq B_{\text{thrsh}} \end{cases}$$
 
-$$\text{where:}$$
+$$\text{where:} \\$$ $$\quad B_{thrsh} = 0.022 \\$$ $$\quad B_{exp} = 1.414 \\$$
+$$\quad M_{in} = 0.0387393816571401 \\$$
+$$\quad M_{out} = 0.312865795870758 \\$$ $$\quad M_f = 1.9468554433171 \\$$
+$$\quad M_e = \frac{0.283343396420869}{B_{\text{exp}}} \\$$
+$$\quad M_{f}^{-1} = \frac{1}{1.9468554433171}$$
 
-$$
-\begin{aligned}
-B_{\text{thrsh}} &= 0.022 \\
-B_{\text{exp}} &= 1.414 \\
-M_{\text{in}} &= 0.0387393816571401 \\
-M_{\text{out}} &= 0.312865795870758 \\
-M_f &= 1.9468554433171 \\
-M_e &= \frac{0.283343396420869}{B_{\text{exp}}} \\
-M_{f}^{-1} &= \frac{1}{1.9468554433171}
-\end{aligned}
-$$
+---
 
 With all the scary math out of the way I was ready to translate all of this into
 code. When I did that I realized what I had done so far was figure out the
 necessary Y component (in the XYZ color space) of a color with the right
-contrast value distance but not a full color. So my code is essentially able to
-get a grayscale color that is the right contrast distance away from the input
+contrast value distance but not a full color. So the formula is essentially able
+to get a grayscale color that is the right contrast distance away from the input
 color. So the same as the reverse APCA function that is already included in the
 apca-we package 😅.
 
 After I had this realization I took another look at Matthew Ström’s article
-(which was what I’ve been wanting to replicate but with APCA contrast values
-being APCA based) and I realized that the Y component was actually all I needed
-for this specific way of generating a color palette.
+(which was what I’ve been wanting to replicate but with contrast values being
+APCA based) and I realized that the Y component was actually all I needed for
+this specific way of generating a color palette.
 
 So I could have used the function available in the apca-w3 package. But I still
 found reversing it myself a nice learning experience and since the apca-w3 is
 not fully open source (it does not have a standard open source license) I also
 thought that it would be nice to have an implementation of the reversed
-algorithm with a truly open source license. I am also not sure if what I did is
+algorithm with a truly open source license. I am not sure if what I did is
 compliant with the
 [APCA trademark license](https://git.apcacontrast.com/documentation/LICENSE.html)
-so I am also going to abstain from claiming that my result is APCA compliant.
+so I am going to abstain from claiming that my result is APCA compliant.
 
-So the code for my reverse perceptual contrast finder that is based on the
-approach found in the APCA algorithm is the following:
+The code for my reverse perceptual contrast finder that is based on the approach
+found in the APCA algorithm is the following:
 
 ```javascript
 /**
@@ -703,7 +654,383 @@ export function generateColorScale(
 And just like that we can generate a color palette with predictable APCA based
 contrast shades:
 
-![][image56]
+<table>
+    <thead>
+        <tr>
+            <th>Shade</th>
+            <th style="padding-left:18px;">Gray</th>
+            <th style="padding-left:18px;">Blue</th>
+            <th style="padding-left:18px;">Green</th>
+            <th style="padding-left:18px;">Red</th>
+            <th style="padding-left:18px;">Yellow</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fff</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fff</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fff</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fff</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fff</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#e9e9e9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#e9e9e9</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#e4eaf4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#e4eaf4</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#dfeee1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#dfeee1</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f4e6e4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f4e6e4</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f2e8dc;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f2e8dc</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#d7d7d7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#d7d7d7</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#c7d9f5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#c7d9f5</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#a9eab2;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#a9eab2</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f5ccc7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f5ccc7</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f3d1a9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f3d1a9</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#c4c4c4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#c4c4c4</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#a5c6fa;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#a5c6fa</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#66e37e;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#66e37e</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#faaea5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#faaea5</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f7b666;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f7b666</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>40</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#b1b1b1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#b1b1b1</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#81b2fe;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#81b2fe</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#32d25b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#32d25b</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#fd8c81;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#fd8c81</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f09c1b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f09c1b</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#9c9c9c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#9c9c9c</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#5a9cff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#5a9cff</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#00bd43;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#00bd43</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#ff5f58;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#ff5f58</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#d88900;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#d88900</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>60</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#878787;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#878787</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#3083f8;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#3083f8</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#2ba142;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#2ba142</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#f32c34;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#f32c34</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#bb7608;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#bb7608</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>70</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#707070;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#707070</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#2a6ecb;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#2a6ecb</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#3b8343;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#3b8343</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#c13938;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#c13938</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#9a6317;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#9a6317</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>80</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#585858;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#585858</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#2e5892;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#2e5892</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#38643a;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#38643a</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#8c3a37;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#8c3a37</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#754f23;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#754f23</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>90</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#3c3c3c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#3c3c3c</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#2c3d56;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#2c3d56</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#2f422f;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#2f422f</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#543230;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#543230</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#4b3926;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#4b3926</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#000</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#000</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#000</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#000</span>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex;align-items:center;white-space:nowrap;">
+                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                    <span>#000</span>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 You can also find all of this code in
 [a Github repository](https://github.com/dgtlntv/perceptual-contrast-palette).

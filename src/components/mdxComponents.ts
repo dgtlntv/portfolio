@@ -20,6 +20,7 @@ import MDXAnchor from "./Content/MDX/MDXAnchor.astro"
 import MDXPre from "./Content/MDX/MDXPre.astro"
 import MDXCode from "./Content/MDX/MDXCode.astro"
 import MDXImage from "./Content/MDX/MDXImage.astro"
+import MDXFigure from "./Content/MDX/MDXFigure.astro"
 
 export const components = {
     FloatImage,
@@ -29,6 +30,7 @@ export const components = {
     MetricsMockup,
     TalkExplanationAnimation,
     TalkHeroAnimation,
+    MDXFigure,
     p: MDXParagraph,
     h1: MDXH1,
     h2: MDXH2,

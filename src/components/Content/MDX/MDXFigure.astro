@@ -1,0 +1,28 @@
+---
+interface Props {
+    src?: string
+    alt?: string
+    caption?: string
+    [key: string]: any
+}
+
+const { src, alt, caption, ...props } = Astro.props
+---
+
+<figure
+    class="relative mx-auto md:-mx-4 lg:-mx-6 xl:-mx-12 my-8"
+>
+    <div class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+        <img
+            class="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+            src={src}
+            alt={alt}
+            {...props}
+        />
+        {caption && (
+            <figcaption class="mt-2 text-center text-sm text-gray-500">
+                {caption}
+            </figcaption>
+        )}
+    </div>
+</figure>
