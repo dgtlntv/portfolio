@@ -65,11 +65,8 @@ uniform color spaces and
 
 ## How humans perceive contrast
 
-<FloatImage
-    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png"
-    alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one"
-    direction="right"
->
+<FloatContent position="right">
+<AnimatedImage src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png" alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one" rotationDirection="right" slot="content" />
     One of the things I learned during my research was the shortcomings of the
     contrast algorithm currently recommended in the [WCAG
     guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html),
@@ -93,7 +90,7 @@ uniform color spaces and
     Obviously this article was one of the main inspirations for my following work
     and this blog post.
 
-</FloatImage>
+</FloatContent>
 
 ## Generating color palettes for design systems…
 
@@ -128,12 +125,8 @@ interesting to try the same approach with APCA as well. I thought trying to do
 it with APCA sounded like an interesting challenge so I started investigating
 its feasibility.
 
-<FloatImage
-    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca.png"
-    alt="It shows the math formulas of APCA"
-    caption="The full APCA formula"
-    direction="left"
->
+<FloatContent position="left">
+<AnimatedImage src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca.png" alt="It shows the math formulas of APCA" caption="The full APCA formula" rotationDirection="left" slot="content" />
 
     The first step towards my goal of generating a color palette based on the APCA
     contrast algorithm was going to be to reverse APCAs main algorithm. Like the
@@ -144,7 +137,7 @@ its feasibility.
     give the algorithm a color and a desired contrast distance and it will return a
     color that meets that criteria.
 
-</FloatImage>
+</FloatContent>
 
     I knew that the [apca-w3 package](https://github.com/Myndex/apca-w3) already had
     a “reverse APCA” function. Originally I had thought that I needed to go further

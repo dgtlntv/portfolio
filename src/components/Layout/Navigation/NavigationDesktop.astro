@@ -1,0 +1,24 @@
+---
+import { NAVIGATION_LINKS } from "../../../data/navigation"
+import ContactButton from "./ContactButton.astro"
+import NavigationItem from "./NavigationItem.astro"
+
+const currentPath = Astro.url.pathname
+---
+
+<div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+    <nav class="flex items-center gap-8" aria-label="Primary navigation">
+        {
+            NAVIGATION_LINKS.map((link) => (
+                <NavigationItem
+                    to={link.to}
+                    label={link.label}
+                    isExternal={link.isExternal}
+                    variant="desktop"
+                    currentPath={currentPath}
+                />
+            ))
+        }
+        <ContactButton />
+    </nav>
+</div>

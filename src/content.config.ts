@@ -8,6 +8,7 @@ const blog = defineCollection({
         author: z.string().optional(),
         excerpt: z.string().optional(),
         coverImage: z.string().optional(),
+        heroAltText: z.string().optional(),
         heroLocation: z.enum(["cover", "contain"]).optional(),
         stats: z
             .array(
@@ -17,6 +18,13 @@ const blog = defineCollection({
                 }),
             )
             .optional(),
+    }).refine((data) => {
+        if (data.coverImage && !data.heroAltText) {
+            return false
+        }
+        return true
+    }, {
+        message: "heroAltText is required when coverImage is provided",
     }),
 })
 
@@ -26,6 +34,7 @@ const projects = defineCollection({
         title: z.string(),
         excerpt: z.string().optional(),
         coverImage: z.string().optional(),
+        heroAltText: z.string().optional(),
         heroLocation: z.enum(["cover", "contain"]).optional(),
         asciiDarken: z.number().optional(),
         stats: z
@@ -36,6 +45,13 @@ const projects = defineCollection({
                 }),
             )
             .optional(),
+    }).refine((data) => {
+        if (data.coverImage && !data.heroAltText) {
+            return false
+        }
+        return true
+    }, {
+        message: "heroAltText is required when coverImage is provided",
     }),
 })
 

@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Home from "../components/Home.astro"
+import CubeTransparent from "astro-heroicons/outline/CubeTransparent.astro"
 ---
 
 <Layout
@@ -8,5 +8,29 @@ import Home from "../components/Home.astro"
     showFooter={false}
     setContentMaxWidth={false}
 >
-    <Home />
+    <div class="absolute top-0 right-0 bottom-0 left-0">
+        <three-scene></three-scene>
+    </div>
+    <div class="absolute right-0 bottom-4 left-0 flex justify-center lg:hidden">
+        <button
+            id="reset-orientation-btn"
+            class="inline-flex items-center rounded-md border border-transparent bg-gray-900 px-3 py-2 text-sm leading-4 font-medium text-white shadow-sm hover:bg-gray-700 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none"
+        >
+            <CubeTransparent class="mr-2 -ml-0.5 h-4 w-4" />
+            Reset Rotation
+        </button>
+    </div>
 </Layout>
+
+<script>
+    import { deviceOrientationTracker } from "../utils/deviceOrientationTracker";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const resetButton = document.getElementById('reset-orientation-btn');
+        if (resetButton) {
+            resetButton.addEventListener('click', () => {
+                deviceOrientationTracker.resetInitialOrientation();
+            });
+        }
+    });
+</script>

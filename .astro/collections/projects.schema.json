@@ -13,6 +13,9 @@
         "coverImage": {
           "type": "string"
         },
+        "heroAltText": {
+          "type": "string"
+        },
         "heroLocation": {
           "type": "string",
           "enum": [
@@ -41,9 +44,6 @@
             ],
             "additionalProperties": false
           }
-        },
-        "$schema": {
-          "type": "string"
         }
       },
       "required": [

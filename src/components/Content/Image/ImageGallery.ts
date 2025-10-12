@@ -1,7 +1,7 @@
-import { LitElement, html, css, nothing } from "lit"
-import { property, state } from "lit/decorators.js"
-import { ref } from "lit/directives/ref.js"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { LitElement, html, css, nothing, type PropertyValues } from "lit"
+import { property, state, queryAll } from "lit/decorators.js"
+import { classMap } from "lit/directives/class-map.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 interface ImageWithCaption {
     id: string | number
@@ -26,36 +26,16 @@ class ImageGallery extends LitElement {
         `,
     ]
 
-    @property({ type: String })
-    images: string = "[]"
+    @property({ type: Array })
+    images: ImageWithCaption[] = []
 
     @state()
-    private selectedIndex: number = 0
+    private selectedIndex = 0
 
-    @state()
-    private parsedImages: ImageWithCaption[] = []
+    @queryAll('button[role="tab"]')
+    private tabs!: NodeListOf<HTMLButtonElement>
 
-    private tabs: HTMLButtonElement[] = []
-    private panels: HTMLDivElement[] = []
-
-    connectedCallback() {
-        super.connectedCallback()
-        this.parseImages()
-        // Make the component focusable
-        if (!this.hasAttribute("tabindex")) {
-            this.setAttribute("tabindex", "0")
-        }
-
-        // Add keyboard event listener to the component itself
-        this.addEventListener("keydown", this.handleGlobalKeyDown.bind(this))
-    }
-
-    disconnectedCallback() {
-        super.disconnectedCallback()
-        this.removeEventListener("keydown", this.handleGlobalKeyDown.bind(this))
-    }
-
-    private handleGlobalKeyDown(event: KeyboardEvent) {
+    private handleGlobalKeyDown = (event: KeyboardEvent): void => {
         // Only handle if the component or one of its children has focus
         if (!this.contains(event.target as Node) && event.target !== this) {
             return
@@ -70,7 +50,7 @@ class ImageGallery extends LitElement {
                 newIndex = this.selectedIndex - 1
                 // Wrap around to last if at first
                 if (newIndex < 0) {
-                    newIndex = this.parsedImages.length - 1
+                    newIndex = this.images.length - 1
                 }
                 break
             case "ArrowRight":
@@ -78,7 +58,7 @@ class ImageGallery extends LitElement {
                 event.preventDefault()
                 newIndex = this.selectedIndex + 1
                 // Wrap around to first if at last
-                if (newIndex >= this.parsedImages.length) {
+                if (newIndex >= this.images.length) {
                     newIndex = 0
                 }
                 break
@@ -88,7 +68,7 @@ class ImageGallery extends LitElement {
                 break
             case "End":
                 event.preventDefault()
-                newIndex = this.parsedImages.length - 1
+                newIndex = this.images.length - 1
                 break
             default:
                 return // Don't handle other keys
@@ -102,56 +82,47 @@ class ImageGallery extends LitElement {
         }
     }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
-        if (changedProperties.has("images")) {
-            this.parseImages()
+    connectedCallback(): void {
+        super.connectedCallback()
+        // Make the component focusable
+        if (!this.hasAttribute("tabindex")) {
+            this.setAttribute("tabindex", "0")
+        }
+
+        // Add keyboard event listener to the component itself
+        this.addEventListener("keydown", this.handleGlobalKeyDown)
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback()
+        this.removeEventListener("keydown", this.handleGlobalKeyDown)
+    }
+
+    protected willUpdate(changedProperties: PropertyValues<this>): void {
+        // Reset selected index if it's out of bounds
+        if (
+            changedProperties.has("images") &&
+            this.selectedIndex >= this.images.length
+        ) {
+            this.selectedIndex = 0
         }
     }
 
-    private parseImages() {
-        try {
-            this.parsedImages = JSON.parse(this.images) as ImageWithCaption[]
-            if (this.selectedIndex >= this.parsedImages.length) {
-                this.selectedIndex = 0
-            }
-        } catch (e) {
-            console.error("Failed to parse images JSON:", e)
-            this.parsedImages = []
-        }
-    }
-
-    private classNames(...classes: (string | false | undefined)[]): string {
-        return classes.filter(Boolean).join(" ")
-    }
-
-    private handleTabClick(index: number) {
+    private handleTabClick(index: number): void {
         this.selectedIndex = index
     }
 
-    private handleTabKeyDown(event: KeyboardEvent, index: number) {
+    private handleTabKeyDown(event: KeyboardEvent, index: number): void {
         // Only handle space and enter locally, let the global handler manage arrows
         if (event.key === " " || event.key === "Enter") {
             event.preventDefault()
             event.stopPropagation()
             this.selectedIndex = index
-            return
-        }
-    }
-
-    private updateTabsRef(el: Element | undefined, index: number) {
-        if (el && el instanceof HTMLButtonElement) {
-            this.tabs[index] = el
-        }
-    }
-
-    private updatePanelRef(el: Element | undefined, index: number) {
-        if (el && el instanceof HTMLDivElement) {
-            this.panels[index] = el
         }
     }
 
     render() {
-        if (!this.parsedImages.length) {
+        if (!this.images.length) {
             return nothing
         }
 
@@ -166,12 +137,9 @@ class ImageGallery extends LitElement {
                         role="tablist"
                         aria-orientation="horizontal"
                     >
-                        ${this.parsedImages.map(
+                        ${this.images.map(
                             (image, index) => html`
                                 <button
-                                    ${ref((el?: Element) =>
-                                        this.updateTabsRef(el, index),
-                                    )}
                                     role="tab"
                                     aria-selected="${this.selectedIndex ===
                                     index}"
@@ -197,12 +165,14 @@ class ImageGallery extends LitElement {
                                         />
                                     </span>
                                     <span
-                                        class="${this.classNames(
-                                            this.selectedIndex === index
-                                                ? "ring-red-500"
-                                                : "ring-transparent",
-                                            "pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2",
-                                        )}"
+                                        class="${classMap({
+                                            "ring-red-500":
+                                                this.selectedIndex === index,
+                                            "ring-transparent":
+                                                this.selectedIndex !== index,
+                                            "pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2":
+                                                true,
+                                        })}"
                                         aria-hidden="true"
                                     ></span>
                                 </button>
@@ -213,18 +183,12 @@ class ImageGallery extends LitElement {
 
                 <!-- Tab panels -->
                 <div class="aspect-w-1 aspect-h-2 w-full">
-                    ${this.parsedImages.map(
+                    ${this.images.map(
                         (image, index) => html`
                             <div
-                                ${ref((el?: Element) =>
-                                    this.updatePanelRef(el, index),
-                                )}
                                 id="panel-${index}"
                                 role="tabpanel"
                                 aria-labelledby="tab-${index}"
-                                tabindex="${this.selectedIndex === index
-                                    ? "0"
-                                    : "-1"}"
                                 aria-hidden="${this.selectedIndex !== index}"
                                 class="tab-panel"
                             >

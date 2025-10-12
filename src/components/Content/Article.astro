@@ -1,6 +1,4 @@
 ---
-import ArticleText from "./ArticleText.astro"
-
 interface Stat {
     label: string
     value: string
@@ -9,35 +7,47 @@ interface Stat {
 interface Props {
     title: string
     heroUrl?: string
+    heroAltText?: string
     heroLocation?: "contain" | "cover"
     stats?: Stat[]
     date?: string
 }
 
-const { title, heroUrl, heroLocation = "cover", stats, date } = Astro.props
+const {
+    title,
+    heroUrl,
+    heroAltText,
+    heroLocation = "cover",
+    stats,
+    date,
+} = Astro.props
 
 const isVideo = heroUrl?.endsWith(".webm")
+const mediaClasses = `w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`
 ---
 
 <div
-    class="grid grid-cols-subgrid col-span-full relative overflow-hidden bg-white pt-8 pb-16 lg:py-12"
+    class="grid grid-cols-subgrid col-span-full relative bg-white pt-8 pb-16 lg:py-12"
 >
     {
         heroUrl && (
             <div class="mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-span-9 md:col-start-2">
                 {isVideo ? (
                     <video
-                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                        class={mediaClasses}
                         src={heroUrl}
                         controls={false}
-                        autoplay={true}
+                        autoplay
                         loop
+                        muted
+                        playsinline
+                        webkit-playsinline
                     />
                 ) : (
                     <img
-                        class={`w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`}
+                        class={mediaClasses}
                         src={heroUrl}
-                        alt=""
+                        alt={heroAltText || ""}
                     />
                 )}
             </div>
@@ -58,9 +68,14 @@ const isVideo = heroUrl?.endsWith(".webm")
     {
         stats && stats.length > 0 && (
             <div class="font-fancy mt-8 md:col-span-7 md:col-start-2">
-                <dl class="grid grid-cols-2 gap-x-4 gap-y-6">
-                    {stats.map((stat) => (
-                        <div class="border-y border-gray-100 py-3 text-center">
+                <dl class="grid grid-cols-2 gap-x-4">
+                    {stats.map((stat, index) => (
+                        <div
+                            class="border-t border-gray-100 py-3 text-center"
+                            class:list={[
+                                index >= stats.length - 2 && "border-b",
+                            ]}
+                        >
                             <dt class="text-sm font-medium text-gray-500">
                                 {stat.label}
                             </dt>
@@ -75,8 +90,10 @@ const isVideo = heroUrl?.endsWith(".webm")
     }
 
     <div class="md:col-span-7 md:col-start-2">
-        <ArticleText>
+        <div
+            class="prose prose-red prose-md max-w-none mx-auto mt-16 marker:text-red-500"
+        >
             <slot />
-        </ArticleText>
+        </div>
     </div>
 </div>

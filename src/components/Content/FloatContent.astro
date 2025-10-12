@@ -1,0 +1,18 @@
+---
+interface Props {
+    position?: "left" | "right"
+}
+
+const { position = "right" } = Astro.props
+
+const floatClasses = `xl:mx-0 xl:mb-0 xl:max-w-xl xl:pb-6 ${position === "left" ? "xl:float-left xl:-ml-28 xl:pr-8" : "xl:float-right xl:-mr-28 xl:pl-8"}`
+---
+
+<div class="flex flex-col xl:flow-root">
+    <div class={`mx-auto ${floatClasses}`}>
+        <slot name="content" />
+    </div>
+    <div class="mt-4 xl:mt-0">
+        <slot />
+    </div>
+</div>

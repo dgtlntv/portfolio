@@ -5,7 +5,8 @@ slug: talk
 excerpt:
     A presentation tool that automatically navigates and formats content based
     on spoken words, aiming to solve "Death by PowerPoint".
-coverImage: "/images/projects/talk/nasa-hero-image.webp"
+coverImage: "/images/projects/talk/talk-hero-image.webp"
+heroAltText: "A photo showing a person presenting in front of a screen."
 heroLocation: "cover"
 stats:
     [
@@ -16,11 +17,11 @@ stats:
 
 ## Problem
 
-<FloatImage
-  src="/images/projects/talk/nasa-presentation.webp"
-  alt="NASA PowerPoint slide from Columbia accident investigation showing complex risk assessment data in poorly formatted bullet points, demonstrating ineffective presentation design that contributed to communication failures"
-  caption="PowerPoint Slide as seen in the report of the Nasa accident investigation committee."
->
+<FloatContent position="left">
+<AnimatedImage src="/images/projects/talk/nasa-presentation.webp" alt="NASA PowerPoint slide from Columbia accident investigation showing complex risk assessment data in poorly formatted bullet points, demonstrating ineffective presentation design that contributed to communication failures" rotationDirection="left" slot="content" />
+  <figcaption slot="content">
+      PowerPoint Slide as seen in the report of the Nasa accident investigation committee.
+  </figcaption>
 
 For my bachelor's thesis, I wanted to tackle a problem I had experienced
 countless times throughout university: the numbing feeling of sitting through
@@ -34,7 +35,7 @@ While most presentations don't have life-or-death consequences, poor
 presentation tools still create inefficient communication cultures plagued by
 inattention, misunderstandings, and wasted time and energy.
 
-</FloatImage>
+</FloatContent>
 
 <TalkHeroAnimation />
 
@@ -51,7 +52,7 @@ based on your words.
 
 ## How it works
 
-<FloatImage>
+<FloatContent position="left">
   <TalkExplanationAnimation slot="content" />
   <figcaption slot="content">
       Connecting paragraphs of the script with visualizations.
@@ -74,7 +75,7 @@ patterns and translates them into corresponding visual elements. Automatically
 creating emphasis and de-emphasis in the presentation that aligns with what
 you're saying.
 
-</FloatImage>
+</FloatContent>
 
 For example, if one were to say during a presentation:
 

@@ -1,6 +1,6 @@
 ---
-import Footer from "../components/Footer.astro"
-import Navigation from "../components/Navigation/Navigation.astro"
+import Footer from "../components/Layout/Footer.astro"
+import Navigation from "../components/Layout/Navigation/Navigation.astro"
 import "../styles/global.css"
 
 export interface Props {
@@ -43,7 +43,7 @@ const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
         </div>
 
         <script>
-            import("../components/webComponents.ts").then((module) => {
+            import("../utils/webComponents.ts").then((module) => {
                 module.registerWebComponents()
             })
         </script>

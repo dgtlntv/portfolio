@@ -1,20 +1,15 @@
 ---
+import AnimatedImage from "../Image/AnimatedImage.astro"
+
 interface Props {
-    src?: string
-    alt?: string
+    src: string
+    alt: string
     [key: string]: any
 }
 
 const { src, alt, ...props } = Astro.props
 ---
 
-<div
-    class="relative mx-auto md:-mx-4 lg:-mx-6 xl:-mx-12 my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu"
->
-    <img
-        class="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
-        src={src}
-        alt={alt}
-        {...props}
-    />
+<div class="relative mx-auto md:-mx-4 lg:-mx-6 xl:-mx-12 my-8">
+    <AnimatedImage src={src} alt={alt} rotationDirection="right" {...props} />
 </div>

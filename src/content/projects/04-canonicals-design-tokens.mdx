@@ -7,6 +7,10 @@ excerpt:
     guidelines and built foundational token sets for color, spacing, and
     typography.
 coverImage: "/images/projects/canonical-design-tokens/design-tokens-showcase.webp"
+heroAltText:
+    "Different geometric shapes that are supposed to symbolize Design tokens in
+    an abstract way. They have text attached to them that represent their design
+    token names."
 heroLocation: "cover"
 asciiDarken: 0.89
 stats:
@@ -66,22 +70,19 @@ visual properties, getting the naming right is critical to their success.
 Working with another designer, we began drafting a specification for how to
 structure and name design tokens at Canonical.
 
-<FloatImage
-    direction="right"
-    content={
-        <DocumentSkeleton
-            title="Design tokens specification"
-            lines={18}
-            className="max-w-sm"
-            metadata={[
-                { label: "Author:", value: "Design team" },
-                { label: "Date:", value: "September 2024" },
-                { label: "Version:", value: "1.1" },
-                { label: "Status:", value: "Approved" }
-            ]}
-        />
-    }
->
+<FloatContent position="right">
+<DocumentSkeleton
+    title="Design tokens specification"
+    lines={18}
+    className="max-w-sm"
+    metadata={[
+        { label: "Author:", value: "Design team" },
+        { label: "Date:", value: "September 2024" },
+        { label: "Version:", value: "1.1" },
+        { label: "Status:", value: "Approved" }
+    ]}
+    slot="content"
+/>
 
 I had seen great success with a collaborative format when creating the
 [Figma libraries](/projects/canonicals-figma-libraries), where I created an
@@ -95,7 +96,7 @@ Through this collaborative process, we reached agreement on the taxonomy for
 design tokens at Canonical, covering naming conventions, token organization, and
 processes for storing and updating them.
 
-</FloatImage>
+</FloatContent>
 
 ## Implementation
 
@@ -107,12 +108,8 @@ scaleable. So while working on design tokens I was not only looking to translate
 our current visual foundations into a Design token framework but take the
 opportunity and adopt a more systematic approach to visual foundations.
 
-<FloatImage
-    direction="left"
-    content={
-        <ColorPaletteMockup className="min-w-md max-w-lg" />
-    }
->
+<FloatContent position="left">
+<ColorPaletteMockup className="min-w-md max-w-lg" slot="content" />
 
 For colors for example, we previously didn't have a proper UI palette. Colors
 were added on an as needed basis. I wanted to use the color token work as an
@@ -122,7 +119,7 @@ where he describes an approach where you do not create shades based on lightness
 but based on contrast between shades (which makes creating accessible color
 combinations easier).
 
-</FloatImage>
+</FloatContent>
 
 At the time of writing, I had created primitive dimension tokens, primitive and
 semantic typography tokens, and was almost finished with the color tokens. With

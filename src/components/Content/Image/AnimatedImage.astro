@@ -1,0 +1,26 @@
+---
+interface Props {
+    src: string
+    alt: string
+    rotationDirection?: "left" | "right"
+    class?: string
+    [key: string]: any
+}
+
+const { src, alt, rotationDirection = "right", class: className = "", ...props } = Astro.props
+
+const rotationClass = rotationDirection === "left"
+    ? "hover:rotate-[0.5deg]"
+    : "hover:rotate-[-0.5deg]"
+---
+
+<div
+    class={`transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu ${rotationClass}`}
+>
+    <img
+        src={src}
+        alt={alt}
+        class={`h-auto w-full rounded-lg object-contain transition duration-700 ease-in-out hover:scale-[1.01] ${className}`}
+        {...props}
+    />
+</div>
