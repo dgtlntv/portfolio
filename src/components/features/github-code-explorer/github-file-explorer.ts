@@ -1,8 +1,9 @@
-import { LitElement, html, css, TemplateResult } from "lit"
+import { LitElement, html, css } from "lit"
+import type { TemplateResult } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import { FileNode } from "./types"
+import type { FileNode } from "./types"
 import { getFileIcon, getFolderIcon } from "./file-icons"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 const IGNORED_FILES = new Set([
     ".gitignore",

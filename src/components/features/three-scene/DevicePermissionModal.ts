@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 class DevicePermissionModal extends LitElement {
     static styles = [

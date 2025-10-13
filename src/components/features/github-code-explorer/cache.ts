@@ -1,4 +1,4 @@
-import { CacheData } from './types'
+import type { CacheData } from './types'
 
 const CACHE_TTL = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
 

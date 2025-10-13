@@ -1,4 +1,4 @@
-import { GitHubTreeResponse, GitHubFileContent, FileNode, ApiError } from './types'
+import type { GitHubTreeResponse, GitHubFileContent, FileNode, ApiError } from './types'
 
 function buildFileTree(treeItems: GitHubTreeResponse['tree']): FileNode[] {
   const nodes: FileNode[] = []

@@ -3,14 +3,18 @@
 - src/pages/projects/[slug].astro
 - src/pages/projects/index.astro
 - src/layouts/Layout.astro
-- src/components/Content/\*
+- src/components/content/\*
 - src/pages/index.astro
 - src/styles/global.css
 - src/styles/styleSheet.ts
 - src/content/\*
 - src/data/\*
-- src/components/Layout/\*
+- src/components/layout/\*
+- src/components/ui/\*
 
 still need to refactor and check:
 
-- src/components/Content/Embeds
+- src/components/embeds
+- src/components/features
+- src/types/\*
+- src/utils/\*

@@ -1,4 +1,5 @@
-import { svg, SVGTemplateResult } from "lit"
+import { svg } from "lit"
+import type { SVGTemplateResult } from "lit"
 
 export function getFileIcon(fileName: string): SVGTemplateResult {
     const extension = fileName.split(".").pop()?.toLowerCase() || ""

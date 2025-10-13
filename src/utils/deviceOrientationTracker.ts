@@ -1,6 +1,6 @@
 import { RelativeOrientationSensor } from "motion-sensors-polyfill"
 import { Quaternion } from "three"
-import { Orientation } from "../types/common"
+import type { Orientation } from "../types/common"
 import { requestDevicePermission } from "./devicePermission"
 
 export interface DeviceOrientationTracker {

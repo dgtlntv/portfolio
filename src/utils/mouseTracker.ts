@@ -1,4 +1,4 @@
-import { Mouse2D } from '../types/common'
+import type { Mouse2D } from '../types/common'
 
 export class MouseTracker {
     private position: Mouse2D = { x: 0, y: 0 }

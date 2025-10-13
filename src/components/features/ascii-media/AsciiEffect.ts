@@ -1,4 +1,4 @@
-import { AsciiEffectOptions, AsciiEffectConfig, DrawableElement } from "./types"
+import type { AsciiEffectOptions, AsciiEffectConfig, DrawableElement } from "./types"
 
 /**
  * Unified ASCII effect that works with any drawable HTML element (img, video, canvas)

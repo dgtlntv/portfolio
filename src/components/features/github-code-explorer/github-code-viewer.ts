@@ -1,4 +1,5 @@
-import { LitElement, html, css, TemplateResult } from "lit"
+import { LitElement, html, css } from "lit"
+import type { TemplateResult } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import { unsafeHTML } from "lit/directives/unsafe-html.js"
 import Prism from "prismjs"
@@ -8,7 +9,7 @@ import "prismjs/components/prism-python"
 import "prismjs/components/prism-json"
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-markup"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 @customElement("github-code-viewer")
 export class GitHubCodeViewer extends LitElement {

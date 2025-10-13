@@ -1,10 +1,10 @@
 import { LitElement } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import * as THREE from "three"
-import { modelLoader } from "../../utils/modelLoader"
-import { mouseTracker } from "../../utils/mouseTracker"
-import { deviceOrientationTracker } from "../../utils/deviceOrientationTracker"
-import { Mouse2D, Orientation } from "../../types/common"
+import { modelLoader } from "../../../utils/modelLoader"
+import { mouseTracker } from "../../../utils/mouseTracker"
+import { deviceOrientationTracker } from "../../../utils/deviceOrientationTracker"
+import type { Mouse2D, Orientation } from "../../../types/common"
 
 @customElement("profile-model")
 export class ProfileModel extends LitElement {

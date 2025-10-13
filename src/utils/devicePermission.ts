@@ -1,4 +1,4 @@
-import type { DevicePermissionModal } from "../components/Modal/DevicePermissionModal.js"
+import type { DevicePermissionModal } from "../components/features/three-scene/DevicePermissionModal.js"
 
 export async function requestDevicePermission(): Promise<PermissionState> {
     if (navigator.permissions) {

@@ -1,8 +1,9 @@
-import { LitElement, html, css, TemplateResult } from "lit"
+import { LitElement, html, css } from "lit"
+import type { TemplateResult } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
 import { marked } from "marked"
 import { unsafeHTML } from "lit/directives/unsafe-html.js"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 @customElement("github-markdown-viewer")
 export class GitHubMarkdownViewer extends LitElement {

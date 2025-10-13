@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import { FileNode, ApiError } from "./types"
+import type { FileNode, ApiError } from "./types"
 import { fetchRepositoryTree, fetchFileContent } from "./githubApi"
 import {
     getCachedData,
@@ -8,7 +8,7 @@ import {
     updateCachedFileContent,
     clearExpiredCaches,
 } from "./cache"
-import { globalStyleSheet } from "../../styles/styleSheet.js"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 import "./github-file-explorer"
 import "./github-code-viewer"
 import "./github-markdown-viewer"
