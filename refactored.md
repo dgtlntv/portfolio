@@ -11,10 +11,10 @@
 - src/data/\*
 - src/components/layout/\*
 - src/components/ui/\*
+- src/components/embeds
 
 still need to refactor and check:
 
-- src/components/embeds
 - src/components/features
 - src/types/\*
 - src/utils/\*

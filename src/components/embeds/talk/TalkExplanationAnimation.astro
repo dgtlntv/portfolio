@@ -1,14 +1,9 @@
 ---
+import LottieAnimation from "./LottieAnimation.astro"
 ---
 
-<script>
-    import '@lottiefiles/dotlottie-wc';
-</script>
-
-<dotlottie-wc 
+<LottieAnimation
     src="/animations/talk/preperation_animation.json"
-    speed="1.5"
-    autoplay="true" 
-    loop="true"
+    speed={1.5}
     class="overflow-hidden"
-></dotlottie-wc>
+/>
