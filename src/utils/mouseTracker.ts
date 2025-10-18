@@ -1,4 +1,7 @@
-import type { Mouse2D } from '../types/common'
+export interface Mouse2D {
+  x: number
+  y: number
+}
 
 export class MouseTracker {
     private position: Mouse2D = { x: 0, y: 0 }

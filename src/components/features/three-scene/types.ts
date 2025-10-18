@@ -1,5 +1,8 @@
 import type { ReactNode } from "react"
-import type { WithChildren } from "../../../types"
+
+export interface WithChildren {
+  children: ReactNode
+}
 
 export interface ModalContextType {
     openModal: (content: ReactNode, onClose?: () => void) => void

@@ -2,9 +2,8 @@ import { LitElement } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import * as THREE from "three"
 import { modelLoader } from "../../../utils/modelLoader"
-import { mouseTracker } from "../../../utils/mouseTracker"
-import { deviceOrientationTracker } from "../../../utils/deviceOrientationTracker"
-import type { Mouse2D, Orientation } from "../../../types/common"
+import { mouseTracker, type Mouse2D } from "../../../utils/mouseTracker"
+import { deviceOrientationTracker, type Orientation } from "../../../utils/deviceOrientationTracker"
 
 @customElement("profile-model")
 export class ProfileModel extends LitElement {

@@ -1,5 +1,5 @@
-import * as THREE from 'three'
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js'
+import * as THREE from "three"
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js"
 
 export class ModelLoader {
     private loader = new STLLoader()
@@ -30,18 +30,21 @@ export class ModelLoader {
                 },
                 (progress) => {
                     // Optional: handle loading progress
-                    console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%')
+                    console.log(
+                        "Loading progress:",
+                        (progress.loaded / progress.total) * 100 + "%",
+                    )
                 },
                 (error) => {
                     reject(error)
-                }
+                },
             )
         })
     }
 
     clearCache() {
         // Dispose of cached geometries
-        this.cache.forEach(geometry => geometry.dispose())
+        this.cache.forEach((geometry) => geometry.dispose())
         this.cache.clear()
     }
 
