@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react"
-
 export interface AsciiEffectOptions {
     resolution?: number
     color?: boolean
@@ -37,7 +35,7 @@ export interface AsciiImageProps {
     color?: boolean
     invert?: boolean
     className?: string
-    style?: CSSProperties
+    style?: Partial<CSSStyleDeclaration>
     onLoad?: () => void
     objectFit?: 'cover' | 'contain' | 'fill'
     textColor?: string
@@ -55,7 +53,7 @@ export interface AsciiVideoProps {
     loop?: boolean
     controls?: boolean
     className?: string
-    style?: CSSProperties
+    style?: Partial<CSSStyleDeclaration>
     onLoad?: () => void
     onPlay?: () => void
     onPause?: () => void
@@ -77,7 +75,7 @@ export interface AsciiMediaProps {
     loop?: boolean
     controls?: boolean
     className?: string
-    style?: CSSProperties
+    style?: Partial<CSSStyleDeclaration>
     onLoad?: () => void
     onPlay?: () => void
     onPause?: () => void

@@ -12,6 +12,9 @@
 - src/components/layout/\*
 - src/components/ui/\*
 - src/components/embeds
+- src/utils/mdxComponents.ts
+- src/utils/webComponents.ts
+- remove any and all react dependencies
 
 still need to refactor and check:
 

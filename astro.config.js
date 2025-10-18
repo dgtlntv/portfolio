@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx"
-import react from "@astrojs/react"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import rehypeKatex from "rehype-katex"
@@ -10,7 +9,6 @@ import { ViteImageOptimizer } from "vite-plugin-image-optimizer"
 
 export default defineConfig({
     integrations: [
-        react(),
         mdx({
             remarkPlugins: [
                 [remarkFrontmatter, { type: "yaml", marker: "-" }],
@@ -55,11 +53,6 @@ export default defineConfig({
             rollupOptions: {
                 output: {
                     manualChunks: {
-                        "vendor-react": [
-                            "react",
-                            "react-dom",
-                            "react/jsx-runtime",
-                        ],
                         "vendor-three": ["three"],
                         "vendor-animation": ["@lottiefiles/dotlottie-wc"],
                     },

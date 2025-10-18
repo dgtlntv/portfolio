@@ -1,11 +1,9 @@
-import type { ReactNode } from "react"
-
 export interface WithChildren {
-  children: ReactNode
+  children: string | HTMLElement | DocumentFragment
 }
 
 export interface ModalContextType {
-    openModal: (content: ReactNode, onClose?: () => void) => void
+    openModal: (content: string | HTMLElement | DocumentFragment, onClose?: () => void) => void
     closeModal: () => void
 }
 
@@ -13,7 +11,7 @@ export interface ModalProviderProps extends WithChildren {}
 
 export interface ModalConfig {
     isOpen: boolean
-    content: ReactNode | null
+    content: string | HTMLElement | DocumentFragment | null
     onClose: () => void
 }
 
