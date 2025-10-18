@@ -1,0 +1,39 @@
+name: Build and Deploy to BunnyCDN Staging
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Build
+              run: npm run build
+              env:
+                  STAGING: "true"
+
+            - name: Deploy to BunnyCDN Staging
+              uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
+              with:
+                  source: "dist"
+                  destination: ""
+                  storageZoneName: ${{ secrets.STAGING_STORAGE_NAME }}
+                  storagePassword: ${{ secrets.STAGING_STORAGE_PASSWORD }}
+                  accessKey: ${{ secrets.STAGING_STORAGE_KEY }}
+                  pullZoneId: ${{ secrets.STAGING_ZONE_ID }}
+                  upload: "true"
+                  remove: "true"
+                  purgePullZone: "true"
