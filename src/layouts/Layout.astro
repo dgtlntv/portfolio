@@ -19,7 +19,7 @@ const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         {
-            import.meta.env.STAGING === "true" && (
+            import.meta.env.PUBLIC_STAGING === "true" && (
                 <meta name="robots" content="noindex, nofollow" />
             )
         }

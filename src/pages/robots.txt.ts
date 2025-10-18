@@ -1,5 +1,5 @@
 export async function GET() {
-    const isStaging = import.meta.env.STAGING === "true"
+    const isStaging = import.meta.env.PUBLIC_STAGING === "true"
 
     const robotsTxt = isStaging
         ? `User-agent: *\nDisallow: /`
