@@ -15,8 +15,8 @@
 - src/utils/mdxComponents.ts
 - src/utils/webComponents.ts
 - remove any and all react dependencies
+- src/utils/\*
 
 still need to refactor and check:
 
 - src/components/features
-- src/utils/\*

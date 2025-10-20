@@ -1,57 +1,45 @@
 import * as THREE from "three"
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js"
 
+/**
+ * Handles loading of STL 3D models
+ */
 export class ModelLoader {
-    private loader = new STLLoader()
-    private cache = new Map<string, THREE.BufferGeometry>()
+    private readonly loader: STLLoader
 
+    constructor() {
+        this.loader = new STLLoader()
+    }
+
+    /**
+     * Load an STL model from a URL
+     * @param url - The URL of the STL file to load
+     * @returns A promise that resolves to the loaded BufferGeometry
+     */
     async loadSTL(url: string): Promise<THREE.BufferGeometry> {
-        // Check cache first
-        if (this.cache.has(url)) {
-            return this.cache.get(url)!.clone()
-        }
-
         try {
-            const geometry = await this.loadSTLFromURL(url)
-            this.cache.set(url, geometry)
-            return geometry.clone()
+            return await this.loadSTLFromURL(url)
         } catch (error) {
-            console.error(`Failed to load STL model from ${url}:`, error)
-            throw error
+            throw new Error(`Failed to load STL model from ${url}: ${error}`)
         }
     }
 
+    /**
+     * Load geometry from URL using STLLoader
+     * @param url - The URL of the STL file to load
+     * @returns A promise that resolves to the loaded BufferGeometry
+     * @private
+     */
     private loadSTLFromURL(url: string): Promise<THREE.BufferGeometry> {
         return new Promise((resolve, reject) => {
             this.loader.load(
                 url,
-                (geometry) => {
-                    resolve(geometry)
-                },
-                (progress) => {
-                    // Optional: handle loading progress
-                    console.log(
-                        "Loading progress:",
-                        (progress.loaded / progress.total) * 100 + "%",
-                    )
-                },
-                (error) => {
-                    reject(error)
-                },
+                (geometry) => resolve(geometry),
+                undefined,
+                (error) => reject(error),
             )
         })
     }
-
-    clearCache() {
-        // Dispose of cached geometries
-        this.cache.forEach((geometry) => geometry.dispose())
-        this.cache.clear()
-    }
-
-    dispose() {
-        this.clearCache()
-    }
 }
 
-// Global singleton instance
 export const modelLoader = new ModelLoader()

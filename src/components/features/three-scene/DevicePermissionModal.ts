@@ -1,6 +1,8 @@
 import { LitElement, html, css } from "lit"
 import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
+export const MODAL_TAG_NAME = "device-permission-modal" as const
+
 class DevicePermissionModal extends LitElement {
     static styles = [
         globalStyleSheet,
@@ -16,7 +18,7 @@ class DevicePermissionModal extends LitElement {
     firstUpdated(): void {
         // Cache the dialog reference
         this._dialog = this.shadowRoot?.querySelector("dialog") ?? null
-        
+
         if (this._dialog) {
             this._dialog.addEventListener("click", this.handleBackdropClick)
         }
@@ -41,28 +43,36 @@ class DevicePermissionModal extends LitElement {
 
     private handleAllow = async (): Promise<void> => {
         try {
-            const status = await (DeviceOrientationEvent as any).requestPermission()
+            const status = await (
+                DeviceOrientationEvent as any
+            ).requestPermission()
             this.close()
-            this.dispatchEvent(new CustomEvent('permission-result', { 
-                detail: status,
-                bubbles: true 
-            }))
+            this.dispatchEvent(
+                new CustomEvent("permission-result", {
+                    detail: status,
+                    bubbles: true,
+                }),
+            )
         } catch (error) {
             console.error("Permission request failed:", error)
             this.close()
-            this.dispatchEvent(new CustomEvent('permission-result', { 
-                detail: 'denied',
-                bubbles: true 
-            }))
+            this.dispatchEvent(
+                new CustomEvent("permission-result", {
+                    detail: "denied",
+                    bubbles: true,
+                }),
+            )
         }
     }
 
     private handleDeny = (): void => {
         this.close()
-        this.dispatchEvent(new CustomEvent('permission-result', { 
-            detail: 'denied',
-            bubbles: true 
-        }))
+        this.dispatchEvent(
+            new CustomEvent("permission-result", {
+                detail: "denied",
+                bubbles: true,
+            }),
+        )
     }
 
     render() {
@@ -72,17 +82,22 @@ class DevicePermissionModal extends LitElement {
                     class="fixed bottom-0 left-1/2 w-full max-w-lg -translate-x-1/2 transform transition-transform duration-300 ease-out"
                     @click=${this.stopPropagation}
                 >
-                    <div class="mx-auto w-full max-w-lg rounded-t-xl bg-white p-6 shadow-xl">
+                    <div
+                        class="mx-auto w-full max-w-lg rounded-t-xl bg-white p-6 shadow-xl"
+                    >
                         <div class="text-center">
-                            <h3 class="font-fancy text-lg leading-6 font-medium text-gray-900">
+                            <h3
+                                class="font-fancy text-lg leading-6 font-medium text-gray-900"
+                            >
                                 Device Orientation Permission
                             </h3>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500">
-                                    For the cover of my portfolio website, I would like to
-                                    access the orientation sensor of your smartphone to
-                                    animate a 3D scene. To do this, you need to give
-                                    permission to access these sensors.
+                                    For the cover of my portfolio website, I
+                                    would like to access the orientation sensor
+                                    of your smartphone to animate a 3D scene. To
+                                    do this, you need to give permission to
+                                    access these sensors.
                                 </p>
                             </div>
                         </div>
@@ -121,11 +136,11 @@ class DevicePermissionModal extends LitElement {
     }
 }
 
-customElements.define("device-permission-modal", DevicePermissionModal)
+customElements.define(MODAL_TAG_NAME, DevicePermissionModal)
 
 declare global {
     interface HTMLElementTagNameMap {
-        "device-permission-modal": DevicePermissionModal
+        [MODAL_TAG_NAME]: DevicePermissionModal
     }
 }
 
