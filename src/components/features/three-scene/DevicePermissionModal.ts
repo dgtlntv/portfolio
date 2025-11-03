@@ -50,14 +50,16 @@ export class DevicePermissionModal extends LitElement {
         )
     }
 
-    private async requestDeviceOrientationPermission(): Promise<
-        DeviceOrientationPermissionStatus
-    > {
+    private async requestDeviceOrientationPermission(): Promise<DeviceOrientationPermissionStatus> {
         const orientationEvent =
-            (globalThis.DeviceOrientationEvent as DeviceOrientationEventWithPermission | undefined) ??
-            undefined
+            (globalThis.DeviceOrientationEvent as
+                | DeviceOrientationEventWithPermission
+                | undefined) ?? undefined
 
-        if (!orientationEvent || typeof orientationEvent.requestPermission !== "function") {
+        if (
+            !orientationEvent ||
+            typeof orientationEvent.requestPermission !== "function"
+        ) {
             // Non-iOS platforms don't require explicit permission via this API
             return "granted"
         }
@@ -66,7 +68,10 @@ export class DevicePermissionModal extends LitElement {
             const status = await orientationEvent.requestPermission()
             return status === "granted" ? "granted" : "denied"
         } catch (error) {
-            console.error("Device orientation permission request failed:", error)
+            console.error(
+                "Device orientation permission request failed:",
+                error,
+            )
             return "denied"
         }
     }
@@ -84,7 +89,10 @@ export class DevicePermissionModal extends LitElement {
 
     render(): TemplateResult {
         return html`
-            <dialog class="backdrop:bg-black/50" @click=${this.handleBackdropClick}>
+            <dialog
+                class="backdrop:bg-black/50"
+                @click=${this.handleBackdropClick}
+            >
                 <div
                     class="fixed bottom-0 left-1/2 w-full max-w-lg -translate-x-1/2 transform transition-transform duration-300 ease-out"
                     @click=${this.stopPropagation}
