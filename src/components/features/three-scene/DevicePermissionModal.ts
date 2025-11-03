@@ -1,10 +1,19 @@
-import { LitElement, html, css } from "lit"
+import type { CSSResultGroup, TemplateResult } from "lit"
+import { LitElement, css, html } from "lit"
+import { customElement, query } from "lit/decorators.js"
 import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 export const MODAL_TAG_NAME = "device-permission-modal" as const
 
-class DevicePermissionModal extends LitElement {
-    static styles = [
+type DeviceOrientationPermissionStatus = "granted" | "denied"
+
+type DeviceOrientationEventWithPermission = typeof DeviceOrientationEvent & {
+    requestPermission?: () => Promise<DeviceOrientationPermissionStatus>
+}
+
+@customElement(MODAL_TAG_NAME)
+export class DevicePermissionModal extends LitElement {
+    static override styles: CSSResultGroup = [
         globalStyleSheet,
         css`
             .backdrop\\:bg-black\\/50::backdrop {
@@ -13,71 +22,69 @@ class DevicePermissionModal extends LitElement {
         `,
     ]
 
-    private _dialog: HTMLDialogElement | null = null
+    @query("dialog")
+    private readonly dialogElement?: HTMLDialogElement
 
-    firstUpdated(): void {
-        // Cache the dialog reference
-        this._dialog = this.shadowRoot?.querySelector("dialog") ?? null
-
-        if (this._dialog) {
-            this._dialog.addEventListener("click", this.handleBackdropClick)
-        }
-    }
-
-    disconnectedCallback(): void {
-        super.disconnectedCallback()
-        if (this._dialog) {
-            this._dialog.removeEventListener("click", this.handleBackdropClick)
-        }
-    }
-
-    private handleBackdropClick = (event: MouseEvent): void => {
-        if (event.target === this._dialog) {
+    private handleBackdropClick(event: MouseEvent): void {
+        if (event.target === event.currentTarget) {
             this.handleDeny()
         }
     }
 
-    private stopPropagation = (event: Event): void => {
+    private stopPropagation(event: Event): void {
         event.stopPropagation()
     }
 
-    private handleAllow = async (): Promise<void> => {
-        try {
-            const status = await (
-                DeviceOrientationEvent as any
-            ).requestPermission()
-            this.close()
-            this.dispatchEvent(
-                new CustomEvent("permission-result", {
+    private dispatchPermissionResult(
+        status: DeviceOrientationPermissionStatus,
+    ): void {
+        this.dispatchEvent(
+            new CustomEvent<DeviceOrientationPermissionStatus>(
+                "permission-result",
+                {
                     detail: status,
                     bubbles: true,
-                }),
-            )
-        } catch (error) {
-            console.error("Permission request failed:", error)
-            this.close()
-            this.dispatchEvent(
-                new CustomEvent("permission-result", {
-                    detail: "denied",
-                    bubbles: true,
-                }),
-            )
-        }
-    }
-
-    private handleDeny = (): void => {
-        this.close()
-        this.dispatchEvent(
-            new CustomEvent("permission-result", {
-                detail: "denied",
-                bubbles: true,
-            }),
+                    composed: true,
+                },
+            ),
         )
     }
 
-    render() {
+    private async requestDeviceOrientationPermission(): Promise<
+        DeviceOrientationPermissionStatus
+    > {
+        const orientationEvent =
+            (globalThis.DeviceOrientationEvent as DeviceOrientationEventWithPermission | undefined) ??
+            undefined
+
+        if (!orientationEvent || typeof orientationEvent.requestPermission !== "function") {
+            // Non-iOS platforms don't require explicit permission via this API
+            return "granted"
+        }
+
+        try {
+            const status = await orientationEvent.requestPermission()
+            return status === "granted" ? "granted" : "denied"
+        } catch (error) {
+            console.error("Device orientation permission request failed:", error)
+            return "denied"
+        }
+    }
+
+    private async handleAllow(): Promise<void> {
+        const status = await this.requestDeviceOrientationPermission()
+        this.close()
+        this.dispatchPermissionResult(status)
+    }
+
+    private handleDeny(): void {
+        this.close()
+        this.dispatchPermissionResult("denied")
+    }
+
+    render(): TemplateResult {
         return html`
-            <dialog class="backdrop:bg-black/50">
+            <dialog class="backdrop:bg-black/50" @click=${this.handleBackdropClick}>
                 <div
                     class="fixed bottom-0 left-1/2 w-full max-w-lg -translate-x-1/2 transform transition-transform duration-300 ease-out"
                     @click=${this.stopPropagation}
@@ -124,24 +131,22 @@ class DevicePermissionModal extends LitElement {
     }
 
     open(): void {
-        if (this._dialog) {
-            this._dialog.showModal()
+        const dialog = this.dialogElement
+        if (dialog && typeof dialog.showModal === "function" && !dialog.open) {
+            dialog.showModal()
         }
     }
 
     close(): void {
-        if (this._dialog) {
-            this._dialog.close()
+        const dialog = this.dialogElement
+        if (dialog?.open) {
+            dialog.close()
         }
     }
 }
-
-customElements.define(MODAL_TAG_NAME, DevicePermissionModal)
 
 declare global {
     interface HTMLElementTagNameMap {
         [MODAL_TAG_NAME]: DevicePermissionModal
     }
 }
-
-export { DevicePermissionModal }
