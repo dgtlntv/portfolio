@@ -20,3 +20,4 @@
 still need to refactor and check:
 
 - src/components/features
+- check responsivness

@@ -1,9 +1,10 @@
-import { LitElement, html, css } from 'lit'
-import { property } from 'lit/decorators.js'
-import * as THREE from 'three'
+import type { CSSResultGroup, PropertyValues } from "lit"
+import { LitElement, css, html } from "lit"
+import { property } from "lit/decorators.js"
+import * as THREE from "three"
 
 export abstract class BaseThreeComponent extends LitElement {
-    static styles = css`
+    static styles: CSSResultGroup = css`
         :host {
             display: block;
             width: 100%;
@@ -17,142 +18,186 @@ export abstract class BaseThreeComponent extends LitElement {
     `
 
     @property({ type: Number })
-    width: number = 0
+    width = 0
 
     @property({ type: Number })
-    height: number = 0
+    height = 0
 
-    protected _scene!: THREE.Scene
-    protected _camera!: THREE.PerspectiveCamera
-    protected _renderer!: THREE.WebGLRenderer
-    protected animationId?: number
-    protected resizeObserver?: ResizeObserver
-    protected isAnimating = false
+    protected scene!: THREE.Scene
+    protected camera!: THREE.PerspectiveCamera
+    protected renderer!: THREE.WebGLRenderer
 
-    connectedCallback() {
+    private frameId: number | null = null
+    private resizeObserver: ResizeObserver | null = null
+    private isAnimating = false
+
+    connectedCallback(): void {
         super.connectedCallback()
         this.initThree()
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback()
+        this.teardown()
+    }
+
+    protected firstUpdated(changedProperties: PropertyValues<this>): void {
+        super.firstUpdated(changedProperties)
+
+        if (this.renderer) {
+            const canvas = this.renderer.domElement
+            if (!canvas.isConnected) {
+                this.renderRoot.appendChild(canvas)
+            }
+        }
+
+        this.startAnimation()
+    }
+
+    private initThree(): void {
+        this.scene = new THREE.Scene()
+
+        this.camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
+        this.camera.position.set(0, 0, 0)
+
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true,
+        })
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+        this.renderer.domElement.style.display = "block"
+
+        const { width, height } = this.getHostSize()
+        this.updateRendererSize(width, height)
+
+        this.initScene()
         this.setupResizeObserver()
     }
 
-    disconnectedCallback() {
-        super.disconnectedCallback()
-        this.cleanup()
-    }
-
-    private initThree() {
-        // Create scene
-        this._scene = new THREE.Scene()
-
-        // Create camera
-        this._camera = new THREE.PerspectiveCamera(
-            75,
-            this.clientWidth / this.clientHeight,
-            0.1,
-            1000
+    private getHostSize(): { width: number; height: number } {
+        const rect = this.getBoundingClientRect()
+        const width = Math.max(
+            1,
+            Math.floor(rect.width || this.clientWidth || 1),
         )
-
-        // Create renderer
-        this._renderer = new THREE.WebGLRenderer({ 
-            antialias: true,
-            alpha: true
-        })
-        this._renderer.setSize(this.clientWidth, this.clientHeight)
-        this._renderer.setPixelRatio(window.devicePixelRatio)
-
-        // Allow subclasses to initialize their specific setup
-        this.initScene()
+        const height = Math.max(
+            1,
+            Math.floor(rect.height || this.clientHeight || 1),
+        )
+        return { width, height }
     }
 
-    private setupResizeObserver() {
+    private setupResizeObserver(): void {
+        this.disposeResizeObserver()
+
         this.resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const { width, height } = entry.contentRect
-                this.handleResize(width, height)
-            }
-        })
-        this.resizeObserver.observe(this)
-    }
-
-    private handleResize(width: number, height: number) {
-        if (width === 0 || height === 0) return
-
-        this.width = width
-        this.height = height
-
-        this._camera.aspect = width / height
-        this._camera.updateProjectionMatrix()
-        this._renderer.setSize(width, height)
-
-        this.onResize(width, height)
-    }
-
-    protected startAnimation() {
-        if (this.isAnimating) return
-        this.isAnimating = true
-        this.animate()
-    }
-
-    protected stopAnimation() {
-        this.isAnimating = false
-        if (this.animationId) {
-            cancelAnimationFrame(this.animationId)
-            this.animationId = undefined
-        }
-    }
-
-    private animate = () => {
-        if (!this.isAnimating) return
-
-        this.animationId = requestAnimationFrame(this.animate)
-        this.onFrame()
-        this._renderer.render(this._scene, this._camera)
-    }
-
-    private cleanup() {
-        this.stopAnimation()
-        
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect()
-        }
-
-        // Dispose of Three.js resources
-        this._scene.traverse((object) => {
-            if (object instanceof THREE.Mesh) {
-                object.geometry?.dispose()
-                if (Array.isArray(object.material)) {
-                    object.material.forEach(material => material.dispose())
-                } else {
-                    object.material?.dispose()
+                if (width > 0 && height > 0) {
+                    this.updateRendererSize(width, height)
                 }
             }
         })
 
-        this._renderer?.dispose()
+        this.resizeObserver.observe(this as Element)
+    }
+
+    private disposeResizeObserver(): void {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect()
+            this.resizeObserver = null
+        }
+    }
+
+    private updateRendererSize(width: number, height: number): void {
+        this.width = width
+        this.height = height
+
+        if (this.camera) {
+            this.camera.aspect = width / height
+            this.camera.updateProjectionMatrix()
+        }
+
+        if (this.renderer) {
+            this.renderer.setSize(width, height, false)
+        }
+
+        this.onResize(width, height)
+    }
+
+    protected startAnimation(): void {
+        if (this.isAnimating) {
+            return
+        }
+
+        this.isAnimating = true
+        this.tick()
+    }
+
+    protected stopAnimation(): void {
+        this.isAnimating = false
+
+        if (this.frameId !== null) {
+            cancelAnimationFrame(this.frameId)
+            this.frameId = null
+        }
+    }
+
+    private tick = (): void => {
+        if (!this.isAnimating) {
+            return
+        }
+
+        this.frameId = requestAnimationFrame(this.tick)
+        this.onFrame()
+        this.renderScene()
+    }
+
+    protected renderScene(): void {
+        this.renderer.render(this.scene, this.camera)
+    }
+
+    private teardown(): void {
+        this.stopAnimation()
+        this.disposeResizeObserver()
+
+        if (this.scene) {
+            this.scene.traverse((object) => {
+                if (object instanceof THREE.Mesh) {
+                    object.geometry?.dispose()
+
+                    if (Array.isArray(object.material)) {
+                        object.material.forEach((material) =>
+                            material.dispose(),
+                        )
+                    } else {
+                        object.material?.dispose()
+                    }
+                }
+            })
+        }
+
+        this.renderer?.dispose()
         this.onCleanup()
     }
 
-    protected firstUpdated() {
-        super.firstUpdated()
-        if (this._renderer) {
-            const canvas = this._renderer.domElement
-            this.shadowRoot?.appendChild(canvas)
-        }
-        this.startAnimation()
-    }
-
-    // Abstract methods for subclasses to implement
     protected abstract initScene(): void
     protected abstract onFrame(): void
 
-    // Optional hooks for subclasses
-    protected onResize(width: number, height: number): void {}
+    protected onResize(_width: number, _height: number): void {}
     protected onCleanup(): void {}
 
-    // Getters for child components to access Three.js objects
-    get scene() { return this._scene }
-    get camera() { return this._camera }
-    get renderer() { return this._renderer }
+    getScene(): THREE.Scene {
+        return this.scene
+    }
+
+    getCamera(): THREE.Camera {
+        return this.camera
+    }
+
+    getRenderer(): THREE.WebGLRenderer {
+        return this.renderer
+    }
 
     render() {
         return html`<slot></slot>`

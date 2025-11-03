@@ -1,7 +1,14 @@
-import { LitElement, css } from "lit"
+import type { PropertyValues } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property } from "lit/decorators.js"
-import * as THREE from "three"
+import type { Camera, Scene, WebGLRenderer } from "three"
 import { AsciiEffect } from "./AsciiEffect"
+
+type ConfigurableAsciiEffect = AsciiEffect & {
+    dispose: () => void
+    setCharSet: (characters: string) => void
+    setResolution: (resolution: number) => void
+}
 
 @customElement("ascii-renderer")
 export class AsciiRenderer extends LitElement {
@@ -24,68 +31,92 @@ export class AsciiRenderer extends LitElement {
     @property({ type: String })
     characters = " .:-+*=%#"
 
-    private asciiEffect?: AsciiEffect
-    private scene?: THREE.Scene
-    private camera?: THREE.Camera
-    private renderer?: THREE.WebGLRenderer
-    private renderCallback?: () => void
+    private asciiEffect: ConfigurableAsciiEffect | null = null
+    private scene: Scene | null = null
+    private camera: Camera | null = null
+    private renderer: WebGLRenderer | null = null
+    private resizeObserver: ResizeObserver | null = null
 
     // Method called by parent to set Three.js context
-    setThreeContext(
-        scene: THREE.Scene,
-        camera: THREE.Camera,
-        renderer: THREE.WebGLRenderer,
-    ) {
+    setThreeContext(scene: Scene, camera: Camera, renderer: WebGLRenderer) {
         this.scene = scene
         this.camera = camera
         this.renderer = renderer
         this.setupAsciiEffect()
     }
 
-    // Method called by parent to register render callback
-    setRenderCallback(callback: () => void) {
-        this.renderCallback = callback
-    }
-
     private setupAsciiEffect() {
-        if (!this.renderer) return
+        if (!this.renderer || !this.scene || !this.camera) {
+            return
+        }
 
-        // Create ASCII effect using the shared renderer
-        this.asciiEffect = new AsciiEffect(this.renderer, this.characters, {
+        this.teardownAsciiEffect()
+
+        const asciiEffect = new AsciiEffect(this.renderer, this.characters, {
             resolution: this.resolution,
-        })
+        }) as ConfigurableAsciiEffect
 
-        // Style the ASCII effect DOM element
-        const asciiElement = this.asciiEffect.domElement
+        this.asciiEffect = asciiEffect
+
+        const asciiElement = asciiEffect.domElement
         asciiElement.style.position = "absolute"
-        asciiElement.style.top = "0px"
-        asciiElement.style.left = "0px"
+        asciiElement.style.top = "0"
+        asciiElement.style.left = "0"
         asciiElement.style.color = "black"
         asciiElement.style.backgroundColor = "white"
         asciiElement.style.pointerEvents = "none"
 
-        // Append to the same parent as the main canvas
-        if (this.renderer.domElement.parentNode) {
-            this.renderer.domElement.parentNode.appendChild(asciiElement)
-        }
+        const parent = this.renderer.domElement.parentNode as
+            | HTMLElement
+            | ShadowRoot
+            | null
+        parent?.appendChild(asciiElement)
 
-        // Set initial size
-        this.asciiEffect.setSize(this.clientWidth, this.clientHeight)
+        const rect = this.getBoundingClientRect()
+        const width = rect.width || this.clientWidth || 1
+        const height = rect.height || this.clientHeight || 1
 
-        // Setup resize observer
+        asciiEffect.setSize(width, height)
         this.setupResizeObserver()
     }
 
     private setupResizeObserver() {
-        const resizeObserver = new ResizeObserver((entries) => {
+        this.disposeResizeObserver()
+
+        this.resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const { width, height } = entry.contentRect
-                if (width > 0 && height > 0 && this.asciiEffect) {
+                if (
+                    width > 0 &&
+                    height > 0 &&
+                    this.asciiEffect &&
+                    this.renderer
+                ) {
                     this.asciiEffect.setSize(width, height)
                 }
             }
         })
-        resizeObserver.observe(this)
+        this.resizeObserver.observe(this as Element)
+    }
+
+    private disposeResizeObserver() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect()
+            this.resizeObserver = null
+        }
+    }
+
+    private teardownAsciiEffect() {
+        this.disposeResizeObserver()
+
+        if (!this.asciiEffect) {
+            return
+        }
+
+        const asciiElement = this.asciiEffect.domElement
+        asciiElement.parentNode?.removeChild(asciiElement)
+        this.asciiEffect.dispose()
+        this.asciiEffect = null
     }
 
     // Method called by parent to render ASCII effect
@@ -97,22 +128,24 @@ export class AsciiRenderer extends LitElement {
 
     disconnectedCallback() {
         super.disconnectedCallback()
-        if (this.asciiEffect) {
-            // Remove ASCII effect DOM element
-            const asciiElement = this.asciiEffect.domElement
-            if (asciiElement.parentNode) {
-                asciiElement.parentNode.removeChild(asciiElement)
-            }
+        this.teardownAsciiEffect()
+        this.scene = null
+        this.camera = null
+        this.renderer = null
+    }
 
-            // Dispose of the effect (but not the shared renderer)
-            if ("dispose" in this.asciiEffect) {
-                ;(this.asciiEffect as any).dispose()
-            }
+    protected updated(changed: PropertyValues<this>): void {
+        if (changed.has("characters") && this.asciiEffect) {
+            this.asciiEffect.setCharSet(this.characters)
+        }
+
+        if (changed.has("resolution") && this.asciiEffect) {
+            this.asciiEffect.setResolution(this.resolution)
         }
     }
 
     render() {
         // This component has no visual output - it just manages ASCII rendering
-        return null
+        return html``
     }
 }

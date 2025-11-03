@@ -12,11 +12,11 @@ new design system we are working on at Canonical. In this first post, I will
 write about my journey into the world of perceptually uniform color spaces and
 perceptual contrast algorithms and explain what they are. If you are already
 familiar with these topics, [you can skip ahead to the section](#…-with-apca!)
-(or go to the [Github repository]
-(https://github.com/dgtlntv/perceptual-contrast-palette)), where I show how I
-reverse-engineered the APCA contrast algorithm to generate perceptually
-contrasting color palettes. In the next post, I will talk about why we
-ultimately decided not to go with this solution and what we did instead.
+(or go to the
+[Github repository](https://github.com/dgtlntv/perceptual-contrast-palette)),
+where I show how I reverse-engineered the APCA contrast algorithm to generate
+perceptually contrasting color palettes. In the next post, I will talk about why
+we ultimately decided not to go with this solution and what we did instead.
 
 ## How humans perceive color
 
@@ -63,12 +63,13 @@ prompting me to dive deeper into perceptually uniform color spaces and
 ## How humans perceive contrast
 
 <FloatContent position="right">
-<<<<<<< Updated upstream
-<AnimatedImage src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.webp" alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one" rotationDirection="right" slot="content" />
-=======
-<AnimatedImage src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png" alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one" rotationDirection="right" slot="content" />
 
-> > > > > > > Stashed changes
+<AnimatedImage
+    src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca-vs-wcag.png"
+    alt="An illustration shwoing the weaknesses of the WCAG contrast algorithm compared to the APCA one"
+    rotationDirection="right"
+    slot="content"
+/>
 
     One of the things I learned during my research was the shortcomings of the
     contrast algorithm currently recommended in the
@@ -95,37 +96,25 @@ prompting me to dive deeper into perceptually uniform color spaces and
 
 ## Generating color palettes for design systems…
 
-<<<<<<< Updated upstream In this article, Matthew combines contrast algorithms
-and perceptually uniform color spaces to generate color palettes. Arguably one
-of the most important aspects of working with colors in UIs (and in other media
-too) is contrast. There needs to be enough contrast between a pair of colors in
-order for humans to be able to tell different elements apart. The key idea
-brought forward in this article is that contrast should dictate the distance
-between steps in a color palette.
-
-![An illustration showing how a palette based on contrast would be helpful by illustrating the same distances in the palette having the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.webp)
-
-======= In this article, Matthew Ström combines contrast algorithms and
-perceptually uniform color spaces to generate color palettes. One of the most
-important aspects of working with colors in user interfaces (and other media) is
-contrast. There must be sufficient contrast between two colors so that people
-can distinguish between different elements. The central idea of this article is
-that contrast should determine the distance between the steps in a color
-palette. Meaning that for example every pair of colors that has a distance of
-500 (in the context of the numbering of the color palette) should have at least
-a contrast of 4.5:1.
+In this article, Matthew Ström combines contrast algorithms and perceptually
+uniform color spaces to generate color palettes. One of the most important
+aspects of working with colors in user interfaces (and other media) is contrast.
+There must be sufficient contrast between two colors so that people can
+distinguish between different elements. The central idea of this article is that
+contrast should determine the distance between the steps in a color palette.
+Meaning that for example every pair of colors that has a distance of 500 (in the
+context of the numbering of the color palette) should have at least a contrast
+of 4.5:1.
 ![An illustration showing how a contrast-based palette can be helpful by illustrating the same distances in the palette with the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.png)
 
-> > > > > > > Stashed changes In a color palette where the contrast between two
-> > > > > > > shades is predictable and consistent, it becomes very easy to
-> > > > > > > select accessible color pairs. You simply select any two shades in
-> > > > > > > the palette that are a certain distance apart, and you have
-> > > > > > > selected an accessible color pair. It is no longer necessary to
-> > > > > > > manually check all color combinations in your user interface. In
-> > > > > > > an internal survey of designers at Canonical, we found that
-> > > > > > > selecting accessible color pairs is an important concern for
-> > > > > > > designers. Therefore, a color palette in which it is easy to
-> > > > > > > select accessible color pairs seemed ideal for us.
+In a color palette where the contrast between two shades is predictable and
+consistent, it becomes very easy to select accessible color pairs. You simply
+select any two shades in the palette that are a certain distance apart, and you
+have selected an accessible color pair. It is no longer necessary to manually
+check all color combinations in your user interface. In an internal survey of
+designers at Canonical, we found that selecting accessible color pairs is an
+important concern for designers. Therefore, a color palette in which it is easy
+to select accessible color pairs seemed ideal for us.
 
 ## … with APCA\!
 

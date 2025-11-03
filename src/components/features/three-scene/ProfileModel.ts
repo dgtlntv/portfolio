@@ -1,9 +1,12 @@
 import { LitElement } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import * as THREE from "three"
+import {
+    deviceOrientationTracker,
+    type Orientation,
+} from "../../../utils/deviceOrientationTracker"
 import { modelLoader } from "../../../utils/modelLoader"
 import { mouseTracker, type Mouse2D } from "../../../utils/mouseTracker"
-import { deviceOrientationTracker, type Orientation } from "../../../utils/deviceOrientationTracker"
 
 @customElement("profile-model")
 export class ProfileModel extends LitElement {
@@ -12,12 +15,13 @@ export class ProfileModel extends LitElement {
 
     // Properties set by parent ThreeScene
     private scene?: THREE.Scene
-    private camera?: THREE.Camera
-    private animationCallback?: (callback: () => void) => void
+    private registerAnimationCallback?: (callback: () => void) => () => void
+    private unregisterAnimationCallback?: () => void
 
     private model?: THREE.Mesh
     private modelGroup?: THREE.Group
     private centerGroup?: THREE.Group
+    private directionalLight?: THREE.DirectionalLight
     private unsubscribeMouse?: () => void
     private unsubscribeOrientation?: () => void
     private currentMouse: Mouse2D = { x: 0, y: 0 }
@@ -26,22 +30,29 @@ export class ProfileModel extends LitElement {
     // Method called by parent to set Three.js context
     setThreeContext(
         scene: THREE.Scene,
-        camera: THREE.Camera,
-        animationCallback: (callback: () => void) => void,
+        _camera: THREE.Camera,
+        animationCallback: (callback: () => void) => () => void,
     ) {
+        if (this.scene && this.scene !== scene) {
+            this.cleanup()
+        }
+
         this.scene = scene
-        this.camera = camera
-        this.animationCallback = animationCallback
+        this.registerAnimationCallback = animationCallback
+        this.unregisterAnimationCallback?.()
+        this.unregisterAnimationCallback = this.registerAnimationCallback?.(
+            () => this.onFrame(),
+        )
         this.initModel()
     }
 
     private initModel(): void {
-        if (!this.scene) return
+        if (!this.scene || this.centerGroup) return
 
         // Add lighting
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
-        directionalLight.position.set(-2, 6, 6)
-        this.scene.add(directionalLight)
+        this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+        this.directionalLight.position.set(-2, 6, 6)
+        this.scene.add(this.directionalLight)
 
         // Create group hierarchy to match original structure
         this.centerGroup = new THREE.Group()
@@ -54,11 +65,6 @@ export class ProfileModel extends LitElement {
 
         // Subscribe to input trackers
         this.setupInputTracking()
-
-        // Register animation callback
-        if (this.animationCallback) {
-            this.animationCallback(() => this.onFrame())
-        }
     }
 
     private async loadModel() {
@@ -122,6 +128,10 @@ export class ProfileModel extends LitElement {
     }
 
     private setupInputTracking() {
+        // Reset previous subscriptions before establishing new ones
+        this.unsubscribeMouse?.()
+        this.unsubscribeOrientation?.()
+
         // Subscribe to mouse tracking
         this.unsubscribeMouse = mouseTracker.subscribe((mouse) => {
             this.currentMouse = mouse
@@ -159,10 +169,15 @@ export class ProfileModel extends LitElement {
         // Unsubscribe from trackers
         this.unsubscribeMouse?.()
         this.unsubscribeOrientation?.()
+        this.unregisterAnimationCallback?.()
 
         // Remove objects from scene
         if (this.scene && this.centerGroup) {
             this.scene.remove(this.centerGroup)
+        }
+
+        if (this.scene && this.directionalLight) {
+            this.scene.remove(this.directionalLight)
         }
 
         // Dispose of model resources
@@ -174,6 +189,11 @@ export class ProfileModel extends LitElement {
                 this.model.material?.dispose()
             }
         }
+
+        this.model = undefined
+        this.modelGroup = undefined
+        this.centerGroup = undefined
+        this.directionalLight = undefined
     }
 
     render() {
