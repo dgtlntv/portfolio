@@ -1,9 +1,9 @@
-import { LitElement, html, css } from "lit"
-import type { TemplateResult } from "lit"
+import type { CSSResultGroup, TemplateResult } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import type { FileNode } from "./types"
-import { getFileIcon, getFolderIcon } from "./file-icons"
 import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { getFileIcon, getFolderIcon } from "./file-icons"
+import type { FileNode } from "./types"
 
 const IGNORED_FILES = new Set([
     ".gitignore",
@@ -59,7 +59,10 @@ export class GitHubFileExplorer extends LitElement {
     @state() private sidebarWidth = 300
     @state() private isResizing = false
 
-    static styles = [
+    private static readonly MIN_SIDEBAR_WIDTH = 200
+    private static readonly MAX_SIDEBAR_WIDTH = 600
+
+    static override styles: CSSResultGroup = [
         globalStyleSheet,
         css`
             :host {
@@ -100,7 +103,7 @@ export class GitHubFileExplorer extends LitElement {
         return parents
     }
 
-    willUpdate(changedProperties: Map<string, any>): void {
+    override willUpdate(changedProperties: Map<string, unknown>): void {
         // Use willUpdate instead of updated to avoid triggering another update cycle
         if (changedProperties.has("currentPath") && this.currentPath) {
             const parentDirs = this.getParentDirectories(this.currentPath)
@@ -140,18 +143,27 @@ export class GitHubFileExplorer extends LitElement {
         )
     }
 
-    private handleResizeStart = (e: MouseEvent | TouchEvent): void => {
+    private readonly handleResizeStart = (
+        event: MouseEvent | TouchEvent,
+    ): void => {
         this.isResizing = true
-        const startX = "touches" in e ? e.touches[0].clientX : e.clientX
+        const startX =
+            "touches" in event ? event.touches[0].clientX : event.clientX
         const startWidth = this.sidebarWidth
 
-        const handleMove = (e: MouseEvent | TouchEvent) => {
+        const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
             if (!this.isResizing) return
-            const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+            const clientX =
+                "touches" in moveEvent
+                    ? moveEvent.touches[0].clientX
+                    : moveEvent.clientX
             const diff = clientX - startX
             const newWidth = startWidth + diff
 
-            if (newWidth >= 200 && newWidth <= 600) {
+            if (
+                newWidth >= GitHubFileExplorer.MIN_SIDEBAR_WIDTH &&
+                newWidth <= GitHubFileExplorer.MAX_SIDEBAR_WIDTH
+            ) {
                 this.sidebarWidth = newWidth
             }
         }
@@ -219,7 +231,7 @@ export class GitHubFileExplorer extends LitElement {
         `
     }
 
-    render(): TemplateResult {
+    override render(): TemplateResult {
         const filteredFileTree = filterFileTree(this.fileTree)
 
         if (this.isLoading) {

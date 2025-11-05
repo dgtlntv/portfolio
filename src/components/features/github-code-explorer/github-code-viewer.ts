@@ -1,14 +1,14 @@
-import { LitElement, html, css } from "lit"
-import type { TemplateResult } from "lit"
-import { customElement, property } from "lit/decorators.js"
+import type { CSSResultGroup, TemplateResult } from "lit"
+import { LitElement, css, html } from "lit"
+import { customElement, property, state } from "lit/decorators.js"
 import { unsafeHTML } from "lit/directives/unsafe-html.js"
 import Prism from "prismjs"
-import "prismjs/components/prism-typescript"
-import "prismjs/components/prism-javascript"
-import "prismjs/components/prism-python"
-import "prismjs/components/prism-json"
 import "prismjs/components/prism-css"
+import "prismjs/components/prism-javascript"
+import "prismjs/components/prism-json"
 import "prismjs/components/prism-markup"
+import "prismjs/components/prism-python"
+import "prismjs/components/prism-typescript"
 import { globalStyleSheet } from "../../../styles/styleSheet.js"
 
 @customElement("github-code-viewer")
@@ -21,7 +21,7 @@ export class GitHubCodeViewer extends LitElement {
     @property({ type: String }) repo = ""
     @property({ type: String }) branch = "main"
 
-    static styles = [
+    static override styles: CSSResultGroup = [
         globalStyleSheet,
         css`
             :host {
@@ -32,56 +32,98 @@ export class GitHubCodeViewer extends LitElement {
                 background-color: white;
             }
 
-            .code-container {
-                display: flex;
-                min-width: max-content;
-            }
-
-            .line-numbers-column {
-                position: sticky;
-                left: 0;
-                z-index: 10;
-                flex-shrink: 0;
-                border-right: 1px solid #e5e7eb;
-                background-color: #f9fafb;
-            }
-
-            .line-numbers-pre {
-                font-family:
-                    Courier Prime,
-                    monospace;
-                font-size: 0.875rem;
-                text-align: right;
-                background-color: #f9fafb;
-                min-height: 100%;
+            pre {
                 margin: 0;
                 padding: 0;
             }
 
-            .line-number {
-                padding: 0.125rem 0.75rem;
-                opacity: 0.5;
+            .code-surface {
+                position: relative;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                width: 100%;
+                min-height: 100%;
+                background-color: #f9fafb;
+            }
+
+            .line-numbers,
+            .code-lines {
+                font-family:
+                    "Courier Prime", ui-monospace, SFMono-Regular, SFMono,
+                    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+                    monospace;
+                font-size: 0.875rem;
+                line-height: 1.3rem;
+                letter-spacing: 0.005em;
+            }
+
+            .line-numbers {
+                text-align: right;
+                padding: 0.25rem 0.5rem 0.35rem;
+                border-right: 1px solid #e5e7eb;
+                background: linear-gradient(
+                    180deg,
+                    rgba(249, 250, 251, 0.95) 0%,
+                    rgba(249, 250, 251, 0.9) 20%,
+                    rgba(249, 250, 251, 0.75) 100%
+                );
+                position: sticky;
+                left: 0;
+                top: 0;
+                width: 3rem;
+            }
+
+            .line-numbers span {
+                display: block;
+                padding: 0 0.25rem;
+                color: #9ca3af;
                 user-select: none;
             }
 
-            .code-content-pre {
-                flex: 1;
-                font-family:
-                    Courier Prime,
-                    monospace;
-                font-size: 0.875rem;
-                min-height: 100%;
+            .code-lines {
+                padding: 0.25rem 1.25rem 0.35rem 1rem;
+                color: #1f2937;
                 background-color: #f9fafb;
-                margin: 0;
-                padding: 0;
+                min-width: 100%;
+                width: max-content;
             }
 
-            .code-line {
-                padding: 0.125rem 1rem;
+            .code-lines div {
                 white-space: pre;
+            }
+
+            .code-lines div:empty::before {
+                content: " ";
+            }
+
+            .scroller {
+                position: relative;
+                flex: 1;
+                overflow: auto;
+            }
+
+            .scroller::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+            }
+
+            .scroller::-webkit-scrollbar-thumb {
+                background-color: rgba(156, 163, 175, 0.4);
+                border-radius: 999px;
+            }
+
+            .scroller::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(107, 114, 128, 0.5);
+            }
+
+            .scroller::-webkit-scrollbar-track {
+                background-color: transparent;
             }
         `,
     ]
+
+    @state() private highlightedLines: string[] = []
+    @state() private lineNumbers: string[] = []
 
     private getLanguageFromPath(filePath: string): string {
         const extension = filePath.split(".").pop()?.toLowerCase() || ""
@@ -104,6 +146,67 @@ export class GitHubCodeViewer extends LitElement {
         }
 
         return extensionMap[extension] || "plaintext"
+    }
+
+    override updated(changed: Map<string, unknown>): void {
+        if (
+            changed.has("fileContent") ||
+            changed.has("filePath") ||
+            changed.has("isLoading") ||
+            changed.has("error")
+        ) {
+            this.prepareHighlightedContent()
+        }
+    }
+
+    private prepareHighlightedContent(): void {
+        if (this.isLoading || this.error) {
+            this.lineNumbers = []
+            this.highlightedLines = []
+            return
+        }
+
+        if (!this.filePath || !this.fileContent) {
+            this.lineNumbers = []
+            this.highlightedLines = []
+            return
+        }
+
+        const language = this.getLanguageFromPath(this.filePath)
+        const grammar = Prism.languages[language]
+
+        const rawLines = this.fileContent.split("\n")
+        while (rawLines.length > 1 && rawLines[rawLines.length - 1] === "") {
+            rawLines.pop()
+        }
+        this.lineNumbers = rawLines.map((_, index) => `${index + 1}`)
+
+        if (!grammar) {
+            this.highlightedLines = rawLines
+            return
+        }
+
+        try {
+            const highlightedCode = Prism.highlight(
+                this.fileContent,
+                grammar,
+                language,
+            )
+            const highlightedLines = highlightedCode.split("\n")
+            if (highlightedLines.length < this.lineNumbers.length) {
+                highlightedLines.push(
+                    ...new Array(
+                        this.lineNumbers.length - highlightedLines.length,
+                    ).fill(""),
+                )
+            } else if (highlightedLines.length > this.lineNumbers.length) {
+                highlightedLines.length = this.lineNumbers.length
+            }
+            this.highlightedLines = highlightedLines
+        } catch (error) {
+            console.error("Prism highlighting failed:", error)
+            this.highlightedLines = rawLines
+        }
     }
 
     private renderHeader(): TemplateResult {
@@ -207,48 +310,22 @@ export class GitHubCodeViewer extends LitElement {
             `
         }
 
-        const language = this.getLanguageFromPath(this.filePath)
-        const lines = this.fileContent.split("\n")
-
-        // Highlight the entire content at once
-        let highlightedCode = this.fileContent
-        const grammar = Prism.languages[language]
-        if (grammar) {
-            try {
-                highlightedCode = Prism.highlight(
-                    this.fileContent,
-                    grammar,
-                    language,
-                )
-            } catch (e) {
-                console.error("Prism highlighting failed:", e)
-            }
-        }
-
-        // Split highlighted code back into lines
-        const highlightedLines = highlightedCode.split("\n")
-
         return html`
             ${this.renderHeader()}
 
-            <div class="relative min-h-0 flex-1 overflow-auto">
-                <div class="code-container">
-                    <!-- Fixed line numbers column -->
-                    <div class="line-numbers-column">
-                        <pre class="line-numbers-pre">
-${lines.map((_, i) => html`<div class="line-number">${i + 1}</div>`)}
-</pre
-                        >
-                    </div>
-                    <!-- Scrollable code content -->
-                    <pre class="code-content-pre">
-${highlightedLines.map(
-                            (lineCode) =>
-                                html`<div class="code-line">
-                                    ${unsafeHTML(lineCode || " ")}
-                                </div>`,
+            <div class="scroller">
+                <div class="code-surface">
+                    <pre class="line-numbers">
+                        ${this.lineNumbers.map(
+                            (line) => html`<span>${line}</span>`,
                         )}
-</pre
+                    </pre
+                    >
+                    <pre class="code-lines">
+                        ${this.highlightedLines.map(
+                            (line) => html`<div>${unsafeHTML(line)}</div>`,
+                        )}
+                    </pre
                     >
                 </div>
             </div>

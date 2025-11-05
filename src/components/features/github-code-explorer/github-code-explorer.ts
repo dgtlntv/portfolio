@@ -1,17 +1,18 @@
-import { LitElement, html, css } from "lit"
+import type { CSSResultGroup, TemplateResult } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import type { FileNode, ApiError } from "./types"
-import { fetchRepositoryTree, fetchFileContent } from "./githubApi"
+import { globalStyleSheet } from "../../../styles/styleSheet.js"
 import {
+    clearExpiredCaches,
     getCachedData,
     setCachedData,
     updateCachedFileContent,
-    clearExpiredCaches,
 } from "./cache"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
-import "./github-file-explorer"
 import "./github-code-viewer"
+import "./github-file-explorer"
 import "./github-markdown-viewer"
+import { fetchFileContent, fetchRepositoryTree } from "./githubApi"
+import type { ApiError, FileNode } from "./types"
 
 @customElement("github-code-explorer")
 export class GitHubCodeExplorer extends LitElement {
@@ -29,7 +30,9 @@ export class GitHubCodeExplorer extends LitElement {
     @state() private fileError: string | null = null
     @state() private showFileExplorer = true
 
-    static styles = [
+    private static readonly MOBILE_BREAKPOINT = 768
+
+    static override styles: CSSResultGroup = [
         globalStyleSheet,
         css`
             :host {
@@ -92,7 +95,7 @@ export class GitHubCodeExplorer extends LitElement {
         `,
     ]
 
-    connectedCallback() {
+    override connectedCallback(): void {
         super.connectedCallback()
         clearExpiredCaches()
         this.loadFileTree()
@@ -118,7 +121,7 @@ export class GitHubCodeExplorer extends LitElement {
         return extension === "md"
     }
 
-    private async loadFileTree() {
+    private async loadFileTree(): Promise<void> {
         this.isLoadingTree = true
         this.treeError = null
 
@@ -160,13 +163,13 @@ export class GitHubCodeExplorer extends LitElement {
         this.isLoadingTree = false
     }
 
-    private async handleFileSelect(filePath: string) {
+    private async handleFileSelect(filePath: string): Promise<void> {
         this.currentPath = filePath
         this.fileContent = null
         this.fileError = null
         this.isLoadingFile = true
 
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < GitHubCodeExplorer.MOBILE_BREAKPOINT) {
             this.showFileExplorer = false
         }
 
@@ -199,11 +202,11 @@ export class GitHubCodeExplorer extends LitElement {
         this.isLoadingFile = false
     }
 
-    private toggleFileExplorer() {
+    private toggleFileExplorer(): void {
         this.showFileExplorer = !this.showFileExplorer
     }
 
-    render() {
+    override render(): TemplateResult {
         if (this.treeError) {
             return this.renderError()
         }
@@ -341,7 +344,7 @@ export class GitHubCodeExplorer extends LitElement {
         `
     }
 
-    private renderError() {
+    private renderError(): TemplateResult {
         const repoUrl = `https://github.com/${this.owner}/${this.repo}`
         const isRateLimit = this.treeError?.type === "rate_limit"
 
