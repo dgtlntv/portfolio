@@ -2,17 +2,14 @@ import type { PropertyValues } from "lit"
 import { LitElement, css, html } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import type { Camera, Scene, WebGLRenderer } from "three"
-import { AsciiEffect } from "./AsciiEffect"
-
-type ConfigurableAsciiEffect = AsciiEffect & {
-    dispose: () => void
-    setCharSet: (characters: string) => void
-    setResolution: (resolution: number) => void
-}
+import {
+    AsciiEffect,
+    type AsciiEffectOptions,
+} from "../ascii-effect/AsciiEffect"
 
 @customElement("ascii-renderer")
 export class AsciiRenderer extends LitElement {
-    static styles = css`
+    static override styles = css`
         :host {
             display: block;
             position: absolute;
@@ -31,11 +28,11 @@ export class AsciiRenderer extends LitElement {
     @property({ type: String })
     characters = " .:-+*=%#"
 
-    private asciiEffect: ConfigurableAsciiEffect | null = null
+    private asciiEffect: AsciiEffect | null = null
     private scene: Scene | null = null
     private camera: Camera | null = null
     private renderer: WebGLRenderer | null = null
-    private resizeObserver: ResizeObserver | null = null
+    private originalCanvasOpacity: string | null = null
 
     // Method called by parent to set Three.js context
     setThreeContext(scene: Scene, camera: Camera, renderer: WebGLRenderer) {
@@ -52,77 +49,59 @@ export class AsciiRenderer extends LitElement {
 
         this.teardownAsciiEffect()
 
-        const asciiEffect = new AsciiEffect(this.renderer, this.characters, {
+        const canvas = this.renderer.domElement
+
+        const options: AsciiEffectOptions = {
             resolution: this.resolution,
-        }) as ConfigurableAsciiEffect
+            color: false,
+            invert: false,
+            objectFit: "fill",
+            layout: "static",
+        }
+
+        const asciiEffect = new AsciiEffect(canvas, this.characters, options)
+        asciiEffect.init()
+
+        const asciiContainer = asciiEffect.getAsciiContainer()
+        asciiContainer.style.backgroundColor = "white"
+        asciiContainer.style.pointerEvents = "none"
+        asciiContainer.style.position = "absolute"
+        asciiContainer.style.inset = "0"
+        asciiContainer.style.width = "100%"
+        asciiContainer.style.height = "100%"
+        asciiContainer.style.overflow = "hidden"
+
+        if (asciiContainer.parentNode !== this.renderRoot) {
+            this.renderRoot.appendChild(asciiContainer)
+        }
+
+        this.originalCanvasOpacity = canvas.style.opacity || null
+        canvas.style.opacity = "0"
 
         this.asciiEffect = asciiEffect
-
-        const asciiElement = asciiEffect.domElement
-        asciiElement.style.position = "absolute"
-        asciiElement.style.top = "0"
-        asciiElement.style.left = "0"
-        asciiElement.style.color = "black"
-        asciiElement.style.backgroundColor = "white"
-        asciiElement.style.pointerEvents = "none"
-
-        const parent = this.renderer.domElement.parentNode as
-            | HTMLElement
-            | ShadowRoot
-            | null
-        parent?.appendChild(asciiElement)
-
-        const rect = this.getBoundingClientRect()
-        const width = rect.width || this.clientWidth || 1
-        const height = rect.height || this.clientHeight || 1
-
-        asciiEffect.setSize(width, height)
-        this.setupResizeObserver()
-    }
-
-    private setupResizeObserver() {
-        this.disposeResizeObserver()
-
-        this.resizeObserver = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                const { width, height } = entry.contentRect
-                if (
-                    width > 0 &&
-                    height > 0 &&
-                    this.asciiEffect &&
-                    this.renderer
-                ) {
-                    this.asciiEffect.setSize(width, height)
-                }
-            }
-        })
-        this.resizeObserver.observe(this as Element)
-    }
-
-    private disposeResizeObserver() {
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect()
-            this.resizeObserver = null
-        }
     }
 
     private teardownAsciiEffect() {
-        this.disposeResizeObserver()
-
         if (!this.asciiEffect) {
             return
         }
 
-        const asciiElement = this.asciiEffect.domElement
-        asciiElement.parentNode?.removeChild(asciiElement)
-        this.asciiEffect.dispose()
+        this.asciiEffect.destroy()
         this.asciiEffect = null
+
+        if (this.renderer?.domElement && this.originalCanvasOpacity !== null) {
+            this.renderer.domElement.style.opacity = this.originalCanvasOpacity
+        } else if (this.renderer?.domElement) {
+            this.renderer.domElement.style.removeProperty("opacity")
+        }
+        this.originalCanvasOpacity = null
     }
 
     // Method called by parent to render ASCII effect
     renderAscii() {
-        if (this.asciiEffect && this.scene && this.camera) {
-            this.asciiEffect.render(this.scene, this.camera)
+        if (this.asciiEffect && this.scene && this.camera && this.renderer) {
+            this.renderer.render(this.scene, this.camera)
+            this.asciiEffect.render()
         }
     }
 
@@ -136,7 +115,7 @@ export class AsciiRenderer extends LitElement {
 
     protected updated(changed: PropertyValues<this>): void {
         if (changed.has("characters") && this.asciiEffect) {
-            this.asciiEffect.setCharSet(this.characters)
+            this.asciiEffect.setCharacterSet(this.characters)
         }
 
         if (changed.has("resolution") && this.asciiEffect) {

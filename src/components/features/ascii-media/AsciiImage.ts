@@ -1,6 +1,11 @@
-import { LitElement, html, css } from "lit"
-import { customElement, property, state, query } from "lit/decorators.js"
-import { AsciiEffect } from "./AsciiEffect"
+import type { CSSResultGroup, PropertyValues } from "lit"
+import { LitElement, css, html } from "lit"
+import { customElement, property, query, state } from "lit/decorators.js"
+import {
+    AsciiEffect,
+    type AsciiEffectOptions,
+    type AsciiObjectFit,
+} from "../ascii-effect/AsciiEffect"
 
 @customElement("ascii-image")
 export class AsciiImage extends LitElement {
@@ -10,13 +15,13 @@ export class AsciiImage extends LitElement {
     @property({ type: Number }) resolution = 0.18
     @property({ type: Boolean }) color = false
     @property({ type: Boolean }) invert = false
-    @property({ type: String }) objectFit: "cover" | "contain" | "fill" = "fill"
+    @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
     @property({ type: Number }) darken = 1
 
-    @state() private isImageLoaded = false
-    @state() private showingImage = false
-    @state() private isMobile = false
+    @state() protected isImageLoaded = false
+    @state() protected showingImage = false
+    @state() protected isMobile = false
 
     @query("img") private imageElement!: HTMLImageElement
     @query(".container") private containerElement!: HTMLDivElement
@@ -26,7 +31,7 @@ export class AsciiImage extends LitElement {
     private intersectionObserver: IntersectionObserver | null = null
     private revealTimeout: number | null = null
 
-    static styles = css`
+    static override styles: CSSResultGroup = css`
         :host {
             display: block;
             height: 100%;
@@ -70,16 +75,21 @@ export class AsciiImage extends LitElement {
         }
     `
 
-    connectedCallback() {
+    private static readonly MOBILE_BREAKPOINT = 768
+    private static readonly INTERSECTION_THRESHOLD = [0, 0.6, 1] as const
+
+    connectedCallback(): void {
         super.connectedCallback()
         this.checkMobile()
-        this.resizeHandler = () => this.checkMobile()
-        window.addEventListener("resize", this.resizeHandler)
+        if (typeof window !== "undefined") {
+            this.resizeHandler = () => this.checkMobile()
+            window.addEventListener("resize", this.resizeHandler)
+        }
     }
 
-    disconnectedCallback() {
+    disconnectedCallback(): void {
         super.disconnectedCallback()
-        if (this.resizeHandler) {
+        if (this.resizeHandler && typeof window !== "undefined") {
             window.removeEventListener("resize", this.resizeHandler)
         }
         this.cleanupAsciiEffect()
@@ -89,13 +99,13 @@ export class AsciiImage extends LitElement {
         }
     }
 
-    firstUpdated() {
+    firstUpdated(_changedProperties: PropertyValues<this>): void {
         if (this.isMobile) {
             this.setupIntersectionObserver()
         }
     }
 
-    updated(changedProperties: Map<string, any>) {
+    updated(changedProperties: PropertyValues<this>): void {
         if (changedProperties.has("src")) {
             this.isImageLoaded = false
             this.showingImage = false
@@ -103,8 +113,6 @@ export class AsciiImage extends LitElement {
         }
 
         if (this.isImageLoaded && this.asciiEffect) {
-            let shouldRender = false
-
             if (
                 changedProperties.has("charSet") ||
                 changedProperties.has("resolution") ||
@@ -123,15 +131,12 @@ export class AsciiImage extends LitElement {
                     textColor: this.textColor,
                     darken: this.darken,
                 })
-                shouldRender = true
-            }
-
-            if (shouldRender) {
                 this.asciiEffect.render()
             }
         }
 
-        if (changedProperties.has("isMobile")) {
+        const isMobileChanged = changedProperties.has("isMobile" as never)
+        if (isMobileChanged) {
             if (this.isMobile) {
                 this.setupIntersectionObserver()
             } else {
@@ -139,24 +144,35 @@ export class AsciiImage extends LitElement {
             }
 
             if (this.asciiEffect) {
-                const duration = this.isMobile ? "1.8s" : "1.2s"
-                this.asciiEffect.setTransitionDuration(duration)
+                this.updateAsciiTransition()
             }
         }
 
-        if (changedProperties.has("showingImage")) {
+        const showingImageChanged = changedProperties.has(
+            "showingImage" as never,
+        )
+        if (showingImageChanged) {
             this.updateVisibility()
         }
     }
 
-    private checkMobile() {
-        this.isMobile = window.innerWidth < 768 || "ontouchstart" in window
+    private checkMobile(): void {
+        if (typeof window === "undefined") {
+            this.isMobile = false
+            return
+        }
+
+        this.isMobile =
+            window.innerWidth < AsciiImage.MOBILE_BREAKPOINT ||
+            "ontouchstart" in window
     }
 
-    private setupIntersectionObserver() {
+    private setupIntersectionObserver(): void {
         this.cleanupIntersectionObserver()
 
         if (!this.containerElement) return
+        if (typeof window === "undefined") return
+        if (!("IntersectionObserver" in window)) return
 
         this.intersectionObserver = new IntersectionObserver(
             (entries) => {
@@ -177,34 +193,34 @@ export class AsciiImage extends LitElement {
                     }
                 })
             },
-            { threshold: [0, 0.6, 1] },
+            { threshold: [...AsciiImage.INTERSECTION_THRESHOLD] },
         )
 
         this.intersectionObserver.observe(this.containerElement)
     }
 
-    private cleanupIntersectionObserver() {
+    private cleanupIntersectionObserver(): void {
         if (this.intersectionObserver) {
             this.intersectionObserver.disconnect()
             this.intersectionObserver = null
         }
     }
 
-    private cleanupAsciiEffect() {
+    private cleanupAsciiEffect(): void {
         if (this.asciiEffect) {
             this.asciiEffect.destroy()
             this.asciiEffect = null
         }
     }
 
-    private handleImageLoad() {
+    private handleImageLoad(): void {
         this.isImageLoaded = true
 
         if (!this.imageElement) return
 
         this.cleanupAsciiEffect()
 
-        const options = {
+        const options: AsciiEffectOptions = {
             resolution: this.resolution,
             color: this.color,
             invert: this.invert,
@@ -221,30 +237,27 @@ export class AsciiImage extends LitElement {
         this.asciiEffect.render()
 
         this.imageElement.style.opacity = "0"
-        if (this.asciiEffect) {
-            this.asciiEffect.getAsciiContainer().style.opacity = "1"
-            const duration = this.isMobile ? "1.8s" : "1.2s"
-            this.asciiEffect.setTransitionDuration(duration)
-        }
+        this.updateAsciiTransition()
+        this.asciiEffect?.getAsciiContainer().style.setProperty("opacity", "1")
 
         this.dispatchEvent(new CustomEvent("load"))
     }
 
-    private handleMouseEnter() {
+    private handleMouseEnter(): void {
         if (!this.isMobile && this.imageElement && this.asciiEffect) {
             this.imageElement.style.opacity = "1"
             this.asciiEffect.getAsciiContainer().style.opacity = "0"
         }
     }
 
-    private handleMouseLeave() {
+    private handleMouseLeave(): void {
         if (!this.isMobile && this.imageElement && this.asciiEffect) {
             this.imageElement.style.opacity = "0"
             this.asciiEffect.getAsciiContainer().style.opacity = "1"
         }
     }
 
-    private updateVisibility() {
+    private updateVisibility(): void {
         if (this.isMobile && this.imageElement && this.asciiEffect) {
             if (this.showingImage) {
                 this.imageElement.style.opacity = "1"
@@ -254,6 +267,15 @@ export class AsciiImage extends LitElement {
                 this.asciiEffect.getAsciiContainer().style.opacity = "1"
             }
         }
+    }
+
+    private updateAsciiTransition(): void {
+        if (!this.asciiEffect) {
+            return
+        }
+
+        const duration = this.isMobile ? "1.8s" : "1.2s"
+        this.asciiEffect.setTransitionDuration(duration)
     }
 
     render() {

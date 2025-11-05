@@ -1,22 +1,26 @@
-import { LitElement, html, css } from "lit"
+import type { CSSResultGroup } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property } from "lit/decorators.js"
+import type { AsciiObjectFit } from "../ascii-effect/AsciiEffect"
 import "./AsciiImage"
 import "./AsciiVideo"
+
+type MediaType = "image" | "video"
 
 @customElement("ascii-media")
 export class AsciiMedia extends LitElement {
     @property({ type: String }) src = ""
-    @property({ type: String }) type?: "image" | "video"
+    @property({ type: String }) type?: MediaType
     @property({ type: String }) alt = ""
     @property({ type: String }) charSet = " .:-=+*#%@"
     @property({ type: Number }) resolution = 0.18
     @property({ type: Boolean }) color = false
     @property({ type: Boolean }) invert = false
-    @property({ type: String }) objectFit: "cover" | "contain" | "fill" = "fill"
+    @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
     @property({ type: Number }) darken = 1
 
-    static styles = css`
+    static override styles: CSSResultGroup = css`
         :host {
             display: block;
             height: 100%;
@@ -24,50 +28,53 @@ export class AsciiMedia extends LitElement {
         }
     `
 
+    private static readonly VIDEO_EXTENSIONS = new Set([
+        "mp4",
+        "webm",
+        "ogg",
+        "avi",
+        "mov",
+        "wmv",
+        "flv",
+        "m4v",
+    ])
+
+    private static readonly IMAGE_EXTENSIONS = new Set([
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "bmp",
+        "webp",
+        "svg",
+    ])
+
     // Auto-detect media type from file extension if not explicitly provided
-    private getMediaType(): "image" | "video" {
+    private getMediaType(): MediaType {
         if (this.type) return this.type
 
-        const extension = this.src.split(".").pop()?.toLowerCase()
-        const videoExtensions = [
-            "mp4",
-            "webm",
-            "ogg",
-            "avi",
-            "mov",
-            "wmv",
-            "flv",
-            "m4v",
-        ]
-        const imageExtensions = [
-            "jpg",
-            "jpeg",
-            "png",
-            "gif",
-            "bmp",
-            "webp",
-            "svg",
-        ]
+        const extension = this.src.split(".").pop()?.toLowerCase() ?? ""
 
-        if (videoExtensions.includes(extension || "")) {
+        if (AsciiMedia.VIDEO_EXTENSIONS.has(extension)) {
             return "video"
-        } else if (imageExtensions.includes(extension || "")) {
+        }
+
+        if (AsciiMedia.IMAGE_EXTENSIONS.has(extension)) {
             return "image"
         }
 
-        // Default to image for unknown extensions
         return "image"
     }
 
-    private handleLoad() {
+    private handleLoad(): void {
         this.dispatchEvent(new CustomEvent("load"))
     }
 
-    private handlePlay() {
+    private handlePlay(): void {
         this.dispatchEvent(new CustomEvent("play"))
     }
 
-    private handlePause() {
+    private handlePause(): void {
         this.dispatchEvent(new CustomEvent("pause"))
     }
 
@@ -77,14 +84,14 @@ export class AsciiMedia extends LitElement {
         if (mediaType === "video") {
             return html`
                 <ascii-video
-                    src=${this.src}
-                    charSet=${this.charSet}
-                    resolution=${this.resolution}
-                    ?color=${this.color}
-                    ?invert=${this.invert}
-                    objectFit=${this.objectFit}
-                    textColor=${this.textColor}
-                    darken=${this.darken}
+                    .src=${this.src}
+                    .charSet=${this.charSet}
+                    .resolution=${this.resolution}
+                    .color=${this.color}
+                    .invert=${this.invert}
+                    .objectFit=${this.objectFit}
+                    .textColor=${this.textColor}
+                    .darken=${this.darken}
                     @load=${this.handleLoad}
                     @play=${this.handlePlay}
                     @pause=${this.handlePause}
@@ -93,15 +100,15 @@ export class AsciiMedia extends LitElement {
         } else {
             return html`
                 <ascii-image
-                    src=${this.src}
-                    alt=${this.alt}
-                    charSet=${this.charSet}
-                    resolution=${this.resolution}
-                    ?color=${this.color}
-                    ?invert=${this.invert}
-                    objectFit=${this.objectFit}
-                    textColor=${this.textColor}
-                    darken=${this.darken}
+                    .src=${this.src}
+                    .alt=${this.alt}
+                    .charSet=${this.charSet}
+                    .resolution=${this.resolution}
+                    .color=${this.color}
+                    .invert=${this.invert}
+                    .objectFit=${this.objectFit}
+                    .textColor=${this.textColor}
+                    .darken=${this.darken}
                     @load=${this.handleLoad}
                 ></ascii-image>
             `

@@ -119,7 +119,7 @@ export abstract class BaseThreeComponent extends LitElement {
         }
 
         if (this.renderer) {
-            this.renderer.setSize(width, height, false)
+            this.renderer.setSize(width, height)
         }
 
         this.onResize(width, height)
