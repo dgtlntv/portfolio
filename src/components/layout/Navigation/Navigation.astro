@@ -33,7 +33,11 @@ import NavigationMobile from "./NavigationMobile.astro"
                 currentPath === targetPath ||
                 (targetPath !== "/" && currentPath.startsWith(`${targetPath}/`))
 
-            link.toggleAttribute("aria-current", isActive)
+            if (isActive) {
+                link.setAttribute("aria-current", "page")
+            } else {
+                link.removeAttribute("aria-current")
+            }
         })
     }
 
