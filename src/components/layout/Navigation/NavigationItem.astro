@@ -16,19 +16,15 @@ const { to, label, isExternal, variant, currentPath } = Astro.props
 
 const isActive =
     !isExternal && currentPath
-        ? currentPath === to || currentPath.startsWith(`${to}/`)
-        : false
+        ? currentPath === to || (to !== "/" && currentPath.startsWith(`${to}/`))
+        : currentPath === to
 
 const baseClasses = "font-fancy text-base font-medium transition-colors"
 
 const variantClasses =
     variant === "mobile"
-        ? isActive
-            ? "text-gray-900 font-semibold"
-            : "text-gray-900 hover:text-gray-700"
-        : isActive
-          ? "text-gray-900 font-semibold underline decoration-solid decoration-2 underline-offset-8"
-          : "text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8"
+        ? "text-gray-900 hover:text-gray-700 aria-[current=page]:font-semibold"
+        : "text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8 aria-[current=page]:text-gray-900 aria-[current=page]:font-semibold aria-[current=page]:underline aria-[current=page]:decoration-solid aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
 
 const classes = `${baseClasses} ${variantClasses}`
 
@@ -37,8 +33,16 @@ const externalProps = isExternal
     : {}
 
 const ariaProps = isActive ? { "aria-current": "page" as const } : {}
+
+const dataAttributes = !isExternal ? { "data-nav-path": to } : {}
 ---
 
-<a href={to} class={classes} {...externalProps} {...ariaProps}>
+<a
+    href={to}
+    class={classes}
+    {...externalProps}
+    {...ariaProps}
+    {...dataAttributes}
+>
     {label}
 </a>

@@ -4,7 +4,11 @@ import NavigationDesktop from "./NavigationDesktop.astro"
 import NavigationMobile from "./NavigationMobile.astro"
 ---
 
-<nav class="relative z-50 bg-white">
+<nav
+    class="relative z-50 bg-white"
+    transition:persist="site-navigation"
+    transition:animate="none"
+>
     <div
         class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start"
     >
@@ -15,3 +19,25 @@ import NavigationMobile from "./NavigationMobile.astro"
         <NavigationDesktop />
     </div>
 </nav>
+
+<script is:inline>
+    const trimPath = (path) => (path ? path.replace(/\/+$|^$/, "") || "/" : "/")
+    const navigationLinks = document.querySelectorAll("[data-nav-path]")
+
+    const updateActiveNavigation = () => {
+        const currentPath = trimPath(window.location.pathname)
+
+        navigationLinks.forEach((link) => {
+            const targetPath = trimPath(link.dataset.navPath)
+            const isActive =
+                currentPath === targetPath ||
+                (targetPath !== "/" && currentPath.startsWith(`${targetPath}/`))
+
+            link.toggleAttribute("aria-current", isActive)
+        })
+    }
+
+    updateActiveNavigation()
+    document.addEventListener("astro:page-load", updateActiveNavigation)
+    document.addEventListener("astro:after-swap", updateActiveNavigation)
+</script>
