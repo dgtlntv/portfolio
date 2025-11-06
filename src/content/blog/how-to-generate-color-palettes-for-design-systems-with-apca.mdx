@@ -1,31 +1,39 @@
 ---
 title: How to generate color palettes for design systems (…with APCA)
 date: "09.10.2025"
-slug: how-to-generate-color-palettes-for-design-systems-with-apca
+slug: generating-color-palettes-for-design-systems-with-apca
 excerpt:
     How I reversed the APCA algorithm to generate perceptual contrast color
     palettes.
 ---
 
 This is the first of two blog posts about how we created the color palette for a
-new design system we are working on at Canonical. In this first post, I will
-write about my journey into the world of perceptually uniform color spaces and
-perceptual contrast algorithms and explain what they are. If you are already
-familiar with these topics, [you can skip ahead to the section](#…-with-apca!)
-(or go to the
+new design system at Canonical. In this post I share my journey into
+perceptually uniform color spaces and perceptual contrast algorithms.
+
+If you are already familiar with these topics,
+[you can skip ahead to the section](#…-with-apca!) (or go to the
 [Github repository](https://github.com/dgtlntv/perceptual-contrast-palette)),
 where I show how I reverse-engineered the APCA contrast algorithm to generate
 perceptually contrasting color palettes. In the next post, I will talk about why
 we ultimately decided not to go with this solution and what we did instead.
 
+If you're already familiar with these concepts,
+[skip to this section](#…-with-apca!) (or
+[visit the Github repository](https://github.com/dgtlntv/perceptual-contrast-palette)
+to see how I reverse-engineered the Accessible Perceptual Contrast Algorithm
+(APCA) to generate perceptually contrasting color palettes. In the next post, I
+will share why we didn't choose this solution and what we chose instead.
+
 ## How humans perceive color
 
-I was nerd sniped by a colleague with this article by Matthew Ström about
-“[How to pick the least wrong colors](https://matthewstrom.com/writing/how-to-pick-the-least-wrong-colors/)”.
-An article about using
+I was nerd sniped by a colleague with this article by Matthew Ström, “[How to
+pick the least wrong
+colors](https://matthewstrom.com/writing/how-to-pick-the-least-wrong-colors/”
+about using
 [perceptually uniform color spaces](https://en.wikipedia.org/wiki/Color_appearance_model)
-to pick the least bad data visualization colors. At that point I hadn’t known
-about perceptually uniform color spaces like
+to pick data visualization colors. At that point, I hadn’t known about
+perceptually uniform color spaces like
 [Oklab and Oklch](https://bottosson.github.io/posts/oklab/).
 
 <MDXFigure
@@ -34,11 +42,11 @@ about perceptually uniform color spaces like
     caption="The RGB color space"
 />
 
-“Normal” color spaces such as RGB are structured in such a way that machines can
-easily process colors. Therefore, RGB has very inhuman characteristics. If you
-imagine the color space as a geometric shape, for example, RGB would be a cube.
-The naive assumption would be that colors we perceive as similar are close to
-each other in this cube, right? However, this is not the case. Surprisingly,
+“Normal” color spaces, such as RGB, are structured in such a way that machines
+can easily process colors. Therefore, RGB has very inhuman characteristics. If
+you imagine the color space as a geometric shape, for example, RGB would be a
+cube. The naive assumption would be that colors we perceive as similar are close
+to each other in this cube, right? However, this is not the case. Surprisingly,
 human color perception does not correspond to a perfect cube. Who would have
 thought?
 
@@ -48,16 +56,17 @@ thought?
     caption="The Oklch color space"
 />
 
-Perceptually uniform color spaces differ in this respect. Instead of trying to
-make things easy for computers, these color spaces attempt to approximate human
-perception. As a result, their 3D shapes are not perfect geometric shapes, such
-as this shape from Oklch. Shocker! This property of perceptually uniform color
-spaces, which align more closely with actual human color perception, holds
-enormous potential for UI design (and probably for design in general). For
-example, it is much easier to create color palettes in which the brightness of
-different colors appears much more uniform in the same “step”. Perceptually
-uniform color spaces and their potential use in UI design really fascinated me,
-prompting me to dive deeper into perceptually uniform color spaces and
+Perceptually uniform color spaces support human perception, not computers. While
+RGB’s are consistent in how a color displays on a monitor, PUCs are consistent
+with how we actually see the color. As a result, their 3D shapes are not perfect
+geometric shapes, such as the one from Oklch (pictured above). Shocker!
+
+This property of perceptually uniform color spaces, which aligns more closely
+with actual human color perception, holds enormous potential for UI design and
+the wider design spectrum. For example, it's much easier to create color
+palettes in which the brightness of different colors appears more uniform in the
+same “gradation”. This potential fascinated me, so I took a deeper dive into
+perceptually uniform color spaces and
 [human perception of colors and contrasts in general](https://www.handprint.com/HP/WCL/color1.html).
 
 ## How humans perceive contrast
@@ -79,71 +88,81 @@ prompting me to dive deeper into perceptually uniform color spaces and
     standard. The author of APCA, myndex, does an excellent job of documenting the
     [shortcomings of WCAG](https://github.com/Myndex/SAPC-APCA/discussions/30).
     Essentially, WCAG produces both false positives and false negatives when it
-    comes to evaluating the contrast between two colors. This means that some color
-    combinations with high contrast fail, while others with very poor contrast pass.
-    APCA is a contrast algorithm that is more closely aligned with human contrast
-    perception and is therefore much better at evaluating contrast than WCAG. At
-    that time, I also was going to start creating a new color palette for
+    evaluates contrast between two colors. Meaning, WCAG approvals aren’t
+    necessarily accessible because some combinations with high contrast fail and
+    some with low contrast pass. APCA is a contrast algorithm that is more closely
+    aligned with human contrast perception and is therefore much better at
+    evaluating contrast than WCAG.
+
+    At that time, I also was going to start creating a new color palette for
     Canonical's design system. So I expanded my research to include how different
     color spaces and contrast algorithms can be used to create color palettes. In
-    this context, I also read another article by Matthew Ström on color generation
+    this context, I also read another article by Matthew Ström on color generation,
     titled
-    “[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/).”
+    “[How to Generate Color Palettes for Design Systems.](https://matthewstrom.com/writing/generating-color-palettes/)”
     This article was one of the most important sources of inspiration for my further
-    work and this blog post.
+    work and this blog post; In particular, Ström's principle of using contrasts to
+    determine color gradations, which made me wonder whether it could be developed
+    further.
 
 </FloatContent>
 
 ## Generating color palettes for design systems…
 
-In this article, Matthew Ström combines contrast algorithms and perceptually
-uniform color spaces to generate color palettes. One of the most important
-aspects of working with colors in user interfaces (and other media) is contrast.
-There must be sufficient contrast between two colors so that people can
-distinguish between different elements. The central idea of this article is that
-contrast should determine the distance between the steps in a color palette.
-Meaning that for example every pair of colors that has a distance of 500 (in the
-context of the numbering of the color palette) should have at least a contrast
-of 4.5:1.
+To support my work creating a new color palette for Canonical’s design system, I
+also researched how color spaces and contrast algorithms can be used to make
+color palettes. In his article Ström explores combining contrast algorithms and
+perceptually uniform color spaces to generate color palettes.
+
+Contrast is one of the most important aspects of working with color in user
+interfaces (and other media). There must be sufficient contrast between two
+colors so that people can distinguish between them. Ström believes that contrast
+should determine the gradation between colors in a palette. Applied to Ström’s
+palette, this means that every pair of colors with a distance of 500 will have
+the WCAG mandated contrast ratio of 4.5:1.
+
 ![An illustration showing how a contrast-based palette can be helpful by illustrating the same distances in the palette with the same contrast](/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/contrast-palette.png)
 
-In a color palette where the contrast between two shades is predictable and
-consistent, it becomes very easy to select accessible color pairs. You simply
-select any two shades in the palette that are a certain distance apart, and you
-have selected an accessible color pair. It is no longer necessary to manually
-check all color combinations in your user interface. In an internal survey of
-designers at Canonical, we found that selecting accessible color pairs is an
-important concern for designers. Therefore, a color palette in which it is easy
-to select accessible color pairs seemed ideal for us.
+In a color palette where the contrast between two shades is consistent, it’s
+easy to choose accessible color pairs. Choose any two shades in the palette that
+are a certain distance apart, and you’ve got an accessible color pair. You no
+longer need to manually check all color combinations in your user interface. In
+an internal survey of designers at Canonical, we found that selecting accessible
+color pairs is an important concern for designers. Therefore, a color palette in
+which it is easy to select accessible color pairs seemed ideal for us.
 
 ## … with APCA\!
 
-Matthew Ström used the WCAG algorithm in his blog post. However, as mentioned
-earlier, the WCAG contrast algorithm has its drawbacks. I was curious to see if
-it would be possible to follow the same principle but replace the WCAG algorithm
-with the APCA algorithm. At the end of his blog post, he even mentioned that it
-would be interesting to try the same approach with APCA. I found the idea of
-trying it with APCA exciting and began to investigate its feasibility.
+Matthew Ström used the WCAG algorithm in his blog post to good effect, but as
+mentioned earlier, the WCAG contrast algorithm has its drawbacks. I was curious
+to see if it would be possible to follow the same principle (basing color
+palette gradation on contrast) but replace the WCAG algorithm with the APCA
+algorithm; in fact, even Strom mentioned in his article that it would be an
+interesting experiment. I found the idea of trying it with APCA exciting and
+began to investigate its feasibility.
+
+So began my journey to create a color palette based on the APCA contrast
+algorithm.
 
 <FloatContent position="left">
 <AnimatedImage src="/images/blog/how-to-generate-color-palettes-for-design-systems-with-apca/apca.webp" alt="It shows the math formulas of APCA" caption="The full APCA formula" rotationDirection="left" slot="content" />
 
-    The first step toward my goal of creating a color palette based on the APCA
-    contrast algorithm was to reverse the main APCA algorithm. APCA takes two colors
-    and outputs a number between -108 and 106 to indicate how contrasting the color
-    pair is. Due to its complexity, reversing the APCA algorithm was a much greater
-    challenge than reversing the WCAG algorithm. Reversing the algorithm means
-    restructuring it so that we can specify a color and a desired contrast ratio to
-    the algorithm, and it returns a color that meets those criteria.
+    First, I had to reverse the main APCA algorithm. APCA takes two colors and
+    outputs a number between -108 and 106 (where 0 is low contrast and the extreme
+    values are high contrast) to indicate how contrasting the color pair is.
+    Reversing the algorithm means restructuring it so that we can specify a color
+    and a desired contrast ratio to the algorithm, and it returns a color that meets
+    those criteria. Due to its complexity, reversing the APCA algorithm was much
+    harder than reversing the WCAG algorithm.
 
 </FloatContent>
 
-I knew that the [apca-w3 package](https://github.com/Myndex/apca-w3) already had
+I knew that the [apca-w3](https://github.com/Myndex/apca-w3) package already had
 a “reverse APCA” function. Originally, I thought I would have to go beyond the
 capabilities of this function (it can only perform the reversal with grayscale
 colors). As a side project during a climbing trip with friends, I therefore
-tried to reverse the APCA algorithm myself (with the help of a physicist friend,
-as I'm not that good at math myself).
+tried to sketch out the reversal of the APCA algorithm on a napkin myself (with
+the help of a physicist friend, as I'm not that good at math myself).
 
 <div
     class="mx-auto my-8 md:-mx-4 lg:-mx-6 xl:-mx-12"
@@ -169,18 +188,18 @@ as I'm not that good at math myself).
     </figure>
 </div>
 
-When looking at the APCA algorithm, much of its complexity stems from the fact
-that there are several possible cases and the equation looks different depending
-on the case. The four cases we need to consider for our inverse algorithm are
-the polarity (is the text lighter than the background) and which of the two
-variables we want to solve for (text or background).
+Much of the APCA algorithm’s complexity stems from the fact that there are four
+possible cases and the equation looks different depending on the case. The four
+cases we need to consider for our inverse algorithm are the polarity (is the
+text lighter than the background) and which of the two variables we want to
+solve for (text or background).
 
 So for the inverse algorithm, we need to consider four cases:
 
-- **Case 1:** Light text on a dark background, solving for text
-- **Case 2:** Dark text on light background, solving for text
-- **Case 3:** Light text on dark background, solving for background
-- **Case 4:** Dark text on light background, solving for background
+- **Case 1**: Light text on a dark background, solving for text
+- **Case 2**: Dark text on light background, solving for text
+- **Case 3**: Light text on dark background, solving for background
+- **Case 4**: Dark text on light background, solving for background
 
 I will show my process for the first case. The process for the other cases is
 basically the same, but different substitutions and signs must be used depending
@@ -249,21 +268,21 @@ $$\quad M_{f}^{-1} = \frac{1}{1.9468554433171}$$
 
 ---
 
-After completing all the scary calculations, I was ready to translate all of
-this into code. In doing so, I realized that I had only determined the required
-Y component (in the XYZ color space) of a color with the correct contrast value
+After completing all the scary calculations, I was ready to translate it all
+into code. In doing so, I realized that I had only determined the required Y
+component (in the XYZ color space) of a color with the correct contrast value
 distance, but not a full color. So, the formula is essentially capable of
 determining a grayscale color that has the correct contrast distance to the
-input color. This corresponds to the functionality of the inverse APCA function
-which is already included in the apca-w3 package 😅.
+input color – exactly what the existing reverse APCA function can do 😅.
 
-Once I realized that, I took another look at Matthew Ström's article (which I
-wanted to replicate, but with APCA-based contrast values) and realized that the
-Y component was actually all I needed for this particular way of color palette
-generation. So I could have used the function available in the apca-w3
-package...
+I took another look at Ström's article and realized that the Y component was
+actually all I needed to generate the palettes. So I could have just used the
+function available in the apca-w3 package… So if you are considering a similar
+project, you can save yourself (and your physicist friends) the napkin
+calculations and either use the existing `reverseAPCA()` function in the apca-w3
+package or my code below.
 
-But I still thought it was a good learning experience to reverse it myself, and
+I still thought it was a good learning experience to reverse it myself, and
 since apca-w3 is not completely open source (it doesn't have a standard open
 source license), I also thought it would be nice to have an implementation of
 the reverse algorithm with a truly open source license. I'm not sure if what I
@@ -273,8 +292,7 @@ so I'll refrain from claiming that my result is APCA-compliant. The code for my
 inverse perceptual contrast finder, based on the APCA algorithm approach, is as
 follows:
 
-```javascript
-
+```typescript
 /**
  * Constants used in perceptual contrast calculations
  * Based on the formula found at https://github.com/Myndex/apca-w3/blob/c012257167d822f91bc417120bdb82e1b854b4a4/src/apca-w3.js#L146
@@ -314,7 +332,7 @@ function unclampY(y: number): number {
         : Math.pow(
               (y + PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_OFFSET_IN) *
                   PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_FACTOR,
-              PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_EXPONENT
+              PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_EXPONENT,
           ) *
               PERCEPTUAL_CONTRAST_CONSTANTS.MACIG_FACTOR_INVERSE -
               PERCEPTUAL_CONTRAST_CONSTANTS.MAGIC_OFFSET_OUT
@@ -332,7 +350,7 @@ function clampY(y: number): number {
         : y +
               Math.pow(
                   PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_THRESHOLD - y,
-                  PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_CLAMP
+                  PERCEPTUAL_CONTRAST_CONSTANTS.BLACK_CLAMP,
               )
 }
 
@@ -349,7 +367,7 @@ export function reversePerceptualContrast(
     contrast: number = 75, // Default contrast of 75
     y: number = 1, // Default luminance of 1
     bgIsDarker: boolean = false, // Default assumes background is lighter
-    lookingFor: "txt" | "bg" = "txt" // Default solves for text color
+    lookingFor: "txt" | "bg" = "txt", // Default solves for text color
 ): number | false {
     contrast = Math.abs(contrast)
     let output: number | undefined
@@ -361,7 +379,7 @@ export function reversePerceptualContrast(
 
     if (!(contrast >= 5 && contrast <= 106.04066)) {
         console.log(
-            "contrast is not a valid value (contrast >= 5 && contrast <= 106.04066)"
+            "contrast is not a valid value (contrast >= 5 && contrast <= 106.04066)",
         )
         return false
     }
@@ -413,11 +431,7 @@ export function reversePerceptualContrast(
     }
 
     // Validate final output
-    if (
-        output === undefined ||
-        isNaN(output) ||
-        !(output > 0 && output <= 1)
-    ) {
+    if (output === undefined || isNaN(output) || !(output > 0 && output <= 1)) {
         console.log("A color with the specifications does not exist")
         return false
     } else {
@@ -426,8 +440,8 @@ export function reversePerceptualContrast(
 }
 ```
 
-After performing the APCA based inversion, all I had to do was combine my code
-for reverse perceptual contrast with Matthew's code:
+After performing the APCA-based inversion, all I had to do was combine my code
+for reverse perceptual contrast with Ström's code:
 
 ```typescript
 import Color from "colorjs.io"
@@ -632,7 +646,7 @@ export function generateColorScale(
 }
 ```
 
-And just like that we can generate a color palette with predictable APCA based
+And just like that, we can generate a color palette with predictable APCA-based
 contrast shades:
 
 <table>
@@ -1013,10 +1027,9 @@ contrast shades:
     </tbody>
 </table>
 
-You can also find the entire code in a
+You can find the entire code in a
 [Github repository](https://github.com/dgtlntv/perceptual-contrast-palette). I
 mentioned that I did all this work in preparation for developing a new color
-palette for Canonical's design system. So you might think that we ultimately
-used the APCA-based approach for this color palette. But in the end, we decided
-(for good reasons) to go with the WCAG-based approach, which I will write about
-in my next blog post. So stay tuned :)
+palette for Canonical's design system. But in the end, we decided (for good
+reasons) to go with the WCAG-based approach, which I will write about in my next
+blog post. So stay tuned :)

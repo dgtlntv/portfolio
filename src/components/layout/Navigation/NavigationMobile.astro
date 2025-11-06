@@ -9,50 +9,52 @@ import NavigationItem from "./NavigationItem.astro"
 const currentPath = Astro.url.pathname
 ---
 
-<div class="-my-2 -mr-2 md:hidden">
-    <button
-        id="mobile-menu-trigger"
-        class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu-dialog"
-    >
-        <Bars3 class="h-6 w-6" aria-hidden="true" />
-    </button>
-</div>
+<div class="md:hidden">
+    <div class="-my-2 -mr-2">
+        <button
+            id="mobile-menu-trigger"
+            class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu-dialog"
+        >
+            <Bars3 class="h-6 w-6" aria-hidden="true" />
+        </button>
+    </div>
 
-<mobile-menu-dialog id="mobile-menu-dialog" class="md:hidden">
-    <div class="px-4 py-5 sm:px-6">
-        <div class="flex items-center justify-between">
-            <Logo />
-            <div>
-                <button
-                    id="mobile-menu-close"
-                    class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
-                    aria-label="Close navigation menu"
-                >
-                    <XMark class="h-6 w-6" aria-hidden="true" />
-                </button>
+    <mobile-menu-dialog id="mobile-menu-dialog" class="contents md:hidden">
+        <div class="px-4 py-5 sm:px-6">
+            <div class="flex items-center justify-between">
+                <Logo />
+                <div>
+                    <button
+                        id="mobile-menu-close"
+                        class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
+                        aria-label="Close navigation menu"
+                    >
+                        <XMark class="h-6 w-6" aria-hidden="true" />
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <nav class="px-4 py-6 sm:px-6" aria-label="Mobile navigation">
-        <div class="grid grid-cols-1 gap-4">
-            {
-                NAVIGATION_LINKS.map((link) => (
-                    <NavigationItem
-                        to={link.to}
-                        label={link.label}
-                        isExternal={link.isExternal}
-                        variant="mobile"
-                        currentPath={currentPath}
-                    />
-                ))
-            }
-            <ContactButton />
-        </div>
-    </nav>
-</mobile-menu-dialog>
+        <nav class="px-4 py-6 sm:px-6" aria-label="Mobile navigation">
+            <div class="grid grid-cols-1 gap-4">
+                {
+                    NAVIGATION_LINKS.map((link) => (
+                        <NavigationItem
+                            to={link.to}
+                            label={link.label}
+                            isExternal={link.isExternal}
+                            variant="mobile"
+                            currentPath={currentPath}
+                        />
+                    ))
+                }
+                <ContactButton />
+            </div>
+        </nav>
+    </mobile-menu-dialog>
+</div>
 
 <script>
     interface MobileMenuDialogElement extends HTMLElement {
