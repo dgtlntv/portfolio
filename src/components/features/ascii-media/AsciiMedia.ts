@@ -19,6 +19,7 @@ export class AsciiMedia extends LitElement {
     @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
     @property({ type: Number }) darken = 1
+    @property({ type: String, attribute: "link-href" }) linkHref = ""
 
     static override styles: CSSResultGroup = css`
         :host {
@@ -92,6 +93,7 @@ export class AsciiMedia extends LitElement {
                     .objectFit=${this.objectFit}
                     .textColor=${this.textColor}
                     .darken=${this.darken}
+                    .linkHref=${this.linkHref}
                     @load=${this.handleLoad}
                     @play=${this.handlePlay}
                     @pause=${this.handlePause}
@@ -109,6 +111,7 @@ export class AsciiMedia extends LitElement {
                     .objectFit=${this.objectFit}
                     .textColor=${this.textColor}
                     .darken=${this.darken}
+                    .linkHref=${this.linkHref}
                     @load=${this.handleLoad}
                 ></ascii-image>
             `

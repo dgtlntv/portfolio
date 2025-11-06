@@ -17,6 +17,7 @@ export class AsciiVideo extends LitElement {
     @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
     @property({ type: Number }) darken = 1
+    @property({ type: String, attribute: "link-href" }) linkHref = ""
 
     @state() protected isVideoLoaded = false
     @state() protected isPlaying = false
@@ -37,6 +38,14 @@ export class AsciiVideo extends LitElement {
             display: block;
             height: 100%;
             width: 100%;
+        }
+
+        a.link-wrapper {
+            display: block;
+            height: 100%;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
         }
 
         .container {
@@ -325,7 +334,7 @@ export class AsciiVideo extends LitElement {
             .filter(Boolean)
             .join(" ")
 
-        return html`
+        const content = html`
             <div
                 class="container"
                 @mouseenter=${this.handleMouseEnter}
@@ -348,6 +357,20 @@ export class AsciiVideo extends LitElement {
                 ></video>
             </div>
         `
+
+        if (this.linkHref) {
+            return html`
+                <a
+                    class="link-wrapper"
+                    href=${this.linkHref}
+                    data-astro-router="client"
+                >
+                    ${content}
+                </a>
+            `
+        }
+
+        return content
     }
 }
 

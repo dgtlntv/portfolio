@@ -49,25 +49,22 @@ const {
                 className || ""
             }`}
         >
-            <a href={`/projects/${url}`}>
-                <div
-                    class={`relative aspect-[16/10] overflow-hidden rounded-xl bg-white shadow-md transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu hover:shadow-lg ${
-                        isLeft
-                            ? "hover:rotate-[0.5deg]"
-                            : "hover:rotate-[-0.5deg]"
-                    } hover:scale-[1.01]`}
-                >
-                    <ascii-media
-                        src={imageUrl || ""}
-                        alt={title || "Project image"}
-                        resolution={0.18}
-                        objectFit={heroLocation === "cover"
-                            ? "cover"
-                            : "contain"}
-                        color
-                        darken={asciiDarken}></ascii-media>
-                </div>
-            </a>
+            <div
+                class={`relative aspect-[16/10] overflow-hidden rounded-xl bg-white shadow-md transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu hover:shadow-lg ${
+                    isLeft
+                        ? "hover:rotate-[0.5deg]"
+                        : "hover:rotate-[-0.5deg]"
+                } hover:scale-[1.01]`}
+            >
+                <ascii-media
+                    src={imageUrl || ""}
+                    alt={title || "Project image"}
+                    resolution={0.18}
+                    objectFit={heroLocation === "cover" ? "cover" : "contain"}
+                    color
+                    darken={asciiDarken}
+                    link-href={`/projects/${url}`}></ascii-media>
+            </div>
         </div>
     </div>
 </div>
