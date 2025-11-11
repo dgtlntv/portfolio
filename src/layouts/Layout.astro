@@ -50,8 +50,20 @@ const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
         </div>
 
         <script>
-            import("../utils/webComponents.ts").then((module) => {
-                module.registerWebComponents()
+            /**
+             * @param {ParentNode} [scope]
+             */
+            const loadWebComponents = (scope = document) =>
+                import("../utils/webComponents.ts").then((module) =>
+                    module.registerWebComponents(scope),
+                )
+
+            loadWebComponents()
+
+            document.addEventListener("astro:page-load", (event) => {
+                const scope =
+                    event.target instanceof Document ? event.target : document
+                loadWebComponents(scope)
             })
         </script>
     </body>
