@@ -1,0 +1,67 @@
+---
+import {
+    DEFAULT_RESPONSIVE_SIZES,
+    getResponsiveImageConfig,
+} from "../../../utils/responsive-image"
+
+interface Props {
+    src: string
+    alt: string
+    sizes?: string
+    loading?: "lazy" | "eager"
+    decoding?: "async" | "auto" | "sync"
+    pictureClass?: string
+    class?: string
+    priority?: boolean
+    fetchpriority?: "high" | "low" | "auto"
+    [key: string]: any
+}
+
+const {
+    src,
+    alt,
+    sizes,
+    loading: incomingLoading,
+    decoding = "async",
+    pictureClass = "",
+    class: imgClass = "",
+    priority = false,
+    fetchpriority,
+    ...rest
+} = Astro.props as Props
+
+const resolvedLoading = priority ? "eager" : (incomingLoading ?? "lazy")
+const config = getResponsiveImageConfig(src, { sizes })
+const sources = config?.sources ?? []
+const fallbackSrc = config?.fallbackSrc ?? src
+const resolvedSizes = config?.sizes ?? sizes ?? DEFAULT_RESPONSIVE_SIZES
+const width = config?.width
+const height = config?.height
+const resolvedFetchPriority =
+    fetchpriority ??
+    (priority || resolvedLoading === "eager" ? "high" : undefined)
+---
+
+<picture class={pictureClass}>
+    {
+        sources.map((source) => (
+            <source
+                type={source.type}
+                srcset={source.srcset}
+                sizes={source.sizes}
+            />
+        ))
+    }
+    <img
+        src={fallbackSrc}
+        alt={alt}
+        loading={resolvedLoading}
+        decoding={decoding}
+        sizes={sources.length === 0 ? resolvedSizes : undefined}
+        width={width}
+        height={height}
+        class={imgClass}
+        fetchpriority={resolvedFetchPriority}
+        {...rest}
+    />
+</picture>

@@ -1,89 +1,290 @@
 #!/usr/bin/env node
 
-import sharp from 'sharp'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import fs from "fs"
+import path from "path"
+import sharp from "sharp"
+import { fileURLToPath } from "url"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const publicDir = path.join(__dirname, '..', 'public')
-const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.avif']
+const publicDir = path.join(__dirname, "..", "public")
+const imagesOutputDir = path.join(publicDir, "images")
+const potentialSourceDir = path.join(publicDir, "images-src")
+const sourceDir = fs.existsSync(potentialSourceDir)
+    ? potentialSourceDir
+    : imagesOutputDir
+
+const { promises: fsp } = fs
+
 const MAX_DIMENSION = 1920
+const TARGET_WIDTHS = [320, 480, 640, 768, 960, 1024, 1280, 1440, 1600, 1920]
+const SUPPORTED_EXTENSIONS = new Set([
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+    ".avif",
+])
+const OUTPUT_FORMATS = [
+    {
+        format: "webp",
+        extension: ".webp",
+        encode: (pipeline) =>
+            pipeline.webp({ quality: 82, alphaQuality: 95, effort: 4 }),
+    },
+    {
+        format: "avif",
+        extension: ".avif",
+        encode: (pipeline) => pipeline.avif({ quality: 45, effort: 4 }),
+    },
+]
+
+const manifest = {}
+let processedCount = 0
+
+function isGeneratedVariant(fileName) {
+    return /-w\d+\.(webp|avif)$/i.test(fileName)
+}
+
+function isHiddenFile(fileName) {
+    return fileName.startsWith(".")
+}
+
+function normaliseRelativeDir(dir) {
+    if (!dir) return ""
+    return dir.split(path.sep).filter(Boolean).join("/")
+}
+
+function buildPublicPath(relativeDir, fileName) {
+    const parts = ["images"]
+    const normalised = normaliseRelativeDir(relativeDir)
+    if (normalised) parts.push(normalised)
+    parts.push(fileName)
+    return `/${parts.join("/")}`
+}
+
+function buildManifestKey(relativeDir, baseName) {
+    const parts = []
+    const normalised = normaliseRelativeDir(relativeDir)
+    if (normalised) parts.push(normalised)
+    parts.push(baseName)
+    return parts.join("/")
+}
+
+function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+async function ensureDirectory(dirPath) {
+    await fsp.mkdir(dirPath, { recursive: true })
+}
+
+async function cleanupVariants(targetDir, baseName, expectedFiles) {
+    const variantPattern = new RegExp(
+        `^${escapeRegExp(baseName)}(?:-w\\d+)?\\.(webp|avif)$`,
+        "i",
+    )
+    const entries = await fsp.readdir(targetDir)
+    await Promise.all(
+        entries
+            .filter(
+                (entry) =>
+                    variantPattern.test(entry) && !expectedFiles.has(entry),
+            )
+            .map((entry) => fsp.unlink(path.join(targetDir, entry))),
+    )
+}
 
 async function processImage(filePath) {
-  const ext = path.extname(filePath).toLowerCase()
-  
-  if (!imageExtensions.includes(ext)) return
-  
-  try {
-    const image = sharp(filePath)
-    const metadata = await image.metadata()
-    const { width, height } = metadata
-    
-    let processedImage = image
-    let resized = false
-    
-    // Resize if either dimension exceeds MAX_DIMENSION
-    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
-      processedImage = processedImage.resize(MAX_DIMENSION, MAX_DIMENSION, {
-        fit: 'inside',
-        withoutEnlargement: true
-      })
-      resized = true
+    const ext = path.extname(filePath).toLowerCase()
+    if (!SUPPORTED_EXTENSIONS.has(ext)) return
+
+    const fileName = path.basename(filePath)
+    if (isHiddenFile(fileName) || isGeneratedVariant(fileName)) return
+
+    const relativeDir = path.relative(sourceDir, path.dirname(filePath))
+    const targetDir = path.join(imagesOutputDir, relativeDir)
+
+    await ensureDirectory(targetDir)
+
+    const baseName = path.basename(fileName, ext)
+
+    let inputBuffer
+    try {
+        inputBuffer = await fsp.readFile(filePath)
+    } catch (error) {
+        console.error(`Failed to read ${filePath}: ${error.message}`)
+        return
     }
-    
-    // Convert to WebP if not already WebP
-    if (ext !== '.webp') {
-      const webpPath = filePath.replace(/\.(jpe?g|png|avif)$/i, '.webp')
-      
-      await processedImage
-        .webp({ lossless: true, quality: 100 })
-        .toFile(webpPath)
-      
-      // Delete the original file after successful conversion
-      fs.unlinkSync(filePath)
-      
-      const resizeInfo = resized ? ` (resized from ${width}x${height})` : ''
-      console.log(`✓ Converted: ${path.relative(publicDir, filePath)} → ${path.basename(webpPath)}${resizeInfo} (original deleted)`)
-    } else if (resized) {
-      // Already WebP but needs resizing - use temp file
-      const tempPath = filePath + '.temp'
-      
-      await processedImage
-        .webp({ lossless: true, quality: 100 })
-        .toFile(tempPath)
-      
-      // Replace original with temp file
-      fs.renameSync(tempPath, filePath)
-      
-      console.log(`✓ Resized: ${path.relative(publicDir, filePath)} (${width}x${height} → max ${MAX_DIMENSION}px)`)
+
+    const image = sharp(inputBuffer)
+    let metadata
+    try {
+        metadata = await image.metadata()
+    } catch (error) {
+        console.error(`Failed to inspect ${filePath}: ${error.message}`)
+        return
     }
-  } catch (error) {
-    console.error(`✗ Failed to process ${filePath}:`, error.message)
-  }
+
+    if (!metadata.width || metadata.width < 1) {
+        console.warn(
+            `Skipping ${filePath} because the width could not be determined.`,
+        )
+        return
+    }
+
+    const originalWidth = metadata.width
+    const originalHeight = metadata.height ?? null
+    const aspectRatio = originalHeight ? originalHeight / originalWidth : null
+
+    const maxWidth = Math.min(MAX_DIMENSION, originalWidth)
+    const widths = TARGET_WIDTHS.filter((width) => width < maxWidth)
+    if (!widths.includes(maxWidth)) widths.push(maxWidth)
+    widths.sort((a, b) => a - b)
+
+    const expectedFiles = new Set()
+    const formats = {
+        webp: [],
+        avif: [],
+    }
+    const createdFiles = []
+    const reusedFiles = []
+
+    for (const width of widths) {
+        const height = aspectRatio ? Math.round(width * aspectRatio) : undefined
+        const isBaseWebp = width === maxWidth
+
+        for (const { format, extension, encode } of OUTPUT_FORMATS) {
+            const suffix = format === "webp" && isBaseWebp ? "" : `-w${width}`
+            const outputName = `${baseName}${suffix}${extension}`
+            const outputPath = path.join(targetDir, outputName)
+
+            expectedFiles.add(outputName)
+
+            let alreadyExists = false
+            try {
+                await fsp.access(outputPath)
+                alreadyExists = true
+            } catch {
+                alreadyExists = false
+            }
+
+            if (!alreadyExists) {
+                const pipeline = sharp(inputBuffer).resize({
+                    width,
+                    fit: "inside",
+                    withoutEnlargement: true,
+                })
+
+                try {
+                    await encode(pipeline).toFile(outputPath)
+                    createdFiles.push(outputName)
+                    alreadyExists = true
+                } catch (error) {
+                    console.error(
+                        `Failed to write ${outputPath}: ${error.message}`,
+                    )
+                    continue
+                }
+            } else {
+                reusedFiles.push(outputName)
+            }
+
+            if (!alreadyExists) {
+                continue
+            }
+
+            const publicPath = buildPublicPath(relativeDir, outputName)
+            const entry = { width, height, path: publicPath }
+
+            if (format === "webp") {
+                formats.webp.push(entry)
+            } else if (format === "avif") {
+                formats.avif.push(entry)
+            }
+        }
+    }
+
+    await cleanupVariants(targetDir, baseName, expectedFiles)
+
+    const manifestKey = buildManifestKey(relativeDir, baseName)
+    const baseHeight = aspectRatio
+        ? Math.round(maxWidth * aspectRatio)
+        : undefined
+
+    manifest[manifestKey] = {
+        width: maxWidth,
+        height: baseHeight,
+        formats,
+    }
+
+    processedCount += 1
+
+    const widthList = widths.join(", ")
+    if (createdFiles.length > 0) {
+        console.log(
+            `Generated variants for ${manifestKey} [${widthList}px] (created ${createdFiles.length}, reused ${reusedFiles.length})`,
+        )
+    } else {
+        console.log(
+            `Reused existing variants for ${manifestKey} [${widthList}px]`,
+        )
+    }
 }
 
 async function walkDirectory(dir) {
-  const items = fs.readdirSync(dir)
-  
-  for (const item of items) {
-    const fullPath = path.join(dir, item)
-    const stat = fs.statSync(fullPath)
-    
-    if (stat.isDirectory()) {
-      await walkDirectory(fullPath)
-    } else if (stat.isFile()) {
-      await processImage(fullPath)
+    const entries = await fsp.readdir(dir, { withFileTypes: true })
+
+    for (const entry of entries) {
+        if (isHiddenFile(entry.name)) continue
+
+        const fullPath = path.join(dir, entry.name)
+
+        if (entry.isDirectory()) {
+            await walkDirectory(fullPath)
+        } else if (entry.isFile()) {
+            await processImage(fullPath)
+        }
     }
-  }
+}
+
+async function writeManifest() {
+    const manifestDir = path.join(__dirname, "..", "src", "data")
+    const manifestPath = path.join(manifestDir, "image-manifest.json")
+
+    await ensureDirectory(manifestDir)
+
+    const sortedKeys = Object.keys(manifest).sort()
+    const sortedManifest = {}
+    for (const key of sortedKeys) {
+        sortedManifest[key] = manifest[key]
+    }
+
+    await fsp.writeFile(
+        manifestPath,
+        `${JSON.stringify(sortedManifest, null, 2)}\n`,
+        "utf8",
+    )
+    console.log(
+        `Wrote manifest with ${sortedKeys.length} entries to ${manifestPath}`,
+    )
 }
 
 async function main() {
-  console.log('🖼️  Processing images: converting to WebP and resizing (max 1920px)...')
-  await walkDirectory(path.join(publicDir, 'images'))
-  console.log('✅ Image processing complete!')
+    if (!fs.existsSync(sourceDir)) {
+        console.error(`Source directory "${sourceDir}" does not exist.`)
+        process.exitCode = 1
+        return
+    }
+
+    console.log("Generating responsive image variants...")
+    await walkDirectory(sourceDir)
+    await writeManifest()
+    console.log(`Image processing complete for ${processedCount} source files.`)
 }
 
-main().catch(console.error)
+main().catch((error) => {
+    console.error(error)
+    process.exitCode = 1
+})

@@ -4,12 +4,21 @@ import AnimatedImage from "../../ui/images/AnimatedImage.astro"
 interface Props {
     src: string
     alt: string
+    priority?: boolean
+    fetchpriority?: "high" | "low" | "auto"
     [key: string]: any
 }
 
-const { src, alt, ...props } = Astro.props
+const { src, alt, priority = false, fetchpriority, ...props } = Astro.props
 ---
 
 <div class="relative mx-auto md:-mx-4 lg:-mx-6 xl:-mx-12 my-8">
-    <AnimatedImage src={src} alt={alt} rotationDirection="right" {...props} />
+    <AnimatedImage
+        src={src}
+        alt={alt}
+        rotationDirection="right"
+        priority={priority}
+        fetchpriority={fetchpriority}
+        {...props}
+    />
 </div>

@@ -1,4 +1,6 @@
 ---
+import ResponsivePicture from "./ResponsivePicture.astro"
+
 export interface Props {
     images: Array<{
         src: string
@@ -18,7 +20,7 @@ const MAX_SPREAD_BASE = 60
 const MAX_SPREAD_MULTIPLIER = 20
 
 if (!images || images.length === 0) {
-    console.warn('FanImages component: No images provided')
+    console.warn("FanImages component: No images provided")
     return null
 }
 
@@ -29,7 +31,7 @@ const getFanLayout = (index: number, total: number) => {
     if (total === 2) {
         return {
             rotation: -MAX_ANGLE_TWO_IMAGES / 2 + index * MAX_ANGLE_TWO_IMAGES,
-            xOffset: -MAX_SPREAD_TWO_IMAGES / 2 + index * MAX_SPREAD_TWO_IMAGES
+            xOffset: -MAX_SPREAD_TWO_IMAGES / 2 + index * MAX_SPREAD_TWO_IMAGES,
         }
     }
 
@@ -46,6 +48,7 @@ const getFanLayout = (index: number, total: number) => {
 const containerStyle = "transform: perspective(1000px) rotateX(12deg);"
 const getImageStyle = (xOffset: number, rotation: number, zIndex: number) =>
     `transform: translateX(calc(-50% + ${xOffset}px)) rotate(${rotation}deg); z-index: ${zIndex};`
+const responsiveSizes = "(max-width: 768px) 85vw, 480px"
 ---
 
 <div class="mt-6 mb-12 flex flex-col items-center">
@@ -65,10 +68,14 @@ const getImageStyle = (xOffset: number, rotation: number, zIndex: number) =>
                         style={getImageStyle(xOffset, rotation, zIndex)}
                     >
                         <div class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[-0.5deg] hover:transform-gpu">
-                            <img
+                            <ResponsivePicture
                                 src={image.src}
                                 alt={image.alt}
+                                sizes={responsiveSizes}
+                                pictureClass="block"
                                 class="mt-0 mb-0 h-auto max-h-80 w-auto rounded-lg border border-gray-200 object-contain transition duration-700 ease-in-out hover:scale-[1.01]"
+                                loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </div>

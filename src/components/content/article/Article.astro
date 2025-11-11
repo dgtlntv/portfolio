@@ -1,4 +1,6 @@
 ---
+import ResponsivePicture from "../../ui/images/ResponsivePicture.astro"
+
 interface Stat {
     label: string
     value: string
@@ -24,6 +26,8 @@ const {
 
 const isVideo = heroUrl?.endsWith(".webm")
 const mediaClasses = `w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`
+const heroImageSizes =
+    "(max-width: 1024px) 100vw, (max-width: 1536px) 80vw, 1024px"
 ---
 
 <div
@@ -44,10 +48,15 @@ const mediaClasses = `w-full ${heroLocation === "cover" ? "h-full object-cover o
                         webkit-playsinline
                     />
                 ) : (
-                    <img
-                        class={mediaClasses}
+                    <ResponsivePicture
                         src={heroUrl}
                         alt={heroAltText || ""}
+                        sizes={heroImageSizes}
+                        pictureClass="block h-full w-full"
+                        class={mediaClasses}
+                        loading="eager"
+                        priority
+                        decoding="async"
                     />
                 )}
             </div>
