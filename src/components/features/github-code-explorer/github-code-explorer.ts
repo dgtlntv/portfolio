@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from "lit"
 import { LitElement, css, html } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 import {
     clearExpiredCaches,
     getCachedData,
@@ -33,7 +33,7 @@ export class GitHubCodeExplorer extends LitElement {
     private static readonly MOBILE_BREAKPOINT = 768
 
     static override styles: CSSResultGroup = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: flex;

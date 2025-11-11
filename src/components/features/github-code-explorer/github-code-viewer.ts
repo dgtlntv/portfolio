@@ -9,7 +9,7 @@ import "prismjs/components/prism-json"
 import "prismjs/components/prism-markup"
 import "prismjs/components/prism-python"
 import "prismjs/components/prism-typescript"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 
 @customElement("github-code-viewer")
 export class GitHubCodeViewer extends LitElement {
@@ -22,7 +22,7 @@ export class GitHubCodeViewer extends LitElement {
     @property({ type: String }) branch = "main"
 
     static override styles: CSSResultGroup = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: flex;

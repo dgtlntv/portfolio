@@ -1,6 +1,6 @@
-import { LitElement, html, css, type PropertyValues } from "lit"
+import { LitElement, css, html, type PropertyValues } from "lit"
 import { property } from "lit/decorators.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 
 /**
  * MobileMenuDialog - A modal dialog component for mobile navigation
@@ -12,7 +12,7 @@ import { globalStyleSheet } from "../../../styles/styleSheet.js"
  */
 export class MobileMenuDialog extends LitElement {
     static styles = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: block;

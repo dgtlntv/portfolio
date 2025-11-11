@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from "lit"
 import { LitElement, css, html } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 import { getFileIcon, getFolderIcon } from "./file-icons"
 import type { FileNode } from "./types"
 
@@ -63,7 +63,7 @@ export class GitHubFileExplorer extends LitElement {
     private static readonly MAX_SIDEBAR_WIDTH = 600
 
     static override styles: CSSResultGroup = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: flex;

@@ -1,9 +1,9 @@
-import { LitElement, html, css } from "lit"
 import type { TemplateResult } from "lit"
+import { LitElement, css, html } from "lit"
 import { customElement, property, state } from "lit/decorators.js"
-import { marked } from "marked"
 import { unsafeHTML } from "lit/directives/unsafe-html.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { marked } from "marked"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 
 @customElement("github-markdown-viewer")
 export class GitHubMarkdownViewer extends LitElement {
@@ -15,7 +15,7 @@ export class GitHubMarkdownViewer extends LitElement {
     @state() private renderedHtml = ""
 
     static styles = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: flex;

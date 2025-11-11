@@ -1,7 +1,7 @@
-import { LitElement, html, css, nothing, type PropertyValues } from "lit"
-import { property, state, queryAll } from "lit/decorators.js"
+import { LitElement, css, html, nothing, type PropertyValues } from "lit"
+import { property, queryAll, state } from "lit/decorators.js"
 import { classMap } from "lit/directives/class-map.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 
 interface ImageWithCaption {
     id: string | number
@@ -13,7 +13,7 @@ interface ImageWithCaption {
 
 class ImageGallery extends LitElement {
     static styles = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             :host {
                 display: block;

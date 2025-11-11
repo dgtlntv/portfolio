@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from "lit"
 import { LitElement, css, html } from "lit"
 import { customElement, query } from "lit/decorators.js"
-import { globalStyleSheet } from "../../../styles/styleSheet.js"
+import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
 
 export const MODAL_TAG_NAME = "device-permission-modal" as const
 
@@ -14,7 +14,7 @@ type DeviceOrientationEventWithPermission = typeof DeviceOrientationEvent & {
 @customElement(MODAL_TAG_NAME)
 export class DevicePermissionModal extends LitElement {
     static override styles: CSSResultGroup = [
-        globalStyleSheet,
+        webComponentStyleSheet,
         css`
             .backdrop\\:bg-black\\/50::backdrop {
                 background-color: rgb(0 0 0 / 0.5);

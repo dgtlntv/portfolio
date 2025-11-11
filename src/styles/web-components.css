@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "./tailwind-base.css";
+
+@layer base {
+    :host {
+        font-family: var(--font-sans);
+        color: inherit;
+        background: inherit;
+    }
+
+    :host *,
+    :host *::before,
+    :host *::after {
+        box-sizing: border-box;
+    }
+}
