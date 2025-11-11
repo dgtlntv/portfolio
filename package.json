@@ -8,6 +8,7 @@
         "build": "node scripts/convert-images.js && astro build",
         "convert-images": "node scripts/convert-images.js",
         "lint": "eslint .",
+        "pagespeed": "node scripts/pagespeed.js",
         "preview": "astro preview",
         "astro": "astro"
     },
@@ -15,6 +16,7 @@
         "@astrojs/check": "^0.9.4",
         "@astrojs/mdx": "^4.3.4",
         "@lottiefiles/dotlottie-wc": "^0.8.1",
+        "@playform/inline": "^0.1.2",
         "@tailwindcss/vite": "^4.1.12",
         "astro": "^5.13.4",
         "astro-heroicons": "^2.1.5-1",
@@ -27,8 +29,7 @@
         "rehype-unwrap-images": "^1.0.0",
         "remark-math": "^6.0.0",
         "tailwindcss": "^4.1.12",
-        "three": "^0.173.0",
-        "three-stdlib": "^2.36.0"
+        "three": "^0.173.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
@@ -38,6 +39,7 @@
         "@types/three": "^0.180.0",
         "eslint": "^9.19.0",
         "globals": "^15.14.0",
+        "lighthouse": "^12.8.2",
         "prettier": "^3.5.3",
         "prettier-plugin-astro": "^0.14.1",
         "prettier-plugin-tailwindcss": "^0.6.11",
