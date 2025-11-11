@@ -32,7 +32,7 @@ const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
             <Navigation />
             {
                 setContentMaxWidth ? (
-                    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col flex-1">
+                    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col flex-1 overflow-hidden">
                         <main class="relative flex-1 grid grid-cols-1 md:grid-cols-9 gap-0">
                             <slot />
                         </main>
@@ -40,7 +40,7 @@ const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
                     </div>
                 ) : (
                     <>
-                        <main class="relative flex-1 grid grid-cols-1 md:grid-cols-9 gap-0">
+                        <main class="relative flex-1 grid grid-cols-1 md:grid-cols-9 gap-0 overflow-hidden">
                             <slot />
                         </main>
                         {showFooter && <Footer />}

@@ -642,383 +642,385 @@ export function generateColorScale(
 And just like that, we can generate a color palette with predictable perceptual
 contrast based shades:
 
-<table>
-    <thead>
-        <tr>
-            <th>Shade</th>
-            <th style="padding-left:18px;">Gray</th>
-            <th style="padding-left:18px;">Blue</th>
-            <th style="padding-left:18px;">Green</th>
-            <th style="padding-left:18px;">Red</th>
-            <th style="padding-left:18px;">Yellow</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>0</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fff</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fff</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fff</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fff</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fff</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#e9e9e9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#e9e9e9</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#e4eaf4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#e4eaf4</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#dfeee1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#dfeee1</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f4e6e4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f4e6e4</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f2e8dc;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f2e8dc</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>20</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#d7d7d7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#d7d7d7</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#c7d9f5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#c7d9f5</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#a9eab2;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#a9eab2</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f5ccc7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f5ccc7</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f3d1a9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f3d1a9</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>30</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#c4c4c4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#c4c4c4</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#a5c6fa;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#a5c6fa</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#66e37e;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#66e37e</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#faaea5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#faaea5</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f7b666;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f7b666</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>40</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#b1b1b1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#b1b1b1</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#81b2fe;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#81b2fe</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#32d25b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#32d25b</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#fd8c81;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#fd8c81</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f09c1b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f09c1b</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>50</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#9c9c9c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#9c9c9c</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#5a9cff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#5a9cff</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#00bd43;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#00bd43</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#ff5f58;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#ff5f58</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#d88900;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#d88900</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>60</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#878787;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#878787</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#3083f8;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#3083f8</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#2ba142;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#2ba142</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#f32c34;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#f32c34</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#bb7608;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#bb7608</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>70</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#707070;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#707070</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#2a6ecb;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#2a6ecb</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#3b8343;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#3b8343</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#c13938;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#c13938</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#9a6317;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#9a6317</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>80</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#585858;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#585858</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#2e5892;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#2e5892</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#38643a;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#38643a</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#8c3a37;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#8c3a37</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#754f23;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#754f23</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>90</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#3c3c3c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#3c3c3c</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#2c3d56;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#2c3d56</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#2f422f;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#2f422f</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#543230;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#543230</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#4b3926;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#4b3926</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>100</td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#000</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#000</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#000</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#000</span>
-                </div>
-            </td>
-            <td>
-                <div style="display:flex;align-items:center;white-space:nowrap;">
-                    <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
-                    <span>#000</span>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="my-6 overflow-x-auto">
+    <table>
+        <thead>
+            <tr>
+                <th>Shade</th>
+                <th style="padding-left:18px;">Gray</th>
+                <th style="padding-left:18px;">Blue</th>
+                <th style="padding-left:18px;">Green</th>
+                <th style="padding-left:18px;">Red</th>
+                <th style="padding-left:18px;">Yellow</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fff</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fff</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fff</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fff</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fff</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#e9e9e9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#e9e9e9</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#e4eaf4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#e4eaf4</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#dfeee1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#dfeee1</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f4e6e4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f4e6e4</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f2e8dc;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f2e8dc</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#d7d7d7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#d7d7d7</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#c7d9f5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#c7d9f5</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#a9eab2;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#a9eab2</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f5ccc7;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f5ccc7</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f3d1a9;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f3d1a9</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#c4c4c4;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#c4c4c4</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#a5c6fa;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#a5c6fa</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#66e37e;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#66e37e</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#faaea5;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#faaea5</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f7b666;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f7b666</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>40</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#b1b1b1;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#b1b1b1</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#81b2fe;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#81b2fe</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#32d25b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#32d25b</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#fd8c81;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#fd8c81</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f09c1b;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f09c1b</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>50</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#9c9c9c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#9c9c9c</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#5a9cff;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#5a9cff</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#00bd43;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#00bd43</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#ff5f58;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#ff5f58</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#d88900;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#d88900</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>60</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#878787;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#878787</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#3083f8;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#3083f8</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#2ba142;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#2ba142</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#f32c34;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#f32c34</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#bb7608;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#bb7608</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>70</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#707070;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#707070</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#2a6ecb;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#2a6ecb</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#3b8343;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#3b8343</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#c13938;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#c13938</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#9a6317;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#9a6317</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#585858;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#585858</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#2e5892;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#2e5892</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#38643a;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#38643a</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#8c3a37;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#8c3a37</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#754f23;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#754f23</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>90</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#3c3c3c;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#3c3c3c</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#2c3d56;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#2c3d56</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#2f422f;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#2f422f</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#543230;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#543230</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#4b3926;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#4b3926</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>100</td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#000</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#000</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#000</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#000</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="display:flex;align-items:center;white-space:nowrap;">
+                        <span style="display:inline-block;width:12px;height:12px;background:#000;border:1px solid #ccc;margin-right:4px;flex-shrink:0;"></span>
+                        <span>#000</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 You can find the entire code in a
 [Github repository](https://github.com/dgtlntv/perceptual-contrast-palette). I
