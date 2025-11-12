@@ -2,10 +2,6 @@ import { LitElement, css, html, nothing, type PropertyValues } from "lit"
 import { property, queryAll, state } from "lit/decorators.js"
 import { classMap } from "lit/directives/class-map.js"
 import { webComponentStyleSheet } from "../../../styles/webComponentStyleSheet.js"
-import {
-    DEFAULT_RESPONSIVE_SIZES,
-    getResponsiveImageConfig,
-} from "../../../utils/responsive-image"
 
 interface ImageWithCaption {
     id: string | number
@@ -14,24 +10,6 @@ interface ImageWithCaption {
     name?: string
     caption?: string
 }
-
-type LoadingSetting = "lazy" | "eager"
-type DecodingSetting = "async" | "auto" | "sync"
-type FetchPrioritySetting = "high" | "low" | "auto"
-
-interface ResponsiveRenderOptions {
-    sizes?: string
-    className?: string
-    pictureClass?: string
-    loading?: LoadingSetting
-    decoding?: DecodingSetting
-    alt?: string
-    fetchpriority?: FetchPrioritySetting
-}
-
-const MAIN_IMAGE_SIZES =
-    "(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 960px"
-const THUMBNAIL_SIZES = "(max-width: 768px) 22vw, 160px"
 
 class ImageGallery extends LitElement {
     static styles = [
@@ -143,56 +121,6 @@ class ImageGallery extends LitElement {
         }
     }
 
-    private renderResponsivePicture(
-        image: ImageWithCaption,
-        options: ResponsiveRenderOptions = {},
-    ) {
-        const {
-            sizes = DEFAULT_RESPONSIVE_SIZES,
-            className = "",
-            pictureClass = "",
-            loading = "lazy",
-            decoding = "async",
-            alt = image.alt,
-            fetchpriority,
-        } = options
-
-        const config = getResponsiveImageConfig(image.src, { sizes })
-        const sources = config?.sources ?? []
-        const fallbackSrc = config?.fallbackSrc ?? image.src
-        const hasSources = sources.length > 0
-        const width = config?.width
-        const height = config?.height
-        const fallbackSizes = hasSources ? nothing : sizes
-        const resolvedFetchPriority =
-            fetchpriority ?? (loading === "eager" ? "high" : undefined)
-
-        return html`
-            <picture class=${pictureClass}>
-                ${sources.map(
-                    (source) => html`
-                        <source
-                            type=${source.type}
-                            srcset=${source.srcset}
-                            sizes=${source.sizes}
-                        />
-                    `,
-                )}
-                <img
-                    src=${fallbackSrc}
-                    alt=${alt ?? ""}
-                    class=${className}
-                    loading=${loading}
-                    decoding=${decoding}
-                    width=${width ?? nothing}
-                    height=${height ?? nothing}
-                    sizes=${fallbackSizes}
-                    fetchpriority=${resolvedFetchPriority ?? nothing}
-                />
-            </picture>
-        `
-    }
-
     render() {
         if (!this.images.length) {
             return nothing
@@ -230,14 +158,13 @@ class ImageGallery extends LitElement {
                                     <span
                                         class="absolute inset-0 overflow-hidden rounded-md"
                                     >
-                                        ${this.renderResponsivePicture(image, {
-                                            sizes: THUMBNAIL_SIZES,
-                                            className:
-                                                "h-full w-full object-cover object-center p-2",
-                                            pictureClass: "block h-full w-full",
-                                            alt: "",
-                                            loading: "lazy",
-                                        })}
+                                        <img
+                                            src="${image.src}"
+                                            alt=""
+                                            class="h-full w-full object-cover object-center p-2"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
                                     </span>
                                     <span
                                         class="${classMap({
@@ -268,17 +195,17 @@ class ImageGallery extends LitElement {
                                 class="tab-panel"
                             >
                                 <figure>
-                                    ${this.renderResponsivePicture(image, {
-                                        sizes: MAIN_IMAGE_SIZES,
-                                        className:
-                                            "h-full w-full object-cover object-center sm:rounded-lg",
-                                        pictureClass: "block h-full w-full",
-                                        loading:
+                                    <img
+                                        src="${image.src}"
+                                        alt="${image.alt}"
+                                        class="h-full w-full object-cover object-center sm:rounded-lg"
+                                        loading="${
                                             this.selectedIndex === index
                                                 ? "eager"
-                                                : "lazy",
-                                        decoding: "async",
-                                    })}
+                                                : "lazy"
+                                        }"
+                                        decoding="async"
+                                    />
                                     ${image.caption
                                         ? html`
                                               <figcaption
