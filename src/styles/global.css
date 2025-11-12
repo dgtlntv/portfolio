@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "./tailwind-base.css";
+@import "prismjs/themes/prism.css";
+@import "katex/dist/katex.min.css";
+
+mobile-menu-dialog:not(:defined) {
+    display: none;
+}
+
+div > table,
+table[style*="courier new"] td,
+table[style*="courier new"] span {
+    font-family: "Courier Prime", monospace !important;
+}

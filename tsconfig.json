@@ -1,14 +1,17 @@
 {
+    "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-        "target": "ES2020",
-        "useDefineForClassFields": true,
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "target": "ES2022",
+        "useDefineForClassFields": false,
+        "experimentalDecorators": true,
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "skipLibCheck": true,
 
         /* Bundler mode */
         "moduleResolution": "bundler",
+        "resolveJsonModule": true,
         "allowImportingTsExtensions": true,
         "isolatedModules": true,
         "moduleDetection": "force",
@@ -22,8 +25,8 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
 
-        /* Add types for Vite */
-        "types": ["vite/client"]
+        /* Add types for Vite and Astro */
+        "types": ["vite/client", "astro/client"]
     },
-    "include": ["src"]
+    "include": ["src", ".astro/types.d.ts"]
 }

@@ -1,0 +1,100 @@
+---
+import ResponsivePicture from "./ResponsivePicture.astro"
+
+export interface Props {
+    images: Array<{
+        src: string
+        alt: string
+    }>
+    caption?: string
+}
+
+const { images, caption } = Astro.props
+
+// Constants for fan layout calculations
+const MAX_ANGLE_TWO_IMAGES = 16
+const MAX_ANGLE_BASE = 25
+const MAX_ANGLE_MULTIPLIER = 6
+const MAX_SPREAD_TWO_IMAGES = 40
+const MAX_SPREAD_BASE = 60
+const MAX_SPREAD_MULTIPLIER = 20
+
+if (!images || images.length === 0) {
+    console.warn("FanImages component: No images provided")
+    return null
+}
+
+// Calculate rotation angles and positions based on number of images
+const getFanLayout = (index: number, total: number) => {
+    if (total === 1) return { rotation: 0, xOffset: 0 }
+
+    if (total === 2) {
+        return {
+            rotation: -MAX_ANGLE_TWO_IMAGES / 2 + index * MAX_ANGLE_TWO_IMAGES,
+            xOffset: -MAX_SPREAD_TWO_IMAGES / 2 + index * MAX_SPREAD_TWO_IMAGES,
+        }
+    }
+
+    // For 3+ images, create a true fan spread
+    const maxAngle = Math.min(MAX_ANGLE_BASE, total * MAX_ANGLE_MULTIPLIER)
+    const rotation = -maxAngle + (index * (maxAngle * 2)) / (total - 1)
+
+    const maxSpread = Math.min(MAX_SPREAD_BASE, total * MAX_SPREAD_MULTIPLIER)
+    const xOffset = -maxSpread + (index * (maxSpread * 2)) / (total - 1)
+
+    return { rotation, xOffset }
+}
+
+const containerStyle = "transform: perspective(1000px) rotateX(12deg);"
+const getImageStyle = (xOffset: number, rotation: number, zIndex: number) =>
+    `transform: translateX(calc(-50% + ${xOffset}px)) rotate(${rotation}deg); z-index: ${zIndex};`
+const responsiveSizes = "(max-width: 768px) 85vw, 480px"
+---
+
+<div class="mt-6 mb-12 flex flex-col items-center">
+    <div
+        class="relative h-96 w-full max-w-4xl overflow-hidden"
+        style={containerStyle}
+    >
+        {
+            images.map((image, index) => {
+                const { rotation, xOffset } = getFanLayout(index, images.length)
+                // Rightmost image should be on top - higher index = higher z-index
+                const zIndex = index + 1
+
+                return (
+                    <div
+                        class="absolute bottom-0 left-1/2 origin-bottom transition-all duration-700 ease-in-out"
+                        style={getImageStyle(xOffset, rotation, zIndex)}
+                    >
+                        <div class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[-0.5deg] hover:transform-gpu">
+                            <ResponsivePicture
+                                src={image.src}
+                                alt={image.alt}
+                                sizes={responsiveSizes}
+                                pictureClass="block"
+                                class="mt-0 mb-0 h-auto max-h-80 w-auto rounded-lg border border-gray-200 object-contain transition duration-700 ease-in-out hover:scale-[1.01]"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </div>
+                    </div>
+                )
+            })
+        }
+
+        <!-- Gradient fade overlay covering full height -->
+        <div
+            class="pointer-events-none absolute bottom-0 left-0 z-50 h-full w-full bg-gradient-to-t from-white via-white/60 to-transparent"
+        >
+        </div>
+    </div>
+
+    {
+        caption && (
+            <figcaption class="mt-12 text-center text-sm text-gray-500">
+                {caption}
+            </figcaption>
+        )
+    }
+</div>

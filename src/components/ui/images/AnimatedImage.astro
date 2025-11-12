@@ -1,0 +1,49 @@
+---
+import ResponsivePicture from "./ResponsivePicture.astro"
+
+interface Props {
+    src: string
+    alt: string
+    rotationDirection?: "left" | "right"
+    class?: string
+    sizes?: string
+    pictureClass?: string
+    priority?: boolean
+    fetchpriority?: "high" | "low" | "auto"
+    [key: string]: any
+}
+
+const props = Astro.props as Props
+
+const {
+    src,
+    alt,
+    rotationDirection = "right",
+    class: className = "",
+    sizes,
+    pictureClass = "",
+    priority = false,
+    fetchpriority,
+    ...rest
+} = props
+
+const rotationClass =
+    rotationDirection === "left"
+        ? "hover:rotate-[0.5deg]"
+        : "hover:rotate-[-0.5deg]"
+---
+
+<div
+    class={`transition duration-700 ease-in-out hover:-translate-y-0.5 hover:transform-gpu ${rotationClass}`}
+>
+    <ResponsivePicture
+        src={src}
+        alt={alt}
+        sizes={sizes}
+        pictureClass={pictureClass}
+        class={`h-auto w-full rounded-lg object-contain transition duration-700 ease-in-out hover:scale-[1.01] ${className}`}
+        priority={priority}
+        fetchpriority={fetchpriority}
+        {...rest}
+    />
+</div>

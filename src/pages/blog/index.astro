@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import BlogPostsList from "../../components/content/blog/BlogPostsList.astro"
+import { getCollection } from "astro:content"
+
+const blogPosts = await getCollection("blog")
+---
+
+<Layout title="Blog - Maximilian Blazek">
+    <BlogPostsList posts={blogPosts} />
+</Layout>

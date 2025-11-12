@@ -1,0 +1,55 @@
+---
+import ResponsivePicture from "../../ui/images/ResponsivePicture.astro"
+
+interface Props {
+    src?: string
+    alt?: string
+    caption?: string
+    sizes?: string
+    pictureClass?: string
+    priority?: boolean
+    fetchpriority?: "high" | "low" | "auto"
+    [key: string]: any
+}
+
+const props = Astro.props as Props
+
+const {
+    src,
+    alt,
+    caption,
+    sizes,
+    pictureClass = "block",
+    priority = false,
+    fetchpriority,
+    ...rest
+} = props
+---
+
+<figure class="relative mx-auto md:-mx-4 lg:-mx-6 xl:-mx-12 my-8">
+    <div
+        class="transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu"
+    >
+        {
+            src && (
+                <ResponsivePicture
+                    src={src}
+                    alt={alt ?? ""}
+                    sizes={sizes}
+                    pictureClass={pictureClass}
+                    class="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+                    priority={priority}
+                    fetchpriority={fetchpriority}
+                    {...rest}
+                />
+            )
+        }
+        {
+            caption && (
+                <figcaption class="mt-2 text-center text-sm text-gray-500">
+                    {caption}
+                </figcaption>
+            )
+        }
+    </div>
+</figure>

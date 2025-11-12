@@ -6,6 +6,9 @@ excerpt:
     How I rebuilt Canonicals Figma libraries, with practical guidelines on
     structure, performance, and maintenance processes.
 coverImage: "/images/projects/canonical-figma-libraries/figma-components-cover.webp"
+heroAltText:
+    "Stylized UI components representing a wireframe mode of Figma components
+    inside a Figma library"
 heroLocation: "cover"
 asciiDarken: 0.89
 stats:
@@ -29,11 +32,8 @@ the handover process.
 
 ## Understanding the problem
 
-<FloatImage
-    direction="left"
-    src="/images/projects/canonical-figma-libraries/figma-library-user-survey.webp"
-    alt="Survey form titled 'Figma library update survey' with questions about component usage experience and finding specific components in the design system"
->
+<FloatContent position="left">
+<AnimatedImage src="/images/projects/canonical-figma-libraries/figma-library-user-survey.webp" alt="Survey form titled 'Figma library update survey' with questions about component usage experience and finding specific components in the design system" rotationDirection="left" slot="content" priority fetchpriority="high" />
 At some point it became clear that
 enough was enough. The team needed to do some self-care and build Figma libraries
 from scratch that met the requirements of the usual design work.
@@ -45,26 +45,23 @@ problematic components in the old libraries and organized meetings with the team
 to understand their needs. Within this process, I took the initiative to lead
 the rebuilding effort and draft the initial spec that would guide the work.
 
-</FloatImage>
+</FloatContent>
 
 ## Research and specification
 
-<FloatImage
-    direction="right"
-    content={
-        <DocumentSkeleton
-            title="Library architecture specification"
-            lines={20}
-            className="max-w-sm"
-            metadata={[
-                { label: "Author:", value: "Design team" },
-                { label: "Date:", value: "March 2024" },
-                { label: "Version:", value: "2.3" },
-                { label: "Status:", value: "Approved" }
-            ]}
-        />
-    }
->
+<FloatContent position="right">
+<DocumentSkeleton
+    title="Library architecture specification"
+    lines={20}
+    className="max-w-sm"
+    metadata={[
+        { label: "Author:", value: "Design team" },
+        { label: "Date:", value: "March 2024" },
+        { label: "Version:", value: "2.3" },
+        { label: "Status:", value: "Approved" }
+    ]}
+    slot="content"
+/>
 
 This involved extensive investigation into best practices for building scalable
 libraries. I explored approaches from other design teams like
@@ -83,7 +80,7 @@ optimization, and contribution processes. This collaborative approach resulted
 in a thorough 20-page specification with strong team buy-in, creating a solid
 foundation for the implementation phase.
 
-</FloatImage>
+</FloatContent>
 
 ## Implementation
 
@@ -96,12 +93,8 @@ regarding layer count, asset optimization, and effect usage. You can read more
 about the specific building strategies I applied in the
 [blog post I wrote about it](/blog/figma-libraries).
 
-<FloatImage
-    direction="left"
-    content={
-        <MetricsMockup className="max-w-md" />
-    }
->
+<FloatContent position="left">
+<MetricsMockup className="max-w-md" slot="content" />
 
 Before releasing the libraries more widely, I recognized that better metrics
 were needed than what Figma natively provided to properly track adoption and
@@ -114,7 +107,7 @@ component detachment rates. The detachment rates were particularly valuable.
 They helped identify which components designers were frequently modifying. A
 clear signal that these components needed improvement in the official library.
 
-</FloatImage>
+</FloatContent>
 
 ## Transition and adoption
 
@@ -128,14 +121,14 @@ transition, the metrics tool provided valuable insights into adoption patterns,
 helping us identify which teams were quickly embracing the new system and which
 might need additional support.
 
-<div className="relative mx-auto md:-mx-6 lg:-mx-8 xl:-mx-28 my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu">
+<div className="relative mx-auto my-8 transition duration-700 ease-in-out hover:-translate-y-0.5 hover:rotate-[0.2deg] hover:transform-gpu md:-mx-6 lg:-mx-8 xl:-mx-28">
     <a
         href="https://www.figma.com/community/file/1435297834108003391/vanilla-core-component-library"
         target="_blank"
         rel="noopener noreferrer"
     >
         <img
-            className="w-full h-auto rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
+            className="h-auto w-full rounded-lg transition duration-700 ease-in-out hover:scale-[1.01]"
             src="/images/projects/canonical-figma-libraries/figma-community-showcase.webp"
             alt="Figma Community showcase page for Vanilla Core Component Library with preview thumbnails showing various UI components, statistics showing 4.8K views and 79 duplicates"
         />

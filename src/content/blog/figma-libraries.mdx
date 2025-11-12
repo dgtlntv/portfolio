@@ -5,8 +5,6 @@ slug: figma-libraries
 excerpt:
     How Canonical's Design team rebuilt their Figma libraries, with practical
     guidelines on structure, performance, and maintenance processes.
-coverImage: "/images/blog/figma-libraries/canonical-ui-components.webp"
-heroLocation: "cover"
 author: "Maximilian Blazek & Jan Ostrówka"
 ---
 
@@ -151,19 +149,18 @@ of its variants are loaded as well.
 
 This cascading effect means that each nested component brings along all of its
 own variants. As nesting depth increases, the number of loaded variants can grow
-exponentially, resulting in a lot of layers.
-To optimize performance, we try to minimize component nesting, especially if
-they have variants.
+exponentially, resulting in a lot of layers. To optimize performance, we try to
+minimize component nesting, especially if they have variants.
 
 #### Variable number of items
 
 ![Figma interface showing segmented control component on left and instance swap panel on right with various content options like [1 item], [2 items], [3 items], [4 items] with preview thumbnails](/images/blog/figma-libraries/figma-segmented-control-instance-swap.webp)
 
 There are certain components that contain multiple, repeated subitems, such as
-tabs in a tab bar. Depending on the use case, you may only need 3 tabs or maybe
-10. Figma doesn't currently provide a way to handle this gracefully. To create
-a component with enough flexibility, many of us have simply included 10 tabs in
-the component so that designers can show and hide the tabs as needed.
+tabs in a tab bar. Depending on the use case, you may only need 3 tabs or
+maybe 10. Figma doesn't currently provide a way to handle this gracefully. To
+create a component with enough flexibility, many of us have simply included 10
+tabs in the component so that designers can show and hide the tabs as needed.
 
 But even hidden layers contribute to the total number of layers. So this
 approach with a lot of hidden, unused layers unnecessarily reduces the

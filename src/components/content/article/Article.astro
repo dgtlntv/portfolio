@@ -1,0 +1,108 @@
+---
+import ResponsivePicture from "../../ui/images/ResponsivePicture.astro"
+
+interface Stat {
+    label: string
+    value: string
+}
+
+interface Props {
+    title: string
+    heroUrl?: string
+    heroAltText?: string
+    heroLocation?: "contain" | "cover"
+    stats?: Stat[]
+    date?: string
+}
+
+const {
+    title,
+    heroUrl,
+    heroAltText,
+    heroLocation = "cover",
+    stats,
+    date,
+} = Astro.props
+
+const isVideo = heroUrl?.endsWith(".webm")
+const mediaClasses = `w-full ${heroLocation === "cover" ? "h-full object-cover object-top" : "h-full object-contain"}`
+const heroImageSizes =
+    "(max-width: 1024px) 100vw, (max-width: 1536px) 80vw, 1024px"
+---
+
+<div
+    class="grid grid-cols-subgrid col-span-full relative bg-white pt-8 pb-16 lg:py-12"
+>
+    {
+        heroUrl && (
+            <div class="mb-8 flex aspect-[16/8] overflow-hidden rounded-xl shadow-md md:col-end-9 md:col-start-2">
+                {isVideo ? (
+                    <video
+                        class={mediaClasses}
+                        src={heroUrl}
+                        controls={false}
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        webkit-playsinline
+                    />
+                ) : (
+                    <ResponsivePicture
+                        src={heroUrl}
+                        alt={heroAltText || ""}
+                        sizes={heroImageSizes}
+                        pictureClass="block h-full w-full"
+                        class={mediaClasses}
+                        loading="eager"
+                        priority
+                        decoding="async"
+                    />
+                )}
+            </div>
+        )
+    }
+
+    <div class="text-lg md:col-span-7 md:col-start-2">
+        <h1>
+            <span
+                class={`font-fancy block ${heroUrl ? "text-center text-5xl font-extrabold" : "text-3xl"} leading-tight tracking-normal text-gray-900`}
+            >
+                {title}
+            </span>
+        </h1>
+        {date && <p class="mt-2 font-fancy text-gray-500">{date}</p>}
+    </div>
+
+    {
+        stats && stats.length > 0 && (
+            <div class="font-fancy mt-8 md:col-span-7 md:col-start-2">
+                <dl class="grid grid-cols-2 gap-x-4">
+                    {stats.map((stat, index) => (
+                        <div
+                            class="border-t border-gray-100 py-3 text-center"
+                            class:list={[
+                                index >= stats.length - 2 && "border-b",
+                            ]}
+                        >
+                            <dt class="text-sm font-medium text-gray-500">
+                                {stat.label}
+                            </dt>
+                            <dd class="text-lg font-bold tracking-tight text-gray-900 lg:text-xl">
+                                {stat.value}
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+        )
+    }
+
+    <div class="md:col-span-7 md:col-start-2">
+        <div
+            class="prose prose-red prose-md max-w-none mx-auto mt-16 marker:text-red-500"
+        >
+            <slot />
+        </div>
+    </div>
+</div>

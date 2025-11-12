@@ -1,0 +1,95 @@
+---
+import BlogPostsListItem from "./BlogPostsListItem.astro"
+
+export interface BlogPost {
+    slug: string
+    data: {
+        title: string
+        date: string
+    }
+    body: string
+}
+
+interface PostsByYear {
+    [year: string]: BlogPost[]
+}
+
+interface Props {
+    posts: BlogPost[]
+}
+
+// Parse European date format (DD.MM.YYYY)
+const parseEuropeanDate = (dateStr: string) => {
+    const [day, month, year] = dateStr.split(".")
+    return new Date(`${year}-${month}-${day}`)
+}
+
+const formatDate = (dateStr: string) => {
+    const postDate = parseEuropeanDate(dateStr)
+    return postDate.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    })
+}
+
+// Group posts by year
+const groupedByYear: PostsByYear = {}
+
+const { posts } = Astro.props
+
+const sortedPosts = [...posts].sort((a, b) => {
+    const dateA = parseEuropeanDate(a.data.date).getTime()
+    const dateB = parseEuropeanDate(b.data.date).getTime()
+
+    if (dateA !== dateB) {
+        return dateB - dateA
+    }
+
+    return a.data.title.localeCompare(b.data.title)
+})
+
+sortedPosts.forEach((post) => {
+    const year = parseEuropeanDate(post.data.date).getFullYear().toString()
+    if (!groupedByYear[year]) {
+        groupedByYear[year] = []
+    }
+    groupedByYear[year].push(post)
+})
+
+const sortedYears = Object.keys(groupedByYear).sort(
+    (a, b) => parseInt(b) - parseInt(a),
+)
+---
+
+<div class="mt-18 md:col-span-9">
+    {
+        posts.length > 0 ? (
+            <>
+                {sortedYears.map((year) => (
+                    <div class="mb-12">
+                        <div class="grid grid-cols-9">
+                            <h2 class="font-fancy mb-6 text-left text-4xl font-extrabold tracking-tight text-gray-900 sm:col-span-2 sm:col-start-1 sm:text-right sm:text-3xl">
+                                {year}
+                            </h2>
+                        </div>
+                        <div>
+                            {groupedByYear[year].map((post) => (
+                                <BlogPostsListItem
+                                    title={post.data.title}
+                                    formattedDate={formatDate(post.data.date)}
+                                    slug={post.slug}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </>
+        ) : (
+            <div class="rounded-lg bg-gray-50 py-12 text-center">
+                <h3 class="mb-2 text-2xl font-semibold">No blog posts yet</h3>
+                <p class="text-gray-600">Check back soon for new content!</p>
+            </div>
+        )
+    }
+</div>

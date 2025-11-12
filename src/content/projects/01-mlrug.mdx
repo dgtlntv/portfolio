@@ -7,6 +7,10 @@ excerpt:
     then brought them to life through traditional production in Morocco.
     Exhibited at Design Month Graz 2025.
 coverImage: "/videos/projects/mlrug/mlrug-video.webm"
+heroAltText:
+    "Animation showing machine learning generated Moroccan carpet patterns
+    morphing and transitioning through various geometric designs and color
+    schemes"
 heroLocation: "contain"
 stats:
     [
@@ -27,19 +31,29 @@ lasted from my time at university until today.
 
 ## Data Collection
 
-<FloatImage
-    direction="right"
-    content={
-        <ImageGallery 
-            images={[
-                { src: "/images/projects/mlrug/input-data-1.webp", alt: "Traditional Moroccan carpet with intricate geometric patterns featuring warm earth tones" },
-                { src: "/images/projects/mlrug/input-data-2.webp", alt: "Vintage Moroccan carpet displaying complex tribal patterns in deep blues and reds" },
-                { src: "/images/projects/mlrug/input-data-3.webp", alt: "Handwoven Moroccan carpet with distinctive diamond and cross motifs in natural wool colors" },
-                { src: "/images/projects/mlrug/input-data-4.webp", alt: "Traditional Berber carpet featuring bold geometric compositions and earthy color palette" },
-               ]}
-        />
-    }
->
+<FloatContent position="right">
+  <image-gallery images={JSON.stringify([
+    {
+        id: 1,
+        src: "/images/projects/mlrug/input-data-1.webp",
+        alt: "Traditional Moroccan carpet with intricate geometric patterns featuring warm earth tones",
+    },
+    {
+        id: 2,
+        src: "/images/projects/mlrug/input-data-2.webp",
+        alt: "Vintage Moroccan carpet displaying complex tribal patterns in deep blues and reds",
+    },
+    {
+        id: 3,
+        src: "/images/projects/mlrug/input-data-3.webp",
+        alt: "Handwoven Moroccan carpet with distinctive diamond and cross motifs in natural wool colors",
+    },
+    {
+        id: 4,
+        src: "/images/projects/mlrug/input-data-4.webp",
+        alt: "Traditional Berber carpet featuring bold geometric compositions and earthy color palette",
+    },
+])} slot="content" />
 
 I started this project a couple of years before many of the impressive AI tools
 ([Stable Diffusion](https://github.com/Stability-AI/stablediffusion),
@@ -61,7 +75,7 @@ collected using a web crawler. In the end, I was able to obtain about 3.000
 images of Moroccan carpets. This is not a huge amount in the context of a
 generative algorithm, but enough to get first reasonably useful results.
 
-</FloatImage>
+</FloatContent>
 
 ## Algorithm and Computing
 
@@ -83,37 +97,38 @@ resolution of 256x256 worked best for me.
 
 ## Initial Results
 
-<FloatImage
-    direction="left"
-    content={
-        <ImageGallery
-            images={[
-                {
-                    src: "/images/projects/mlrug/ml-rug-first-iteration-1.webp",
-                    alt: "Sample 1 of blurry but recognizable AI generated moroccan rug",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-first-iteration-2.webp",
-                    alt: "Sample 2 of blurry but recognizable AI generated moroccan rug",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-first-iteration-3.webp",
-                    alt: "Sample 3 of blurry but recognizable AI generated moroccan rug",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-first-iteration-4.webp",
-                    alt: "Sample 4 of blurry but recognizable AI generated moroccan rug",
-                },
-            ]}
-        />
-    }
->
+<FloatContent position="left">
+    <image-gallery
+        images={JSON.stringify([
+            {
+                id: 1,
+                src: "/images/projects/mlrug/ml-rug-first-iteration-1.webp",
+                alt: "Sample 1 of blurry but recognizable AI generated moroccan rug",
+            },
+            {
+                id: 2,
+                src: "/images/projects/mlrug/ml-rug-first-iteration-2.webp",
+                alt: "Sample 2 of blurry but recognizable AI generated moroccan rug",
+            },
+            {
+                id: 3,
+                src: "/images/projects/mlrug/ml-rug-first-iteration-3.webp",
+                alt: "Sample 3 of blurry but recognizable AI generated moroccan rug",
+            },
+            {
+                id: 4,
+                src: "/images/projects/mlrug/ml-rug-first-iteration-4.webp",
+                alt: "Sample 4 of blurry but recognizable AI generated moroccan rug",
+            },
+        ])}
+        slot="content"
+    />
     I wouldn't call the results perfect, but for the amount of data and
     technical knowledge I had at the time, I think they were reasonable. At this
     point, it's clear that training an algorithm on a small scale like this
     isn't really going to replace a designer's design process. But it can serve
     as inspiration. And it definitely did in this project.
-</FloatImage>
+</FloatContent>
 
 ## From Digital to Physical
 
@@ -132,47 +147,49 @@ generation can be viewed through the same lens as the centuries-old tradition of
 motifs that have developed and spread from urban manufactories to rural
 communities and back again.
 
-<FloatImage
-    direction="right"
-    content={
-        <ImageGallery
-            images={[
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed0035.webp",
-                    alt: "Machine learning generated rug pattern featuring vibrant blue and orange geometric patterns with central diamond motifs",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed0552.webp",
-                    alt: "Machine learning generated rug pattern with intricate tribal motifs in warm earth tones",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed2705.webp",
-                    alt: "Machine learning generated rug pattern displaying bold geometric compositions with natural color palette",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed3733.webp",
-                    alt: "Machine learning generated rug pattern featuring symmetrical patterns and traditional color schemes",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed3948.webp",
-                    alt: "Machine learning generated rug pattern with complex tribal motifs and rich color variations",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed4222.webp",
-                    alt: "Machine learning generated rug pattern incorporating traditional diamond and cross motifs with contemporary color interpretation",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed5014.webp",
-                    alt: "Machine learning generated rug pattern featuring flowing organic patterns and warm color palettes",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-generated-rug-design-seed5151.webp",
-                    alt: "Machine learning generated rug pattern with sophisticated geometric patterns and balanced color composition"
-                },
-            ]}
-        />
-    }
->
+<FloatContent position="right">
+  <image-gallery images={JSON.stringify([
+    {
+        id: 1,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed0035.webp",
+        alt: "Machine learning generated rug pattern featuring vibrant blue and orange geometric patterns with central diamond motifs",
+    },
+    {
+        id: 2,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed0552.webp",
+        alt: "Machine learning generated rug pattern with intricate tribal motifs in warm earth tones",
+    },
+    {
+        id: 3,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed2705.webp",
+        alt: "Machine learning generated rug pattern displaying bold geometric compositions with natural color palette",
+    },
+    {
+        id: 4,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed3733.webp",
+        alt: "Machine learning generated rug pattern featuring symmetrical patterns and traditional color schemes",
+    },
+    {
+        id: 5,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed3948.webp",
+        alt: "Machine learning generated rug pattern with complex tribal motifs and rich color variations",
+    },
+    {
+        id: 6,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed4222.webp",
+        alt: "Machine learning generated rug pattern incorporating traditional diamond and cross motifs with contemporary color interpretation",
+    },
+    {
+        id: 7,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed5014.webp",
+        alt: "Machine learning generated rug pattern featuring flowing organic patterns and warm color palettes",
+    },
+    {
+        id: 8,
+        src: "/images/projects/mlrug/ml-generated-rug-design-seed5151.webp",
+        alt: "Machine learning generated rug pattern with sophisticated geometric patterns and balanced color composition"
+    },
+])} slot="content" />
 
 For this second iteration of the project I reevaluated which algorithm to use
 and landed on StyleGAN2-ada, a variant specifically designed for training with
@@ -182,27 +199,21 @@ better results than in my first iteration. Showing how much machine learning had
 evolved in such a short time (and how much of an effect good quality data can
 have).
 
-</FloatImage>
+</FloatContent>
 
 ## Production and Collaboration
 
-<FloatImage
-    direction="left"
-    content={
-        <ImageGallery 
-            images={[
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-1.webp", alt: "Traditional Moroccan carpet weaving setup showing colorful yarns and weaving materials scattered on wooden surface" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-2.webp", alt: "Close-up view of traditional loom with partially completed carpet" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-4.webp", alt: "Artisan hands working on traditional carpet loom" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-5.webp", alt: "Traditional weaving workshop environment " },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-6.webp", alt: "Detailed view of carpet weaving in progress" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-7.webp", alt: "Advanced stage of carpet production showing the emerging geometric patterns" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-11.webp", alt: "Final stages of traditional carpet weaving process where they wash it" },
-                { src: "/images/projects/mlrug/ml-rug-weaving-production-12.webp", alt: "Finished handwoven carpet washed on the floor" }
-            ]}
-        />
-    }
->
+<FloatContent position="left">
+  <image-gallery images={JSON.stringify([
+    { id: 1, src: "/images/projects/mlrug/ml-rug-weaving-production-1.webp", alt: "Traditional Moroccan carpet weaving setup showing colorful yarns and weaving materials scattered on wooden surface" },
+    { id: 2, src: "/images/projects/mlrug/ml-rug-weaving-production-2.webp", alt: "Close-up view of traditional loom with partially completed carpet" },
+    { id: 3, src: "/images/projects/mlrug/ml-rug-weaving-production-4.webp", alt: "Artisan hands working on traditional carpet loom" },
+    { id: 4, src: "/images/projects/mlrug/ml-rug-weaving-production-5.webp", alt: "Traditional weaving workshop environment " },
+    { id: 5, src: "/images/projects/mlrug/ml-rug-weaving-production-6.webp", alt: "Detailed view of carpet weaving in progress" },
+    { id: 6, src: "/images/projects/mlrug/ml-rug-weaving-production-7.webp", alt: "Advanced stage of carpet production showing the emerging geometric patterns" },
+    { id: 7, src: "/images/projects/mlrug/ml-rug-weaving-production-11.webp", alt: "Final stages of traditional carpet weaving process where they wash it" },
+    { id: 8, src: "/images/projects/mlrug/ml-rug-weaving-production-12.webp", alt: "Finished handwoven carpet washed on the floor" }
+])} slot="content" />
 
 The most exciting part of this collaboration with my sister and father was that
 it brought me full circle, returning me to my original curiosity about using
@@ -222,51 +233,53 @@ algorithmically generated designs into handcrafted rugs. The result was not a
 mechanical reproduction but rather a living interpretation that preserved the
 improvisational qualities that make Moroccan rugs special.
 
-</FloatImage>
+</FloatContent>
 
 ## Exhibition & trade magazine features
 
-<FloatImage
-    direction="right"
-    content={
-        <ImageGallery
-            images={[
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-1.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-2.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-3.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-4.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-6.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-7.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-8.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
-                },
-                {
-                    src: "/images/projects/mlrug/ml-rug-gallery-exhibition-11.webp",
-                    alt: "Gallery exhibition view showing the produced carpets hung on a wall."
-                },
-            ]}
-        />
-    }
->
+<FloatContent position="right">
+  <image-gallery images={JSON.stringify([
+    {
+        id: 1,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-1.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 2,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-2.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 3,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-3.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 4,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-4.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 5,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-6.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 6,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-7.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 7,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-8.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall.",
+    },
+    {
+        id: 8,
+        src: "/images/projects/mlrug/ml-rug-gallery-exhibition-11.webp",
+        alt: "Gallery exhibition view showing the produced carpets hung on a wall."
+    },
+])} slot="content" />
 
 These algorithmically generated, curated and handcrafted rugs were presented as
 part of [Design Month Graz 2025](https://www.designmonat.at/en/event/mlrug/).
@@ -284,7 +297,7 @@ analysis<sup><a href="#ref2">[2]</a></sup> used MLRug as an exemplary case study
 for ethical AI implementation in design, by keeping production in Morocco and
 creating a purpose-built dataset to avoid copyright concerns.
 
-</FloatImage>
+</FloatContent>
 
 ---
 

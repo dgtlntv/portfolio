@@ -1,0 +1,70 @@
+---
+import Footer from "../components/layout/Footer.astro"
+import Navigation from "../components/layout/Navigation/Navigation.astro"
+import { ClientRouter } from "astro:transitions"
+import "../styles/global.css"
+
+export interface Props {
+    title: string
+    showFooter?: boolean
+    setContentMaxWidth?: boolean
+}
+
+const { title, showFooter = true, setContentMaxWidth = true } = Astro.props
+---
+
+<html lang="en" style="scrollbar-gutter: stable both-edges;">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <ClientRouter />
+        {
+            import.meta.env.PUBLIC_STAGING === "true" && (
+                <meta name="robots" content="noindex, nofollow" />
+            )
+        }
+        <title>{title}</title>
+    </head>
+    <body class="min-h-screen flex flex-col">
+        <div class="flex flex-col min-h-screen">
+            <Navigation />
+            {
+                setContentMaxWidth ? (
+                    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col flex-1 overflow-hidden">
+                        <main class="relative flex-1 grid grid-cols-1 md:grid-cols-9 gap-0">
+                            <slot />
+                        </main>
+                        {showFooter && <Footer />}
+                    </div>
+                ) : (
+                    <>
+                        <main class="relative flex-1 grid grid-cols-1 md:grid-cols-9 gap-0 overflow-hidden">
+                            <slot />
+                        </main>
+                        {showFooter && <Footer />}
+                    </>
+                )
+            }
+        </div>
+
+        <script>
+            /**
+             * @param {ParentNode} [scope]
+             */
+            const loadWebComponents = (scope = document) =>
+                import("../utils/webComponents.ts").then((module) =>
+                    module.registerWebComponents(scope),
+                )
+
+            loadWebComponents()
+
+            document.addEventListener("astro:page-load", (event) => {
+                const scope =
+                    event.target instanceof Document ? event.target : document
+                loadWebComponents(scope)
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+---
+export interface Props {
+    /** The URL or path to navigate to */
+    to: string
+    /** The display label for the link */
+    label: string
+    /** Whether the link opens in a new tab */
+    isExternal: boolean
+    /** The navigation variant (affects styling) */
+    variant: "mobile" | "desktop"
+    /** The current page path (for active state detection) */
+    currentPath?: string
+}
+
+const { to, label, isExternal, variant, currentPath } = Astro.props
+
+const isActive =
+    !isExternal && currentPath
+        ? currentPath === to || (to !== "/" && currentPath.startsWith(`${to}/`))
+        : currentPath === to
+
+const baseClasses = "font-fancy text-base font-medium transition-colors"
+
+const variantClasses =
+    variant === "mobile"
+        ? "text-gray-900 hover:text-gray-700 aria-[current=page]:font-semibold"
+        : "text-gray-500 hover:text-gray-900 hover:underline hover:decoration-dashed hover:decoration-1 hover:underline-offset-8 aria-[current=page]:text-gray-900 aria-[current=page]:font-semibold aria-[current=page]:underline aria-[current=page]:decoration-solid aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
+
+const classes = `${baseClasses} ${variantClasses}`
+
+const externalProps = isExternal
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {}
+
+const ariaProps = isActive ? { "aria-current": "page" as const } : {}
+
+const dataAttributes = !isExternal ? { "data-nav-path": to } : {}
+---
+
+<a
+    href={to}
+    class={classes}
+    {...externalProps}
+    {...ariaProps}
+    {...dataAttributes}
+>
+    {label}
+</a>

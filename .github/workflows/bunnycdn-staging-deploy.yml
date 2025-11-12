@@ -23,7 +23,7 @@ jobs:
             - name: Build
               run: npm run build
               env:
-                  STAGING: "true"
+                  PUBLIC_STAGING: "true"
 
             - name: Deploy to BunnyCDN Staging
               uses: ayeressian/bunnycdn-storage-deploy@v2.2.5

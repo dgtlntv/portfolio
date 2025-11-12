@@ -1,0 +1,94 @@
+---
+export interface Props {
+    className?: string
+}
+
+interface HSLColor {
+    readonly h: number
+    readonly s: number
+    readonly l: number
+}
+
+interface ColorFamily {
+    readonly name: string
+    readonly hsl: HSLColor
+}
+
+interface ColorShade {
+    readonly value: number
+    readonly color: string
+}
+
+const { className = "" } = Astro.props
+
+const baseColors: readonly ColorFamily[] = [
+    { name: "Orange", hsl: { h: 16, s: 82, l: 52 } },
+    { name: "Green", hsl: { h: 120, s: 60, l: 45 } },
+    { name: "Red", hsl: { h: 353, s: 80, l: 43 } },
+    { name: "Blue", hsl: { h: 210, s: 100, l: 40 } },
+]
+
+const generateShades = (baseHsl: HSLColor): ColorShade[] => {
+    const shades: ColorShade[] = []
+    for (let i = 100; i <= 1000; i += 100) {
+        const lightness = 95 - ((i - 100) / 900) * 90
+
+        shades.push({
+            value: i,
+            color: `hsl(${baseHsl.h}, ${baseHsl.s}%, ${lightness}%)`,
+        })
+    }
+    return shades
+}
+
+const shades = generateShades(baseColors[0].hsl)
+---
+
+<div class={`relative ${className}`}>
+    <div
+        class="not-prose -rotate-1 rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+    >
+        <div class="mb-3 flex items-center">
+            <div class="w-12 flex-shrink-0"></div>
+            <div class="grid flex-1 grid-cols-10 gap-1">
+                {
+                    shades.map((shade) => (
+                        <div class="text-center">
+                            <span class="font-mono text-[8px] text-gray-500">
+                                {shade.value}
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="space-y-3">
+            {
+                baseColors.map((colorFamily) => {
+                    const colorShades = generateShades(colorFamily.hsl)
+                    return (
+                        <div class="relative">
+                            <div class="flex items-center">
+                                <span class="w-12 flex-shrink-0 text-xs font-medium text-gray-600">
+                                    {colorFamily.name}
+                                </span>
+                                <div class="grid flex-1 grid-cols-10 gap-1">
+                                    {colorShades.map((shade) => (
+                                        <div class="group relative">
+                                            <div
+                                                class="aspect-square cursor-pointer rounded border border-gray-200 transition-transform hover:scale-110"
+                                                style={`background-color: ${shade.color};`}
+                                                title={`${colorFamily.name} ${shade.value}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
+    </div>
+</div>
