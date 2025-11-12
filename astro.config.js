@@ -5,7 +5,6 @@ import rehypeKatex from "rehype-katex"
 import rehypeUnwrapImages from "rehype-unwrap-images"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkMath from "remark-math"
-import { ViteImageOptimizer } from "vite-plugin-image-optimizer"
 
 import playformInline from "@playform/inline"
 
@@ -69,15 +68,7 @@ export default defineConfig({
                 },
             },
         },
-        plugins: [
-            tailwindcss(),
-            ViteImageOptimizer({
-                webp: {
-                    quality: 85,
-                    lossless: false,
-                },
-            }),
-        ],
+        plugins: [tailwindcss()],
     },
     // Set base path from environment variable
     base: process.env.VITE_BASE_PATH || "/",
