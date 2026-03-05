@@ -1,165 +1,83 @@
 # Canonical Design Tokens — Content TODOs
 
+> How to use: Dump bullet points, half-sentences, rough thoughts under each TODO. Don't worry about grammar, flow, or repetition. I'll turn it into proper prose afterwards.
+
 ---
 
-## TODO 1: Make the problem human
+## TODO 1: Who suffered and how
 
-The current opening is accurate but abstract. Who actually suffered because of the lack of design tokens?
-
-**Answer these:**
-
-Can you give a concrete example of the pain? (e.g., "When Canonical changed its typeface, the update had to be made in X places across Y platforms, and Z months later the old typeface was still showing up in [specific product/page]")
+A concrete example of the pain caused by not having tokens. Who was affected — designers checking hex codes, Flutter team reverse-engineering SCSS, brand team frustrated by inconsistency?
 
 ```
-[Your answer]
-```
 
-Who were the people affected? Designers manually checking values? Developers on the Flutter team reverse-engineering SCSS? Brand team frustrated by inconsistency?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 2: What prompted you to push for this?
+## TODO 2: Why you pushed for this
 
-You say you "pushed for and led this effort." That's initiative — tell the story.
-
-**Answer these:**
-
-What was the moment or experience that made you think "we need design tokens"? Was it directly from your Figma library work (where you had to extract visual info from source code)? Something else?
+What moment or experience made you think "we need design tokens"? Did you need to convince anyone? Was there resistance or was the team receptive?
 
 ```
-[Your answer]
-```
 
-Did you have to convince anyone? Was there resistance or was the team receptive? Who did you need buy-in from?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 3: What did the inventory/audit reveal?
+## TODO 3: What the audit revealed
 
-You did an audit of existing variables and their flows. What did you find?
-
-**Answer these:**
-
-Roughly how many unique variables/values existed? Were there duplicates or near-duplicates?
+Roughly how many variables/values existed? Surprises, duplicates, near-duplicates, contradictions across platforms?
 
 ```
-[Your answer]
-```
 
-What was the most surprising or problematic finding? (e.g., "We found X color values in the codebase, many of which differed by only 1-2 RGBA points" or "Some variables were defined in three different places with slightly different values")
-
-```
-[Your answer]
-```
-
-Were there values that contradicted each other across platforms (CSS vs. Flutter vs. Figma)?
-
-```
-[Your answer]
 ```
 
 ---
 
 ## TODO 4: The naming debate
 
-You correctly identify naming as the hardest part but then don't tell the story. This is where stakeholder management lives.
-
-**Answer these:**
-
-What were the different opinions/factions? Did developers want one naming convention and designers another? Did different platform teams have different needs?
+Different opinions/factions (designers vs devs vs platform teams). The most contentious naming decision and how it was resolved. How this spec process was different from the Figma libraries one.
 
 ```
-[Your answer]
-```
 
-What was the most contentious naming decision? How was it resolved?
-
-```
-[Your answer]
-```
-
-How was the design tokens spec process different from the Figma libraries spec process? (Since you describe a similar collaborative format — what was different about this one? Harder? Different stakeholders? Different dynamics?)
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 5: The color palette — why this approach?
+## TODO 5: The color palette
 
-You mention moving from ad-hoc colors to a systematic palette based on contrast rather than lightness. This is a real design decision with trade-offs.
-
-**Answer these:**
-
-How many ad-hoc colors existed before? Were there colors that were visually indistinguishable but had different values?
+How many ad-hoc colors existed before? Any trade-offs from the contrast-based approach? Anything that broke?
 
 ```
-[Your answer]
-```
 
-What trade-offs did the contrast-based approach create? Was anything harder? Did any existing color usage break?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 6: The prototype discoveries — THIS IS THE CLIMAX
+## TODO 6: What the prototype discovered — THIS IS THE CLIMAX
 
-"I discovered several implementation limitations that I was able to feed back into the token authoring process before engineering began their full implementation." This is currently one vague sentence. It should be the most detailed part of the case study because it proves the prototype was valuable.
-
-**Answer these — be as specific as possible:**
-
-What implementation limitations did you discover in Style Dictionary? (e.g., limitations with composite tokens? Reference resolution? Theme handling? Output format constraints?)
+What specific limitations did you find in Style Dictionary? How did those discoveries change the token authoring process? A concrete example: "I tried to build X, found Y didn't work, so we changed Z."
 
 ```
-[Your answer]
-```
 
-How did these discoveries change the token authoring process? What did the team adjust before engineering started?
-
-```
-[Your answer]
-```
-
-Can you give one specific example? ("When I tried to build [X] through Style Dictionary, I found that [Y] didn't work as expected, which meant our planned [Z] approach needed to change to [W]")
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 7: Reframe the ending
+## TODO 7: New ending
 
-The current ending ("Once engineering moves to full implementation...") is a hope, not a result. You need to reframe around what was actually delivered.
-
-**Write a new closing here that focuses on concrete deliverables:**
+The current ending is "engineering hasn't started yet." List what was actually delivered — the inventory, the approved spec, the token sets, the prototype, the color palette, the learnings fed back. Dump it all:
 
 ```
-[List what was actually completed and delivered: the inventory, the approved spec, the token sets (which categories?), the prototype, the systematic color palette, the implementation learnings fed back. Frame these as the foundation, not as incomplete work.]
+
 ```
 
 ---
 
-## TODO 8: Sequencing decisions
+## TODO 8: Why you tackled token categories in this order
 
-You mention creating primitive dimension tokens first, then typography, then color. This implies a prioritization logic.
-
-**Answer:**
-
-Why this order? What was the reasoning for which token categories to tackle first?
+Why dimensions first, then typography, then color?
 
 ```
-[Your answer]
+
 ```

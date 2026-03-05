@@ -1,203 +1,93 @@
 # MAAS Site Manager — Content TODOs
 
+> How to use: Dump bullet points, half-sentences, rough thoughts under each TODO. Don't worry about grammar, flow, or repetition. I'll turn it into proper prose afterwards.
+
 ---
 
-## TODO 1: Your role and the broader MVP scope
+## TODO 1: Your role and the full MVP scope
 
-The current write-up makes it seem like you only designed a map. You designed an MVP. Tell the reader that.
-
-**Answer these:**
-
-What was your role exactly? Sole designer? One of several? Embedded with the engineering team? Reporting to whom?
+What was your role exactly (sole designer, one of several, embedded, reporting to whom)? What were the key features/workflows in the MVP beyond the map? Which ones did you design?
 
 ```
-[Your answer]
-```
 
-What were the key features/workflows in the MVP beyond the map? (e.g., site registration, configuration management, user permissions, infrastructure overview, alerting?) List them even briefly.
-
-```
-[Your answer]
-```
-
-Which of these did you design? Did you design all of them or were some done by others?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 2: The users — go deeper
+## TODO 2: The users — what makes sysadmins different
 
-"Deeply technical IT professionals" is a start. You were designing for a niche, expert audience — that's a skill worth demonstrating.
-
-**Answer these:**
-
-What makes designing for sysadmins / infrastructure engineers different from designing for general users? What do they value? What do they not tolerate? What assumptions can you make about their technical literacy?
+What do they value, what don't they tolerate, what can you assume about them? Did you interact with them directly and how? One example of a design decision shaped by understanding this user type.
 
 ```
-[Your answer]
-```
 
-Did you interact with users directly? How? (Interviews, support channels, community forums, user testing sessions?)
-
-```
-[Your answer]
-```
-
-Can you give one example of a design decision that was specifically shaped by understanding this user type? (e.g., "We chose X over Y because sysadmins expect Z")
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 3: The user research that led to the map feature
+## TODO 3: The user research behind the map feature
 
-"Prior user research revealed that users needed geographic awareness" — this sentence is currently doing all the work and you give it nothing.
-
-**Answer these:**
-
-Who conducted this research? Did you do it, participate in it, or inherit findings?
+Who did the research (you, someone else, inherited findings)? What did it look like (interviews, contextual inquiry, support tickets)? A specific quote, scenario, or behavior that pointed to geographic awareness. Any competing interpretations of what users needed?
 
 ```
-[Your answer]
-```
 
-What did the research look like? (Interviews? Contextual inquiry? Support ticket analysis? Survey?)
-
-```
-[Your answer]
-```
-
-What specifically did users say or do that pointed to geographic awareness as a need? Can you recall a specific quote, scenario, or observed behavior?
-
-```
-[Your answer]
-```
-
-Were there competing interpretations of what users needed? Did product management see it differently from what the research showed?
-
-```
-[Your answer]
 ```
 
 ---
 
 ## TODO 4: Design alternatives and iteration
 
-You show wireframes but don't discuss the decision-making behind them.
-
-**Answer these:**
-
-What alternatives did you explore before/alongside the map? Was a table-based view considered? A hierarchy/tree view? Something else? Why was the map chosen over alternatives (beyond the research pointing to "geographic awareness")?
+What alternatives did you explore alongside the map (table view, hierarchy, something else)? How did you solve the 30,000 sites scaling problem? A moment where designer or developer feedback changed your approach.
 
 ```
-[Your answer]
-```
 
-The scaling problem — 30,000 sites can't all be shown. How did you solve this? Clustering? Progressive disclosure? Filtering? What was the UX pattern?
-
-```
-[Your answer]
-```
-
-Can you describe one specific moment where feedback from a designer or developer changed your approach to something in the wireframes?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 5: The map tile solution — add the concrete numbers
+## TODO 5: Map tile sizes
 
-This is the one place where a real metric is naturally compelling. File sizes are factual, dramatic, and not LinkedIn-y.
-
-**Answer these:**
-
-What was the approximate size of standard open-source map tiles? And what did your optimized tiles come in at?
+Standard map tile size vs your optimized size. Just the numbers.
 
 ```
-[Your answer — e.g., "Standard tiles: ~80GB → Optimized: ~25MB"]
+
 ```
 
 ---
 
-## TODO 6: Convincing the development team
+## TODO 6: Convincing the dev team
 
-"I convinced the development team" — this is a stakeholder management moment and it gets one sentence.
-
-**Answer these:**
-
-How did you present the proof of concept? In a meeting? Pairing with a developer? Async?
+How did you present the proof of concept? Initial skepticism? What were the devs' concerns and how did you address them?
 
 ```
-[Your answer]
-```
 
-Was there initial skepticism? What were the developers' concerns? How did you address them?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 7: The rock climbing / personal project connection
+## TODO 7: The climbing project connection
 
-You mention detecting potential climbing areas using ML on satellite images. It's an interesting cross-pollination detail but it's a throwaway.
-
-**Answer briefly:**
-
-What specifically from that project gave you the knowledge that a better map solution was possible? Was it experience with tile generation? Understanding of map data formats? Knowledge of tippecanoe?
+What specifically from that project gave you the knowledge that a better map solution was possible?
 
 ```
-[Your answer]
+
 ```
 
 ---
 
-## TODO 8: User testing and validation — flesh this out
+## TODO 8: User testing details
 
-"User testing with internal users validated the approach" is far too thin for a closing section.
-
-**Answer these:**
-
-How many user testing sessions? With whom (internal users — what roles)?
+How many sessions, with whom? What tasks? Any issues found or things iterated on after testing? Anything post-launch?
 
 ```
-[Your answer]
-```
 
-What tasks did participants perform in the test?
-
-```
-[Your answer]
-```
-
-Were there any issues found during testing? Anything you iterated on after testing?
-
-```
-[Your answer]
-```
-
-What happened after the MVP shipped? Any post-launch usage signals or user feedback?
-
-```
-[Your answer]
 ```
 
 ---
 
-## TODO 9: Cut the self-congratulatory closing paragraph
+## TODO 9: Cut the closing paragraph
 
-The last paragraph ("This project demonstrates how taking initiative to bridge the gap between design requirements and technical constraints can lead to solutions that meet user needs, business requirements, and brand standards simultaneously.") reads like a cover letter. Delete it entirely. The work speaks for itself.
-
-**Acknowledged?**
+The last paragraph ("This project demonstrates how taking initiative...") reads like a cover letter. Confirm it should go, or explain why you want to keep it:
 
 ```
-[Yes / No / I want to keep it because...]
+
 ```
