@@ -15,6 +15,34 @@ heroLocation: "cover"
 asciiDarken: 3.0
 stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+process:
+    - id: context
+      label: Defining research goals
+    - id: alignment
+      label: Aligning with the team
+    - id: gap
+      label: Discovering a tooling gap
+      anchor: user-testing-clis
+    - id: tool
+      label: Building a prototype tool
+      type: branch
+      branchFrom: gap
+    - id: testing
+      label: Running sessions
+      type: merge
+      mergesInto: tool
+    - id: insights
+      label: Analyzing findings
+      anchor: sharing-user-insights
+    - id: sharing
+      label: Presenting to stakeholders
+    - id: docs
+      label: Improving the product
+    - id: opensource
+      label: Open-sourcing the tool
+      type: branch
+      branchFrom: sharing
+      anchor: future-of-prototyping-clis
 ---
 
 The digital infrastructure software that Canonical develops can be quite

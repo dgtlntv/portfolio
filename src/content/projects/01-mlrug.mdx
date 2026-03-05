@@ -17,6 +17,35 @@ stats:
         { label: "Year", value: "2019 - 2025" },
         { label: "Type", value: "Personal Project" },
     ]
+process:
+    - id: questioning
+      label: Questioning
+    - id: data-collection
+      label: Gathering data
+      anchor: data-collection
+    - id: algorithm
+      label: Experimenting
+      anchor: algorithm-and-computing
+    - id: initial-results
+      label: Evaluating
+      anchor: initial-results
+      style:
+          pause: true
+    - id: digital-to-physical
+      label: Revisiting
+      anchor: from-digital-to-physical
+    - id: collaboration
+      label: Collaborating
+      type: branch
+      branchFrom: digital-to-physical
+      anchor: production-and-collaboration
+    - id: production
+      label: Producing
+      type: merge
+      mergesInto: collaboration
+    - id: exhibition
+      label: Exhibiting
+      anchor: exhibition--trade-magazine-features
 ---
 
 In the design theory lecture at my university, we often discussed the role of

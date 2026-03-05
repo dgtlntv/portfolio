@@ -13,6 +13,8 @@ interface Props {
     heroLocation?: "contain" | "cover"
     stats?: Stat[]
     date?: string
+    processStages?: any[]
+    projectSlug?: string
 }
 
 const {
@@ -22,6 +24,8 @@ const {
     heroLocation = "cover",
     stats,
     date,
+    processStages,
+    projectSlug,
 } = Astro.props
 
 const isVideo = heroUrl?.endsWith(".webm")
@@ -98,7 +102,13 @@ const heroImageSizes =
         )
     }
 
-    <div class="md:col-span-7 md:col-start-2">
+    <div class="md:col-span-7 md:col-start-2 relative">
+        {processStages && processStages.length > 0 && (
+            <process-line
+                stages={JSON.stringify(processStages)}
+                project-slug={projectSlug || ""}
+            />
+        )}
         <div
             class="prose prose-red prose-md max-w-none mx-auto mt-16 marker:text-red-500"
         >

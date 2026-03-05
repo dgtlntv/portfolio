@@ -13,6 +13,32 @@ heroLocation: "cover"
 asciiDarken: 0.89
 stats:
     [{ label: "Year", value: "2024" }, { label: "Type", value: "Work Project" }]
+process:
+    - id: understanding
+      label: Identifying the problem
+      anchor: understanding-the-problem
+    - id: research
+      label: Researching approaches
+      anchor: research-and-specification
+    - id: specification
+      label: Drafting the spec
+      style:
+          loop: true
+    - id: implementation
+      label: Building components
+      anchor: implementation
+    - id: metrics
+      label: Building metrics tooling
+      type: branch
+      branchFrom: implementation
+    - id: transition
+      label: Transitioning the team
+      type: merge
+      mergesInto: metrics
+      anchor: transition-and-adoption
+    - id: public
+      label: Public release
+      anchor: public-release
 ---
 
 The shoemaker's children have no shoes. At Canonical's design team, this proverb

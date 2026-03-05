@@ -11,6 +11,7 @@ const { project } = Astro.props
 
 const { Content } = await project.render()
 const projectData = project.data
+const processStages = projectData.process || []
 ---
 
 <Article
@@ -18,6 +19,8 @@ const projectData = project.data
     title={projectData.title}
     heroLocation={projectData.heroLocation || "cover"}
     heroUrl={projectData.coverImage || ""}
+    processStages={processStages}
+    projectSlug={project.slug}
 >
     <Content components={components} />
 </Article>
