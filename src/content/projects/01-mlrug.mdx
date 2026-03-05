@@ -33,7 +33,10 @@ process:
           pause: true
     - id: digital-to-physical
       label: Revisiting
-      anchor: from-digital-to-physical
+      anchor: revisiting-the-project
+    - id: second-iteration
+      label: Second iteration
+      anchor: second-iteration
     - id: collaboration
       label: Collaborating
       type: branch
@@ -48,15 +51,23 @@ process:
       anchor: exhibition--trade-magazine-features
 ---
 
-In the design theory lecture at my university, we often discussed the role of
-machine learning algorithms and artificial intelligence in the design process.
-One conclusion from this discussion was that generative algorithms will play an
-increasingly important role in the design process, to the point where the role
-of the designer could shift from creator to curator. However, these discussions
-were all theoretical in nature, and I wanted to explore what that would mean in
-practice. I wanted to carry out a project in which I experimented with
-generative algorithms as a design tool, which led to a year-long experiment that
-lasted from my time at university until today.
+In 2019, well before Stable Diffusion or ChatGPT or any of the generative AI
+tools that are now commonplace, a recurring discussion in my university's design
+theory lectures caught my attention. The idea was that generative algorithms
+would play an increasingly important role in the design process, to the point
+where the designer's role could shift from creator to curator. These
+conversations were always theoretical though, and I wanted to find out what that
+shift actually felt like in practice.
+
+This led to a project that stretched across six years, from my time at
+university to an exhibition at Design Month Graz in 2025. Along the way it
+became a collaboration with my sister and my father, moved from digital
+generation to physical production in Morocco, and gave me a hands-on
+understanding of machine learning that goes well beyond using off-the-shelf AI
+tools. I've come to understand how these systems work on a technical level.
+What it takes to train them, how data quality shapes output quality, and where
+their capabilities end. That understanding informs how I work with AI today,
+whether in an artistic context like this one or in my professional design work.
 
 ## Data Collection
 
@@ -91,38 +102,25 @@ I started this project a couple of years before many of the impressive AI tools
 existed. The only realistic way for me to conduct this experiment was to train
 my own algorithm (based on other people's algorithms, of course).
 
-As with so many projects in the field of machine learning, one of the most
-important considerations for me was the question of what data I would feed into
-my generative algorithm. I wanted to choose a design object that I was
-reasonably familiar with, for which I could obtain a sufficient amount of data,
-and that could be represented as an image (since 3D generative design is much
-more difficult). Based on these considerations, I opted for Moroccan carpets. I
-am very familiar with Moroccan carpets because my father trades with them, which
-also gives me access to image data of Moroccan carpets. I supplemented the data
-I was able to obtain from my father with images from the internet, which I
-collected using a web crawler. In the end, I was able to obtain about 3.000
-images of Moroccan carpets. This is not a huge amount in the context of a
-generative algorithm, but enough to get first reasonably useful results.
+As with so many machine learning projects, the most important consideration was
+what data to feed into the algorithm. I needed a design object I was familiar
+with, for which I could get enough images, and that could be represented in two
+dimensions (since 3D generative design is much more difficult). Moroccan carpets
+were the natural choice. My father trades with them, which gives me access to a
+high-quality photo archive. I supplemented his collection with images from the
+internet, collected using a web crawler. In the end I had about 3.000 images.
+Not a huge amount in the context of a generative algorithm, but enough for a
+first experiment.
 
 </FloatContent>
 
 ## Algorithm and Computing
 
-I investigated various architectures and algorithms and finally settled on
-[HyperGAN](https://github.com/HyperGAN/HyperGAN). At the time, it was an
-appropriately powerful architecture for this project and was specifically
-designed to lower the barrier to entry for artists and designers. For my first
-test, I ran [HyperGAN](https://github.com/HyperGAN/HyperGAN) on my laptop, but I
-quickly realized that my laptop's graphics card (GTX1050) would not be
-sufficient for a full run.
-
-So I turned to cloud solutions. In the process, I landed on
-[Paperspace](https://www.paperspace.com/), which is based on DigitalOcean (afaik
-it was AWS then) but offers a simpler user experience and is optimized for
-machine learning. There, I did a number of different training runs with my data,
-using different resolutions and parameters. In the end, I found that
-[HyperGAN](https://github.com/HyperGAN/HyperGAN)'s default parameters and a
-resolution of 256x256 worked best for me.
+After evaluating several architectures, I settled on
+[HyperGAN](https://github.com/HyperGAN/HyperGAN), a framework specifically
+designed to lower the barrier to entry for artists and designers. When my local
+hardware proved insufficient, I moved to cloud-based GPU computing and ran a
+series of training experiments with different resolutions and parameters.
 
 ## Initial Results
 
@@ -152,29 +150,49 @@ resolution of 256x256 worked best for me.
         ])}
         slot="content"
     />
-    I wouldn't call the results perfect, but for the amount of data and
-    technical knowledge I had at the time, I think they were reasonable. At this
-    point, it's clear that training an algorithm on a small scale like this
-    isn't really going to replace a designer's design process. But it can serve
-    as inspiration. And it definitely did in this project.
+
+Even with a limited dataset and a relatively simple architecture, the results
+were instructive. The algorithm had already picked up on the diamond motif, one
+of the most characteristic and recurring elements in Moroccan carpet design. But
+the outputs had the uncanny valley quality typical of early image generators.
+Things that looked plausible at a distance but fell apart under closer
+inspection.
+
+This taught me something useful about AI as a design tool. Even at this early
+stage, the algorithm was identifying the most dominant visual patterns in the
+data. But it couldn't yet combine them in ways that were compositionally
+interesting or actually usable. It was clear that generative AI at this scale
+wasn't going to replace a designer's judgment. But it could serve as a source of
+raw material. Something to curate from, not to use directly. That distinction,
+designer as curator rather than creator, became the operating principle for the
+rest of the project.
+
 </FloatContent>
 
-## From Digital to Physical
+## Revisiting the Project
 
-When I first experimented with generative adversarial networks (GANs) in 2019, I
-achieved only moderate results. However, the results improved significantly when
-I revisited this project together with my sister Ida, who was working on her
-master's thesis on the historical pattern development in Moroccan carpets. We
-wanted to explore the parallels between traditional carpet pattern development
-and AI pattern development processes. Traditional carpet patterns evolved
-through geographical migration across the Mediterranean, blending influences
-from diverse cultures including the Berbers, Arab nomads, Moorish Andalusians,
-and Ottomans. We're interested in comparing this analog, cross-cultural pattern
-evolution with the digital pattern development processes used by AI systems. Our
-goal was to investigate whether the machine learning approach to pattern
-generation can be viewed through the same lens as the centuries-old tradition of
-motifs that have developed and spread from urban manufactories to rural
-communities and back again.
+I set the project aside after these first experiments. Several years later, I
+returned to it together with my sister Ida, who was working on her master's
+thesis on the historical development of patterns in Moroccan carpets.
+
+Ida brought an art-historical framework that grounded the project in a way my
+original experiment lacked. Traditional Moroccan carpet patterns evolved through
+geographical migration across the Mediterranean, absorbing influences from
+Berber, Arab, Moorish Andalusian, and Ottoman cultures. Motifs spread and
+transformed as they moved between urban manufactories and rural communities. Ida
+and my father, whose knowledge of Moroccan carpet history and culture runs deep,
+helped us see a parallel between this centuries-old analog pattern evolution and
+what a machine learning algorithm does when it processes a dataset. It absorbs,
+blends, and recombines visual influences into something new.
+
+This conceptual framework didn't fundamentally change how we trained the
+algorithm, but it transformed how we thought about the project. It shaped what
+we were looking for when curating the outputs, and it became central to how we
+presented the work. Together we selected carpets that were interesting from a
+design, art, and historical perspective, both for the training data and for the
+final curation of generated outputs.
+
+## Second Iteration
 
 <FloatContent position="right">
   <image-gallery images={JSON.stringify([
@@ -220,13 +238,14 @@ communities and back again.
     },
 ])} slot="content" />
 
-For this second iteration of the project I reevaluated which algorithm to use
-and landed on StyleGAN2-ada, a variant specifically designed for training with
-fewer images. Using my father's high-quality photo archive again and this time
-supplemented by much more carefully selected internet images, we achieved much
-better results than in my first iteration. Showing how much machine learning had
-evolved in such a short time (and how much of an effect good quality data can
-have).
+For this second iteration I reevaluated which algorithm to use and landed on
+StyleGAN2-ada, a variant specifically designed for training with fewer images.
+Using my father's high-quality photo archive again, this time supplemented by
+much more carefully selected internet images, we achieved dramatically better
+results. The leap in quality demonstrated two things: how rapidly machine
+learning had evolved in just a few years, and how much of a difference
+thoughtful data curation makes. Good data isn't just more data. It's data
+selected with understanding and intent.
 
 </FloatContent>
 
@@ -244,23 +263,29 @@ have).
     { id: 8, src: "/images/projects/mlrug/ml-rug-weaving-production-12.webp", alt: "Finished handwoven carpet washed on the floor" }
 ])} slot="content" />
 
-The most exciting part of this collaboration with my sister and father was that
-it brought me full circle, returning me to my original curiosity about using
-machine learning as a tool in the design process by actually bringing these
-digital creations back into the physical world.
+Producing the carpets in Morocco was the obvious choice. We had trained on
+Moroccan carpets, so bringing them to life through traditional Moroccan
+production wasn't just appropriate, it was the only approach that made sense.
 
-Rather than choosing Indian or Nepalese manufactories with their precision
-technology that would allow nearly photographic reproduction, we deliberately
-opted for production in Morocco. The rhizomatic producer landscape there
-consisting of many small, interconnected local businesses allowed us to maintain
-the character and vitality of the original designs while ensuring value creation
-remained in the country that inspired our work.
+The alternative would have been Indian or Nepalese manufactories, where
+machine-assisted production can reproduce a design nearly knot for knot. The
+result is a faithful reproduction, but it lacks the character of the traditional
+Moroccan approach. In the workshops of the western Middle Atlas, where my father
+has collaborated with a producer for several years, things work differently. The
+process is low-tech. We sent our generated designs as image files, which the
+workshop printed on a local printer onto A4 pages. The weavers work from these
+printouts by eye, interpreting the design rather than mechanically reproducing
+it.
 
-Working with a producer from the western Middle Atlas that my father had
-collaborated with for several years, we were able to translate the
-algorithmically generated designs into handcrafted rugs. The result was not a
-mechanical reproduction but rather a living interpretation that preserved the
-improvisational qualities that make Moroccan rugs special.
+This means every rug is unique, shaped by the weaver's interpretation. What gets "lost" in translation is exactly what makes the result
+interesting. The weaver's hand introduces the same kind of improvisational
+quality that has always characterized Moroccan carpets. And there's something
+conceptually satisfying about it too. The pattern has now been transformed yet
+again. It migrated from historical carpets into a training dataset, was
+recombined by an algorithm, curated by us, and then reinterpreted by a human
+weaver. Each step is another layer in an ongoing process of pattern
+transformation, not unlike the centuries of cultural migration that created the
+source material in the first place.
 
 </FloatContent>
 
@@ -313,17 +338,21 @@ improvisational qualities that make Moroccan rugs special.
 These algorithmically generated, curated and handcrafted rugs were presented as
 part of [Design Month Graz 2025](https://www.designmonat.at/en/event/mlrug/).
 
-The project gained recognition beyond the exhibition, being featured in two
-articles in Cover, a leading publication in handmade carpets and textiles for
-interiors.
+The reception was more positive than I had expected. There is no shortage of
+AI-generated work out there right now, and a lot of it provokes skepticism,
+especially when it encroaches on traditional craft and art. But the response to
+this project was genuinely warm. I'd like to think that's because the work was
+done with enough care and intention to not come across as AI slop. A
+purpose-built dataset, traditional production, and a clear conceptual framework
+seem to have helped.
 
-This coverage positioned MLRug within important industry conversations about the
-intersection of traditional craft and emerging technology. Lucy Upward's feature
+The project was featured in two articles in Cover, a leading publication in
+handmade carpets and textiles for interiors. Lucy Upward's feature
 article<sup><a href="#ref1">[1]</a></sup> explored the project's conceptual
 framework, examining how AI's pattern-learning process mirrors the historical
-migration of motifs along ancient trade routes. Meanwhile, Denna Jones's
-analysis<sup><a href="#ref2">[2]</a></sup> used MLRug as an exemplary case study
-for ethical AI implementation in design, by keeping production in Morocco and
+migration of motifs along ancient trade routes. Denna Jones's
+analysis<sup><a href="#ref2">[2]</a></sup> used MLRug as a case study for
+ethical AI implementation in design, by keeping production in Morocco and
 creating a purpose-built dataset to avoid copyright concerns.
 
 </FloatContent>
