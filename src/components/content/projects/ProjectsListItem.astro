@@ -24,8 +24,8 @@ const {
     <div class="grid grid-cols-9 gap-4">
         <!-- Content section -->
         <div
-            class={`col-span-9 md:col-span-2 ${
-                isLeft ? "md:col-start-1" : "md:col-start-8"
+            class={`col-span-9 md:col-span-3 ${
+                isLeft ? "md:col-start-1" : "md:col-start-7"
             } order-2 md:order-${isLeft ? "1" : "2"} mt-8 md:mt-0`}
         >
             <h3
@@ -43,8 +43,8 @@ const {
 
         <!-- Image/Video section -->
         <div
-            class={`col-span-9 md:col-span-6 ${
-                isLeft ? "md:col-start-4" : "md:col-start-1"
+            class={`col-span-9 md:col-span-5 ${
+                isLeft ? "md:col-start-5" : "md:col-start-1"
             } order-1 mt-10 md:mt-0 md:order-${isLeft ? "2" : "1"} ${
                 className || ""
             }`}
