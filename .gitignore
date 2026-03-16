@@ -23,3 +23,4 @@ reports
 *.njsproj
 *.sln
 *.sw?
+.playwright-cli/

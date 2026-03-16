@@ -45,6 +45,9 @@
             "additionalProperties": false
           }
         },
+        "tldr": {
+          "type": "string"
+        },
         "process": {
           "type": "array",
           "items": {

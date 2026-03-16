@@ -17,130 +17,164 @@ stats:
         { label: "Year", value: "2023-2024" },
         { label: "Type", value: "Work Project" },
     ]
+tldr:
+    "Sole designer on MAAS Site Manager, a centralized management interface
+    for multiple bare metal server installations. Designed the full MVP
+    including site enrollment, image management, map and table views, and
+    settings. Solved an air-gapped map tile problem by building a proof of
+    concept that reduced tile size from over 100GB to around 100MB. Validated
+    designs through two rounds of user testing with around six sessions each."
 process:
     - id: context
       label: Understanding users
+      anchor: the-product-and-its-users
+    - id: scope
+      label: Scoping the MVP
     - id: geographic
-      label: Scoping the feature
-      anchor: geographic-visualization-challenge
+      label: Designing the map
+      anchor: the-map
     - id: design-process
-      label: Exploring solutions
-      anchor: design-process-and-constraints
+      label: Iterating on the design
+      anchor: scaling-to-tens-of-thousands-of-sites
     - id: roadblock
       label: Hitting a wall
-      anchor: technical-roadblock-and-alternative-solution
+      anchor: the-map-tile-problem
       style:
           loop: true
     - id: alternative
       label: Prototyping an alternative
     - id: results
       label: Testing with users
-      anchor: results-and-validation
+      anchor: testing-with-users
 ---
 
 During my time at Canonical, I worked extensively with the MAAS team. MAAS
 (Metal as a Service) is bare metal management software that can manage servers
-even without, for example, an operating system installed. The users are deeply
-technical IT professionals who manage large-scale infrastructure deployments.
+even without an operating system installed. The users are deeply technical IT
+professionals who manage large-scale infrastructure deployments.
 
-I focused primarily on MAAS Site Manager, a companion application designed to
-address a significant pain point for users managing multiple data centers. While
-performance requirements dictate one MAAS installation per data center, this
-creates operational challenges: users lack unified oversight of their
-infrastructure, must replicate configurations and boot images across
+MAAS Site Manager was a companion application designed to address a significant
+pain point. While performance requirements dictate one MAAS installation per
+data center, this creates operational challenges: users lack unified oversight
+of their infrastructure, must replicate configurations and boot images across
 installations, and frequently struggle to ensure they're performing actions on
-the correct MAAS instance.
+the correct MAAS instance. Site Manager was created as the centralized
+management interface for multiple MAAS installations.
 
-MAAS Site Manager was created as the solution. A centralized management
-interface for multiple MAAS installations. I contributed to this project from
-its inception, helping shape it from initial concept through MVP delivery.
+## The product and its users
 
-## Geographic visualization challenge
+I was the sole designer on Site Manager, working closely with both front-end and
+back-end engineering. Design is its own department at Canonical, so I wasn't
+officially part of the Site Manager team, but in practice I was quite embedded.
 
-One of the key features I designed for the MVP was the map visualization. Prior
-user research revealed that users needed geographic awareness of their MAAS
-installations to effectively manage distributed infrastructure. When
-troubleshooting errors, they required quick identification of affected regions,
-and when planning deployments, they needed visibility into data center locations
-across specific geographic areas.
+The MVP scope was broad. I designed the enrollment flow, the whole process of
+creating enrollment tokens in Site Manager, using them in MAAS, and accepting
+incoming enrollment requests. I designed the image management feature, one of
+the biggest asks from users, which lets you manage OS images for multiple MAAS
+sites at once since Site Manager acts as their image server. I designed user
+profiles, settings, a table view for a more structured way to browse connected
+sites, and the map view, which is the focus of this case study.
 
-In this research we also found that a map visualization would be the most
-intuitive solution for this geographic information. However, we also had a
-critical constraint from product management: the feature needed to function in
-air-gapped environments where internet connectivity is restricted or
-unavailable. This requirement was a significant technical and design challenge,
-as most mapping solutions depend on online services.
+The users, system administrators, value efficiency and predictability above
+almost everything. Something I heard often in interviews is that they don't like
+"clickops," having to repeat the same click patterns in a UI. If they have a UI,
+they want it to make their work more efficient in as few clicks as possible, or
+help them understand large amounts of data more easily. If something requires
+repetitive manual interaction, they'd rather have a way to automate or script
+it. Essentially every design decision on this project had to be shaped by
+understanding this user type.
 
-## Design process and constraints
+## The map
 
-I began the project by creating several iterations of wireframes, addressing
-both visual and interaction design challenges. The map needed visual clarity for
-the specific use case while enabling users to interact with sites: selecting
-individual or multiple locations and performing actions on them.
+Exploratory user research was done before I joined by my then manager, a
+designer who also worked on MAAS. She conducted qualitative interviews with MAAS
+customers who manage multiple sites. A lot of the initial requirements for Site
+Manager, including the map, came from her research.
+
+The research showed that users needed geographic awareness of their
+installations. When managing a large fleet of MAAS sites, especially edge nodes
+deployed for decreased latency, geographic location becomes important. Users
+need to quickly identify which region is affected when something goes wrong, and
+they need visibility into data center locations when planning deployments.
+
+A map was the most intuitive way to represent this. But we had a critical
+constraint from product management: the feature needed to function in air-gapped
+environments where internet connectivity is restricted or unavailable. Most
+mapping solutions depend on online services, so this was a significant technical
+and design challenge from the start.
+
+## Scaling to tens of thousands of sites
+
+I started by creating several iterations of wireframes, working through both
+visual and interaction design challenges.
 
 ![MAAS Site Manager wireframe showing European map with clustered server location markers, with dense clusters around Vienna area and scattered markers across other European cities, including sidebar navigation for Regions, Settings, and user account](/images/projects/maas-site-manager/site-manager-wireframe-clustered-markers.webp)
 
-The design had to accommodate potentially tens of thousands of sites, requiring
-scalable rendering solutions. Displaying 30,000 sites simultaneously would be
-neither technically performant nor visually useful to users. I needed to create
-user flows that were intuitive for site interaction and selection while ensuring
-the interface could scale effectively.
+The design had to accommodate potentially tens of thousands of sites. Displaying
+30,000 sites simultaneously would be neither technically performant nor visually
+useful. So over several design iterations, I designed how individual points
+would merge together into groups at different zoom levels. This clustering made
+the map both easier to read and easier to render.
 
 ![MAAS Site Manager wireframe displaying regional view of Europe with individual server location pins scattered across countries, showing '20 MAAS regions' with search functionality and map/table view toggles in the interface](/images/projects/maas-site-manager/site-manager-wireframe-regional-view.webp)
 
-Throughout the design process, I conducted frequent feedback sessions with other
-designers to refine flows and visual approaches, and with developers to validate
-technical feasibility.
+There was a lot of nuance in the details. How does selection work when sites are
+grouped together? What happens if you previously selected a site and then zoom
+out so it gets clustered with others? How do you perform actions on a group
+versus an individual site? These interactions needed careful consideration.
 
-## Technical roadblock and alternative solution
+Close collaboration with the developers was important here. The limitations of
+the map library we were using weren't always obvious from the design side. We
+had to stay in close contact about what was feasible in terms of implementation,
+especially around rendering performance, so I could adjust the designs
+accordingly.
 
-During one of these developer feedback session, we identified a significant
-technical challenge. Off-the-shelf open source map tiles (the building blocks of
-digital maps) require tens to hundreds of gigabytes of storage. Shipping this
-data with MAAS Site Manager would create an impractical burden for users,
-particularly since most self-host the application.
+## The map tile problem
+
+During one of these developer feedback sessions, we identified a significant
+technical challenge. Off-the-shelf open source map tiles require over 100GB of
+storage. Shipping that with Site Manager would be completely impractical,
+particularly since most users self-host the application.
 
 ![OpenStreetMap integration example showing detailed European map with country boundaries, city names, and geographical features like rivers and terrain, demonstrating the level of detail would be too much for MAAS Site manager](/images/projects/maas-site-manager/openstreetmap-integration.webp)
 
-The development team proposed using an online map service like OpenStreetMaps to
-avoid hosting large datasets, but this would violate one of the core
-requirements, that it would work in an air-gapped environment. Beyond the
-technical constraint, I had additional concerns with this approach: limited
-control over visual appearance, excessive detail that could distract users from
-their primary tasks, and visual inconsistency with our brand identity.
+One option was using an online map service like OpenStreetMap, but that would
+violate the air-gapped requirement. Beyond the technical constraint, I had
+concerns with this approach anyway: limited control over visual appearance,
+excessive detail that would distract users from their primary tasks, and visual
+inconsistency with our brand.
 
-Having recently worked with map data on a personal project (detecting potential
-new rock climbing areas using machine learning algorithms on satellite images),
-I knew there was a better solution. While the development team was hesitant to
-explore alternatives further, I decided to create a proof of concept
-demonstrating how to build a map with sufficient detail for our specific use
-case, custom styling that matched our brand, and dramatically reduced file size
-(tens of megabytes instead of tens of gigabytes).
+After realizing the size problem, the developers didn't explore alternative
+approaches much further. But I had recently worked with GIS data and map tiles
+on a personal project (detecting potential new rock climbing areas using machine
+learning on satellite images), so I had some idea of how map tiles are built,
+what data sources exist, and what tooling is available. I gave it a try and
+built a proof of concept demonstrating that it was possible to create map tiles
+with sufficient detail for our use case, custom styling that matched our brand,
+and a dramatically reduced file size, around 100MB instead of over 100GB.
 
-I achieved this by customizing the tile building process (with
-[tippecanoe](https://github.com/mapbox/tippecanoe)), selecting only the map
-features necessary for our bare metal server management use case. This approach
-eliminated distracting details irrelevant to our use case while significantly
-reducing map tile size.
+I achieved this by customizing the tile building process with
+[tippecanoe](https://github.com/mapbox/tippecanoe), selecting only the map
+features necessary for a bare metal server management use case. Country borders,
+major cities, basic geography. Everything else, the street-level detail, points
+of interest, terrain shading, was stripped out. I shared the proof of concept
+with the engineering team as a GitHub repository, and they used it as a
+reference to implement a proper system for generating optimized maps for the
+application.
 
-After developing the proof of concept, I convinced the development team that
-this approach was feasible. Using my prototype as a reference, they implemented
-a proper system for generating optimized maps for our application.
-
-## Results and validation
+## Testing with users
 
 ![Final MAAS Site Manager map interface showing clean, minimalist world map with numbered orange location markers indicating '155 MAAS sites' across different continents, featuring custom styling with branded orange pins and simplified geography](/images/projects/maas-site-manager/server-location-map-interface.webp)
 
-The result was a successful map feature in MAAS Site Manager that displays the
-appropriate level of detail, maintains visual consistency with our design
-system, and functions in air-gapped environments without requiring internet
-connectivity.
+I conducted user testing in two rounds, each with around six sessions. The
+first round used initial draft designs to validate the overall direction. The
+second round tested more polished designs before implementation to catch issues
+early. Participants were internal proxy users, field engineers who would both
+use the tool themselves and interact frequently with customers who would be
+users too.
 
-User testing with internal users validated the approach. Participants
-successfully completed tasks without requiring additional map detail, and the
-performance remained smooth due to the reduced file size. The map maintained
-visual consistency with the application's styling and brand identity.
-
-This project demonstrates how taking initiative to bridge the gap between design
-requirements and technical constraints can lead to solutions that meet user
-needs, business requirements, and brand standards simultaneously.
+The testing didn't surface major usability issues with the core flows. The main
+findings were smaller papercut issues, things to clean up visually, UX copy to
+tighten, minor interaction details to smooth out. The map approach, the
+simplified tiles, the clustering, the interaction model, all held up well in
+testing.

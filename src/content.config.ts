@@ -60,6 +60,7 @@ const projects = defineCollection({
                 }),
             )
             .optional(),
+        tldr: z.string().optional(),
         process: z.array(processStage).optional(),
     }).refine((data) => {
         if (data.coverImage && !data.heroAltText) {
