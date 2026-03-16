@@ -29,13 +29,6 @@ const CONDITIONAL_COMPONENTS: ComponentLoader[] = [
                 "../components/features/github-code-explorer/github-code-explorer.ts"
             ),
     },
-    {
-        selectors: ["process-line"],
-        loader: () =>
-            import(
-                "../components/features/process-line/ProcessLine.ts"
-            ),
-    },
 ]
 
 export async function registerWebComponents(scope?: ParentNode) {

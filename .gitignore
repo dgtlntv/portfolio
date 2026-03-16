@@ -24,3 +24,4 @@ reports
 *.sln
 *.sw?
 .playwright-cli/
+.DS_Store

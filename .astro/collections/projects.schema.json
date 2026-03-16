@@ -47,60 +47,6 @@
         },
         "tldr": {
           "type": "string"
-        },
-        "process": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "anchor": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "default",
-                  "branch",
-                  "merge"
-                ]
-              },
-              "branchFrom": {
-                "type": "string"
-              },
-              "mergesInto": {
-                "type": "string"
-              },
-              "style": {
-                "type": "object",
-                "properties": {
-                  "loop": {
-                    "type": "boolean"
-                  },
-                  "pause": {
-                    "type": "boolean"
-                  },
-                  "dashed": {
-                    "type": "boolean"
-                  },
-                  "intensity": {
-                    "type": "number"
-                  }
-                },
-                "additionalProperties": false
-              }
-            },
-            "required": [
-              "label",
-              "id"
-            ],
-            "additionalProperties": false
-          }
         }
       },
       "required": [

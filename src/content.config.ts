@@ -28,21 +28,6 @@ const blog = defineCollection({
     }),
 })
 
-const processStage = z.object({
-    label: z.string(),
-    id: z.string(),
-    anchor: z.string().optional(),
-    type: z.enum(["default", "branch", "merge"]).optional(),
-    branchFrom: z.string().optional(),
-    mergesInto: z.string().optional(),
-    style: z.object({
-        loop: z.boolean().optional(),
-        pause: z.boolean().optional(),
-        dashed: z.boolean().optional(),
-        intensity: z.number().optional(),
-    }).optional(),
-})
-
 const projects = defineCollection({
     type: "content",
     schema: z.object({
@@ -61,7 +46,6 @@ const projects = defineCollection({
             )
             .optional(),
         tldr: z.string().optional(),
-        process: z.array(processStage).optional(),
     }).refine((data) => {
         if (data.coverImage && !data.heroAltText) {
             return false
