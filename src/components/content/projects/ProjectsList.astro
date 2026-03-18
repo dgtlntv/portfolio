@@ -16,7 +16,7 @@ const sortedProjects = projects.sort((a, b) => a.id.localeCompare(b.id))
         sortedProjects.map((project, index) => (
             <ProjectsListItem
                 title={project.data.title}
-                url={project.slug}
+                url={project.id}
                 imageUrl={
                     project.data.coverImage ? project.data.coverImage : ""
                 }
