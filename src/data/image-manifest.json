@@ -4499,6 +4499,1526 @@
       ]
     }
   },
+  "projects/design-system-docs/docs-site-button-page": {
+    "width": 1440,
+    "height": 900,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 200,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 300,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 400,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 480,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 640,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 800,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "path": "/images/projects/design-system-docs/docs-site-button-page.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 200,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 300,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 400,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 480,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 600,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 640,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 800,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "path": "/images/projects/design-system-docs/docs-site-button-page-w1440.avif"
+        }
+      ]
+    }
+  },
+  "projects/design-system-docs/docs-site-hero": {
+    "width": 1920,
+    "height": 1080,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 180,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 270,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 360,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 432,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 576,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 720,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 810,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 900,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "path": "/images/projects/design-system-docs/docs-site-hero.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 180,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 270,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 360,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 432,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 576,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 720,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 810,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 900,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "path": "/images/projects/design-system-docs/docs-site-hero-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/design-cluster-selection-behavior": {
+    "width": 1920,
+    "height": 1324,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 221,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 331,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 441,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 530,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 662,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 706,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 883,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 993,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 1103,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1324,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 221,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 331,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 441,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 530,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 662,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 706,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 883,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 993,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 1103,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1324,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-behavior-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/design-cluster-selection-country": {
+    "width": 1920,
+    "height": 1255,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 209,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 314,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 418,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 502,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 628,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 669,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 837,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 941,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 1046,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1255,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 209,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 314,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 418,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 502,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 628,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 669,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 837,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 941,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 1046,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1255,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-country-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/design-cluster-selection-zoomed-in": {
+    "width": 1920,
+    "height": 1366,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 228,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 342,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 455,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 546,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 683,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 729,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 911,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 1025,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 1138,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1366,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 228,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 342,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 455,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 546,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 683,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 729,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 911,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 1025,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 1138,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1366,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-in-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/design-cluster-selection-zoomed-out": {
+    "width": 1920,
+    "height": 1143,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 191,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 286,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 381,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 457,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 572,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 610,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 762,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 857,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 953,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1143,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 191,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 286,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 381,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 457,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 572,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 610,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 762,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 857,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 953,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1143,
+          "path": "/images/projects/maas-site-manager/design-cluster-selection-zoomed-out-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/design-individual-pins-selection": {
+    "width": 1920,
+    "height": 1256,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 209,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 314,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 419,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 502,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 628,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 670,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 837,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 942,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 1047,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1256,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 209,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 314,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 419,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 502,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 628,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 670,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 837,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 942,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 1047,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1256,
+          "path": "/images/projects/maas-site-manager/design-individual-pins-selection-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/enrollment-user-flow-diagram": {
+    "width": 1890,
+    "height": 671,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 114,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 170,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 227,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 273,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 341,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 364,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 454,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 511,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 568,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1600.webp"
+        },
+        {
+          "width": 1890,
+          "height": 671,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 114,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 170,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 227,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 273,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 341,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 364,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 454,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 511,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 568,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1600.avif"
+        },
+        {
+          "width": 1890,
+          "height": 671,
+          "path": "/images/projects/maas-site-manager/enrollment-user-flow-diagram-w1890.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-custom-tiles-europe": {
+    "width": 1920,
+    "height": 1087,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-custom-tiles-europe-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-europe-individual-pins": {
+    "width": 1920,
+    "height": 1087,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-europe-individual-pins-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-europe-mixed-clusters": {
+    "width": 1920,
+    "height": 1087,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 362,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 815,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1087,
+          "path": "/images/projects/maas-site-manager/map-europe-mixed-clusters-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-standard-osm-tiles": {
+    "width": 1920,
+    "height": 1088,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 816,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1088,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 816,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1088,
+          "path": "/images/projects/maas-site-manager/map-standard-osm-tiles-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-world-view-clusters": {
+    "width": 1920,
+    "height": 1089,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 182,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 436,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 545,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 581,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 726,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 817,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1089,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 182,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 436,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 545,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 581,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 726,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 817,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1089,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-w1920.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/map-world-view-clusters-zoomed": {
+    "width": 1920,
+    "height": 1088,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 816,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1088,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 272,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 363,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 435,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 580,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 725,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 816,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1088,
+          "path": "/images/projects/maas-site-manager/map-world-view-clusters-zoomed-w1920.avif"
+        }
+      ]
+    }
+  },
   "projects/maas-site-manager/openstreetmap-integration": {
     "width": 1920,
     "height": 1049,
@@ -4935,6 +6455,116 @@
           "width": 1680,
           "height": 1024,
           "path": "/images/projects/maas-site-manager/site-manager-wireframe-regional-view-w1680.avif"
+        }
+      ]
+    }
+  },
+  "projects/maas-site-manager/table-view-sites-list": {
+    "width": 1920,
+    "height": 1084,
+    "formats": {
+      "webp": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w320.webp"
+        },
+        {
+          "width": 480,
+          "height": 271,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w480.webp"
+        },
+        {
+          "width": 640,
+          "height": 361,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w640.webp"
+        },
+        {
+          "width": 768,
+          "height": 434,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w768.webp"
+        },
+        {
+          "width": 960,
+          "height": 542,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w960.webp"
+        },
+        {
+          "width": 1024,
+          "height": 578,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1024.webp"
+        },
+        {
+          "width": 1280,
+          "height": 723,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1280.webp"
+        },
+        {
+          "width": 1440,
+          "height": 813,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1440.webp"
+        },
+        {
+          "width": 1600,
+          "height": 903,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1600.webp"
+        },
+        {
+          "width": 1920,
+          "height": 1084,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list.webp"
+        }
+      ],
+      "avif": [
+        {
+          "width": 320,
+          "height": 181,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w320.avif"
+        },
+        {
+          "width": 480,
+          "height": 271,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w480.avif"
+        },
+        {
+          "width": 640,
+          "height": 361,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w640.avif"
+        },
+        {
+          "width": 768,
+          "height": 434,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w768.avif"
+        },
+        {
+          "width": 960,
+          "height": 542,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w960.avif"
+        },
+        {
+          "width": 1024,
+          "height": 578,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1024.avif"
+        },
+        {
+          "width": 1280,
+          "height": 723,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1280.avif"
+        },
+        {
+          "width": 1440,
+          "height": 813,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1440.avif"
+        },
+        {
+          "width": 1600,
+          "height": 903,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1600.avif"
+        },
+        {
+          "width": 1920,
+          "height": 1084,
+          "path": "/images/projects/maas-site-manager/table-view-sites-list-w1920.avif"
         }
       ]
     }
@@ -8095,186 +9725,6 @@
           "width": 746,
           "height": 710,
           "path": "/images/projects/protostar/user-testing-setup-instructions-w746.avif"
-        }
-      ]
-    }
-  },
-  "projects/talk/nasa-presentation": {
-    "width": 1415,
-    "height": 966,
-    "formats": {
-      "webp": [
-        {
-          "width": 320,
-          "height": 218,
-          "path": "/images/projects/talk/nasa-presentation-w320.webp"
-        },
-        {
-          "width": 480,
-          "height": 328,
-          "path": "/images/projects/talk/nasa-presentation-w480.webp"
-        },
-        {
-          "width": 640,
-          "height": 437,
-          "path": "/images/projects/talk/nasa-presentation-w640.webp"
-        },
-        {
-          "width": 768,
-          "height": 524,
-          "path": "/images/projects/talk/nasa-presentation-w768.webp"
-        },
-        {
-          "width": 960,
-          "height": 655,
-          "path": "/images/projects/talk/nasa-presentation-w960.webp"
-        },
-        {
-          "width": 1024,
-          "height": 699,
-          "path": "/images/projects/talk/nasa-presentation-w1024.webp"
-        },
-        {
-          "width": 1280,
-          "height": 874,
-          "path": "/images/projects/talk/nasa-presentation-w1280.webp"
-        },
-        {
-          "width": 1415,
-          "height": 966,
-          "path": "/images/projects/talk/nasa-presentation.webp"
-        }
-      ],
-      "avif": [
-        {
-          "width": 320,
-          "height": 218,
-          "path": "/images/projects/talk/nasa-presentation-w320.avif"
-        },
-        {
-          "width": 480,
-          "height": 328,
-          "path": "/images/projects/talk/nasa-presentation-w480.avif"
-        },
-        {
-          "width": 640,
-          "height": 437,
-          "path": "/images/projects/talk/nasa-presentation-w640.avif"
-        },
-        {
-          "width": 768,
-          "height": 524,
-          "path": "/images/projects/talk/nasa-presentation-w768.avif"
-        },
-        {
-          "width": 960,
-          "height": 655,
-          "path": "/images/projects/talk/nasa-presentation-w960.avif"
-        },
-        {
-          "width": 1024,
-          "height": 699,
-          "path": "/images/projects/talk/nasa-presentation-w1024.avif"
-        },
-        {
-          "width": 1280,
-          "height": 874,
-          "path": "/images/projects/talk/nasa-presentation-w1280.avif"
-        },
-        {
-          "width": 1415,
-          "height": 966,
-          "path": "/images/projects/talk/nasa-presentation-w1415.avif"
-        }
-      ]
-    }
-  },
-  "projects/talk/talk-hero-image": {
-    "width": 1440,
-    "height": 1080,
-    "formats": {
-      "webp": [
-        {
-          "width": 320,
-          "height": 240,
-          "path": "/images/projects/talk/talk-hero-image-w320.webp"
-        },
-        {
-          "width": 480,
-          "height": 360,
-          "path": "/images/projects/talk/talk-hero-image-w480.webp"
-        },
-        {
-          "width": 640,
-          "height": 480,
-          "path": "/images/projects/talk/talk-hero-image-w640.webp"
-        },
-        {
-          "width": 768,
-          "height": 576,
-          "path": "/images/projects/talk/talk-hero-image-w768.webp"
-        },
-        {
-          "width": 960,
-          "height": 720,
-          "path": "/images/projects/talk/talk-hero-image-w960.webp"
-        },
-        {
-          "width": 1024,
-          "height": 768,
-          "path": "/images/projects/talk/talk-hero-image-w1024.webp"
-        },
-        {
-          "width": 1280,
-          "height": 960,
-          "path": "/images/projects/talk/talk-hero-image-w1280.webp"
-        },
-        {
-          "width": 1440,
-          "height": 1080,
-          "path": "/images/projects/talk/talk-hero-image.webp"
-        }
-      ],
-      "avif": [
-        {
-          "width": 320,
-          "height": 240,
-          "path": "/images/projects/talk/talk-hero-image-w320.avif"
-        },
-        {
-          "width": 480,
-          "height": 360,
-          "path": "/images/projects/talk/talk-hero-image-w480.avif"
-        },
-        {
-          "width": 640,
-          "height": 480,
-          "path": "/images/projects/talk/talk-hero-image-w640.avif"
-        },
-        {
-          "width": 768,
-          "height": 576,
-          "path": "/images/projects/talk/talk-hero-image-w768.avif"
-        },
-        {
-          "width": 960,
-          "height": 720,
-          "path": "/images/projects/talk/talk-hero-image-w960.avif"
-        },
-        {
-          "width": 1024,
-          "height": 768,
-          "path": "/images/projects/talk/talk-hero-image-w1024.avif"
-        },
-        {
-          "width": 1280,
-          "height": 960,
-          "path": "/images/projects/talk/talk-hero-image-w1280.avif"
-        },
-        {
-          "width": 1440,
-          "height": 1080,
-          "path": "/images/projects/talk/talk-hero-image-w1440.avif"
         }
       ]
     }
