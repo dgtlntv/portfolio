@@ -25,3 +25,4 @@ reports
 *.sw?
 .playwright-cli/
 .DS_Store
+.pi
