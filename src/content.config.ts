@@ -30,7 +30,11 @@ const blog = defineCollection({
 })
 
 const projects = defineCollection({
-    loader: glob({ pattern: "**/*.mdx", base: "./src/content/projects" }),
+    loader: glob({
+        pattern: "**/*.mdx",
+        base: "./src/content/projects",
+        generateId: ({ entry }) => entry.replace(/\.mdx$/, ""),
+    }),
     schema: z.object({
         title: z.string(),
         excerpt: z.string().optional(),

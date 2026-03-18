@@ -1,7 +1,55 @@
 {
-  "$ref": "#/definitions/projects",
-  "definitions": {
-    "projects": {}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "heroAltText": {
+      "type": "string"
+    },
+    "heroLocation": {
+      "type": "string",
+      "enum": [
+        "cover",
+        "contain"
+      ]
+    },
+    "asciiDarken": {
+      "type": "number"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ]
+      }
+    },
+    "tldr": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "title"
+  ]
 }

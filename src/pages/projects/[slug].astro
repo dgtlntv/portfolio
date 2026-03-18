@@ -6,7 +6,7 @@ import ProjectContent from "../../components/content/projects/ProjectContent.ast
 export async function getStaticPaths() {
     const projects = await getCollection("projects")
     return projects.map((project) => ({
-        params: { slug: project.id },
+        params: { slug: project.id.replace(/^\d+-/, "") },
         props: { project },
     }))
 }
