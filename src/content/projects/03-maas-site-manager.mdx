@@ -62,6 +62,10 @@ repetitive manual interaction, they'd rather have a way to automate or script
 it. Essentially every design decision on this project had to be shaped by
 understanding this user type.
 
+![Site Manager table view showing 155 MAAS sites in a paginated list with columns for site name and URL, connection status, country and address, local time zone, number of machines, and aggregated deployment status bars](/images/projects/maas-site-manager/table-view-sites-list.png)
+
+![User flow diagram mapping out the enrollment process between MAAS and Site Manager, showing the user's thought process and actions across both applications with decision points and system interactions](/images/projects/maas-site-manager/enrollment-user-flow-diagram.png)
+
 ## The map
 
 Exploratory user research was done before I joined by my then manager, a
@@ -96,10 +100,20 @@ the map both easier to read and easier to render.
 
 ![MAAS Site Manager wireframe displaying regional view of Europe with individual server location pins scattered across countries, showing '20 MAAS regions' with search functionality and map/table view toggles in the interface](/images/projects/maas-site-manager/site-manager-wireframe-regional-view.webp)
 
+![Site Manager map at world zoom level showing 155 MAAS sites distributed globally, with numbered orange cluster markers of varying sizes representing groups of nearby sites across continents](/images/projects/maas-site-manager/map-world-view-clusters.png)
+
+![Site Manager map at a closer zoom level where larger clusters have broken apart into smaller groups and individual pins, showing how the clustering adapts as the user zooms in](/images/projects/maas-site-manager/map-world-view-clusters-zoomed.png)
+
 There was a lot of nuance in the details. How does selection work when sites are
 grouped together? What happens if you previously selected a site and then zoom
 out so it gets clustered with others? How do you perform actions on a group
 versus an individual site? These interactions needed careful consideration.
+
+![Design spec showing cluster selection behavior: selecting a cluster selects all its children, with a selection panel listing the selected sites by name and URL](/images/projects/maas-site-manager/design-cluster-selection-zoomed-out.png)
+
+![Design spec at a closer zoom level where clusters have partially expanded, showing badges on clusters that indicate how many selected sites they contain and a border to indicate selection state](/images/projects/maas-site-manager/design-cluster-selection-country.png)
+
+![Design spec at individual pin level where clusters have fully expanded into separate site markers, showing selected pins with a distinct visual state and the selection panel updating to reflect the visible sites](/images/projects/maas-site-manager/design-individual-pins-selection.png)
 
 Close collaboration with the developers was important here. The limitations of
 the map library we were using weren't always obvious from the design side. We
@@ -114,7 +128,7 @@ technical challenge. Off-the-shelf open source map tiles require over 100GB of
 storage. Shipping that with Site Manager would be completely impractical,
 particularly since most users self-host the application.
 
-![OpenStreetMap integration example showing detailed European map with country boundaries, city names, and geographical features like rivers and terrain, demonstrating the level of detail would be too much for MAAS Site manager](/images/projects/maas-site-manager/openstreetmap-integration.webp)
+![Site Manager with standard OpenStreetMap tiles showing a detailed, colorful map of Europe with extensive geographic features, city labels, and terrain, demonstrating the visual noise and over 100GB storage requirement of off-the-shelf map tiles](/images/projects/maas-site-manager/map-standard-osm-tiles.png)
 
 One option was using an online map service like OpenStreetMap, but that would
 violate the air-gapped requirement. Beyond the technical constraint, I had
@@ -140,6 +154,8 @@ with the engineering team as a GitHub repository, and they used it as a
 reference to implement a proper system for generating optimized maps for the
 application.
 
+![Site Manager with custom optimized map tiles showing the same European view but with a clean, minimal dark-themed design using only country borders and major city labels, matching the Canonical brand and requiring only around 100MB of storage](/images/projects/maas-site-manager/map-custom-tiles-europe.png)
+
 ## Testing with users
 
 ![Final MAAS Site Manager map interface showing clean, minimalist world map with numbered orange location markers indicating '155 MAAS sites' across different continents, featuring custom styling with branded orange pins and simplified geography](/images/projects/maas-site-manager/server-location-map-interface.webp)
@@ -156,3 +172,18 @@ findings were smaller papercut issues, things to clean up visually, UX copy to
 tighten, minor interaction details to smooth out. The map approach, the
 simplified tiles, the clustering, the interaction model, all held up well in
 testing.
+
+<video
+    width="100%"
+    height="auto"
+    autoPlay
+    muted
+    loop
+    className="rounded-lg"
+>
+    <source
+        src="/videos/projects/maas-site-manager/map-zoom-interaction.webm"
+        type="video/webm"
+    />
+    Your browser does not support the video tag.
+</video>
