@@ -6,8 +6,6 @@ import rehypeUnwrapImages from "rehype-unwrap-images"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkMath from "remark-math"
 
-import playformInline from "@playform/inline"
-
 export default defineConfig({
     integrations: [
         mdx({
@@ -41,7 +39,6 @@ export default defineConfig({
                 ],
             },
         }),
-        playformInline(),
     ],
     vite: {
         resolve: {

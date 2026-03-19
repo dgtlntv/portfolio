@@ -15,7 +15,6 @@
     "dependencies": {
         "@astrojs/check": "^0.9.8",
         "@astrojs/mdx": "^5.0.2",
-        "@playform/inline": "^0.1.4",
         "@tailwindcss/vite": "^4.2.2",
         "astro": "^6.0.6",
         "astro-heroicons": "^2.1.5-1",
