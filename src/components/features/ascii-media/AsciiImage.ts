@@ -17,7 +17,8 @@ export class AsciiImage extends LitElement {
     @property({ type: Boolean }) invert = false
     @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
-    @property({ type: Number }) darken = 1
+    @property({ type: Number }) charDarkness = 0.5
+    @property({ type: Number }) colorDarkness = 0.5
     @property({ type: String, attribute: "link-href" }) linkHref = ""
 
     @state() protected isImageLoaded = false
@@ -129,7 +130,8 @@ export class AsciiImage extends LitElement {
                 changedProperties.has("invert") ||
                 changedProperties.has("objectFit") ||
                 changedProperties.has("textColor") ||
-                changedProperties.has("darken")
+                changedProperties.has("charDarkness") ||
+                changedProperties.has("colorDarkness")
             ) {
                 this.asciiEffect.setCharacterSet(this.charSet)
                 this.asciiEffect.setOptions({
@@ -138,7 +140,8 @@ export class AsciiImage extends LitElement {
                     invert: this.invert,
                     objectFit: this.objectFit,
                     textColor: this.textColor,
-                    darken: this.darken,
+                    charDarkness: this.charDarkness,
+                    colorDarkness: this.colorDarkness,
                 })
                 this.asciiEffect.render()
             }
@@ -235,7 +238,8 @@ export class AsciiImage extends LitElement {
             invert: this.invert,
             objectFit: this.objectFit,
             textColor: this.textColor,
-            darken: this.darken,
+            charDarkness: this.charDarkness,
+                    colorDarkness: this.colorDarkness,
         }
 
         this.asciiEffect = new AsciiEffect(

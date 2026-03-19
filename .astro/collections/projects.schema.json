@@ -21,9 +21,6 @@
         "contain"
       ]
     },
-    "asciiDarken": {
-      "type": "number"
-    },
     "stats": {
       "type": "array",
       "items": {
@@ -44,6 +41,16 @@
     },
     "tldr": {
       "type": "string"
+    },
+    "charDarkness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "colorDarkness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
     },
     "$schema": {
       "type": "string"

@@ -11,7 +11,8 @@ heroAltText: "Screenshot of MAAS Site Manager showing the map feature which
     shows MAAS sites distributed acorss continents with orange location markers.
     "
 heroLocation: "cover"
-asciiDarken: 1.3
+charDarkness: 0.55
+colorDarkness: 0.5
 stats:
     [
         { label: "Year", value: "2023-2024" },
@@ -19,7 +20,8 @@ stats:
     ]
 tldr:
     "Sole designer on MAAS Site Manager, a centralized management interface
-    for multiple bare metal server installations. Designed the full MVP
+    for multiple MAAS installations, each managing large fleets of bare
+    metal servers. Designed the full MVP
     including site enrollment, image management, map and table views, and
     settings. Solved an air-gapped map tile problem by building a proof of
     concept that reduced tile size from over 100GB to around 100MB. Validated
@@ -42,10 +44,7 @@ management interface for multiple MAAS installations.
 ## The product and its users
 
 I was the sole designer on Site Manager, working closely with both front-end and
-back-end engineering. Design is its own department at Canonical, so I wasn't
-officially part of the Site Manager team, but in practice I was quite embedded.
-
-The MVP scope was broad. I designed the enrollment flow, the whole process of
+back-end engineering. The MVP scope was broad. I designed the enrollment flow, the whole process of
 creating enrollment tokens in Site Manager, using them in MAAS, and accepting
 incoming enrollment requests. I designed the image management feature, one of
 the biggest asks from users, which lets you manage OS images for multiple MAAS

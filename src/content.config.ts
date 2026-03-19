@@ -41,7 +41,6 @@ const projects = defineCollection({
         coverImage: z.string().optional(),
         heroAltText: z.string().optional(),
         heroLocation: z.enum(["cover", "contain"]).optional(),
-        asciiDarken: z.number().optional(),
         stats: z
             .array(
                 z.object({
@@ -51,6 +50,8 @@ const projects = defineCollection({
             )
             .optional(),
         tldr: z.string().optional(),
+        charDarkness: z.number().min(0).max(1).optional(),
+        colorDarkness: z.number().min(0).max(1).optional(),
     }).refine((data) => {
         if (data.coverImage && !data.heroAltText) {
             return false

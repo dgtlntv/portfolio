@@ -6,7 +6,8 @@ interface Props {
     url: string
     isLeft?: boolean
     heroLocation?: "cover" | "contain"
-    asciiDarken?: number
+    charDarkness?: number
+    colorDarkness?: number
 }
 
 const {
@@ -16,7 +17,8 @@ const {
     url,
     isLeft = false,
     heroLocation,
-    asciiDarken = 1,
+    charDarkness = 0.5,
+    colorDarkness = 0.5,
 } = Astro.props
 ---
 
@@ -60,7 +62,8 @@ const {
                     resolution={0.18}
                     objectFit={heroLocation === "cover" ? "cover" : "contain"}
                     color
-                    darken={asciiDarken}
+                    charDarkness={charDarkness}
+                    colorDarkness={colorDarkness}
                     link-href={`/projects/${url}`}></ascii-media>
             </div>
         </div>
