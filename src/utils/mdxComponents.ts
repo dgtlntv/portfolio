@@ -4,8 +4,7 @@ import FanImages from "../components/ui/images/FanImages.astro"
 import DocumentSkeleton from "../components/embeds/DocumentSkeleton.astro"
 import ColorPaletteMockup from "../components/embeds/ColorPaletteMockup.astro"
 import MetricsMockup from "../components/embeds/MetricsMockup.astro"
-import TalkExplanationAnimation from "../components/embeds/talk/TalkExplanationAnimation.astro"
-import TalkHeroAnimation from "../components/embeds/talk/TalkHeroAnimation.astro"
+import DockitFlowDiagram from "../components/embeds/DockitFlowDiagram.astro"
 import MDXParagraph from "../components/content/mdx/MDXParagraph.astro"
 import MDXH1 from "../components/content/mdx/MDXH1.astro"
 import MDXH2 from "../components/content/mdx/MDXH2.astro"
@@ -30,8 +29,7 @@ export const components = {
     DocumentSkeleton,
     ColorPaletteMockup,
     MetricsMockup,
-    TalkExplanationAnimation,
-    TalkHeroAnimation,
+    DockitFlowDiagram,
     MDXFigure,
     p: MDXParagraph,
     h1: MDXH1,

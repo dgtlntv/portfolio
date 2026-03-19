@@ -16,12 +16,13 @@ const sortedProjects = projects.sort((a, b) => a.id.localeCompare(b.id))
         sortedProjects.map((project, index) => (
             <ProjectsListItem
                 title={project.data.title}
-                url={project.slug}
+                url={project.id.replace(/^\d+-/, "")}
                 imageUrl={
                     project.data.coverImage ? project.data.coverImage : ""
                 }
                 heroLocation={project.data.heroLocation}
-                asciiDarken={project.data.asciiDarken}
+                charDarkness={project.data.charDarkness}
+                colorDarkness={project.data.colorDarkness}
                 isLeft={index % 2 === 0}
             >
                 {project.data.excerpt}

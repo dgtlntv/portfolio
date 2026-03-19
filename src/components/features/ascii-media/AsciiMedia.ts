@@ -18,7 +18,8 @@ export class AsciiMedia extends LitElement {
     @property({ type: Boolean }) invert = false
     @property({ type: String }) objectFit: AsciiObjectFit = "fill"
     @property({ type: String }) textColor = "black"
-    @property({ type: Number }) darken = 1
+    @property({ type: Number }) charDarkness = 0.5
+    @property({ type: Number }) colorDarkness = 0.5
     @property({ type: String, attribute: "link-href" }) linkHref = ""
 
     static override styles: CSSResultGroup = css`
@@ -92,7 +93,8 @@ export class AsciiMedia extends LitElement {
                     .invert=${this.invert}
                     .objectFit=${this.objectFit}
                     .textColor=${this.textColor}
-                    .darken=${this.darken}
+                    .charDarkness=${this.charDarkness}
+                    .colorDarkness=${this.colorDarkness}
                     .linkHref=${this.linkHref}
                     @load=${this.handleLoad}
                     @play=${this.handlePlay}
@@ -110,7 +112,8 @@ export class AsciiMedia extends LitElement {
                     .invert=${this.invert}
                     .objectFit=${this.objectFit}
                     .textColor=${this.textColor}
-                    .darken=${this.darken}
+                    .charDarkness=${this.charDarkness}
+                    .colorDarkness=${this.colorDarkness}
                     .linkHref=${this.linkHref}
                     @load=${this.handleLoad}
                 ></ascii-image>

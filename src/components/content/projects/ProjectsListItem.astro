@@ -6,7 +6,8 @@ interface Props {
     url: string
     isLeft?: boolean
     heroLocation?: "cover" | "contain"
-    asciiDarken?: number
+    charDarkness?: number
+    colorDarkness?: number
 }
 
 const {
@@ -16,20 +17,21 @@ const {
     url,
     isLeft = false,
     heroLocation,
-    asciiDarken = 1,
+    charDarkness = 0.5,
+    colorDarkness = 0.5,
 } = Astro.props
 ---
 
 <div class="mt-10 sm:mt-14 lg:mt-18">
-    <div class="grid grid-cols-9 gap-4">
+    <div class="grid grid-cols-9 gap-12">
         <!-- Content section -->
         <div
-            class={`col-span-9 md:col-span-2 ${
-                isLeft ? "md:col-start-1" : "md:col-start-8"
+            class={`col-span-9 md:col-span-3 ${
+                isLeft ? "md:col-start-1" : "md:col-start-7"
             } order-2 md:order-${isLeft ? "1" : "2"} mt-8 md:mt-0`}
         >
             <h3
-                class="font-fancy text-4xl font-extrabold tracking-tight text-gray-900 sm:text-3xl"
+                class="font-fancy text-4xl font-extrabold tracking-tight text-gray-900 sm:text-3xl break-words"
             >
                 {title}
             </h3>
@@ -60,7 +62,8 @@ const {
                     resolution={0.18}
                     objectFit={heroLocation === "cover" ? "cover" : "contain"}
                     color
-                    darken={asciiDarken}
+                    charDarkness={charDarkness}
+                    colorDarkness={colorDarkness}
                     link-href={`/projects/${url}`}></ascii-media>
             </div>
         </div>

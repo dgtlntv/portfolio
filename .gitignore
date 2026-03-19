@@ -23,3 +23,6 @@ reports
 *.njsproj
 *.sln
 *.sw?
+.playwright-cli/
+.DS_Store
+.pi
