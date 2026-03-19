@@ -52,14 +52,7 @@ export default defineConfig({
         },
         build: {
             chunkSizeWarningLimit: 800,
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        "vendor-three": ["three"],
-                        "vendor-animation": ["@lottiefiles/dotlottie-wc"],
-                    },
-                },
-            },
+            rollupOptions: {},
             cssCodeSplit: true,
             minify: "terser",
             terserOptions: {

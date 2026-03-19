@@ -1,7 +1,8 @@
 import { defineCollection, z } from "astro:content"
+import { glob } from "astro/loaders"
 
 const blog = defineCollection({
-    type: "content",
+    loader: glob({ pattern: "**/*.mdx", base: "./src/content/blog" }),
     schema: z.object({
         title: z.string(),
         date: z.string(),
@@ -29,14 +30,17 @@ const blog = defineCollection({
 })
 
 const projects = defineCollection({
-    type: "content",
+    loader: glob({
+        pattern: "**/*.mdx",
+        base: "./src/content/projects",
+        generateId: ({ entry }) => entry.replace(/\.mdx$/, ""),
+    }),
     schema: z.object({
         title: z.string(),
         excerpt: z.string().optional(),
         coverImage: z.string().optional(),
         heroAltText: z.string().optional(),
         heroLocation: z.enum(["cover", "contain"]).optional(),
-        asciiDarken: z.number().optional(),
         stats: z
             .array(
                 z.object({
@@ -45,6 +49,9 @@ const projects = defineCollection({
                 }),
             )
             .optional(),
+        tldr: z.string().optional(),
+        charDarkness: z.number().min(0).max(1).optional(),
+        colorDarkness: z.number().min(0).max(1).optional(),
     }).refine((data) => {
         if (data.coverImage && !data.heroAltText) {
             return false

@@ -1,56 +1,62 @@
 {
-  "$ref": "#/definitions/projects",
-  "definitions": {
-    "projects": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "excerpt": {
-          "type": "string"
-        },
-        "coverImage": {
-          "type": "string"
-        },
-        "heroAltText": {
-          "type": "string"
-        },
-        "heroLocation": {
-          "type": "string",
-          "enum": [
-            "cover",
-            "contain"
-          ]
-        },
-        "asciiDarken": {
-          "type": "number"
-        },
-        "stats": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "label": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "label",
-              "value"
-            ],
-            "additionalProperties": false
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "coverImage": {
+      "type": "string"
+    },
+    "heroAltText": {
+      "type": "string"
+    },
+    "heroLocation": {
+      "type": "string",
+      "enum": [
+        "cover",
+        "contain"
+      ]
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
           }
-        }
-      },
-      "required": [
-        "title"
-      ],
-      "additionalProperties": false
+        },
+        "required": [
+          "label",
+          "value"
+        ]
+      }
+    },
+    "tldr": {
+      "type": "string"
+    },
+    "charDarkness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "colorDarkness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "title"
+  ]
 }

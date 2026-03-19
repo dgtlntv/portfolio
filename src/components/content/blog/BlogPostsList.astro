@@ -2,12 +2,12 @@
 import BlogPostsListItem from "./BlogPostsListItem.astro"
 
 export interface BlogPost {
-    slug: string
+    id: string
     data: {
         title: string
         date: string
     }
-    body: string
+    body?: string
 }
 
 interface PostsByYear {
@@ -78,7 +78,7 @@ const sortedYears = Object.keys(groupedByYear).sort(
                                 <BlogPostsListItem
                                     title={post.data.title}
                                     formattedDate={formatDate(post.data.date)}
-                                    slug={post.slug}
+                                    slug={post.id}
                                 />
                             ))}
                         </div>

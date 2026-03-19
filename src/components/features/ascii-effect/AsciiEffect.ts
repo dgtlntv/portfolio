@@ -2,6 +2,8 @@
  * Shared ASCII conversion effect used by media and three.js integrations.
  */
 
+import Color from "colorjs.io"
+
 export type DrawableElement =
     | HTMLImageElement
     | HTMLVideoElement
@@ -25,7 +27,10 @@ export interface AsciiEffectOptions {
     objectFit?: AsciiObjectFit
     textColor?: string
     backgroundColor?: string
-    darken?: number
+    /** Bias character selection towards lighter or darker chars. 0 = lighter, 0.5 = no change, 1 = darker. Default 0.5. */
+    charDarkness?: number
+    /** Bias color output towards lighter or darker. 0 = lighter, 0.5 = no change, 1 = darker. Default 0.5. */
+    colorDarkness?: number
     offsetX?: number
     offsetY?: number
     layout?: AsciiLayoutMode
@@ -46,7 +51,8 @@ interface AsciiEffectConfig {
     objectFit: AsciiObjectFit
     textColor: string
     backgroundColor: string
-    darken: number
+    charDarkness: number
+    colorDarkness: number
     offsetX: number
     offsetY: number
     layout: AsciiLayoutMode
@@ -174,9 +180,7 @@ export class AsciiEffect {
                 this.drawWithObjectFit()
             }
 
-            if (this.config.darken !== 1) {
-                this.applyDarken()
-            }
+
         } catch (error) {
             console.warn("AsciiEffect: canvas draw failed", error)
             return null
@@ -270,7 +274,8 @@ export class AsciiEffect {
             objectFit: options.objectFit ?? "fill",
             textColor: options.textColor ?? "black",
             backgroundColor: options.backgroundColor ?? "white",
-            darken: options.darken ?? 1,
+            charDarkness: Math.max(0, Math.min(1, options.charDarkness ?? 0.5)),
+            colorDarkness: Math.max(0, Math.min(1, options.colorDarkness ?? 0.5)),
             offsetX: options.offsetX ?? 0,
             offsetY: options.offsetY ?? 0,
             layout,
@@ -594,23 +599,32 @@ export class AsciiEffect {
         )
     }
 
-    private applyDarken(): void {
-        const imageData = this.ctx.getImageData(
-            0,
-            0,
-            this.sampleWidth,
-            this.sampleHeight,
-        )
-        const { data } = imageData
-        const factor = this.config.darken
+    /**
+     * Darken a color using OKLCH, preserving hue and chroma.
+     * Returns adjusted [r, g, b] values (0–255).
+     * bias=0.5 → no change, bias=1 → much darker, bias=0 → much lighter.
+     */
+    private adjustColorOklch(
+        r: number,
+        g: number,
+        b: number,
+        bias: number,
+    ): [number, number, number] {
+        const color = new Color("srgb", [r / 255, g / 255, b / 255])
+        const oklch = color.to("oklch")
+        const l = oklch.l ?? 0
 
-        for (let i = 0; i < data.length; i += 4) {
-            data[i] = Math.min(255, Math.max(0, data[i] * factor))
-            data[i + 1] = Math.min(255, Math.max(0, data[i + 1] * factor))
-            data[i + 2] = Math.min(255, Math.max(0, data[i + 2] * factor))
-        }
+        // Map bias 0–1 to a lightness scale factor:
+        // bias=0 → factor=2.0 (lighter), bias=0.5 → factor=1.0, bias=1 → factor=0.0 (darkest)
+        const factor = 2 * (1 - bias)
+        oklch.l = Math.max(0, Math.min(1, l * factor))
 
-        this.ctx.putImageData(imageData, 0, 0)
+        const result = oklch.to("srgb")
+        return [
+            Math.round(Math.max(0, Math.min(255, (result.coords[0] ?? 0) * 255))),
+            Math.round(Math.max(0, Math.min(255, (result.coords[1] ?? 0) * 255))),
+            Math.round(Math.max(0, Math.min(255, (result.coords[2] ?? 0) * 255))),
+        ]
     }
 
     private sampleAscii(): string {
@@ -623,6 +637,10 @@ export class AsciiEffect {
         const chars: string[] = []
         const lastRow = this.sampleHeight
         const charSetLength = this.charSet.length
+        const { charDarkness, colorDarkness } = this.config
+        const hasCharBias = charDarkness !== 0.5
+        const charFactor = 2 * (1 - charDarkness)
+        const hasColorBias = colorDarkness !== 0.5
 
         for (let y = 0; y < lastRow; y += 2) {
             for (let x = 0; x < this.sampleWidth; x++) {
@@ -633,10 +651,20 @@ export class AsciiEffect {
                 const b = imageData[offset + 2]
                 const a = imageData[offset + 3]
 
-                let brightness = (0.3 * r + 0.59 * g + 0.11 * b) / 255
+                const isWhite = r >= 250 && g >= 250 && b >= 250
 
-                if (a === 0) {
+                // Use OKLCH lightness for character selection
+                let brightness: number
+                if (a === 0 || isWhite) {
                     brightness = 1
+                } else {
+                    const color = new Color("srgb", [r / 255, g / 255, b / 255])
+                    brightness = color.to("oklch").l ?? 0
+
+                    // Apply char darkness bias to lightness for character selection
+                    if (hasCharBias) {
+                        brightness = Math.max(0, Math.min(1, brightness * charFactor))
+                    }
                 }
 
                 let charIndex = Math.floor(
@@ -654,15 +682,20 @@ export class AsciiEffect {
                 }
 
                 if (this.config.color) {
+                    // Adjust color lightness in OKLCH, preserving hue and chroma
+                    const [dr, dg, db] = hasColorBias
+                        ? this.adjustColorOklch(r, g, b, colorDarkness)
+                        : [r, g, b]
+
                     const opacity = this.config.alpha ? a / 255 : 1
                     const blockStyle = this.config.block
-                        ? `background-color:rgb(${r},${g},${b});`
+                        ? `background-color:rgb(${dr},${dg},${db});`
                         : ""
                     const alphaStyle =
                         opacity !== 1 ? `opacity:${opacity};` : ""
 
                     chars.push(
-                        `<span style="color:rgb(${r},${g},${b});${blockStyle}${alphaStyle}">${char}</span>`,
+                        `<span style="color:rgb(${dr},${dg},${db});${blockStyle}${alphaStyle}">${char}</span>`,
                     )
                 } else {
                     chars.push(char)

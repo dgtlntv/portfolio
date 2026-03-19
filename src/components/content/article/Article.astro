@@ -13,6 +13,8 @@ interface Props {
     heroLocation?: "contain" | "cover"
     stats?: Stat[]
     date?: string
+    tldr?: string
+
 }
 
 const {
@@ -22,6 +24,8 @@ const {
     heroLocation = "cover",
     stats,
     date,
+    tldr,
+
 } = Astro.props
 
 const isVideo = heroUrl?.endsWith(".webm")
@@ -98,9 +102,25 @@ const heroImageSizes =
         )
     }
 
-    <div class="md:col-span-7 md:col-start-2">
+    {
+        tldr && (
+            <div class="md:col-span-7 md:col-start-2 mt-8">
+                <div class="rounded-lg bg-gray-50 px-5 py-4">
+                    <p class="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">TL;DR</p>
+                    <p class="text-sm leading-relaxed text-gray-500">
+                        {tldr}
+                    </p>
+                </div>
+            </div>
+        )
+    }
+
+    <div class="md:col-span-7 md:col-start-2 relative">
         <div
-            class="prose prose-red prose-md max-w-none mx-auto mt-16 marker:text-red-500"
+            class:list={[
+                "prose prose-red prose-md max-w-none mx-auto marker:text-red-500",
+                tldr ? "mt-8" : "mt-16",
+            ]}
         >
             <slot />
         </div>
