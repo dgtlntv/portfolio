@@ -15,7 +15,7 @@ perceptually uniform color spaces and perceptual contrast algorithms. 
 If you're already familiar with these concepts,
 [skip to this section](#…-inspired-by-apca!) (or visit the
 [Github repository](https://github.com/dgtlntv/perceptual-contrast-palette)) to
-see how I reverse-engineered the Accessible Perceptual Contrast Algorithm (APCA)
+see how I reversed the Accessible Perceptual Contrast Algorithm (APCA)
 to generate perceptually contrasting color palettes. In the next post, I will
 share why we didn't choose this solution and what we chose instead.
 
@@ -49,8 +49,8 @@ thought?
     caption="The Oklch color space"
 />
 
-Perceptually uniform color spaces support human perception, not computers. While
-RGB’s are consistent in how a color displays on a monitor, PUCs are consistent
+Perceptually uniform color spaces (PUC) support human perception, not computers. While
+RGB is consistent with how a color displays on a monitor, PUCs are consistent
 with how we actually see the color. As a result, their 3D shapes are not perfect
 geometric shapes, such as the one from Oklch (pictured above). Shocker!
 
@@ -88,25 +88,20 @@ perceptually uniform color spaces and
     aligned with human contrast perception and is therefore much better at
     evaluating contrast than WCAG.
 
-    At that time, I also was going to start creating a new color palette for
-    Canonical's design system. So I expanded my research to include how different
-    color spaces and contrast algorithms can be used to create color palettes. In
-    this context, I also read another article by Matthew Ström on color generation,
-    titled
-    “[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/)”
-    This article was one of the most important sources of inspiration for my further
-    work and this blog post; In particular, Ström's principle of using contrasts to
-    determine color gradations, which made me wonder whether it could be developed
-    further.
-
 </FloatContent>
 
 ## Generating color palettes for design systems…
 
-To support my work creating a new color palette for Canonical’s design system, I
-also researched how color spaces and contrast algorithms can be used to make
-color palettes. In his article Ström explores combining contrast algorithms and
-perceptually uniform color spaces to generate color palettes.
+At that time, I also was going to start creating a new color palette for
+Canonical's design system. So I expanded my research to include how different
+color spaces and contrast algorithms can be used to create color palettes. In
+this context, I also read another article by Matthew Ström on color generation,
+titled
+“[How to Generate Color Palettes for Design Systems](https://matthewstrom.com/writing/generating-color-palettes/)”
+This article was one of the most important sources of inspiration for my further
+work and this blog post; In particular, Ström's principle of using contrasts to
+determine color gradations, which made me wonder whether it could be developed
+further.
 
 Contrast is one of the most important aspects of working with color in user
 interfaces (and other media). There must be sufficient contrast between two
@@ -122,7 +117,7 @@ easy to choose accessible color pairs. Choose any two shades in the palette that
 are a certain distance apart, and you’ve got an accessible color pair. You no
 longer need to manually check all color combinations in your user interface. In
 an internal survey of designers at Canonical, we found that selecting accessible
-color pairs is an important concern for designers. Therefore, a color palette in
+color pairs is one of the most important concerns for designers when working with a UI palette. Therefore, a color palette in
 which it is easy to select accessible color pairs seemed ideal for us.
 
 ## …inspired by APCA!
