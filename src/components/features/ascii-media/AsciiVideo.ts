@@ -32,6 +32,8 @@ export class AsciiVideo extends LitElement {
     private animationId: number | null = null
     private lastRenderTime = 0
     private static readonly FRAME_INTERVAL = 1000 / 30
+    private isVisible = false
+    private visibilityObserver: IntersectionObserver | null = null
     private resizeHandler: (() => void) | null = null
     private intersectionObserver: IntersectionObserver | null = null
     private revealTimeout: number | null = null
@@ -94,6 +96,7 @@ export class AsciiVideo extends LitElement {
     connectedCallback(): void {
         super.connectedCallback()
         this.checkMobile()
+        this.setupVisibilityObserver()
         if (typeof window !== "undefined") {
             this.resizeHandler = () => this.checkMobile()
             window.addEventListener("resize", this.resizeHandler)
@@ -108,6 +111,7 @@ export class AsciiVideo extends LitElement {
         this.stopRenderLoop()
         this.cleanupAsciiEffect()
         this.cleanupIntersectionObserver()
+        this.cleanupVisibilityObserver()
         if (this.revealTimeout !== null) {
             clearTimeout(this.revealTimeout)
         }
@@ -231,7 +235,10 @@ export class AsciiVideo extends LitElement {
     }
 
     private renderLoop = (): void => {
-        if (!this.asciiEffect) return
+        if (!this.asciiEffect || !this.isVisible) {
+            this.animationId = null
+            return
+        }
 
         this.animationId = requestAnimationFrame(this.renderLoop)
 
@@ -243,16 +250,49 @@ export class AsciiVideo extends LitElement {
     }
 
     private startRenderLoop(): void {
-        if (this.animationId !== null) return
         this.isPlaying = true
-        this.animationId = requestAnimationFrame(this.renderLoop)
+        this.updateRenderState()
     }
 
     private stopRenderLoop(): void {
         this.isPlaying = false
-        if (this.animationId !== null) {
+        this.updateRenderState()
+    }
+
+    private updateRenderState(): void {
+        const shouldRender = this.isPlaying && this.isVisible
+        if (shouldRender && this.animationId === null) {
+            this.animationId = requestAnimationFrame(this.renderLoop)
+        } else if (!shouldRender && this.animationId !== null) {
             cancelAnimationFrame(this.animationId)
             this.animationId = null
+        }
+    }
+
+    private setupVisibilityObserver(): void {
+        this.cleanupVisibilityObserver()
+        if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+            this.isVisible = true
+            return
+        }
+
+        this.visibilityObserver = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    this.isVisible = entry.isIntersecting
+                }
+                this.updateRenderState()
+            },
+            { threshold: 0 },
+        )
+
+        this.visibilityObserver.observe(this)
+    }
+
+    private cleanupVisibilityObserver(): void {
+        if (this.visibilityObserver) {
+            this.visibilityObserver.disconnect()
+            this.visibilityObserver = null
         }
     }
 
