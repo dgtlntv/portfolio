@@ -30,6 +30,8 @@ export class AsciiVideo extends LitElement {
 
     private asciiEffect: AsciiEffect | null = null
     private animationId: number | null = null
+    private lastRenderTime = 0
+    private static readonly FRAME_INTERVAL = 1000 / 30
     private resizeHandler: (() => void) | null = null
     private intersectionObserver: IntersectionObserver | null = null
     private revealTimeout: number | null = null
@@ -231,8 +233,13 @@ export class AsciiVideo extends LitElement {
     private renderLoop = (): void => {
         if (!this.asciiEffect) return
 
-        this.asciiEffect.render()
         this.animationId = requestAnimationFrame(this.renderLoop)
+
+        const now = performance.now()
+        if (now - this.lastRenderTime < AsciiVideo.FRAME_INTERVAL) return
+        this.lastRenderTime = now
+
+        this.asciiEffect.render()
     }
 
     private startRenderLoop(): void {
