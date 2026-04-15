@@ -24,5 +24,6 @@ reports
 *.sln
 *.sw?
 .playwright-cli/
+.claude/
 .DS_Store
 .pi
