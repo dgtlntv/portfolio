@@ -2,8 +2,6 @@
  * Shared ASCII conversion effect used by media and three.js integrations.
  */
 
-import Color from "colorjs.io"
-
 export type DrawableElement =
     | HTMLImageElement
     | HTMLVideoElement
@@ -599,31 +597,91 @@ export class AsciiEffect {
         )
     }
 
+    private static srgbToLinear(x: number): number {
+        return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4
+    }
+
+    private static linearToSrgb(x: number): number {
+        const abs = Math.abs(x)
+        if (abs <= 0.0031308) return 12.92 * x
+        return Math.sign(x) * (1.055 * abs ** (1 / 2.4) - 0.055)
+    }
+
     /**
-     * Darken a color using OKLCH, preserving hue and chroma.
+     * Convert sRGB (0–255) to Oklab lightness (0–1).
+     * OKLCH L equals Oklab L, so no polar conversion needed.
+     * Uses pre-multiplied linearRGB→LMS matrix (colorjs.io srgb-linear.js × oklab.js).
+     */
+    private static srgbToOklabL(r: number, g: number, b: number): number {
+        const lr = AsciiEffect.srgbToLinear(r / 255)
+        const lg = AsciiEffect.srgbToLinear(g / 255)
+        const lb = AsciiEffect.srgbToLinear(b / 255)
+
+        const l = 0.4122214694707629 * lr + 0.5363325372617349 * lg + 0.05144599326750220 * lb
+        const m = 0.2119034958178252 * lr + 0.6806995506452345 * lg + 0.1073969535369406 * lb
+        const s = 0.08830245919005639 * lr + 0.2817188391361215 * lg + 0.6299787016738223 * lb
+
+        const lc = Math.cbrt(l)
+        const mc = Math.cbrt(m)
+        const sc = Math.cbrt(s)
+
+        return 0.2104542683093140 * lc + 0.7936177747023054 * mc - 0.0040720430116193 * sc
+    }
+
+    /**
+     * Darken a color using Oklab, preserving hue and chroma.
      * Returns adjusted [r, g, b] values (0–255).
      * bias=0.5 → no change, bias=1 → much darker, bias=0 → much lighter.
+     * Uses pre-multiplied matrices from colorjs.io source.
      */
-    private adjustColorOklch(
+    private adjustColorOklab(
         r: number,
         g: number,
         b: number,
         bias: number,
     ): [number, number, number] {
-        const color = new Color("srgb", [r / 255, g / 255, b / 255])
-        const oklch = color.to("oklch")
-        const l = oklch.l ?? 0
+        const lr = AsciiEffect.srgbToLinear(r / 255)
+        const lg = AsciiEffect.srgbToLinear(g / 255)
+        const lb = AsciiEffect.srgbToLinear(b / 255)
 
-        // Map bias 0–1 to a lightness scale factor:
-        // bias=0 → factor=2.0 (lighter), bias=0.5 → factor=1.0, bias=1 → factor=0.0 (darkest)
+        // linearRGB → LMS (pre-multiplied)
+        const l = 0.4122214694707629 * lr + 0.5363325372617349 * lg + 0.05144599326750220 * lb
+        const m = 0.2119034958178252 * lr + 0.6806995506452345 * lg + 0.1073969535369406 * lb
+        const s = 0.08830245919005639 * lr + 0.2817188391361215 * lg + 0.6299787016738223 * lb
+
+        // Cube root
+        const lc = Math.cbrt(l)
+        const mc = Math.cbrt(m)
+        const sc = Math.cbrt(s)
+
+        // cbrt(LMS) → Oklab
+        let L = 0.2104542683093140 * lc + 0.7936177747023054 * mc - 0.0040720430116193 * sc
+        const a = 1.9779985324311684 * lc - 2.4285922420485799 * mc + 0.4505937096174110 * sc
+        const b2 = 0.0259040424655478 * lc + 0.7827717124575296 * mc - 0.8086757549230774 * sc
+
+        // Adjust lightness
         const factor = 2 * (1 - bias)
-        oklch.l = Math.max(0, Math.min(1, l * factor))
+        L = Math.max(0, Math.min(1, L * factor))
 
-        const result = oklch.to("srgb")
+        // Oklab → cbrt(LMS)
+        const lc2 = L + 0.3963377773761749 * a + 0.2158037573099136 * b2
+        const mc2 = L - 0.1055613458156586 * a - 0.0638541728258133 * b2
+        const sc2 = L - 0.0894841775298119 * a - 1.2914855480194092 * b2
+
+        // Cube
+        const l2 = lc2 * lc2 * lc2
+        const m2 = mc2 * mc2 * mc2
+        const s2 = sc2 * sc2 * sc2
+
+        // LMS → linearRGB (pre-multiplied)
+        const or = 4.076741636075960 * l2 - 3.307711539258063 * m2 + 0.2309699031821049 * s2
+        const og = -1.268437973285031 * l2 + 2.609757349287688 * m2 - 0.3413193760026573 * s2
+        const ob = -0.004196076138675495 * l2 - 0.7034186179359363 * m2 + 1.707614694074612 * s2
+
         return [
-            Math.round(Math.max(0, Math.min(255, (result.coords[0] ?? 0) * 255))),
-            Math.round(Math.max(0, Math.min(255, (result.coords[1] ?? 0) * 255))),
-            Math.round(Math.max(0, Math.min(255, (result.coords[2] ?? 0) * 255))),
+            Math.round(Math.max(0, Math.min(255, AsciiEffect.linearToSrgb(or) * 255))),
+            Math.round(Math.max(0, Math.min(255, AsciiEffect.linearToSrgb(og) * 255))),
+            Math.round(Math.max(0, Math.min(255, AsciiEffect.linearToSrgb(ob) * 255))),
         ]
     }
 
@@ -658,8 +716,7 @@ export class AsciiEffect {
                 if (a === 0 || isWhite) {
                     brightness = 1
                 } else {
-                    const color = new Color("srgb", [r / 255, g / 255, b / 255])
-                    brightness = color.to("oklch").l ?? 0
+                    brightness = AsciiEffect.srgbToOklabL(r, g, b)
 
                     // Apply char darkness bias to lightness for character selection
                     if (hasCharBias) {
@@ -682,9 +739,9 @@ export class AsciiEffect {
                 }
 
                 if (this.config.color) {
-                    // Adjust color lightness in OKLCH, preserving hue and chroma
+                    // Adjust color lightness in Oklab, preserving hue and chroma
                     const [dr, dg, db] = hasColorBias
-                        ? this.adjustColorOklch(r, g, b, colorDarkness)
+                        ? this.adjustColorOklab(r, g, b, colorDarkness)
                         : [r, g, b]
 
                     const opacity = this.config.alpha ? a / 255 : 1
